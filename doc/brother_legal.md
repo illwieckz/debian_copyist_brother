@@ -24,4 +24,4 @@ any purpose.
 We can legaly repackage and redistribute any files.
 Unfortunately, files under "English_lpr" license don't have source files.
 
-The [abstract](../abstract/) directorys contain plain-text copy of licenses used by Brother™, and links when original on-line HTML licenses files on officiel Brother™ website.
+The [abstract](abstract/) directory contain plain-text copy of licenses used by Brother™, and links when original on-line HTML licenses files on officiel Brother™ website.
