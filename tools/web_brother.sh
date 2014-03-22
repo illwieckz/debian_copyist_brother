@@ -19,7 +19,7 @@ BROTHER_LICENSE_FILE='agree.html'
 
 # You can override default workspace directory via "WEBBROTHER_WORKSPACE" env variable
 
-[ "${WEBBROTHER_WORKSPACE}" != '' ] && WORKSPACE="${WEBBROTHER_WORKSPACE}" || WORKSPACE='/tmp/debian-copyist-brother'
+[ "${WEBBROTHER_WORKSPACE}" != '' ] && WORKSPACE="${WEBBROTHER_WORKSPACE}" || WORKSPACE='/tmp/debian_copyist_brother'
 FILES_DIR="${WORKSPACE}/files/"
 LISTS_DIR="${WORKSPACE}/lists/"
 PAGES_DIR="${WORKSPACE}/pages/"
@@ -605,7 +605,7 @@ function list_primary_models_with_files {
 			_cache "${LISTS_DIR}${1}_primary_models_with_files.txt" _parse_primary_models_with_files "${1}"
 		;;
 		all)
-			_cache "${LISTS_DIR}${1}_primary_models_with_files.txt" '(list_models_with_files printers; list_models_with_files scanners; list_models_with_files pcfaxes) | sort'
+			_cache "${LISTS_DIR}${1}_primary_models_with_files.txt" '(list_primary_models_with_files printers; list_primary_models_with_files scanners; list_primary_models_with_files pcfaxes) | sort'
 		;;
 		*)
 			_error '' 'bad type' || return
@@ -622,7 +622,7 @@ function list_model_files {
 	is_model "${1}" "${2}" >/dev/null || _error '' "bad ${1} model name" || return
 	case "${1}" in
 		printers|scanners|pcfaxes)
-			list_models_with_files "${1}" | grep "$(get_primary_model "${1}" "${2}")" | cut -f 2- | sed -e 's/\t/\n/'
+			list_primary_models_with_files "${1}" | grep "$(get_primary_model "${1}" "${2}")" | cut -f 2- | sed -e 's/\t/\n/'
 		;;
 		all)
 			(	for type in printers scanners pcfaxes

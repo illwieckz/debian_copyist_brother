@@ -1,7 +1,7 @@
 web_brother.sh
 ==============
 
-The `web_brother.sh` tool helps to query Brother™ web pages: check licenses, list models, list driver files and urls…
+The [`web_brother.sh`](../tools/web_brother.sh) tool helps to query Brother™ web pages: check licenses, list models, list driver files and urls…
 Currently this tools only handles complete printers information (some stubs remaining for scanners and pcfaxes).
 This tool is self-documented.
 
@@ -33,7 +33,7 @@ cupswrapperMFC210C-1.0.2-3.i386.deb
 mfc210clpr-1.0.2-1.i386.deb
 ```
 
-This tool cache all computed informations
+This tool caches all computed informations:
 
 ```sh
 luser@debian tools $ time ./web_brother.sh list_primary_models_with_files printers | head -n 2
@@ -58,7 +58,7 @@ luser@debian tools $ ./web_brother.sh pre_cache >/dev/null
 
 This tool allows you to download files by type or by model, but this functionnality will be moved to another tool.
 
-The tool is self-documented, for more information, invoke 'print_help' keyword
+The tool is self-documented, for more information, invoke 'print_help' keyword:
 
 ```sh
 luser@debian tools $ ./web_brother.sh print_help | head -n 2
