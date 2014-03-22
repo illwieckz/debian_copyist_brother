@@ -1,0 +1,20 @@
+This Agreement provides terms and conditions for license grant from Brother Industries, Ltd. Brother, who owns all copyrights to the software that is distributed with this Agreement Software to recipients there of User, for use of the Software. User shall have the right to use the Software only in accordance with the terms and conditions of this Agreement. Any use by User of the Software shall be deemed as its agreement hereto.
+
+1. Brother retains any and all copyrights to the Software. In no case this Agreement shall be construed to assign or otherwise transfer from Brother to User any copyrights or other intellectual property rights to whole or any part of the Software.
+
+2. Brother grants User a non-exclusive license:
+
+(1) With respect to the Software distributed in source code form:
+a. To reproduce and distribute (via Internet or in any other manner) the Software,
+b. To modify, alter, translate or otherwise prepare derivative works of the Software, and
+c. To reproduce and distribute (via Internet or in any other manner) the Software or any derivative works thereto as modified, altered, translated or otherwise prepared under the license granted in accordance with paragraph 2(1)b immediately above.
+
+(2) With respect to the Software distributed in binary code or executable code form:
+a. To reproduce and distribute (via Internet or in any other manner) the Software.
+* User shall not have any rights to modify, alter, translate or otherwise prepare derivative works of the Software if and when the same is distributed in binary code or executable code form: provided, however, that Brother permits User to modify such Software only for User's own use and reverse engineering only for debugging such modifications, to the extent such permission is required under GNU Lesser General Public License (ver. 2.1 or later).
+
+3. When User distribute (via Internet or in any other manner) the Software or any derivative works thereto as modified, altered, translated or otherwise prepared under the license granted in accordance with paragraph 2 above, User must expressly grant any and all recipient thereof the license equivalent to this Agreement.
+
+4. The license of the Software from Brother hereunder is granted "AS IS", BROTHER HEREBY DISCLAIMS ANY WARRANTIES WITH RESPECT TO THE SOFTWARE, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTY FOR THE QUALITY, MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE OR NON-INFRINGEMENT.
+
+5. Brother shall have no liability in contract, tort (including negligence or breach of statutory duty) or otherwise for any interruption of use, loss of data, or for any indirect, incidental, punitive or consequential loss or damage, or for any loss of profit, revenue, data, goodwill or anticipated savings that arises under, out of, or in contemplation of this Agreement or otherwise arises due to any error, inaccuracy or defect in the Software even if Brother has been advised of the possibility of such loss or damage.
