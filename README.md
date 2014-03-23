@@ -18,9 +18,9 @@ See [doc](doc).
 Tools
 -----
 
-The [`web_brother.sh`](../tools/web_brother.sh) tool helps to query the Brother™ web page: check licenses, list models… This tool is self-documented.
+The [`web_brother.sh`](tools/web_brother.sh) tool helps to query the Brother™ web page: check licenses, list models… This tool is self-documented.
 
-See [doc/web_brother.md](doc/web_brother.md) documentation.
+See [doc/web_brother.md](web_brother) documentation.
 
 Useful links
 ------------
