@@ -5,10 +5,10 @@ Please document here Brother™ legal stuff.
 
 Brother™ distributes files under 4 licenses :
 
-* [English_gpl](abstract/English_gpl) ([original](http://www.brother.com/agreement/English_gpl/agree.html)) aka [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html);
-* [English_lpr](abstract/English_lpr) ([original](http://www.brother.com/agreement/English_lpr/agree.html));
-* [English_sane](abstract/English_sane) ([Original](http://www.brother.com/agreement/English_sane/agree.html));
-* [English_source](abstract/English_source) ([Original](http://www.brother.com/agreement/English_source/agree.html)).
+* [English_gpl](abstract/English_gpl.txt) ([original](http://www.brother.com/agreement/English_gpl/agree.html)) aka [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html);
+* [English_lpr](abstract/English_lpr.txt) ([original](http://www.brother.com/agreement/English_lpr/agree.html));
+* [English_sane](abstract/English_sane.txt) ([Original](http://www.brother.com/agreement/English_sane/agree.html));
+* [English_source](abstract/English_source.txt) ([Original](http://www.brother.com/agreement/English_source/agree.html)).
 
 Binary printer drivers are covered by only two licenses. On the [Linux printer driver download page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html), LPR drivers are distributed under “English_lpr” license, and cupswrapper and ppd drivers are distributed under _GPLv2_ License. We can find GPLv2 sources for binaries on the [source download page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_src.html).
 
