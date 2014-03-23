@@ -23,4 +23,4 @@ So,
 
 Note: The “[English_source](http://www.brother.com/agreement/English_source/agree.html)” license seem more conflictual, but no one printer binary driver is covered by this license.
 
-Note: The [abstract](abstract/) directory contain plain-text copy of licenses used by Brother™, and links when original on-line HTML licenses files on officiel Brother™ website.
+Note: The [abstract](abstract/) directory contain plain-text copy of licenses used by Brother™, and links to original on-line HTML licenses files on officiel Brother™ website.
