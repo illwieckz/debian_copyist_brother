@@ -8,7 +8,7 @@ Thanks to [Debian France](https://france.debian.net/) to have motivated this wor
 License
 -------
 
-This software and this documentation is distributed under the free non-copyleft [Expat license](LICENSE.md).
+This software and this documentation is distributed under the free non-copyleft [Expat license](COPYING.md).
 
 Documentation
 -------------
