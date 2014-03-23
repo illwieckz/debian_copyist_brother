@@ -3,7 +3,7 @@
 # FILENAME: web_brother.sh
 # AUTHOR: Thomas DEBESSE
 # VERSION: 20140322
-# LICENSE: Expat
+# LICENSE: ISC
 # DEPENDENCIES: bash, wget, sed, dos2unix
 
 #############################################################################
