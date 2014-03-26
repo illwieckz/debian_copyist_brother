@@ -4,7 +4,7 @@ Where are drivers?
 CUPS and LPR drivers
 --------------------
 
-There is two places for printing drivers:
+There is three places for printing drivers:
 
 * [DCP, FAX, HL, MFC printer driver download page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html);
 * [PT, QL, PJ, TD printer driver download page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_esp.html);
