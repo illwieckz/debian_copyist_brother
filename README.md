@@ -25,6 +25,6 @@ See [web_brother](doc/web_brother.md) documentation.
 Useful links
 ------------
 
-* [Debian France New Contributor Game: Packager for non-free Brother printer drivers](https://wiki.debian.org/DebianFrance/NewContributorGame#Packager_for_non-free_Brother_printer_drivers)
-* [Brother Solutions Center : Brother Printer Driver for Linux Distributions](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html)
-* [Debian, the universal operating system](https://www.debian.org/)
+* [Debian France New Contributor Game: Packager for non-free Brother printer drivers](https://wiki.debian.org/DebianFrance/NewContributorGame#Packager_for_non-free_Brother_printer_drivers);
+* [Brother Solutions Center : Brother Printer Driver for Linux Distributions](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html);
+* [Debian, the universal operating system](https://www.debian.org/).
