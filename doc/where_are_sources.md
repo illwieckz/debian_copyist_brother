@@ -25,6 +25,78 @@ So there is two places for printing driver sources:
 
 Only cupswrapper and PPD drivers are distributed as sources. It seems that all of thems are distributed under GPLv2 License.
 
+Many PPD are not distributed directly but embedded in Shell or C-Chell scripts from cupswrapper package, sometimes as heredocs, sometimes as a long list of `echo` commands.
+
+Example:
+
+Abstract from ``cupswrapperDCP110C-1.0.2`` C-Shell script:
+
+```sh
+set  ppd_file_name=/usr/share/cups/model/brdcp110c_cups.ppd
+
+touch $ppd_file_name
+
+echo '*PPD-Adobe: "4.3"'                                                                >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%================================================'                               >>$ppd_file_name
+echo '*%	Copyright(C) 2004 Brother Industries, Ltd.'                                    >>$ppd_file_name
+echo '*%	"Brother DCP-110C CUPS"'                                                       >>$ppd_file_name
+echo '*%================================================ '                              >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%==== General Information Keywords ========================'                     >>$ppd_file_name
+echo '*FormatVersion: "4.3"'                                                            >>$ppd_file_name
+echo '*FileVersion: "1.01"'                                                             >>$ppd_file_name
+echo '*LanguageVersion: English'                                                        >>$ppd_file_name
+echo '*LanguageEncoding: ISOLatin1'                                                     >>$ppd_file_name
+echo '*PCFileName: "DCP110C.PPD"'                                                       >>$ppd_file_name
+echo '*Manufacturer: "Brother"'                                                         >>$ppd_file_name
+echo '*Product: "(DCP-110C)"'                                                           >>$ppd_file_name
+echo '*1284DeviceID: "MFG:Brother;MDL:DCP-110C"'                                        >>$ppd_file_name
+echo '*cupsVersion: 1.1'                                                                >>$ppd_file_name
+echo '*cupsManualCopies: False'                                                         >>$ppd_file_name
+echo '*cupsFilter: "application/vnd.cups-postscript 0 brlpdwrapperDCP110C"'             >>$ppd_file_name
+echo '*cupsModelNumber: 6'                                                              >>$ppd_file_name
+echo '*ModelName: "Brother DCP-110C"'                                                   >>$ppd_file_name
+echo '*ShortNickName: "Brother DCP-110C"'                                               >>$ppd_file_name
+echo '*NickName: "Brother DCP-110C CUPS v1.1"'                                          >>$ppd_file_name
+echo '*PSVersion: "(3010.106) 3"'                                                       >>$ppd_file_name
+[…]
+```
+
+Abstract from `cupswrapperHL2030-2.0.1` Shell script:
+
+```
+ppd_file_name=/usr/share/cups/model/HL2030.ppd
+
+cat <<ENDOFPPDFILE >$ppd_file_name
+*PPD-Adobe: "4.3"
+*%================================================
+*%	Copyright(C) 2006 Brother Industries, Ltd.
+*%	"Brother HL2030 for CUPS"
+*%================================================
+
+*%==== General Information Keywords ========================
+*FormatVersion: "4.3"
+*FileVersion: "1.00"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*Manufacturer: "Brother"
+*PCFileName: "HL2030.PPD"
+*Product: "(Brother HL2030 series)"
+*cupsVersion:   1.1
+*cupsManualCopies: True
+*cupsModelNumber:       68
+*cupsFilter: "application/vnd.cups-postscript 0 brlpdwrapperHL2030"
+*PSVersion: "(3010.106) 3"
+*ModelName: "HL2030"
+*NickName: "Brother HL2030 for CUPS"
+*ShortNickName: "Brother HL2030 for CUPS"
+[…]
+ENDOFPPDFILE
+```
+
+Sometime thoses scripts writes scripts, both `cupswrapperDCP110C-1.0.2` and `cupswrapperHL2030-2.0.1` do that.
+
 LPR sources
 -----------
 
