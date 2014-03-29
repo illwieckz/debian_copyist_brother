@@ -65,7 +65,7 @@ echo '*PSVersion: "(3010.106) 3"'                                               
 
 Abstract from `cupswrapperHL2030-2.0.1` Shell script:
 
-```
+```sh
 ppd_file_name=/usr/share/cups/model/HL2030.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
@@ -95,7 +95,7 @@ cat <<ENDOFPPDFILE >$ppd_file_name
 ENDOFPPDFILE
 ```
 
-Sometime thoses scripts writes scripts, both `cupswrapperDCP110C-1.0.2` and `cupswrapperHL2030-2.0.1` do that.
+Sometime thoses scripts write scripts, For example both `cupswrapperDCP110C-1.0.2` and `cupswrapperHL2030-2.0.1` do that.
 
 LPR sources
 -----------
