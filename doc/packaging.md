@@ -17,6 +17,7 @@ Goals
 Structure proposale
 ===================
 
+```sh
 /brother-driver-1.0
 --/DEBIAN/
 ----control
@@ -28,10 +29,12 @@ Structure proposale
 ----prerm
 ----postrm
 --/usr/share/cups/model/*.ppd
+```
 
 /DEBIAN/Control
 ---------------
 
+```sh
 Package: brother-driver
 Version: 1.0 (to choose)
 Section: unknown (to define)
@@ -41,6 +44,7 @@ Depends: [to define]
 Maintainer: Didier 'OdyX' Raboud <odyx@debian.org>, Thomas DEBESSE <dev@illwieckz.net>, Samuel Dorsaz <samuel@micheldorsaz.ch>
 Description: Drivers for Brother printers
 Homepage: https://github.com/illwieckz/debian_copyist_brother
+```
 
 Naming convention
 =================
