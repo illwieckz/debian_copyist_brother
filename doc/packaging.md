@@ -61,3 +61,4 @@ Documentation to read
 ---------------------
 
 [Debian New Maintainers' Guide](https://www.debian.org/doc/manuals/maint-guide/)
+[Debian New Maintainers' Guide](http://www.cs.rug.nl/~jurjen/DebPackaging/index.html)
