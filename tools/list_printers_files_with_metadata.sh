@@ -40,7 +40,7 @@ function create_list {
 					file_name=$(basename "${file_path}")
 					file_type="$(get_archive_type "${file_name}")"
 					# bad packagers put previous .deb and .rpm inside the .deb
-					if [ "${file_type}" != 'rpm' -a "${file_type}" != 'deb' ]
+					if [ "${file_type}" != 'rpm' -a "${file_type}" != 'deb' -a "${file_name}" != 'changelog.Debian.gz' -a "${file_name}" != 'copyright' ]
 					then
 						file_sum="$(tar -Oxzf "${embedded_data_archive_name}" "${file_path}" | md5sum | sed -e 's/ -$//')"
 						printf '%s\t%s\t%s\t%s\t%s\n' ${file_sum} ${file_name} ${archive_name} ${archive_license} ${file_path}
