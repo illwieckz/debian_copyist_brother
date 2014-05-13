@@ -1,0 +1,3 @@
+English_gpl
+English_lpr
+English_sane

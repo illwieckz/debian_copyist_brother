@@ -1,0 +1,12 @@
+http://www.brother.com/pub/bsc/linux/dlf/brscan-0.2.4-0.amd64.deb
+http://www.brother.com/pub/bsc/linux/dlf/brscan-0.2.4-0.i386.deb
+http://www.brother.com/pub/bsc/linux/dlf/brscan2-0.2.5-1.amd64.deb
+http://www.brother.com/pub/bsc/linux/dlf/brscan2-0.2.5-1.i386.deb
+http://www.brother.com/pub/bsc/linux/dlf/brscan3-0.2.11-4.i386.deb
+http://www.brother.com/pub/bsc/linux/dlf/brscan3-0.2.11-5.amd64.deb
+http://www.brother.com/pub/bsc/linux/dlf/brscan4-0.4.2-1.amd64.deb
+http://www.brother.com/pub/bsc/linux/dlf/brscan4-0.4.2-1.i386.deb
+http://www.brother.com/pub/bsc/linux/dlf/brscan-skey-0.2.4-1.amd64.deb
+http://www.brother.com/pub/bsc/linux/dlf/brscan-skey-0.2.4-1.i386.deb
+http://www.brother.com/pub/bsc/linux/dlf/libsane-dsseries_1.0.5-1_amd64.deb
+http://www.brother.com/pub/bsc/linux/dlf/libsane-dsseries_1.0.5-1_i386.deb

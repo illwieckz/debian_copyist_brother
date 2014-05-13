@@ -1,0 +1,4 @@
+http://www.brother.com/agreement/English_gpl/agree.html
+http://www.brother.com/agreement/English_lpr/agree.html
+http://www.brother.com/agreement/English_sane/agree.html
+http://www.brother.com/agreement/English_source/agree.html

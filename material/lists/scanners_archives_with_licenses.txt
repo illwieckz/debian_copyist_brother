@@ -1,0 +1,12 @@
+brscan-0.2.4-0.amd64.deb	English_sane
+brscan-0.2.4-0.i386.deb	English_sane
+brscan2-0.2.5-1.amd64.deb	English_sane
+brscan2-0.2.5-1.i386.deb	English_sane
+brscan3-0.2.11-4.i386.deb	English_gpl
+brscan3-0.2.11-5.amd64.deb	English_gpl
+brscan4-0.4.2-1.amd64.deb	English_lpr
+brscan4-0.4.2-1.i386.deb	English_lpr
+brscan-skey-0.2.4-1.amd64.deb	English_lpr
+brscan-skey-0.2.4-1.i386.deb	English_lpr
+libsane-dsseries_1.0.5-1_amd64.deb	English_lpr
+libsane-dsseries_1.0.5-1_i386.deb	English_lpr
