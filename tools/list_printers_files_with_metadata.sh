@@ -6,7 +6,7 @@ error_message="error: pass the directory created by the web_brother.sh tools tha
 ! [ -d "${1}" ] && echo "${error_message}" && exit 1
 
 work_dir="$(cd ${1}; pwd)"
-file_list="${work_dir}/lists/printers_files_with_licenses.txt"
+file_list="${work_dir}/lists/printers_archives_with_licenses.txt"
 
 ! [ -f "${file_list}" ] && echo "${error_message}" && exit 1
 
@@ -54,7 +54,7 @@ function create_list {
 	done
 }
 
-create_list | tee "${work_dir}/lists/printers_extracted_files_with_metadata.txt"
+create_list | tee "${work_dir}/lists/printers_files_with_metadata.txt"
 rmdir "${tmp_dir}"
 
 #EOF
