@@ -15,13 +15,13 @@ archives_list="${WORKSPACE}/lists/printers_archives_with_licenses.txt"
 
 ! [ -f "${archives_list}" ] && echo "${error_message}" && exit 1
 
-function unique_list {
+function _unique_list {
 	cat "${WORKSPACE}/lists/printers_files_with_metadata.txt" | cut -c 1-32 | sort | uniq | while read file_sum
 	do
 		grep "^${file_sum}" "${WORKSPACE}/lists/printers_files_with_metadata.txt" | head -n 1
 	done
 }
 
-unique_list | sort -k 3 | tee "${WORKSPACE}/lists/printers_unique_files_with_metadata.txt"
+_unique_list | sort -k 3 | tee "${WORKSPACE}/lists/printers_unique_files_with_metadata.txt"
 
 #EOF
