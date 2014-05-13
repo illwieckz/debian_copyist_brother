@@ -38,43 +38,51 @@ mkdir -p "${LICENSES_DIR}"
 function _parse_sources_archives_with_licenses {
 	# for each line containing file (tar.gz)
 	# -> extract archive name
-	print_page sources | grep 'dlfile=' | grep '\.tar.gz' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=\(.*\)"><b>.*#\1\t\2# | sort | uniq'
+	print_page sources | grep 'dlfile=' | grep '\.tar.gz' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=\(.*\)"><b>.*#\1\t\2#' \
+		| sort | uniq
 }
 
 function _parse_printers_archives_with_licenses {
 	# for each line containing file (deb or ppd)
 	# -> extract archive name
-	print_page printers | grep 'dlfile=' | grep '\.deb\|\.ppd.gz' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=\(.*\)">.*#\1\t\2# | sort | uniq'
+	print_page printers | grep 'dlfile=' | grep '\.deb\|\.ppd.gz' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=\(.*\)">.*#\1\t\2#' \
+		| sort | uniq
+
 }
 
 function _parse_scanners_archives_with_licenses {
 	# for each line containing file (deb)
 	# -> extract archive name
-	print_page scanners | grep 'dlfile=' | grep '\.deb' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=\(.*\)"><b>.*#\1\t\2# | sort | uniq'
+	print_page scanners | grep 'dlfile=' | grep '\.deb' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=\(.*\)"><b>.*#\1\t\2#' \
+		| sort | uniq
 }
 
 function _parse_pcfaxes_archives_with_licenses {
 	# for each line containing file (deb)
 	# -> extract archive name
-	print_page pcfaxes | grep 'dlfile=' | grep '\.deb' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=\(.*\)"><b>.*#\1\t\2# | sort | uniq'
+	print_page pcfaxes | grep 'dlfile=' | grep '\.deb' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=\(.*\)"><b>.*#\1\t\2#' \
+		| sort | uniq
 }
 
 function _parse_printers_variant_models {
 	# for each line containing both variant and original model name
 	# -> extract variant model name
-	print_page printers | grep '^<p><a name=' | grep ' / ' | sed -e 's#^<p><a name="[A-Za-z0-9-]* / \([A-Za-z0-9-]*\)"></a><b>.*</b></p>#\1# | sort | uniq'
+	print_page printers | grep '^<p><a name=' | grep ' / ' | sed -e 's#^<p><a name="[A-Za-z0-9-]* / \([A-Za-z0-9-]*\)"></a><b>.*</b></p>#\1#' \
+		| sort | uniq
 }
 
 function _parse_printers_alternative_models {
 	# for each advertising itself as an alternative model
 	# -> extract model name
-	print_page printers | grep '^<div id="AltDriver"><p><a name=' | sed -e 's#^<div id="AltDriver"><p><a name="\([A-Za-z0-9-]*\)"></a><b>.*</b></p>#\1# | sort | uniq'
+	print_page printers | grep '^<div id="AltDriver"><p><a name=' | sed -e 's#^<div id="AltDriver"><p><a name="\([A-Za-z0-9-]*\)"></a><b>.*</b></p>#\1#' \
+		| sort | uniq
 }
 
 function _parse_printers_original_model_from_variant {
 	# for each line containing both variant and original model name and containing the given variant model name
 	# -> extract the original model name
-	print_page printers | grep '^<p><a name=' | grep " / ${1}" | sed -e 's#<p><a name="\([A-Za-z0-9-]*\) / '"${1}"'"></a><b>.*</b></p>$#\1#'
+	print_page printers | grep '^<p><a name=' | grep " / ${1}" | sed -e 's#<p><a name="\([A-Za-z0-9-]*\) / '"${1}"'"></a><b>.*</b></p>$#\1#' \
+		| sort | uniq
 }
 
 function _parse_printers_original_model_from_alternative {
@@ -82,14 +90,16 @@ function _parse_printers_original_model_from_alternative {
 	# -> get the second line containing the original model name
 	# -> extract model name
 	print_page printers | grep '<div id="AltDriver"><p><a name="'"${1}"'"></a><b>' -A 2 | grep '^<td>Please use ' \
-		| sed -e 's#^<td>Please use <a href=".*"><b>\([A-Za-z0-9-]*\)</a> driver.</td></table></div>$#\1#'
+		| sed -e 's#^<td>Please use <a href=".*"><b>\([A-Za-z0-9-]*\)</a> driver.</td></table></div>$#\1#' \
+		| sort | uniq
 }
 
 function _parse_printers_primary_models {
 	# for each line containing model name
 	# -> drop variant name
 	# -> extract model name 
-	print_page printers | grep '^<p><a name=' | sed -e 's# / [A-Za-z0-9-]*##;s#^<p><a name="\([A-Za-z0-9-]*\)"></a><b>.*</b></p>#\1#' | sort
+	print_page printers | grep '^<p><a name=' | sed -e 's# / [A-Za-z0-9-]*##;s#^<p><a name="\([A-Za-z0-9-]*\)"></a><b>.*</b></p>#\1#' \
+		| sort | uniq
 }
 
 function _parse_printer_archives {
@@ -104,7 +114,8 @@ function _parse_printer_archives {
 	print_page printers | sed -e 's#\([A-Za-z0-9-]*\) / [A-Za-z0-9-]*#\1#' | grep -A 100 '^<p><a name="'"${1}"'"></a><b>' \
 		| grep -m 1 -B 100 '<div align=right><p><a href="#top">Page Top</a></p><p>&nbsp;</p></div>' \
 		| grep '\.deb\|\.ppd.gz' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=.*#\1#' | sort \
-		| sed -e ':a;N;$!ba;s/\n/\t/g' | sed -e 's/\t$//'
+		| sed -e ':a;N;$!ba;s/\n/\t/g' | sed -e 's/\t$//' \
+		| sort | uniq
 }
 
 #############################################################################
