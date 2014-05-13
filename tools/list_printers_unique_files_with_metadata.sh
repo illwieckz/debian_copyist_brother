@@ -18,7 +18,7 @@ archives_list="${WORKSPACE}/lists/printers_archives_with_licenses.txt"
 function unique_list {
 	cat "${WORKSPACE}/lists/printers_files_with_metadata.txt" | cut -c 1-32 | sort | uniq | while read file_sum
 	do
-		grep "^${file_sum}" "${WORKSPACE}/lists/printers_files_with_metadata.txt" 
+		grep "^${file_sum}" "${WORKSPACE}/lists/printers_files_with_metadata.txt" | head -n 1
 	done
 }
 
