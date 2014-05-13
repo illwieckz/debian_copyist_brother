@@ -19,7 +19,13 @@ BROTHER_LICENSE_FILE='agree.html'
 
 # You can override default workspace directory via "WEBBROTHER_WORKSPACE" env variable
 
-[ "${WEBBROTHER_WORKSPACE}" != '' ] && WORKSPACE="${WEBBROTHER_WORKSPACE}" || WORKSPACE="$(cd "$(dirname $0)"; pwd)/../material/"
+if [ "${WEBBROTHER_WORKSPACE}" != '' ]
+then
+	WORKSPACE="${WEBBROTHER_WORKSPACE}"
+else
+	WORKSPACE="$(cd "$(dirname $0)"; pwd)/../material/"
+fi
+
 FILES_DIR="${WORKSPACE}/files/"
 LISTS_DIR="${WORKSPACE}/lists/"
 PAGES_DIR="${WORKSPACE}/pages/"

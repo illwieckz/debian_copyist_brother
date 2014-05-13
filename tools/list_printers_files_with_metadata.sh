@@ -2,14 +2,19 @@
 
 error_message="error: pass the directory created by the web_brother.sh tools that contains list and files"
 
-[ "${WEBBROTHER_WORKSPACE}" != '' ] && WORKSPACE="${WEBBROTHER_WORKSPACE}" || WORKSPACE="$(cd "$(dirname $0)"; pwd)/../material/"
+if [ "${WEBBROTHER_WORKSPACE}" != '' ]
+then
+	WORKSPACE="${WEBBROTHER_WORKSPACE}"
+else
+	WORKSPACE="$(cd "$(dirname $0)"; pwd)/../material/"
+fi
 
 [ "${WEBBROTHER_WORKSPACE}" = '' ] && echo "${error_message}" && exit 1
 ! [ -d "${WEBBROTHER_WORKSPACE}" ] && echo "${error_message}" && exit 1
 
-file_list="${WEBBROTHER_WORKSPACE}/lists/printers_archives_with_licenses.txt"
+archives_list="${WEBBROTHER_WORKSPACE}/lists/printers_archives_with_licenses.txt"
 
-! [ -f "${file_list}" ] && echo "${error_message}" && exit 1
+! [ -f "${archives_list}" ] && echo "${error_message}" && exit 1
 
 tmp_dir="/tmp/list_files.d"
 mkdir -p "${tmp_dir}"
@@ -19,9 +24,9 @@ function get_archive_type {
 }
 
 function create_list {
-	cat "${file_list}" | sed -e 's/\t.*//' | sort | uniq | while read archive_name
+	cat "${archives_list}" | sed -e 's/\t.*//' | sort | uniq | while read archive_name
 	do
-		archive_license="$(cat "${file_list}" | sort | uniq | grep "^${archive_name}" | sed -e 's/.*\t//')"
+		archive_license="$(cat "${archives_list}" | sort | uniq | grep "^${archive_name}" | sed -e 's/.*\t//')"
 		archive_type="$(get_archive_type ${archive_name})"
 
 		if [ "${archive_type}" = 'deb' ]
