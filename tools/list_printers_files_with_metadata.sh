@@ -9,10 +9,9 @@ else
 	WORKSPACE="$(cd "$(dirname $0)"; pwd)/../material/"
 fi
 
-[ "${WEBBROTHER_WORKSPACE}" = '' ] && echo "${error_message}" && exit 1
-! [ -d "${WEBBROTHER_WORKSPACE}" ] && echo "${error_message}" && exit 1
+! [ -d "${WORKSPACE}" ] && echo "${error_message}" && exit 1
 
-archives_list="${WEBBROTHER_WORKSPACE}/lists/printers_archives_with_licenses.txt"
+archives_list="${WORKSPACE}/lists/printers_archives_with_licenses.txt"
 
 ! [ -f "${archives_list}" ] && echo "${error_message}" && exit 1
 
@@ -31,11 +30,11 @@ function create_list {
 
 		if [ "${archive_type}" = 'deb' ]
 		then
-			embedded_data_archive_name="$(ar t "${WEBBROTHER_WORKSPACE}/files/${archive_name}" | grep '^data.')"
+			embedded_data_archive_name="$(ar t "${WORKSPACE}/files/${archive_name}" | grep '^data.')"
 			if [ "$(get_archive_type "${embedded_data_archive_name}")" = 'tar.gz' ]
 			then
 				cd "${tmp_dir}"
-				ar x "${WEBBROTHER_WORKSPACE}/files/${archive_name}" "${embedded_data_archive_name}"
+				ar x "${WORKSPACE}/files/${archive_name}" "${embedded_data_archive_name}"
 				tar -tzf "${embedded_data_archive_name}" | grep -v '/$' | while read file_path
 				do
 					file_name=$(basename "${file_path}")
@@ -54,13 +53,13 @@ function create_list {
 		then
 			file_name="$(basename "${archive_name}" | sed -e 's/.gz$//')"
 			file_path="./${file_name}"
-			file_sum="$(cat "${WEBBROTHER_WORKSPACE}/files/${archive_name}" | gunzip | md5sum | sed -e 's/ -$//')"
+			file_sum="$(cat "${WORKSPACE}/files/${archive_name}" | gunzip | md5sum | sed -e 's/ -$//')"
 			printf '%s\t%s\t%s\t%s\t%s\n' ${file_sum} ${file_name} ${archive_name} ${archive_license} ${file_path}
 		fi
 	done
 }
 
-create_list | tee "${WEBBROTHER_WORKSPACE}/lists/printers_files_with_metadata.txt"
+create_list | tee "${WORKSPACE}/lists/printers_files_with_metadata.txt"
 rmdir "${tmp_dir}"
 
 #EOF
