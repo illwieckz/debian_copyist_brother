@@ -19,7 +19,7 @@ BROTHER_LICENSE_FILE='agree.html'
 
 # You can override default workspace directory via "WEBBROTHER_WORKSPACE" env variable
 
-[ "${WEBBROTHER_WORKSPACE}" != '' ] && WORKSPACE="${WEBBROTHER_WORKSPACE}" || WORKSPACE='/tmp/debian_copyist_brother'
+[ "${WEBBROTHER_WORKSPACE}" != '' ] && WORKSPACE="${WEBBROTHER_WORKSPACE}" || WORKSPACE="$(cd "$(dirname $0)"; pwd)/../material/"
 FILES_DIR="${WORKSPACE}/files/"
 LISTS_DIR="${WORKSPACE}/lists/"
 PAGES_DIR="${WORKSPACE}/pages/"

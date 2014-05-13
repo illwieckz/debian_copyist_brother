@@ -2,11 +2,12 @@
 
 error_message="error: pass the directory created by the web_brother.sh tools that contains list and files"
 
-[ "${1}" = '' ] && echo "${error_message}" && exit 1
-! [ -d "${1}" ] && echo "${error_message}" && exit 1
+[ "${WEBBROTHER_WORKSPACE}" != '' ] && WORKSPACE="${WEBBROTHER_WORKSPACE}" || WORKSPACE="$(cd "$(dirname $0)"; pwd)/../material/"
 
-work_dir="$(cd ${1}; pwd)"
-file_list="${work_dir}/lists/printers_archives_with_licenses.txt"
+[ "${WEBBROTHER_WORKSPACE}" = '' ] && echo "${error_message}" && exit 1
+! [ -d "${WEBBROTHER_WORKSPACE}" ] && echo "${error_message}" && exit 1
+
+file_list="${WEBBROTHER_WORKSPACE}/lists/printers_archives_with_licenses.txt"
 
 ! [ -f "${file_list}" ] && echo "${error_message}" && exit 1
 
@@ -25,11 +26,11 @@ function create_list {
 
 		if [ "${archive_type}" = 'deb' ]
 		then
-			embedded_data_archive_name="$(ar t "${work_dir}/files/${archive_name}" | grep '^data.')"
+			embedded_data_archive_name="$(ar t "${WEBBROTHER_WORKSPACE}/files/${archive_name}" | grep '^data.')"
 			if [ "$(get_archive_type "${embedded_data_archive_name}")" = 'tar.gz' ]
 			then
 				cd "${tmp_dir}"
-				ar x "${work_dir}/files/${archive_name}" "${embedded_data_archive_name}"
+				ar x "${WEBBROTHER_WORKSPACE}/files/${archive_name}" "${embedded_data_archive_name}"
 				tar -tzf "${embedded_data_archive_name}" | grep -v '/$' | while read file_path
 				do
 					file_name=$(basename "${file_path}")
@@ -48,13 +49,13 @@ function create_list {
 		then
 			file_name="$(basename "${archive_name}" | sed -e 's/.gz$//')"
 			file_path="./${file_name}"
-			file_sum="$(cat "${work_dir}/files/${archive_name}" | gunzip | md5sum | sed -e 's/ -$//')"
+			file_sum="$(cat "${WEBBROTHER_WORKSPACE}/files/${archive_name}" | gunzip | md5sum | sed -e 's/ -$//')"
 			printf '%s\t%s\t%s\t%s\t%s\n' ${file_sum} ${file_name} ${archive_name} ${archive_license} ${file_path}
 		fi
 	done
 }
 
-create_list | tee "${work_dir}/lists/printers_files_with_metadata.txt"
+create_list | tee "${WEBBROTHER_WORKSPACE}/lists/printers_files_with_metadata.txt"
 rmdir "${tmp_dir}"
 
 #EOF
