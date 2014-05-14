@@ -18,44 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-if("$1" == '-e') then
-  lpadmin -x DCP110C
-  rm -f /usr/share/cups/model/brdcp110c_cups.ppd
-  rm -f /usr/share/ppd/brdcp110c_cups.ppd
-  rm -f /usr/lib/cups/filter/brlpdwrapperDCP110C
-  if( -e /etc/init.d/cups ) then
-    /etc/init.d/cups restart
-  endif
-  if( -e /etc/init.d/cupsys ) then
-    /etc/init.d/cupsys restart
-  endif
-  exit(0)
-endif
-if("$1" == "-r") then
-  lpadmin -x DCP110C
-  if( -e /etc/init.d/cups ) then
-    /etc/init.d/cups restart
-  endif
-  if( -e /etc/init.d/cupsys ) then
-    /etc/init.d/cupsys restart
-  endif
-  exit(0)
-endif
-if($1 == "help" || $1 == "-h") then
-  echo   'option -h : help'
-  echo   '       -i : install'
-  echo   '       -e : uninstall'
-  echo   '       -r : remove printer'
-  exit(0)
-endif
-mkdir -p /usr/local/Brother/filter
-mkdir -p /usr/lib/cups/filter
-
-if(!(-e "/usr/local/Brother/lpd/filterDCP110C")) then
-  echo "ERROR : Brother LPD filter is not installed."
-endif
-rm -f /usr/share/cups/model/brdcp110c_cups.ppd
-set  ppd_file_name=/usr/share/cups/model/brdcp110c_cups.ppd
+set  ppd_file_name=ppds/brdcp110c_cups.ppd
 
 touch $ppd_file_name
 
@@ -619,15 +582,12 @@ echo '*Font BermudaScript: Standard "(001.005)" Standard ROM'                   
 echo '*Font Germany: Standard "(001.005)" Standard ROM'                                 >>$ppd_file_name
 echo '*Font SanDiego: Standard "(001.005)" Standard ROM'                                >>$ppd_file_name
 echo '*Font US-Roman: Standard "(001.005)" Standard ROM'                                >>$ppd_file_name
-if ( -d /usr/share/ppd ) then
-    cp  $ppd_file_name /usr/share/ppd
-endif
 
 
-set  brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperDCP110C
-rm -f  $brotherlpdwrapper
-echo 'rm -f /usr/lib/cups/filter/brlpdwrapperDCP110C'
+set  brotherlpdwrapper=filters/brlpdwrapperDCP110C
+
 touch $brotherlpdwrapper
+
 echo  '#! /bin/csh'  >>  $brotherlpdwrapper
 echo  '#'  >>  $brotherlpdwrapper
 echo  '# Brother Print filter  '  >>  $brotherlpdwrapper
@@ -1212,37 +1172,7 @@ echo  ''  >>  $brotherlpdwrapper
 echo  ''  >>  $brotherlpdwrapper
 echo  ''  >>  $brotherlpdwrapper
 echo  ''  >>  $brotherlpdwrapper
+
 chmod a+x $brotherlpdwrapper
-chmod a+w /usr/local/Brother/inf/brDCP110Crc
-chmod a+w /usr/local/Brother/inf
-if( -e /etc/init.d/lpd) then
-   /etc/init.d/lpd stop
-endif
-if( -e /etc/init.d/lprng) then
-   /etc/init.d/lprng stop
-endif
-  if( -e /etc/init.d/cups ) then
-    /etc/init.d/cups restart
-  endif
-  if( -e /etc/init.d/cupsys ) then
-    /etc/init.d/cupsys restart
-  endif
-sleep 2s
-set nonomatch
-set port=""
-set port2=""
-set port2=`lpinfo -v | grep -i 'usb://Brother/DCP-110C' | head -1`
-if ( "$port2" == '' ) then
- set port2=`lpinfo -v | grep -i 'usb://Brother/' | head -1`
-endif
-if ( "$port2" == '' ) then
-	set port2=`lpinfo -v | grep 'usb://' | head -1`
-endif
-if ( "$port2" != '' ) then
-  set port=`echo $port2| sed s/direct//g`
-endif
-if ( "$port" == '' ) then
-	set port=usb:/dev/usb/lp0
-endif
-lpadmin -p DCP110C -E -v $port -m brdcp110c_cups.ppd
-  exit(0)
+
+exit(0)
