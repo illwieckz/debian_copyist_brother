@@ -18,49 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-if [ "$1" = '-e' ]; then
-  lpadmin -x DCP7040
-  rm -f /usr/share/cups/model/DCP7040.ppd
-  rm -f /usr/lib/cups/filter/brlpdwrapperDCP7040
-  rm -f /usr/lib64/cups/filter/brlpdwrapperDCP7040
-  rm -f /usr/local/Brother/cupswrapper/brcupsconfig3
-  if [ -f /usr/share/ppd/DCP7040.ppd ];then
-  rm -f /usr/share/ppd/DCP7040.ppd
-  fi
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-  exit 0 
-fi
-if [ "$1" = "-r" ]; then
-  lpadmin -x DCP7040
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-  exit 0 
-fi
-if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
-  echo   'option -h : help'
-  echo   '       -i : install'
-  echo   '       -e : uninstall'
-  echo   '       -r : remove printer'
-  exit 0
-fi
-mkdir -p /usr/lib/cups/filter
-
-if [ -e "/usr/local/Brother/lpd/filterDCP7040" ]; then
-  :
-else
-  echo "ERROR : Brother LPD filter is not installed."
-fi
-rm -f /usr/share/cups/model/DCP7040.ppd
-ppd_file_name=/usr/share/cups/model/DCP7040.ppd
+ppd_file_name=ppds/DCP7040.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -331,18 +289,9 @@ restore
 "
 *End
 
-
 ENDOFPPDFILE
 
-chmod 755  $ppd_file_name
-if [ -e '/usr/share/ppd' ];then
-  cp  $ppd_file_name  /usr/share/ppd
-fi
-
-brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperDCP7040
-brotherlpdwrapper64=/usr/lib64/cups/filter/brlpdwrapperDCP7040
-rm -f  $brotherlpdwrapper
-
+brotherlpdwrapper64=filters/brlpdwrapperDCP7040
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh
@@ -507,34 +456,6 @@ exit \$errorcode
 
 !ENDOFWFILTER!
 
-
 chmod 755 $brotherlpdwrapper
-if [ -e /usr/lib64/cups/filter ]; then
-   cp $brotherlpdwrapper  $brotherlpdwrapper64
-fi
 
-chmod a+w /usr/local/Brother/inf/brDCP7040rc
-chmod a+w /usr/local/Brother/inf
-if [ -e /etc/init.d/lpd ]; then
-   /etc/init.d/lpd stop
-fi
-if [  -e /etc/init.d/lprng ]; then
-   /etc/init.d/lprng stop
-fi
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-sleep 2s
-port2=`lpinfo -v | grep -i 'usb://Brother/DCP-7040' | head -1`
-if [ "$port2" = '' ];then
-	port2=`lpinfo -v | grep 'usb://' | head -1`
-fi
-port=`echo $port2| sed s/direct//g`
-if [ "$port" = '' ];then
-	port=usb:/dev/usb/lp0
-fi
-lpadmin -p DCP7040 -E -v $port -P /usr/share/cups/model/DCP7040.ppd
-  exit 0 
+exit 0 
