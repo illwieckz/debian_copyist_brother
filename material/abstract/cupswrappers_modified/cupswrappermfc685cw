@@ -252,7 +252,6 @@ cat <<ENDOFPPDFILE1 >$ppd_file_name
 *BRSlowDrying OFF/OFF: "
 *BRSlowDrying ON/ON: "
 *CloseUI: *BRSlowDrying
-
 ENDOFPPDFILE1
 
 if [ $printer_model = "mfc5860cn" ]; then
@@ -265,7 +264,6 @@ if [ $printer_model = "mfc5860cn" ]; then
 *BRInputSlot Tray1/Tray 1: "          "
 *BRInputSlot Tray2/Tray 2: "          "
 *CloseUI: *BRInputSlot
-
 ENDOFPPDFILE_2
 fi
 
@@ -664,8 +662,6 @@ cat <<ENDOFPPDFILE_END >>$ppd_file_name
 *UIConstraints:	*BRColorMediaType Transparencies	*Resolution	Fast
 *UIConstraints:	*BRColorMediaType Transparencies	*Resolution	Photo
 *UIConstraints:	*BRColorMediaType Transparencies	*Resolution	Highest
-
-
 
 ENDOFPPDFILE_END
 

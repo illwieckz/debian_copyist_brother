@@ -762,7 +762,6 @@ cat <<ENDOFPPDFILE1 >$ppd_file_name
 *UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrPhotoL_B
 *UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrPhoto2L_B
 *UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrHagaki_B
-
 ENDOFPPDFILE1
 
 chmod 644 $ppd_file_name
