@@ -18,12 +18,12 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-printer_model=""mfcj3720""
+printer_model="mfcj3720"
 printer_name=`echo $printer_model | tr '[a-z]' '[A-Z]'`
 device_name=`echo $printer_name | eval sed -e 's/MFC/MFC-/' -e 's/DCP/DCP-/' -e 's/FAX/FAX-/'`
 pcfilename=`echo $printer_name | tr -d '[A-Z]'`
 device_model="Printers"
-tmp_filter=/var/tmp/brother_lpdwrapper_${printer_model}
+tmp_filter=filters/brother_lpdwrapper_${printer_model}
 
 if [ -d "/usr/share/cups/model" ]; then
   mkdir -p /usr/share/cups/model/Brother
@@ -53,7 +53,7 @@ elif [  -e /etc/init.d/cupsys ]; then
    /etc/init.d/cupsys restart
 fi
 #  /etc/init.d/cups restart
-  exit 0
+exit 0
 fi
 if [ "$1" = "-r" ]; then
   lpadmin -x ${printer_name}
@@ -63,14 +63,14 @@ elif [  -e /etc/init.d/cupsys ]; then
    /etc/init.d/cupsys restart
 fi
 #  /etc/init.d/cups restart
-  exit 0
+exit 0
 fi
 if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
   echo   'option -h : help'
   echo   '       -i : install'
   echo   '       -e : uninstall'
   echo   '       -r : remove printer'
-  exit 0
+exit 0
 fi
 #mkdir -p /usr/local/Brother/${device_model}/${printer_model}/filter
 #mkdir -p /usr/lib/cups/filter
@@ -82,7 +82,7 @@ else
 fi
 rm -f /usr/share/cups/model/Brother/brother_${printer_model}_printer_en.ppd
 if [ -d "/usr/share/cups/model" ]; then
-  ppd_file_name=/usr/share/cups/model/Brother/brother_${printer_model}_printer_en.ppd
+ppd_file_name=ppds/brother_${printer_model}_printer_en.ppd
 else
   ppd_file_name=/usr/share/ppd/Brother/brother_${printer_model}_printer_en.ppd
 fi
@@ -147,7 +147,7 @@ fi
 PPDC=\`printenv | grep "PPD="\`
 PPDC=\`echo \$PPDC | sed -e 's/PPD=//'\`
 
-if [ "\$PPDC" = "" ]; then
+if [ "\$PPDC" = " ]; then
     PPDC="/usr/share/cups/model/Brother/brother_${printer_model}_printer_en.ppd"
 fi
 
@@ -249,7 +249,7 @@ if [ \$DEBUG -lt 10 ]; then
 
     if [ \$LOGLEVEL -gt 2 ];  then
 	   if [ \$LOGFILE != "/dev/null" ]; then
-	     echo ""                                                >>\$LOGFILE
+	     echo ""                                               >>\$LOGFILE
 	     echo "    ------PostScript Data-------"                >>\$LOGFILE
 	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
 	   fi
@@ -267,7 +267,7 @@ chmod 755 $tmp_filter
 #	check /usr/lib/cups/filter
 #
 if [ -d /usr/lib/cups/filter ]; then
-	brotherlpdwrapper=/usr/lib/cups/filter/brother_lpdwrapper_${printer_model}
+brotherlpdwrapper=filters/brother_lpdwrapper_${printer_model}
 	rm -f  $brotherlpdwrapper
 	cp $tmp_filter	$brotherlpdwrapper
 fi

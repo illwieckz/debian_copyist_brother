@@ -18,47 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-if [ "$1" = '-e' ]; then
-  lpadmin -x DCP8060
-  rm -f /usr/share/cups/model/DCP8060.ppd
-  rm -f /usr/lib/cups/filter/brlpdwrapperDCP8060
-  rm -f /usr/lib64/cups/filter/brlpdwrapperDCP8060
-  rm -f /usr/local/Brother/cupswrapper/brcupsconfig3
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-  exit 0 
-fi
-if [ "$1" = "-r" ]; then
-  lpadmin -x DCP8060
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-  exit 0 
-fi
-if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
-  echo   'option -h : help'
-  echo   '       -i : install'
-  echo   '       -e : uninstall'
-  echo   '       -r : remove printer'
-  exit 0
-fi
-mkdir -p /usr/local/Brother/filter
-mkdir -p /usr/lib/cups/filter
-
-if [ -e "/usr/local/Brother/lpd/filterDCP8060" ]; then
-  :
-else
-  echo "ERROR : Brother LPD filter is not installed."
-fi
-rm -f /usr/share/cups/model/DCP8060.ppd
-ppd_file_name=/usr/share/cups/model/DCP8060.ppd
+ppd_file_name=ppds/DCP8060.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -115,9 +75,9 @@ restore
 
 *OpenUI *OptionTrays/Number of Input Trays: PickOne
 *DefaultOptionTrays: 2Trays
-*OptionTrays 1Trays/ 1: ""
-*OptionTrays 2Trays/ 2: ""
-*OptionTrays 3Trays/ 3: ""
+*OptionTrays 1Trays/ 1: "
+*OptionTrays 2Trays/ 2: "
+*OptionTrays 3Trays/ 3: "
 *?OptionTrays:"
 save
 	<</BRFeeder 1>>setpagedevice currentpagedevice/BRFeeder get
@@ -256,7 +216,7 @@ restore
 *OpenUI *Sleep/Sleep Time [Min.]: PickOne
 *DefaultSleep: PrinterDefault
 *OrderDependency: 10 AnySetup  *Sleep
-*Sleep PrinterDefault/Printer Default: ""
+*Sleep PrinterDefault/Printer Default: "
 *Sleep 2minutes/2: "statusdict begin 2 powersavetime end"
 *Sleep 10minutes/10: "statusdict begin 10 powersavetime end"
 *Sleep 30minutes/30: "statusdict begin 30 powersavetime end"
@@ -359,15 +319,9 @@ save
 restore
 "
 *End
-
-
 ENDOFPPDFILE
 
-
-brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperDCP8060
-brotherlpdwrapper64=/usr/lib64/cups/filter/brlpdwrapperDCP8060
-rm -f  $brotherlpdwrapper
-
+brotherlpdwrapper=filters/brlpdwrapperDCP8060
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh
@@ -489,7 +443,7 @@ fi
 
 if [ "\$ENABLECOPY" != 0 ];then
   if [ "\$4" -ge 2 ];then
-     options="\$5"" ""Copies=\$4"
+     options="\$5" "Copies=\$4"
   else
      options="\$5"
   fi
@@ -521,7 +475,7 @@ fi
 
 if [ \$DEBUG -ge 2 ];  then
 	   if [ \$LOGFILE != "/dev/null" ]; then
-	     echo ""                                                >>\$LOGFILE
+	     echo ""                                               >>\$LOGFILE
 	     echo "    ------PostScript Data-------"                >>\$LOGFILE
 	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
 	   fi
@@ -529,37 +483,6 @@ fi
 rm -f  \$INPUT_TEMP_PS
 
 exit \$errorcode
-
 !ENDOFWFILTER!
 
-
-chmod a+x $brotherlpdwrapper
-if [ -e /usr/lib64/cups/filter ]; then
-   cp $brotherlpdwrapper  $brotherlpdwrapper64
-fi
-
-chmod a+w /usr/local/Brother/inf/brDCP8060rc
-chmod a+w /usr/local/Brother/inf
-if [ -e /etc/init.d/lpd ]; then
-   /etc/init.d/lpd stop
-fi
-if [  -e /etc/init.d/lprng ]; then
-   /etc/init.d/lprng stop
-fi
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-sleep 2s
-port2=`lpinfo -v | grep -i 'usb://Brother/DCP-8060' | head -1`
-if [ "$port2" = '' ];then
-	port2=`lpinfo -v | grep 'usb://' | head -1`
-fi
-port=`echo $port2| sed s/direct//g`
-if [ "$port" = '' ];then
-	port=usb:/dev/usb/lp0
-fi
-lpadmin -p DCP8060 -E -v $port -P /usr/share/cups/model/DCP8060.ppd
-  exit 0 
+exit 0

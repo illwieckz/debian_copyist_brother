@@ -18,47 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-if [ "$1" = '-e' ]; then
-  lpadmin -x HL6050
-  rm -f /usr/share/cups/model/brhl6050_cups.ppd
-  rm -f /usr/lib/cups/filter/brlpdwrapperHL6050
-  rm -f /usr/lib64/cups/filter/brlpdwrapperHL6050
-  rm -f /usr/local/Brother/cupswrapper/brcupsconfig
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-  exit 0 
-fi
-if [ "$1" = "-r" ]; then
-  lpadmin -x HL6050
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-  exit 0 
-fi
-if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
-  echo   'option -h : help'
-  echo   '       -i : install'
-  echo   '       -e : uninstall'
-  echo   '       -r : remove printer'
-  exit 0
-fi
-mkdir -p /usr/local/Brother/filter
-mkdir -p /usr/lib/cups/filter
-
-if [ -e "/usr/local/Brother/lpd/filterHL6050" ]; then
-  :
-else
-  echo "ERROR : Brother LPD filter is not installed."
-fi
-rm -f /usr/share/cups/model/brhl6050_cups.ppd
-ppd_file_name=/usr/share/cups/model/brhl6050_cups.ppd
+ppd_file_name=ppds/brhl6050_cups.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -113,8 +73,8 @@ restore
 
 *OpenUI *OptionTrays/Number of Input Trays: PickOne
 *DefaultOptionTrays: 2Trays
-*OptionTrays 1Trays/ 1: ""
-*OptionTrays 2Trays/ 2: ""
+*OptionTrays 1Trays/ 1: "
+*OptionTrays 2Trays/ 2: "
 *?OptionTrays:"
 save
 	<</BRFeeder 1>>setpagedevice currentpagedevice/BRFeeder get
@@ -251,7 +211,7 @@ restore
 *OpenUI *Sleep/Sleep Time [Min.]: PickOne
 *DefaultSleep: PrinterDefault
 *OrderDependency: 10 AnySetup  *Sleep
-*Sleep PrinterDefault/Printer Default: ""
+*Sleep PrinterDefault/Printer Default: "
 *Sleep 2minutes/2: "statusdict begin 2 powersavetime end"
 *Sleep 10minutes/10: "statusdict begin 10 powersavetime end"
 *Sleep 30minutes/30: "statusdict begin 30 powersavetime end"
@@ -356,12 +316,7 @@ restore
 *End
 ENDOFPPDFILE
 
-
-brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperHL6050
-brotherlpdwrapper64=/usr/lib64/cups/filter/brlpdwrapperHL6050
-rm -f  $brotherlpdwrapper
-echo 'rm -f /usr/lib/cups/filter/brlpdwrapperHL6050'
-
+brotherlpdwrapper=filters/brlpdwrapperHL6050
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh
@@ -495,7 +450,7 @@ if [ \$DEBUG -lt 10 ]; then
 
     if [ \$LOGLEVEL -gt 2 ];  then
 	   if [ \$LOGFILE != "/dev/null" ]; then
-	     echo ""                                                >>\$LOGFILE
+	     echo ""                                               >>\$LOGFILE
 	     echo "    ------PostScript Data-------"                >>\$LOGFILE
 	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
 	   fi
@@ -507,26 +462,4 @@ exit \$errorcode
 
 !ENDOFWFILTER!
 
-
-chmod a+x $brotherlpdwrapper
-if [ -e /usr/lib64/cups/filter ]; then
-   cp $brotherlpdwrapper  $brotherlpdwrapper64
-fi
-
-chmod a+w /usr/local/Brother/inf/brHL6050rc
-chmod a+w /usr/local/Brother/inf
-if [ -e /etc/init.d/lpd ]; then
-   /etc/init.d/lpd stop
-fi
-if [  -e /etc/init.d/lprng ]; then
-   /etc/init.d/lprng stop
-fi
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-sleep 2s
-lpadmin -p HL6050 -E -v usb:/dev/usb/lp0 -m brhl6050_cups.ppd
-  exit 0 
+exit 0

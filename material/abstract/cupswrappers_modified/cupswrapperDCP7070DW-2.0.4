@@ -18,52 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-if [ "$1" = '-e' ]; then
-  lpadmin -x DCP7070DW
-  rm -f /usr/share/cups/model/DCP7070DW.ppd
-  rm -f /usr/lib/cups/filter/brlpdwrapperDCP7070DW
-  rm -f /usr/lib64/cups/filter/brlpdwrapperDCP7070DW
-  rm -f /usr/local/Brother/Printer/DCP7070DW/cupswrapper/brcupsconfig4
-  if [ -f /usr/share/ppd/DCP7070DW.ppd ];then
-  rm -f /usr/share/ppd/DCP7070DW.ppd
-  fi
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-  exit 0 
-fi
-if [ "$1" = "-r" ]; then
-  lpadmin -x DCP7070DW
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-  exit 0 
-fi
-if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
-  echo   'option -h : help'
-  echo   '       -i : install'
-  echo   '       -e : uninstall'
-  echo   '       -r : remove printer'
-  exit 0
-fi
-mkdir -p /usr/lib/cups/filter
-
-if [ -e "/usr/local/Brother/Printer/DCP7070DW/lpd/filterDCP7070DW" ]; then
-  :
-else
-  echo "ERROR : Brother LPD filter is not installed."
-fi
-rm -f /usr/share/cups/model/DCP7070DW.ppd
-ppd_file_name=/usr/share/cups/model/DCP7070DW.ppd
-if [ ! -e /usr/share/cups/model ]; then
-   ppd_file_name=/usr/share/ppd/DCP7070DW.ppd
-fi
+ppd_file_name=ppds/DCP7070DW.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -237,7 +192,7 @@ restore
 *OpenUI *Sleep/Sleep Time [Min.]: PickOne
 *DefaultSleep: PrinterDefault
 *OrderDependency: 10 AnySetup  *Sleep
-*Sleep PrinterDefault/Printer Default: ""
+*Sleep PrinterDefault/Printer Default: "
 *Sleep 2minutes/2: "statusdict begin 2 powersavetime end"
 *Sleep 10minutes/10: "statusdict begin 10 powersavetime end"
 *Sleep 30minutes/30: "statusdict begin 30 powersavetime end"
@@ -343,31 +298,14 @@ restore
 
 *UIConstraints:	*InputSlot MANUAL	*Duplex DuplexTumble
 *UIConstraints:	*InputSlot MANUAL	*Duplex DuplexNoTumble
-
-
 ENDOFPPDFILE
 
-chmod 755  $ppd_file_name
-if [ -e '/usr/share/ppd' ];then
-  if [ -e '/usr/share/cups/model' ];then
-    cp  $ppd_file_name  /usr/share/ppd
-  fi
-fi
-
-brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperDCP7070DW
-brotherlpdwrapper64=/usr/lib64/cups/filter/brlpdwrapperDCP7070DW
-rm -f  $brotherlpdwrapper
-if [ ! -e /usr/lib/cups/filter ];then
-  if [ -e /usr/lib64/cups/filter ];then
-    brotherlpdwrapper=/usr/lib64/cups/filter/brlpdwrapperDCP7070DW
-  fi
-fi
-
+brotherlpdwrapper=filters/brlpdwrapperDCP7070DW
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh
 #
-# Brother Print filter  >>  $brotherlpdwrapper
+# Brother Print filter
 # Copyright (C) 2005 Brother. Industries, Ltd.
 #                                    Ver1.00
 
@@ -484,7 +422,7 @@ fi
 
 if [ "\$ENABLECOPY" != 0 ];then
   if [ "\$4" -ge 2 ];then
-     options="\$5"" ""Copies=\$4"
+     options="\$5" "Copies=\$4"
   else
      options="\$5"
   fi
@@ -516,7 +454,7 @@ fi
 
 if [ \$DEBUG -ge 2 ];  then
 	   if [ \$LOGFILE != "/dev/null" ]; then
-	     echo ""                                                >>\$LOGFILE
+	     echo ""                                               >>\$LOGFILE
 	     echo "    ------PostScript Data-------"                >>\$LOGFILE
 	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
 	   fi
@@ -524,42 +462,6 @@ fi
 rm -f  \$INPUT_TEMP_PS
 
 exit \$errorcode
-
 !ENDOFWFILTER!
 
-
-chmod 755 $brotherlpdwrapper
-if [ -e /usr/lib/cups/filter ]; then
- if [ -e /usr/lib64/cups/filter ]; then
-   cp $brotherlpdwrapper  $brotherlpdwrapper64
- fi
-fi
-
-chmod a+w /usr/local/Brother/Printer/DCP7070DW/inf/brDCP7070DWrc
-chmod a+w /usr/local/Brother/Printer/DCP7070DW/inf
-if [ -e /etc/init.d/lpd ]; then
-   /etc/init.d/lpd stop
-fi
-if [  -e /etc/init.d/lprng ]; then
-   /etc/init.d/lprng stop
-fi
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-sleep 2s
-port2=`lpinfo -v | grep -i 'usb://Brother/DCP7070DW' | head -1`
-if [ "$port2" = '' ];then
-  port2=`lpinfo -v | grep -i 'usb://Brother/' | head -1`
-  if [ "$port2" = '' ];then
-	   port2=`lpinfo -v | grep 'usb://' | head -1`
-  fi
-fi
-port=`echo $port2| sed s/direct//g`
-if [ "$port" = '' ];then
-	port=usb:/dev/usb/lp0
-fi
-lpadmin -p DCP7070DW -E -v $port -P $ppd_file_name
-  exit 0 
+exit 0

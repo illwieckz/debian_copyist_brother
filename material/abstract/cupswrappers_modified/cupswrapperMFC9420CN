@@ -30,7 +30,7 @@ elif [  -e /etc/init.d/cupsys ]; then
    /etc/init.d/cupsys restart
 fi
 #  /etc/init.d/cups restart
-  exit 0
+exit 0
 fi
 if [ "$1" = "-r" ]; then
   lpadmin -x MFC9420CN
@@ -40,14 +40,14 @@ elif [  -e /etc/init.d/cupsys ]; then
    /etc/init.d/cupsys restart
 fi
 #  /etc/init.d/cups restart
-  exit 0
+exit 0
 fi
 if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
   echo   'option -h : help'
   echo   '       -i : install'
   echo   '       -e : uninstall'
   echo   '       -r : remove printer'
-  exit 0
+exit 0
 fi
 mkdir -p /usr/local/Brother/filter
 mkdir -p /usr/lib/cups/filter
@@ -58,7 +58,7 @@ else
   echo "ERROR : Brother LPD filter is not installed."
 fi
 rm -f /usr/share/cups/model/brmfc9420cn.ppd
-ppd_file_name=/usr/share/cups/model/brmfc9420cn.ppd
+ppd_file_name=ppds/brmfc9420cn.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -156,28 +156,28 @@ cat <<ENDOFPPDFILE >$ppd_file_name
 *OpenUI *InputSlot: PickOne
 *OrderDependency: 13 AnySetup *InputSlot
 *DefaultInputSlot: AutoSelect
-*InputSlot AutoSelect/Auto Select: 	""
-*InputSlot Tray1/Tray1: 		""
-*InputSlot Tray2/Tray2: 		""
+*InputSlot AutoSelect/Auto Select: 	"
+*InputSlot Tray1/Tray1: 		"
+*InputSlot Tray2/Tray2: 		"
 *CloseUI: *InputSlot
 
 *%==== Resolution Features =================================
 *OpenUI *Resolution/Print Quality: PickOne
 *OrderDependency: 14 AnySetup *Resolution
 *DefaultResolution: Normal
-*Resolution	Normal/Normal (600 x 600 dpi): 	""
-*Resolution	CAPT/Fine (2400 dpi class): 	""
+*Resolution	Normal/Normal (600 x 600 dpi): 	"
+*Resolution	CAPT/Fine (2400 dpi class): 	"
 *CloseUI: *Resolution
 
 *%=== MonoOrColor ================================
 *OpenUI *MonoColor/Color/Mono: PickOne
 *OrderDependency: 16 AnySetup *MonoColor
 *DefaultMonoColor: BrFullColor
-*MonoColor BrFullColor/Full Color: ""
-*MonoColor BrMono/Mono: ""
-*MonoColor BrB&C/Black & Cyan: ""
-*MonoColor BrB&M/Black & Magenta: ""
-*MonoColor BrB&Y/Black & Yellow: ""
+*MonoColor BrFullColor/Full Color: "
+*MonoColor BrMono/Mono: "
+*MonoColor BrB&C/Black & Cyan: "
+*MonoColor BrB&M/Black & Magenta: "
+*MonoColor BrB&Y/Black & Yellow: "
 *CloseUI: *MonoColor
 
 *%=== LandscapeAdjustment ================================
@@ -193,45 +193,45 @@ cat <<ENDOFPPDFILE >$ppd_file_name
 *OpenUI *MediaType/Media Type: PickOne
 *OrderDependency: 17 AnySetup *MediaType
 *DefaultMediaType: Plain
-*MediaType Plain/Plain Paper: ""
-*MediaType Thin/Thin Paper: ""
-*MediaType Thick/Thick Paper: ""
-*MediaType Thicker/Thicker Paper: ""
-*MediaType Transparencies/Transparencies: ""
-*MediaType Recycled/Recycled Paper: ""
+*MediaType Plain/Plain Paper: "
+*MediaType Thin/Thin Paper: "
+*MediaType Thick/Thick Paper: "
+*MediaType Thicker/Thicker Paper: "
+*MediaType Transparencies/Transparencies: "
+*MediaType Recycled/Recycled Paper: "
 *CloseUI: *MediaType
 
 *%===Color Matching ================================
 *OpenUI *BRColorMatching/Color Mode: PickOne
 *OrderDependency: 18 AnySetup *BRColorMatching
 *DefaultBRColorMatching: MatchMonitor
-*BRColorMatching MatchMonitor/Match Monitor (Recommended): ""
-*BRColorMatching VividText/Vivid/Text: ""
-*BRColorMatching None/None: ""
+*BRColorMatching MatchMonitor/Match Monitor (Recommended): "
+*BRColorMatching VividText/Vivid/Text: "
+*BRColorMatching None/None: "
 *CloseUI: *BRColorMatching
 
 *%=== Improve Gray Color ================================
 *OpenUI *BRGray/Improve Gray Color: PickOne
 *OrderDependency: 19 AnySetup *BRGray
 *DefaultBRGray: OFF
-*BRGray OFF/OFF: ""
-*BRGray ON/ON: ""
+*BRGray OFF/OFF: "
+*BRGray ON/ON: "
 *CloseUI: *BRGray
 
 *%=== Enhance Black Printing ================================
 *OpenUI *BREnhanceBlkPrt/Enhance Black Printing: PickOne
 *OrderDependency: 20 AnySetup *BREnhanceBlkPrt
 *DefaultBREnhanceBlkPrt: OFF
-*BREnhanceBlkPrt OFF/OFF: ""
-*BREnhanceBlkPrt ON/ON: ""
+*BREnhanceBlkPrt OFF/OFF: "
+*BREnhanceBlkPrt ON/ON: "
 *CloseUI: *BREnhanceBlkPrt
 
 *%=== Mirror Printing ================================
 *OpenUI *BRMirror/Mirror Printing: PickOne
 *OrderDependency: 21 AnySetup *BRMirror
 *DefaultBRMirror: OFF
-*BRMirror OFF/OFF: ""
-*BRMirror ON/ON: ""
+*BRMirror OFF/OFF: "
+*BRMirror ON/ON: "
 *CloseUI: *BRMirror
 
 
@@ -239,94 +239,94 @@ cat <<ENDOFPPDFILE >$ppd_file_name
 *OpenUI *BRBrightness/Brightness: PickOne
 *OrderDependency: 22 AnySetup *BRBrightness
 *DefaultBRBrightness: 0
-*BRBrightness -20/-20: ""
-*BRBrightness -19/-19: ""
-*BRBrightness -18/-18: ""
-*BRBrightness -17/-17: ""
-*BRBrightness -16/-16: ""
-*BRBrightness -15/-15: ""
-*BRBrightness -14/-14: ""
-*BRBrightness -13/-13: ""
-*BRBrightness -12/-12: ""
-*BRBrightness -11/-11: ""
-*BRBrightness -10/-10: ""
-*BRBrightness -9/-9: ""
-*BRBrightness -8/-8: ""
-*BRBrightness -7/-7: ""
-*BRBrightness -6/-6: ""
-*BRBrightness -5/-5: ""
-*BRBrightness -4/-4: ""
-*BRBrightness -3/-3: ""
-*BRBrightness -2/-2: ""
-*BRBrightness -1/-1: ""
-*BRBrightness 0/0: ""
-*BRBrightness 1/1: ""
-*BRBrightness 2/2: ""
-*BRBrightness 3/3: ""
-*BRBrightness 4/4: ""
-*BRBrightness 5/5: ""
-*BRBrightness 6/6: ""
-*BRBrightness 7/7: ""
-*BRBrightness 8/8: ""
-*BRBrightness 9/9: ""
-*BRBrightness 10/10: ""
-*BRBrightness 11/11: ""
-*BRBrightness 12/12: ""
-*BRBrightness 13/13: ""
-*BRBrightness 14/14: ""
-*BRBrightness 15/15: ""
-*BRBrightness 16/16: ""
-*BRBrightness 17/17: ""
-*BRBrightness 18/18: ""
-*BRBrightness 19/19: ""
-*BRBrightness 20/20: ""
+*BRBrightness -20/-20: "
+*BRBrightness -19/-19: "
+*BRBrightness -18/-18: "
+*BRBrightness -17/-17: "
+*BRBrightness -16/-16: "
+*BRBrightness -15/-15: "
+*BRBrightness -14/-14: "
+*BRBrightness -13/-13: "
+*BRBrightness -12/-12: "
+*BRBrightness -11/-11: "
+*BRBrightness -10/-10: "
+*BRBrightness -9/-9: "
+*BRBrightness -8/-8: "
+*BRBrightness -7/-7: "
+*BRBrightness -6/-6: "
+*BRBrightness -5/-5: "
+*BRBrightness -4/-4: "
+*BRBrightness -3/-3: "
+*BRBrightness -2/-2: "
+*BRBrightness -1/-1: "
+*BRBrightness 0/0: "
+*BRBrightness 1/1: "
+*BRBrightness 2/2: "
+*BRBrightness 3/3: "
+*BRBrightness 4/4: "
+*BRBrightness 5/5: "
+*BRBrightness 6/6: "
+*BRBrightness 7/7: "
+*BRBrightness 8/8: "
+*BRBrightness 9/9: "
+*BRBrightness 10/10: "
+*BRBrightness 11/11: "
+*BRBrightness 12/12: "
+*BRBrightness 13/13: "
+*BRBrightness 14/14: "
+*BRBrightness 15/15: "
+*BRBrightness 16/16: "
+*BRBrightness 17/17: "
+*BRBrightness 18/18: "
+*BRBrightness 19/19: "
+*BRBrightness 20/20: "
 *CloseUI: *BRBrightness
 
 *%=== Contrast ================================
 *OpenUI *BRContrast/Contrast: PickOne
 *OrderDependency: 23 AnySetup *BRContrast
 *DefaultBRContrast: 0
-*BRContrast -20/-20: ""
-*BRContrast -19/-19: ""
-*BRContrast -18/-18: ""
-*BRContrast -17/-17: ""
-*BRContrast -16/-16: ""
-*BRContrast -15/-15: ""
-*BRContrast -14/-14: ""
-*BRContrast -13/-13: ""
-*BRContrast -12/-12: ""
-*BRContrast -11/-11: ""
-*BRContrast -10/-10: ""
-*BRContrast -9/-9: ""
-*BRContrast -8/-8: ""
-*BRContrast -7/-7: ""
-*BRContrast -6/-6: ""
-*BRContrast -5/-5: ""
-*BRContrast -4/-4: ""
-*BRContrast -3/-3: ""
-*BRContrast -2/-2: ""
-*BRContrast -1/-1: ""
-*BRContrast 0/0: ""
-*BRContrast 1/1: ""
-*BRContrast 2/2: ""
-*BRContrast 3/3: ""
-*BRContrast 4/4: ""
-*BRContrast 5/5: ""
-*BRContrast 6/6: ""
-*BRContrast 7/7: ""
-*BRContrast 8/8: ""
-*BRContrast 9/9: ""
-*BRContrast 10/10: ""
-*BRContrast 11/11: ""
-*BRContrast 12/12: ""
-*BRContrast 13/13: ""
-*BRContrast 14/14: ""
-*BRContrast 15/15: ""
-*BRContrast 16/16: ""
-*BRContrast 17/17: ""
-*BRContrast 18/18: ""
-*BRContrast 19/19: ""
-*BRContrast 20/20: ""
+*BRContrast -20/-20: "
+*BRContrast -19/-19: "
+*BRContrast -18/-18: "
+*BRContrast -17/-17: "
+*BRContrast -16/-16: "
+*BRContrast -15/-15: "
+*BRContrast -14/-14: "
+*BRContrast -13/-13: "
+*BRContrast -12/-12: "
+*BRContrast -11/-11: "
+*BRContrast -10/-10: "
+*BRContrast -9/-9: "
+*BRContrast -8/-8: "
+*BRContrast -7/-7: "
+*BRContrast -6/-6: "
+*BRContrast -5/-5: "
+*BRContrast -4/-4: "
+*BRContrast -3/-3: "
+*BRContrast -2/-2: "
+*BRContrast -1/-1: "
+*BRContrast 0/0: "
+*BRContrast 1/1: "
+*BRContrast 2/2: "
+*BRContrast 3/3: "
+*BRContrast 4/4: "
+*BRContrast 5/5: "
+*BRContrast 6/6: "
+*BRContrast 7/7: "
+*BRContrast 8/8: "
+*BRContrast 9/9: "
+*BRContrast 10/10: "
+*BRContrast 11/11: "
+*BRContrast 12/12: "
+*BRContrast 13/13: "
+*BRContrast 14/14: "
+*BRContrast 15/15: "
+*BRContrast 16/16: "
+*BRContrast 17/17: "
+*BRContrast 18/18: "
+*BRContrast 19/19: "
+*BRContrast 20/20: "
 *CloseUI: *BRContrast
 
 *%=== Red ================================
@@ -334,188 +334,188 @@ cat <<ENDOFPPDFILE >$ppd_file_name
 
 *OrderDependency: 24 AnySetup *BRRed
 *DefaultBRRed: 0
-*BRRed -20/-20: ""
-*BRRed -19/-19: ""
-*BRRed -18/-18: ""
-*BRRed -17/-17: ""
-*BRRed -16/-16: ""
-*BRRed -15/-15: ""
-*BRRed -14/-14: ""
-*BRRed -13/-13: ""
-*BRRed -12/-12: ""
-*BRRed -11/-11: ""
-*BRRed -10/-10: ""
-*BRRed -9/-9: ""
-*BRRed -8/-8: ""
-*BRRed -7/-7: ""
-*BRRed -6/-6: ""
-*BRRed -5/-5: ""
-*BRRed -4/-4: ""
-*BRRed -3/-3: ""
-*BRRed -2/-2: ""
-*BRRed -1/-1: ""
-*BRRed 0/0: ""
-*BRRed 1/1: ""
-*BRRed 2/2: ""
-*BRRed 3/3: ""
-*BRRed 4/4: ""
-*BRRed 5/5: ""
-*BRRed 6/6: ""
-*BRRed 7/7: ""
-*BRRed 8/8: ""
-*BRRed 9/9: ""
-*BRRed 10/10: ""
-*BRRed 11/11: ""
-*BRRed 12/12: ""
-*BRRed 13/13: ""
-*BRRed 14/14: ""
-*BRRed 15/15: ""
-*BRRed 16/16: ""
-*BRRed 17/17: ""
-*BRRed 18/18: ""
-*BRRed 19/19: ""
-*BRRed 20/20: ""
+*BRRed -20/-20: "
+*BRRed -19/-19: "
+*BRRed -18/-18: "
+*BRRed -17/-17: "
+*BRRed -16/-16: "
+*BRRed -15/-15: "
+*BRRed -14/-14: "
+*BRRed -13/-13: "
+*BRRed -12/-12: "
+*BRRed -11/-11: "
+*BRRed -10/-10: "
+*BRRed -9/-9: "
+*BRRed -8/-8: "
+*BRRed -7/-7: "
+*BRRed -6/-6: "
+*BRRed -5/-5: "
+*BRRed -4/-4: "
+*BRRed -3/-3: "
+*BRRed -2/-2: "
+*BRRed -1/-1: "
+*BRRed 0/0: "
+*BRRed 1/1: "
+*BRRed 2/2: "
+*BRRed 3/3: "
+*BRRed 4/4: "
+*BRRed 5/5: "
+*BRRed 6/6: "
+*BRRed 7/7: "
+*BRRed 8/8: "
+*BRRed 9/9: "
+*BRRed 10/10: "
+*BRRed 11/11: "
+*BRRed 12/12: "
+*BRRed 13/13: "
+*BRRed 14/14: "
+*BRRed 15/15: "
+*BRRed 16/16: "
+*BRRed 17/17: "
+*BRRed 18/18: "
+*BRRed 19/19: "
+*BRRed 20/20: "
 *CloseUI: *BRRed
 
 *%=== Green ================================
 *OpenUI *BRGreen/Green: PickOne
 *OrderDependency: 25 AnySetup *BRGreen
 *DefaultBRGreen: 0
-*BRGreen -20/-20: ""
-*BRGreen -19/-19: ""
-*BRGreen -18/-18: ""
-*BRGreen -17/-17: ""
-*BRGreen -16/-16: ""
-*BRGreen -15/-15: ""
-*BRGreen -14/-14: ""
-*BRGreen -13/-13: ""
-*BRGreen -12/-12: ""
-*BRGreen -11/-11: ""
-*BRGreen -10/-10: ""
-*BRGreen -9/-9: ""
-*BRGreen -8/-8: ""
-*BRGreen -7/-7: ""
-*BRGreen -6/-6: ""
-*BRGreen -5/-5: ""
-*BRGreen -4/-4: ""
-*BRGreen -3/-3: ""
-*BRGreen -2/-2: ""
-*BRGreen -1/-1: ""
-*BRGreen 0/0: ""
-*BRGreen 1/1: ""
-*BRGreen 2/2: ""
-*BRGreen 3/3: ""
-*BRGreen 4/4: ""
-*BRGreen 5/5: ""
-*BRGreen 6/6: ""
-*BRGreen 7/7: ""
-*BRGreen 8/8: ""
-*BRGreen 9/9: ""
-*BRGreen 10/10: ""
-*BRGreen 11/11: ""
-*BRGreen 12/12: ""
-*BRGreen 13/13: ""
-*BRGreen 14/14: ""
-*BRGreen 15/15: ""
-*BRGreen 16/16: ""
-*BRGreen 17/17: ""
-*BRGreen 18/18: ""
-*BRGreen 19/19: ""
-*BRGreen 20/20: ""
+*BRGreen -20/-20: "
+*BRGreen -19/-19: "
+*BRGreen -18/-18: "
+*BRGreen -17/-17: "
+*BRGreen -16/-16: "
+*BRGreen -15/-15: "
+*BRGreen -14/-14: "
+*BRGreen -13/-13: "
+*BRGreen -12/-12: "
+*BRGreen -11/-11: "
+*BRGreen -10/-10: "
+*BRGreen -9/-9: "
+*BRGreen -8/-8: "
+*BRGreen -7/-7: "
+*BRGreen -6/-6: "
+*BRGreen -5/-5: "
+*BRGreen -4/-4: "
+*BRGreen -3/-3: "
+*BRGreen -2/-2: "
+*BRGreen -1/-1: "
+*BRGreen 0/0: "
+*BRGreen 1/1: "
+*BRGreen 2/2: "
+*BRGreen 3/3: "
+*BRGreen 4/4: "
+*BRGreen 5/5: "
+*BRGreen 6/6: "
+*BRGreen 7/7: "
+*BRGreen 8/8: "
+*BRGreen 9/9: "
+*BRGreen 10/10: "
+*BRGreen 11/11: "
+*BRGreen 12/12: "
+*BRGreen 13/13: "
+*BRGreen 14/14: "
+*BRGreen 15/15: "
+*BRGreen 16/16: "
+*BRGreen 17/17: "
+*BRGreen 18/18: "
+*BRGreen 19/19: "
+*BRGreen 20/20: "
 *CloseUI: *BRGreen
 
 *%=== Blue ================================
 *OpenUI *BRBlue/Blue: PickOne
 *OrderDependency: 26 AnySetup *BRBlue
 *DefaultBRBlue: 0
-*BRBlue -20/-20: ""
-*BRBlue -19/-19: ""
-*BRBlue -18/-18: ""
-*BRBlue -17/-17: ""
-*BRBlue -16/-16: ""
-*BRBlue -15/-15: ""
-*BRBlue -14/-14: ""
-*BRBlue -13/-13: ""
-*BRBlue -12/-12: ""
-*BRBlue -11/-11: ""
-*BRBlue -10/-10: ""
-*BRBlue -9/-9: ""
-*BRBlue -8/-8: ""
-*BRBlue -7/-7: ""
-*BRBlue -6/-6: ""
-*BRBlue -5/-5: ""
-*BRBlue -4/-4: ""
-*BRBlue -3/-3: ""
-*BRBlue -2/-2: ""
-*BRBlue -1/-1: ""
-*BRBlue 0/0: ""
-*BRBlue 1/1: ""
-*BRBlue 2/2: ""
-*BRBlue 3/3: ""
-*BRBlue 4/4: ""
-*BRBlue 5/5: ""
-*BRBlue 6/6: ""
-*BRBlue 7/7: ""
-*BRBlue 8/8: ""
-*BRBlue 9/9: ""
-*BRBlue 10/10: ""
-*BRBlue 11/11: ""
-*BRBlue 12/12: ""
-*BRBlue 13/13: ""
-*BRBlue 14/14: ""
-*BRBlue 15/15: ""
-*BRBlue 16/16: ""
-*BRBlue 17/17: ""
-*BRBlue 18/18: ""
-*BRBlue 19/19: ""
-*BRBlue 20/20: ""
+*BRBlue -20/-20: "
+*BRBlue -19/-19: "
+*BRBlue -18/-18: "
+*BRBlue -17/-17: "
+*BRBlue -16/-16: "
+*BRBlue -15/-15: "
+*BRBlue -14/-14: "
+*BRBlue -13/-13: "
+*BRBlue -12/-12: "
+*BRBlue -11/-11: "
+*BRBlue -10/-10: "
+*BRBlue -9/-9: "
+*BRBlue -8/-8: "
+*BRBlue -7/-7: "
+*BRBlue -6/-6: "
+*BRBlue -5/-5: "
+*BRBlue -4/-4: "
+*BRBlue -3/-3: "
+*BRBlue -2/-2: "
+*BRBlue -1/-1: "
+*BRBlue 0/0: "
+*BRBlue 1/1: "
+*BRBlue 2/2: "
+*BRBlue 3/3: "
+*BRBlue 4/4: "
+*BRBlue 5/5: "
+*BRBlue 6/6: "
+*BRBlue 7/7: "
+*BRBlue 8/8: "
+*BRBlue 9/9: "
+*BRBlue 10/10: "
+*BRBlue 11/11: "
+*BRBlue 12/12: "
+*BRBlue 13/13: "
+*BRBlue 14/14: "
+*BRBlue 15/15: "
+*BRBlue 16/16: "
+*BRBlue 17/17: "
+*BRBlue 18/18: "
+*BRBlue 19/19: "
+*BRBlue 20/20: "
 *CloseUI: *BRBlue
 
 *%=== Saturation ================================
 *OpenUI *BRSaturation/Saturation: PickOne
 *OrderDependency: 27 AnySetup *BRSaturation
 *DefaultBRSaturation: 0
-*BRSaturation -20/-20: ""
-*BRSaturation -19/-19: ""
-*BRSaturation -18/-18: ""
-*BRSaturation -17/-17: ""
-*BRSaturation -16/-16: ""
-*BRSaturation -15/-15: ""
-*BRSaturation -14/-14: ""
-*BRSaturation -13/-13: ""
-*BRSaturation -12/-12: ""
-*BRSaturation -11/-11: ""
-*BRSaturation -10/-10: ""
-*BRSaturation -9/-9: ""
-*BRSaturation -8/-8: ""
-*BRSaturation -7/-7: ""
-*BRSaturation -6/-6: ""
-*BRSaturation -5/-5: ""
-*BRSaturation -4/-4: ""
-*BRSaturation -3/-3: ""
-*BRSaturation -2/-2: ""
-*BRSaturation -1/-1: ""
-*BRSaturation 0/0: ""
-*BRSaturation 1/1: ""
-*BRSaturation 2/2: ""
-*BRSaturation 3/3: ""
-*BRSaturation 4/4: ""
-*BRSaturation 5/5: ""
-*BRSaturation 6/6: ""
-*BRSaturation 7/7: ""
-*BRSaturation 8/8: ""
-*BRSaturation 9/9: ""
-*BRSaturation 10/10: ""
-*BRSaturation 11/11: ""
-*BRSaturation 12/12: ""
-*BRSaturation 13/13: ""
-*BRSaturation 14/14: ""
-*BRSaturation 15/15: ""
-*BRSaturation 16/16: ""
-*BRSaturation 17/17: ""
-*BRSaturation 18/18: ""
-*BRSaturation 19/19: ""
-*BRSaturation 20/20: ""
+*BRSaturation -20/-20: "
+*BRSaturation -19/-19: "
+*BRSaturation -18/-18: "
+*BRSaturation -17/-17: "
+*BRSaturation -16/-16: "
+*BRSaturation -15/-15: "
+*BRSaturation -14/-14: "
+*BRSaturation -13/-13: "
+*BRSaturation -12/-12: "
+*BRSaturation -11/-11: "
+*BRSaturation -10/-10: "
+*BRSaturation -9/-9: "
+*BRSaturation -8/-8: "
+*BRSaturation -7/-7: "
+*BRSaturation -6/-6: "
+*BRSaturation -5/-5: "
+*BRSaturation -4/-4: "
+*BRSaturation -3/-3: "
+*BRSaturation -2/-2: "
+*BRSaturation -1/-1: "
+*BRSaturation 0/0: "
+*BRSaturation 1/1: "
+*BRSaturation 2/2: "
+*BRSaturation 3/3: "
+*BRSaturation 4/4: "
+*BRSaturation 5/5: "
+*BRSaturation 6/6: "
+*BRSaturation 7/7: "
+*BRSaturation 8/8: "
+*BRSaturation 9/9: "
+*BRSaturation 10/10: "
+*BRSaturation 11/11: "
+*BRSaturation 12/12: "
+*BRSaturation 13/13: "
+*BRSaturation 14/14: "
+*BRSaturation 15/15: "
+*BRSaturation 16/16: "
+*BRSaturation 17/17: "
+*BRSaturation 18/18: "
+*BRSaturation 19/19: "
+*BRSaturation 20/20: "
 *CloseUI: *BRSaturation
 
 *OpenUI *TonerSaveMode/Toner Save Mode: PickOne
@@ -529,8 +529,8 @@ cat <<ENDOFPPDFILE >$ppd_file_name
 *%OpenUI *BRReverse/Reverse Printing: PickOne
 *%OrderDependency: 32 AnySetup *BRReverse
 *%DefaultBRReverse: OFF
-*%BRReverse OFF/OFF: ""
-*%BRReverse ON/ON: ""
+*%BRReverse OFF/OFF: "
+*%BRReverse ON/ON: "
 *%CloseUI: *BRReverse
 
 *DefaultFont: Courier
@@ -633,7 +633,7 @@ restore
 ENDOFPPDFILE
 
 
-brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperMFC9420CN
+brotherlpdwrapper=filters/brlpdwrapperMFC9420CN
 brotherlpdwrapper64=/usr/lib64/cups/filter/brlpdwrapperMFC9420CN
 rm -f  $brotherlpdwrapper
 #echo 'rm -f /usr/lib/cups/filter/brlpdwrapperMFC9420CN'
@@ -771,7 +771,7 @@ if [ \$DEBUG -lt 10 ]; then
 
     if [ \$LOGLEVEL -gt 2 ];  then
 	   if [ \$LOGFILE != "/dev/null" ]; then
-	     echo ""                                                >>\$LOGFILE
+	     echo ""                                               >>\$LOGFILE
 	     echo "    ------PostScript Data-------"                >>\$LOGFILE
 	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
 	   fi
@@ -805,5 +805,5 @@ fi
 
 sleep 2s
 lpadmin -p MFC9420CN -E -v usb:/dev/usb/lp0 -m brmfc9420cn.ppd
-  exit 0
+exit 0
 

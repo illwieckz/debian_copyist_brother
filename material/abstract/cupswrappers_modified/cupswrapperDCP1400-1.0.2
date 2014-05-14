@@ -277,7 +277,6 @@ save
 restore
 "
 *End
-
 ENDOFPPDFILE
 
 brotherlpdwrapper=filters/brlpdwrapperDCP1400
@@ -414,7 +413,7 @@ if [ \$DEBUG -lt 10 ]; then
 
     if [ \$LOGLEVEL -gt 2 ];  then
 	   if [ \$LOGFILE != "/dev/null" ]; then
-	     echo ""                                                >>\$LOGFILE
+	     echo ""                                               >>\$LOGFILE
 	     echo "    ------PostScript Data-------"                >>\$LOGFILE
 	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
 	   fi
@@ -423,9 +422,8 @@ fi
 rm -f  \$INPUT_TEMP_PS
 
 exit \$errorcode
-
 !ENDOFWFILTER!
 
 chmod a+x $brotherlpdwrapper
 
-exit 0 
+exit 0

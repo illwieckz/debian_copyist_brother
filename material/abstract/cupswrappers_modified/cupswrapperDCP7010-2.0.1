@@ -185,7 +185,7 @@ restore
 *OpenUI *Sleep/Sleep Time [Min.]: PickOne
 *DefaultSleep: PrinterDefault
 *OrderDependency: 10 AnySetup  *Sleep
-*Sleep PrinterDefault/Printer Default: ""
+*Sleep PrinterDefault/Printer Default: "
 *Sleep 2minutes/2: "statusdict begin 2 powersavetime end"
 *Sleep 10minutes/10: "statusdict begin 10 powersavetime end"
 *Sleep 30minutes/30: "statusdict begin 30 powersavetime end"
@@ -288,9 +288,7 @@ save
 restore
 "
 *End
-
 ENDOFPPDFILE
-
 
 brotherlpdwrapper=filters/brlpdwrapperDCP7010
 
@@ -414,7 +412,7 @@ fi
 
 if [ "\$ENABLECOPY" != 0 ];then
   if [ "\$4" -ge 2 ];then
-     options="\$5"" ""Copies=\$4"
+     options="\$5" "Copies=\$4"
   else
      options="\$5"
   fi
@@ -446,7 +444,7 @@ fi
 
 if [ \$DEBUG -ge 2 ];  then
 	   if [ \$LOGFILE != "/dev/null" ]; then
-	     echo ""                                                >>\$LOGFILE
+	     echo ""                                               >>\$LOGFILE
 	     echo "    ------PostScript Data-------"                >>\$LOGFILE
 	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
 	   fi
@@ -454,7 +452,6 @@ fi
 rm -f  \$INPUT_TEMP_PS
 
 exit \$errorcode
-
 !ENDOFWFILTER!
 
-exit 0 
+exit 0

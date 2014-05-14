@@ -18,14 +18,14 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-printer_model=""dcp197c""
+printer_model="dcp197c"
 printer_name=`echo $printer_model | tr '[a-z]' '[A-Z]'`
 device_name=`echo $printer_name | eval sed -e 's/MFC/MFC-/' -e 's/DCP/DCP-/' -e 's/FAX/FAX-/'`
 pcfilename=`echo $printer_name | tr -d '[A-Z]'`
 device_model="Printers"
 tmp_filter=filters/brlpdwrapper${printer_model}
 
-# ppd_file_name=/usr/share/cups/model/Brother/brother_${printer_model}_printer_en.ppd
+# ppd_file_name=ppds/brother_${printer_model}_printer_en.ppd
 
 #
 #	create temporary CUPS Filter
@@ -68,7 +68,7 @@ fi
 PPDC=\`printenv | grep "PPD="\`
 PPDC=\`echo \$PPDC | sed -e 's/PPD=//'\`
 
-if [ "\$PPDC" = "" ]; then
+if [ "\$PPDC" = " ]; then
     PPDC="/usr/share/cups/model/Brother/brother_${printer_model}_printer_en.ppd"
 fi
 
@@ -161,7 +161,7 @@ if [ \$DEBUG -lt 10 ]; then
 
     if [ \$LOGLEVEL -gt 2 ];  then
 	   if [ \$LOGFILE != "/dev/null" ]; then
-	     echo ""                                                >>\$LOGFILE
+	     echo ""                                               >>\$LOGFILE
 	     echo "    ------PostScript Data-------"                >>\$LOGFILE
 	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
 	   fi

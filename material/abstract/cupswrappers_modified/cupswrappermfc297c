@@ -36,7 +36,7 @@ elif [  -e /etc/init.d/cupsys ]; then
    /etc/init.d/cupsys restart
 fi
 #  /etc/init.d/cups restart
-  exit 0
+exit 0
 fi
 if [ "$1" = "-r" ]; then
   lpadmin -x ${printer_name}
@@ -46,14 +46,14 @@ elif [  -e /etc/init.d/cupsys ]; then
    /etc/init.d/cupsys restart
 fi
 #  /etc/init.d/cups restart
-  exit 0
+exit 0
 fi
 if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
   echo   'option -h : help'
   echo   '       -i : install'
   echo   '       -e : uninstall'
   echo   '       -r : remove printer'
-  exit 0
+exit 0
 fi
 #mkdir -p /usr/local/Brother/${device_model}/${printer_model}/filter
 #mkdir -p /usr/lib/cups/filter
@@ -65,7 +65,7 @@ else
 fi
 rm -f /usr/share/cups/model/br${printer_model}.ppd
 if [ -d "/usr/share/cups/model" ]; then
-  ppd_file_name=/usr/share/cups/model/br${printer_model}.ppd
+# ppd_file_name=ppds/br${printer_model}.ppd
 else
   ppd_file_name=/usr/share/ppd/br${printer_model}.ppd
 fi
@@ -235,7 +235,7 @@ cat <<ENDOFPPDFILE1 >$ppd_file_name
 *%==== Custom Page Sizes ====================
 *NonUIOrderDependency: 40 AnySetup *CustomPageSize
 *VariablePaperSize: True
-*LeadingEdge Short: ""
+*LeadingEdge Short: "
 *MaxMediaWidth: "612"
 *MaxMediaHeight: "1008"
 *HWMargins: 8.5 8.5 8.5 8.5
@@ -265,16 +265,16 @@ cat <<ENDOFPPDFILE1 >$ppd_file_name
 *OpenUI *BRMonoColor/Color/Grayscale: PickOne
 *OrderDependency: 15 AnySetup *BRMonoColor
 *DefaultBRMonoColor: Color
-*BRMonoColor Color/Color: ""
-*BRMonoColor Mono/Grayscale: ""
+*BRMonoColor Color/Color: "
+*BRMonoColor Mono/Grayscale: "
 *CloseUI: *BRMonoColor
 
 *%=== SlowDrying ================================
 *OpenUI *BRSlowDrying/Slow Drying Paper: PickOne
 *OrderDependency: 31 AnySetup *BRSlowDrying
 *DefaultBRSlowDrying: OFF
-*BRSlowDrying OFF/OFF: ""
-*BRSlowDrying ON/ON: ""
+*BRSlowDrying OFF/OFF: "
+*BRSlowDrying ON/ON: "
 *CloseUI: *BRSlowDrying
 
 *%=== Media Type ================================
@@ -295,24 +295,24 @@ cat <<ENDOFPPDFILE1 >$ppd_file_name
 *OpenUI *BRColorPaperThick/Paper Thickness: PickOne
 *OrderDependency: 17 AnySetup *BRColorPaperThick
 *DefaultBRColorPaperThick: Regular
-*BRColorPaperThick Regular/Regular: ""
-*BRColorPaperThick Thick/Thick: ""
+*BRColorPaperThick Regular/Regular: "
+*BRColorPaperThick Thick/Thick: "
 *CloseUI: *BRColorPaperThick
 
 *%=== Bi-DirKey ================================
 *OpenUI *BRBiDir/Bi-Directional Printing: PickOne
 *OrderDependency: 18 AnySetup *BRColorPaperThick
 *DefaultBRBiDir: ON
-*BRBiDir OFF/OFF: ""
-*BRBiDir ON/ON: ""
+*BRBiDir OFF/OFF: "
+*BRBiDir ON/ON: "
 *CloseUI: *BRBiDir
 
 *%=== Reverse Printing ================================
 *OpenUI *BRReverse/Reverse Printing: PickOne
 *OrderDependency: 19 AnySetup *BRReverse
 *DefaultBRReverse: OFF
-*BRReverse OFF/OFF: ""
-*BRReverse ON/ON: ""
+*BRReverse OFF/OFF: "
+*BRReverse ON/ON: "
 *CloseUI: *BRReverse
 
 *%=== Mirror Printing ================================
@@ -327,9 +327,9 @@ cat <<ENDOFPPDFILE1 >$ppd_file_name
 *OpenUI *BRJpeg/Data Transfer Mode: PickOne
 *OrderDependency: 22 AnySetup *BRJpeg
 *DefaultBRJpeg: Recommended
-*BRJpeg Recommended/Recommended Setting: ""
-*BRJpeg QualityPrior/Improved Print Quality: ""
-*BRJpeg SpeedPrior/Improved Print Speed: ""
+*BRJpeg Recommended/Recommended Setting: "
+*BRJpeg QualityPrior/Improved Print Quality: "
+*BRJpeg SpeedPrior/Improved Print Speed: "
 *CloseUI: *BRJpeg
 
 *OpenGroup:Image Type
@@ -337,17 +337,17 @@ cat <<ENDOFPPDFILE1 >$ppd_file_name
 *OpenUI *BRColorMatching/Color Mode: PickOne
 *OrderDependency: 21 AnySetup *BRColorMatching
 *DefaultBRColorMatching: Natural
-*BRColorMatching Natural/Natural: ""
-*BRColorMatching Vivid/Vivid: ""
-*BRColorMatching None/None: ""
+*BRColorMatching Natural/Natural: "
+*BRColorMatching Vivid/Vivid: "
+*BRColorMatching None/None: "
 *CloseUI: *BRColorMatching
 
 *%=== Half Tone Pattern ================================
 *OpenUI *BRHalfTonePattern/Halftone Pattern: PickOne
 *OrderDependency: 23 AnySetup * BRHalfTonePattern
 *DefaultBRHalfTonePattern: Diffusion
-*BRHalfTonePattern Diffusion/Diffusion: ""
-*BRHalfTonePattern Dither/Dither: ""
+*BRHalfTonePattern Diffusion/Diffusion: "
+*BRHalfTonePattern Dither/Dither: "
 *CloseUI: *BRHalfTonePattern
 
 *CloseGroup:Image Type
@@ -357,243 +357,243 @@ cat <<ENDOFPPDFILE1 >$ppd_file_name
 *OpenUI *BRColorEnhancement/     Color Enhancement(True2Life): PickOne
 *OrderDependency: 24 AnySetup *BRColorEnhancement
 *DefaultBRColorEnhancement: OFF
-*BRColorEnhancement OFF/OFF: ""
-*BRColorEnhancement ON/ON: ""
+*BRColorEnhancement OFF/OFF: "
+*BRColorEnhancement ON/ON: "
 *CloseUI: *BRColorEnhancement
 
 *%=== Brightness ================================
 *OpenUI *BRBrightness/    Brightness: PickOne
 *OrderDependency: 25 AnySetup *BRBrightness
 *DefaultBRBrightness: 0
-*BRBrightness -20/-20: ""
-*BRBrightness -19/-19: ""
-*BRBrightness -18/-18: ""
-*BRBrightness -17/-17: ""
-*BRBrightness -16/-16: ""
-*BRBrightness -15/-15: ""
-*BRBrightness -14/-14: ""
-*BRBrightness -13/-13: ""
-*BRBrightness -12/-12: ""
-*BRBrightness -11/-11: ""
-*BRBrightness -10/-10: ""
-*BRBrightness -9/-9: ""
-*BRBrightness -8/-8: ""
-*BRBrightness -7/-7: ""
-*BRBrightness -6/-6: ""
-*BRBrightness -5/-5: ""
-*BRBrightness -4/-4: ""
-*BRBrightness -3/-3: ""
-*BRBrightness -2/-2: ""
-*BRBrightness -1/-1: ""
-*BRBrightness 0/0: ""
-*BRBrightness 1/1: ""
-*BRBrightness 2/2: ""
-*BRBrightness 3/3: ""
-*BRBrightness 4/4: ""
-*BRBrightness 5/5: ""
-*BRBrightness 6/6: ""
-*BRBrightness 7/7: ""
-*BRBrightness 8/8: ""
-*BRBrightness 9/9: ""
-*BRBrightness 10/10: ""
-*BRBrightness 11/11: ""
-*BRBrightness 12/12: ""
-*BRBrightness 13/13: ""
-*BRBrightness 14/14: ""
-*BRBrightness 15/15: ""
-*BRBrightness 16/16: ""
-*BRBrightness 17/17: ""
-*BRBrightness 18/18: ""
-*BRBrightness 19/19: ""
-*BRBrightness 20/20: ""
+*BRBrightness -20/-20: "
+*BRBrightness -19/-19: "
+*BRBrightness -18/-18: "
+*BRBrightness -17/-17: "
+*BRBrightness -16/-16: "
+*BRBrightness -15/-15: "
+*BRBrightness -14/-14: "
+*BRBrightness -13/-13: "
+*BRBrightness -12/-12: "
+*BRBrightness -11/-11: "
+*BRBrightness -10/-10: "
+*BRBrightness -9/-9: "
+*BRBrightness -8/-8: "
+*BRBrightness -7/-7: "
+*BRBrightness -6/-6: "
+*BRBrightness -5/-5: "
+*BRBrightness -4/-4: "
+*BRBrightness -3/-3: "
+*BRBrightness -2/-2: "
+*BRBrightness -1/-1: "
+*BRBrightness 0/0: "
+*BRBrightness 1/1: "
+*BRBrightness 2/2: "
+*BRBrightness 3/3: "
+*BRBrightness 4/4: "
+*BRBrightness 5/5: "
+*BRBrightness 6/6: "
+*BRBrightness 7/7: "
+*BRBrightness 8/8: "
+*BRBrightness 9/9: "
+*BRBrightness 10/10: "
+*BRBrightness 11/11: "
+*BRBrightness 12/12: "
+*BRBrightness 13/13: "
+*BRBrightness 14/14: "
+*BRBrightness 15/15: "
+*BRBrightness 16/16: "
+*BRBrightness 17/17: "
+*BRBrightness 18/18: "
+*BRBrightness 19/19: "
+*BRBrightness 20/20: "
 *CloseUI: *BRBrightness
 
 *%=== Contrast ================================
 *OpenUI *BRContrast/   Contrast: PickOne
 *OrderDependency: 26 AnySetup *BRContrast
 *DefaultBRContrast: 0
-*BRContrast -20/-20: ""
-*BRContrast -19/-19: ""
-*BRContrast -18/-18: ""
-*BRContrast -17/-17: ""
-*BRContrast -16/-16: ""
-*BRContrast -15/-15: ""
-*BRContrast -14/-14: ""
-*BRContrast -13/-13: ""
-*BRContrast -12/-12: ""
-*BRContrast -11/-11: ""
-*BRContrast -10/-10: ""
-*BRContrast -9/-9: ""
-*BRContrast -8/-8: ""
-*BRContrast -7/-7: ""
-*BRContrast -6/-6: ""
-*BRContrast -5/-5: ""
-*BRContrast -4/-4: ""
-*BRContrast -3/-3: ""
-*BRContrast -2/-2: ""
-*BRContrast -1/-1: ""
-*BRContrast 0/0: ""
-*BRContrast 1/1: ""
-*BRContrast 2/2: ""
-*BRContrast 3/3: ""
-*BRContrast 4/4: ""
-*BRContrast 5/5: ""
-*BRContrast 6/6: ""
-*BRContrast 7/7: ""
-*BRContrast 8/8: ""
-*BRContrast 9/9: ""
-*BRContrast 10/10: ""
-*BRContrast 11/11: ""
-*BRContrast 12/12: ""
-*BRContrast 13/13: ""
-*BRContrast 14/14: ""
-*BRContrast 15/15: ""
-*BRContrast 16/16: ""
-*BRContrast 17/17: ""
-*BRContrast 18/18: ""
-*BRContrast 19/19: ""
-*BRContrast 20/20: ""
+*BRContrast -20/-20: "
+*BRContrast -19/-19: "
+*BRContrast -18/-18: "
+*BRContrast -17/-17: "
+*BRContrast -16/-16: "
+*BRContrast -15/-15: "
+*BRContrast -14/-14: "
+*BRContrast -13/-13: "
+*BRContrast -12/-12: "
+*BRContrast -11/-11: "
+*BRContrast -10/-10: "
+*BRContrast -9/-9: "
+*BRContrast -8/-8: "
+*BRContrast -7/-7: "
+*BRContrast -6/-6: "
+*BRContrast -5/-5: "
+*BRContrast -4/-4: "
+*BRContrast -3/-3: "
+*BRContrast -2/-2: "
+*BRContrast -1/-1: "
+*BRContrast 0/0: "
+*BRContrast 1/1: "
+*BRContrast 2/2: "
+*BRContrast 3/3: "
+*BRContrast 4/4: "
+*BRContrast 5/5: "
+*BRContrast 6/6: "
+*BRContrast 7/7: "
+*BRContrast 8/8: "
+*BRContrast 9/9: "
+*BRContrast 10/10: "
+*BRContrast 11/11: "
+*BRContrast 12/12: "
+*BRContrast 13/13: "
+*BRContrast 14/14: "
+*BRContrast 15/15: "
+*BRContrast 16/16: "
+*BRContrast 17/17: "
+*BRContrast 18/18: "
+*BRContrast 19/19: "
+*BRContrast 20/20: "
 *CloseUI: *BRContrast
 
 *%=== Red ================================
 *OpenUI *BRRed/  Red: PickOne
 *OrderDependency: 27 AnySetup *BRRed
 *DefaultBRRed: 0
-*BRRed -20/-20: ""
-*BRRed -19/-19: ""
-*BRRed -18/-18: ""
-*BRRed -17/-17: ""
-*BRRed -16/-16: ""
-*BRRed -15/-15: ""
-*BRRed -14/-14: ""
-*BRRed -13/-13: ""
-*BRRed -12/-12: ""
-*BRRed -11/-11: ""
-*BRRed -10/-10: ""
-*BRRed -9/-9: ""
-*BRRed -8/-8: ""
-*BRRed -7/-7: ""
-*BRRed -6/-6: ""
-*BRRed -5/-5: ""
-*BRRed -4/-4: ""
-*BRRed -3/-3: ""
-*BRRed -2/-2: ""
-*BRRed -1/-1: ""
-*BRRed 0/0: ""
-*BRRed 1/1: ""
-*BRRed 2/2: ""
-*BRRed 3/3: ""
-*BRRed 4/4: ""
-*BRRed 5/5: ""
-*BRRed 6/6: ""
-*BRRed 7/7: ""
-*BRRed 8/8: ""
-*BRRed 9/9: ""
-*BRRed 10/10: ""
-*BRRed 11/11: ""
-*BRRed 12/12: ""
-*BRRed 13/13: ""
-*BRRed 14/14: ""
-*BRRed 15/15: ""
-*BRRed 16/16: ""
-*BRRed 17/17: ""
-*BRRed 18/18: ""
-*BRRed 19/19: ""
-*BRRed 20/20: ""
+*BRRed -20/-20: "
+*BRRed -19/-19: "
+*BRRed -18/-18: "
+*BRRed -17/-17: "
+*BRRed -16/-16: "
+*BRRed -15/-15: "
+*BRRed -14/-14: "
+*BRRed -13/-13: "
+*BRRed -12/-12: "
+*BRRed -11/-11: "
+*BRRed -10/-10: "
+*BRRed -9/-9: "
+*BRRed -8/-8: "
+*BRRed -7/-7: "
+*BRRed -6/-6: "
+*BRRed -5/-5: "
+*BRRed -4/-4: "
+*BRRed -3/-3: "
+*BRRed -2/-2: "
+*BRRed -1/-1: "
+*BRRed 0/0: "
+*BRRed 1/1: "
+*BRRed 2/2: "
+*BRRed 3/3: "
+*BRRed 4/4: "
+*BRRed 5/5: "
+*BRRed 6/6: "
+*BRRed 7/7: "
+*BRRed 8/8: "
+*BRRed 9/9: "
+*BRRed 10/10: "
+*BRRed 11/11: "
+*BRRed 12/12: "
+*BRRed 13/13: "
+*BRRed 14/14: "
+*BRRed 15/15: "
+*BRRed 16/16: "
+*BRRed 17/17: "
+*BRRed 18/18: "
+*BRRed 19/19: "
+*BRRed 20/20: "
 *CloseUI: *BRRed
 
 *%=== Green ================================
 *OpenUI *BRGreen/ Green: PickOne
 *OrderDependency: 28 AnySetup *BRGreen
 *DefaultBRGreen: 0
-*BRGreen -20/-20: ""
-*BRGreen -19/-19: ""
-*BRGreen -18/-18: ""
-*BRGreen -17/-17: ""
-*BRGreen -16/-16: ""
-*BRGreen -15/-15: ""
-*BRGreen -14/-14: ""
-*BRGreen -13/-13: ""
-*BRGreen -12/-12: ""
-*BRGreen -11/-11: ""
-*BRGreen -10/-10: ""
-*BRGreen -9/-9: ""
-*BRGreen -8/-8: ""
-*BRGreen -7/-7: ""
-*BRGreen -6/-6: ""
-*BRGreen -5/-5: ""
-*BRGreen -4/-4: ""
-*BRGreen -3/-3: ""
-*BRGreen -2/-2: ""
-*BRGreen -1/-1: ""
-*BRGreen 0/0: ""
-*BRGreen 1/1: ""
-*BRGreen 2/2: ""
-*BRGreen 3/3: ""
-*BRGreen 4/4: ""
-*BRGreen 5/5: ""
-*BRGreen 6/6: ""
-*BRGreen 7/7: ""
-*BRGreen 8/8: ""
-*BRGreen 9/9: ""
-*BRGreen 10/10: ""
-*BRGreen 11/11: ""
-*BRGreen 12/12: ""
-*BRGreen 13/13: ""
-*BRGreen 14/14: ""
-*BRGreen 15/15: ""
-*BRGreen 16/16: ""
-*BRGreen 17/17: ""
-*BRGreen 18/18: ""
-*BRGreen 19/19: ""
-*BRGreen 20/20: ""
+*BRGreen -20/-20: "
+*BRGreen -19/-19: "
+*BRGreen -18/-18: "
+*BRGreen -17/-17: "
+*BRGreen -16/-16: "
+*BRGreen -15/-15: "
+*BRGreen -14/-14: "
+*BRGreen -13/-13: "
+*BRGreen -12/-12: "
+*BRGreen -11/-11: "
+*BRGreen -10/-10: "
+*BRGreen -9/-9: "
+*BRGreen -8/-8: "
+*BRGreen -7/-7: "
+*BRGreen -6/-6: "
+*BRGreen -5/-5: "
+*BRGreen -4/-4: "
+*BRGreen -3/-3: "
+*BRGreen -2/-2: "
+*BRGreen -1/-1: "
+*BRGreen 0/0: "
+*BRGreen 1/1: "
+*BRGreen 2/2: "
+*BRGreen 3/3: "
+*BRGreen 4/4: "
+*BRGreen 5/5: "
+*BRGreen 6/6: "
+*BRGreen 7/7: "
+*BRGreen 8/8: "
+*BRGreen 9/9: "
+*BRGreen 10/10: "
+*BRGreen 11/11: "
+*BRGreen 12/12: "
+*BRGreen 13/13: "
+*BRGreen 14/14: "
+*BRGreen 15/15: "
+*BRGreen 16/16: "
+*BRGreen 17/17: "
+*BRGreen 18/18: "
+*BRGreen 19/19: "
+*BRGreen 20/20: "
 *CloseUI: *BRGreen
 
 *%=== Blue ================================
 *OpenUI *BRBlue/Blue: PickOne
 *OrderDependency: 29 AnySetup *BRBlue
 *DefaultBRBlue: 0
-*BRBlue -20/-20: ""
-*BRBlue -19/-19: ""
-*BRBlue -18/-18: ""
-*BRBlue -17/-17: ""
-*BRBlue -16/-16: ""
-*BRBlue -15/-15: ""
-*BRBlue -14/-14: ""
-*BRBlue -13/-13: ""
-*BRBlue -12/-12: ""
-*BRBlue -11/-11: ""
-*BRBlue -10/-10: ""
-*BRBlue -9/-9: ""
-*BRBlue -8/-8: ""
-*BRBlue -7/-7: ""
-*BRBlue -6/-6: ""
-*BRBlue -5/-5: ""
-*BRBlue -4/-4: ""
-*BRBlue -3/-3: ""
-*BRBlue -2/-2: ""
-*BRBlue -1/-1: ""
-*BRBlue 0/0: ""
-*BRBlue 1/1: ""
-*BRBlue 2/2: ""
-*BRBlue 3/3: ""
-*BRBlue 4/4: ""
-*BRBlue 5/5: ""
-*BRBlue 6/6: ""
-*BRBlue 7/7: ""
-*BRBlue 8/8: ""
-*BRBlue 9/9: ""
-*BRBlue 10/10: ""
-*BRBlue 11/11: ""
-*BRBlue 12/12: ""
-*BRBlue 13/13: ""
-*BRBlue 14/14: ""
-*BRBlue 15/15: ""
-*BRBlue 16/16: ""
-*BRBlue 17/17: ""
-*BRBlue 18/18: ""
-*BRBlue 19/19: ""
-*BRBlue 20/20: ""
+*BRBlue -20/-20: "
+*BRBlue -19/-19: "
+*BRBlue -18/-18: "
+*BRBlue -17/-17: "
+*BRBlue -16/-16: "
+*BRBlue -15/-15: "
+*BRBlue -14/-14: "
+*BRBlue -13/-13: "
+*BRBlue -12/-12: "
+*BRBlue -11/-11: "
+*BRBlue -10/-10: "
+*BRBlue -9/-9: "
+*BRBlue -8/-8: "
+*BRBlue -7/-7: "
+*BRBlue -6/-6: "
+*BRBlue -5/-5: "
+*BRBlue -4/-4: "
+*BRBlue -3/-3: "
+*BRBlue -2/-2: "
+*BRBlue -1/-1: "
+*BRBlue 0/0: "
+*BRBlue 1/1: "
+*BRBlue 2/2: "
+*BRBlue 3/3: "
+*BRBlue 4/4: "
+*BRBlue 5/5: "
+*BRBlue 6/6: "
+*BRBlue 7/7: "
+*BRBlue 8/8: "
+*BRBlue 9/9: "
+*BRBlue 10/10: "
+*BRBlue 11/11: "
+*BRBlue 12/12: "
+*BRBlue 13/13: "
+*BRBlue 14/14: "
+*BRBlue 15/15: "
+*BRBlue 16/16: "
+*BRBlue 17/17: "
+*BRBlue 18/18: "
+*BRBlue 19/19: "
+*BRBlue 20/20: "
 *CloseUI: *BRBlue
 
 *CloseGroup:Color Enhancement
@@ -712,7 +712,7 @@ fi
 
 if [ -d /usr/lib/cups/filter ]
 then
-	brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapper${printer_model}
+brotherlpdwrapper=filters/brlpdwrapper${printer_model}
 else
 	brotherlpdwrapper=/usr/lib64/cups/filter/brlpdwrapper${printer_model}
 fi
@@ -758,7 +758,7 @@ fi
 PPDC=\`printenv | grep "PPD="\`
 PPDC=\`echo \$PPDC | sed -e 's/PPD=//'\`
 
-if [ "\$PPDC" = "" ]; then
+if [ "\$PPDC" = " ]; then
     PPDC="/usr/share/cups/model/br${printer_model}.ppd"
 fi
 
@@ -851,7 +851,7 @@ if [ \$DEBUG -lt 10 ]; then
 
     if [ \$LOGLEVEL -gt 2 ];  then
 	   if [ \$LOGFILE != "/dev/null" ]; then
-	     echo ""                                                >>\$LOGFILE
+	     echo ""                                               >>\$LOGFILE
 	     echo "    ------PostScript Data-------"                >>\$LOGFILE
 	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
 	   fi

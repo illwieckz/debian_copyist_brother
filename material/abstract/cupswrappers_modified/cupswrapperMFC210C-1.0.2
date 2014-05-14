@@ -55,7 +55,7 @@ if(!(-e "/usr/local/Brother/lpd/filterMFC210C")) then
   echo "ERROR : Brother LPD filter is not installed."
 endif
 rm -f /usr/share/cups/model/brmfc210c_cups.ppd
-set  ppd_file_name=/usr/share/cups/model/brmfc210c_cups.ppd
+set ppd_file_name=ppds/brmfc210c_cups.ppd
 
 touch $ppd_file_name
 
@@ -250,308 +250,308 @@ echo '*%=== MonoOrColor ================================'                       
 echo '*OpenUI *BRMonoColor/Color/Grayscale: PickOne'                                    >>$ppd_file_name
 echo '*OrderDependency: 15 AnySetup *BRMonoColor'                                       >>$ppd_file_name
 echo '*DefaultBRMonoColor: Color'                                                       >>$ppd_file_name
-echo '*BRMonoColor Color/Color: ""'                                                     >>$ppd_file_name
-echo '*BRMonoColor Mono/Grayscale: ""'                                                  >>$ppd_file_name
+echo '*BRMonoColor Color/Color: "'                                                     >>$ppd_file_name
+echo '*BRMonoColor Mono/Grayscale: "'                                                  >>$ppd_file_name
 echo '*CloseUI: *BRMonoColor'                                                           >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Paper Thick ================================'                               >>$ppd_file_name
 echo '*OpenUI *BRColorPaperThick/Paper Thickness: PickOne'                              >>$ppd_file_name
 echo '*OrderDependency: 17 AnySetup *BRColorPaperThick'                                 >>$ppd_file_name
 echo '*DefaultBRColorPaperThick: Regular'                                               >>$ppd_file_name
-echo '*BRColorPaperThick Regular/Regular: ""'                                           >>$ppd_file_name
-echo '*BRColorPaperThick Thick/Thick: ""'                                               >>$ppd_file_name
+echo '*BRColorPaperThick Regular/Regular: "'                                           >>$ppd_file_name
+echo '*BRColorPaperThick Thick/Thick: "'                                               >>$ppd_file_name
 echo '*CloseUI: *BRColorPaperThick'                                                     >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Bi-DirKey ================================'                                 >>$ppd_file_name
 echo '*OpenUI *BRBiDir/Bi-Directional Printing: PickOne'                                >>$ppd_file_name
 echo '*OrderDependency: 18 AnySetup *BRColorPaperThick'                                 >>$ppd_file_name
 echo '*DefaultBRBiDir: ON'                                                              >>$ppd_file_name
-echo '*BRBiDir OFF/OFF: ""'                                                             >>$ppd_file_name
-echo '*BRBiDir ON/ON: ""'                                                               >>$ppd_file_name
+echo '*BRBiDir OFF/OFF: "'                                                             >>$ppd_file_name
+echo '*BRBiDir ON/ON: "'                                                               >>$ppd_file_name
 echo '*CloseUI: *BRBiDir'                                                               >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Mirror Printing ================================'                           >>$ppd_file_name
 echo '*OpenUI *BRMirror/Mirror Printing: PickOne'                                       >>$ppd_file_name
 echo '*OrderDependency: 20 AnySetup *BRMirror'                                          >>$ppd_file_name
 echo '*DefaultBRMirror: OFF'                                                            >>$ppd_file_name
-echo '*BRMirror OFF/OFF: ""'                                                            >>$ppd_file_name
-echo '*BRMirror ON/ON: ""'                                                              >>$ppd_file_name
+echo '*BRMirror OFF/OFF: "'                                                            >>$ppd_file_name
+echo '*BRMirror ON/ON: "'                                                              >>$ppd_file_name
 echo '*CloseUI: *BRMirror'                                                              >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Document ================================'                                  >>$ppd_file_name
 echo '*OpenUI *BRDocument/Document: PickOne'                                            >>$ppd_file_name
 echo '*OrderDependency: 21 AnySetup *BRDocument'                                        >>$ppd_file_name
 echo '*DefaultBRDocument: Photo'                                                        >>$ppd_file_name
-echo '*BRDocument Photo/Photo: ""'                                                      >>$ppd_file_name
-echo '*BRDocument Graphics/Graphics: ""'                                                >>$ppd_file_name
-echo '*BRDocument Custom/Custom: ""'                                                    >>$ppd_file_name
+echo '*BRDocument Photo/Photo: "'                                                      >>$ppd_file_name
+echo '*BRDocument Graphics/Graphics: "'                                                >>$ppd_file_name
+echo '*BRDocument Custom/Custom: "'                                                    >>$ppd_file_name
 echo '*CloseUI: *BRDocument'                                                            >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Color Matching ================================'                            >>$ppd_file_name
 echo '*OpenUI *BRColorMatching/Color Matching: PickOne'                                 >>$ppd_file_name
 echo '*OrderDependency: 22 AnySetup *BRColorMatching'                                   >>$ppd_file_name
 echo '*DefaultBRColorMatching: Natural'                                                 >>$ppd_file_name
-echo '*BRColorMatching Natural/Natural: ""'                                             >>$ppd_file_name
-echo '*BRColorMatching Vivid/Vivid: ""'                                                 >>$ppd_file_name
-echo '*BRColorMatching None/None: ""'                                                   >>$ppd_file_name
+echo '*BRColorMatching Natural/Natural: "'                                             >>$ppd_file_name
+echo '*BRColorMatching Vivid/Vivid: "'                                                 >>$ppd_file_name
+echo '*BRColorMatching None/None: "'                                                   >>$ppd_file_name
 echo '*CloseUI: *BRColorMatching'                                                       >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Half Tone Pattern ================================'                         >>$ppd_file_name
 echo '*OpenUI *BRHalfTonePattern/Half Tone Pattern: PickOne'                            >>$ppd_file_name
 echo '*OrderDependency: 23 AnySetup *BRHalfTonePattern'                                 >>$ppd_file_name
 echo '*DefaultBRHalfTonePattern: Diffusion'                                             >>$ppd_file_name
-echo '*BRHalfTonePattern Diffusion/Diffusion: ""'                                       >>$ppd_file_name
-echo '*BRHalfTonePattern Dither/Dither: ""'                                             >>$ppd_file_name
+echo '*BRHalfTonePattern Diffusion/Diffusion: "'                                       >>$ppd_file_name
+echo '*BRHalfTonePattern Dither/Dither: "'                                             >>$ppd_file_name
 echo '*CloseUI: *BRHalfTonePattern'                                                     >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== True2Life ================================'                                 >>$ppd_file_name
 echo '*OpenUI *BRColorEnhancement/Color Enhancement (True2Life): PickOne'               >>$ppd_file_name
 echo '*OrderDependency: 24 AnySetup *BRColorEnhancement'                                >>$ppd_file_name
 echo '*DefaultBRColorEnhancement: OFF'                                                  >>$ppd_file_name
-echo '*BRColorEnhancement OFF/OFF: ""'                                                  >>$ppd_file_name
-echo '*BRColorEnhancement ON/ON: ""'                                                    >>$ppd_file_name
+echo '*BRColorEnhancement OFF/OFF: "'                                                  >>$ppd_file_name
+echo '*BRColorEnhancement ON/ON: "'                                                    >>$ppd_file_name
 echo '*CloseUI: *BRColorEnhancement'                                                    >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Brightness ================================'                                >>$ppd_file_name
 echo '*OpenUI *BRBrightness/Brightness: PickOne'                                        >>$ppd_file_name
 echo '*OrderDependency: 25 AnySetup *BRBrightness'                                      >>$ppd_file_name
 echo '*DefaultBRBrightness: 0'                                                          >>$ppd_file_name
-echo '*BRBrightness -20/-20: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -19/-19: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -18/-18: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -17/-17: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -16/-16: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -15/-15: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -14/-14: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -13/-13: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -12/-12: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -11/-11: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -10/-10: ""'                                                        >>$ppd_file_name
-echo '*BRBrightness -9/-9: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness -8/-8: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness -7/-7: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness -6/-6: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness -5/-5: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness -4/-4: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness -3/-3: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness -2/-2: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness -1/-1: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 0/0: ""'                                                            >>$ppd_file_name
-echo '*BRBrightness 1/1: ""'                                                            >>$ppd_file_name
-echo '*BRBrightness 2/2: ""'                                                            >>$ppd_file_name
-echo '*BRBrightness 3/3: ""'                                                            >>$ppd_file_name
-echo '*BRBrightness 4/4: ""'                                                            >>$ppd_file_name
-echo '*BRBrightness 5/5: ""'                                                            >>$ppd_file_name
-echo '*BRBrightness 6/6: ""'                                                            >>$ppd_file_name
-echo '*BRBrightness 7/7: ""'                                                            >>$ppd_file_name
-echo '*BRBrightness 8/8: ""'                                                            >>$ppd_file_name
-echo '*BRBrightness 9/9: ""'                                                            >>$ppd_file_name
-echo '*BRBrightness 10/10: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 11/11: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 12/12: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 13/13: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 14/14: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 15/15: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 16/16: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 17/17: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 18/18: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 19/19: ""'                                                          >>$ppd_file_name
-echo '*BRBrightness 20/20: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness -20/-20: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -19/-19: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -18/-18: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -17/-17: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -16/-16: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -15/-15: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -14/-14: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -13/-13: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -12/-12: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -11/-11: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -10/-10: "'                                                        >>$ppd_file_name
+echo '*BRBrightness -9/-9: "'                                                          >>$ppd_file_name
+echo '*BRBrightness -8/-8: "'                                                          >>$ppd_file_name
+echo '*BRBrightness -7/-7: "'                                                          >>$ppd_file_name
+echo '*BRBrightness -6/-6: "'                                                          >>$ppd_file_name
+echo '*BRBrightness -5/-5: "'                                                          >>$ppd_file_name
+echo '*BRBrightness -4/-4: "'                                                          >>$ppd_file_name
+echo '*BRBrightness -3/-3: "'                                                          >>$ppd_file_name
+echo '*BRBrightness -2/-2: "'                                                          >>$ppd_file_name
+echo '*BRBrightness -1/-1: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 0/0: "'                                                            >>$ppd_file_name
+echo '*BRBrightness 1/1: "'                                                            >>$ppd_file_name
+echo '*BRBrightness 2/2: "'                                                            >>$ppd_file_name
+echo '*BRBrightness 3/3: "'                                                            >>$ppd_file_name
+echo '*BRBrightness 4/4: "'                                                            >>$ppd_file_name
+echo '*BRBrightness 5/5: "'                                                            >>$ppd_file_name
+echo '*BRBrightness 6/6: "'                                                            >>$ppd_file_name
+echo '*BRBrightness 7/7: "'                                                            >>$ppd_file_name
+echo '*BRBrightness 8/8: "'                                                            >>$ppd_file_name
+echo '*BRBrightness 9/9: "'                                                            >>$ppd_file_name
+echo '*BRBrightness 10/10: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 11/11: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 12/12: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 13/13: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 14/14: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 15/15: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 16/16: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 17/17: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 18/18: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 19/19: "'                                                          >>$ppd_file_name
+echo '*BRBrightness 20/20: "'                                                          >>$ppd_file_name
 echo '*CloseUI: *BRBrightness'                                                          >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Contrast ================================'                                  >>$ppd_file_name
 echo '*OpenUI *BRContrast/Contrast: PickOne'                                            >>$ppd_file_name
 echo '*OrderDependency: 26 AnySetup *BRContrast'                                        >>$ppd_file_name
 echo '*DefaultBRContrast: 0'                                                            >>$ppd_file_name
-echo '*BRContrast -20/-20: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -19/-19: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -18/-18: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -17/-17: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -16/-16: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -15/-15: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -14/-14: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -13/-13: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -12/-12: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -11/-11: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -10/-10: ""'                                                          >>$ppd_file_name
-echo '*BRContrast -9/-9: ""'                                                            >>$ppd_file_name
-echo '*BRContrast -8/-8: ""'                                                            >>$ppd_file_name
-echo '*BRContrast -7/-7: ""'                                                            >>$ppd_file_name
-echo '*BRContrast -6/-6: ""'                                                            >>$ppd_file_name
-echo '*BRContrast -5/-5: ""'                                                            >>$ppd_file_name
-echo '*BRContrast -4/-4: ""'                                                            >>$ppd_file_name
-echo '*BRContrast -3/-3: ""'                                                            >>$ppd_file_name
-echo '*BRContrast -2/-2: ""'                                                            >>$ppd_file_name
-echo '*BRContrast -1/-1: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 0/0: ""'                                                              >>$ppd_file_name
-echo '*BRContrast 1/1: ""'                                                              >>$ppd_file_name
-echo '*BRContrast 2/2: ""'                                                              >>$ppd_file_name
-echo '*BRContrast 3/3: ""'                                                              >>$ppd_file_name
-echo '*BRContrast 4/4: ""'                                                              >>$ppd_file_name
-echo '*BRContrast 5/5: ""'                                                              >>$ppd_file_name
-echo '*BRContrast 6/6: ""'                                                              >>$ppd_file_name
-echo '*BRContrast 7/7: ""'                                                              >>$ppd_file_name
-echo '*BRContrast 8/8: ""'                                                              >>$ppd_file_name
-echo '*BRContrast 9/9: ""'                                                              >>$ppd_file_name
-echo '*BRContrast 10/10: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 11/11: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 12/12: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 13/13: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 14/14: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 15/15: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 16/16: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 17/17: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 18/18: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 19/19: ""'                                                            >>$ppd_file_name
-echo '*BRContrast 20/20: ""'                                                            >>$ppd_file_name
+echo '*BRContrast -20/-20: "'                                                          >>$ppd_file_name
+echo '*BRContrast -19/-19: "'                                                          >>$ppd_file_name
+echo '*BRContrast -18/-18: "'                                                          >>$ppd_file_name
+echo '*BRContrast -17/-17: "'                                                          >>$ppd_file_name
+echo '*BRContrast -16/-16: "'                                                          >>$ppd_file_name
+echo '*BRContrast -15/-15: "'                                                          >>$ppd_file_name
+echo '*BRContrast -14/-14: "'                                                          >>$ppd_file_name
+echo '*BRContrast -13/-13: "'                                                          >>$ppd_file_name
+echo '*BRContrast -12/-12: "'                                                          >>$ppd_file_name
+echo '*BRContrast -11/-11: "'                                                          >>$ppd_file_name
+echo '*BRContrast -10/-10: "'                                                          >>$ppd_file_name
+echo '*BRContrast -9/-9: "'                                                            >>$ppd_file_name
+echo '*BRContrast -8/-8: "'                                                            >>$ppd_file_name
+echo '*BRContrast -7/-7: "'                                                            >>$ppd_file_name
+echo '*BRContrast -6/-6: "'                                                            >>$ppd_file_name
+echo '*BRContrast -5/-5: "'                                                            >>$ppd_file_name
+echo '*BRContrast -4/-4: "'                                                            >>$ppd_file_name
+echo '*BRContrast -3/-3: "'                                                            >>$ppd_file_name
+echo '*BRContrast -2/-2: "'                                                            >>$ppd_file_name
+echo '*BRContrast -1/-1: "'                                                            >>$ppd_file_name
+echo '*BRContrast 0/0: "'                                                              >>$ppd_file_name
+echo '*BRContrast 1/1: "'                                                              >>$ppd_file_name
+echo '*BRContrast 2/2: "'                                                              >>$ppd_file_name
+echo '*BRContrast 3/3: "'                                                              >>$ppd_file_name
+echo '*BRContrast 4/4: "'                                                              >>$ppd_file_name
+echo '*BRContrast 5/5: "'                                                              >>$ppd_file_name
+echo '*BRContrast 6/6: "'                                                              >>$ppd_file_name
+echo '*BRContrast 7/7: "'                                                              >>$ppd_file_name
+echo '*BRContrast 8/8: "'                                                              >>$ppd_file_name
+echo '*BRContrast 9/9: "'                                                              >>$ppd_file_name
+echo '*BRContrast 10/10: "'                                                            >>$ppd_file_name
+echo '*BRContrast 11/11: "'                                                            >>$ppd_file_name
+echo '*BRContrast 12/12: "'                                                            >>$ppd_file_name
+echo '*BRContrast 13/13: "'                                                            >>$ppd_file_name
+echo '*BRContrast 14/14: "'                                                            >>$ppd_file_name
+echo '*BRContrast 15/15: "'                                                            >>$ppd_file_name
+echo '*BRContrast 16/16: "'                                                            >>$ppd_file_name
+echo '*BRContrast 17/17: "'                                                            >>$ppd_file_name
+echo '*BRContrast 18/18: "'                                                            >>$ppd_file_name
+echo '*BRContrast 19/19: "'                                                            >>$ppd_file_name
+echo '*BRContrast 20/20: "'                                                            >>$ppd_file_name
 echo '*CloseUI: *BRContrast'                                                            >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Red ================================'                                       >>$ppd_file_name
 echo '*OpenUI *BRRed/Red: PickOne'                                                      >>$ppd_file_name
 echo '*OrderDependency: 27 AnySetup *BRRed'                                             >>$ppd_file_name
 echo '*DefaultBRRed: 0'                                                                 >>$ppd_file_name
-echo '*BRRed -20/-20: ""'                                                               >>$ppd_file_name
-echo '*BRRed -19/-19: ""'                                                               >>$ppd_file_name
-echo '*BRRed -18/-18: ""'                                                               >>$ppd_file_name
-echo '*BRRed -17/-17: ""'                                                               >>$ppd_file_name
-echo '*BRRed -16/-16: ""'                                                               >>$ppd_file_name
-echo '*BRRed -15/-15: ""'                                                               >>$ppd_file_name
-echo '*BRRed -14/-14: ""'                                                               >>$ppd_file_name
-echo '*BRRed -13/-13: ""'                                                               >>$ppd_file_name
-echo '*BRRed -12/-12: ""'                                                               >>$ppd_file_name
-echo '*BRRed -11/-11: ""'                                                               >>$ppd_file_name
-echo '*BRRed -10/-10: ""'                                                               >>$ppd_file_name
-echo '*BRRed -9/-9: ""'                                                                 >>$ppd_file_name
-echo '*BRRed -8/-8: ""'                                                                 >>$ppd_file_name
-echo '*BRRed -7/-7: ""'                                                                 >>$ppd_file_name
-echo '*BRRed -6/-6: ""'                                                                 >>$ppd_file_name
-echo '*BRRed -5/-5: ""'                                                                 >>$ppd_file_name
-echo '*BRRed -4/-4: ""'                                                                 >>$ppd_file_name
-echo '*BRRed -3/-3: ""'                                                                 >>$ppd_file_name
-echo '*BRRed -2/-2: ""'                                                                 >>$ppd_file_name
-echo '*BRRed -1/-1: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 0/0: ""'                                                                   >>$ppd_file_name
-echo '*BRRed 1/1: ""'                                                                   >>$ppd_file_name
-echo '*BRRed 2/2: ""'                                                                   >>$ppd_file_name
-echo '*BRRed 3/3: ""'                                                                   >>$ppd_file_name
-echo '*BRRed 4/4: ""'                                                                   >>$ppd_file_name
-echo '*BRRed 5/5: ""'                                                                   >>$ppd_file_name
-echo '*BRRed 6/6: ""'                                                                   >>$ppd_file_name
-echo '*BRRed 7/7: ""'                                                                   >>$ppd_file_name
-echo '*BRRed 8/8: ""'                                                                   >>$ppd_file_name
-echo '*BRRed 9/9: ""'                                                                   >>$ppd_file_name
-echo '*BRRed 10/10: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 11/11: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 12/12: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 13/13: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 14/14: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 15/15: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 16/16: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 17/17: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 18/18: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 19/19: ""'                                                                 >>$ppd_file_name
-echo '*BRRed 20/20: ""'                                                                 >>$ppd_file_name
+echo '*BRRed -20/-20: "'                                                               >>$ppd_file_name
+echo '*BRRed -19/-19: "'                                                               >>$ppd_file_name
+echo '*BRRed -18/-18: "'                                                               >>$ppd_file_name
+echo '*BRRed -17/-17: "'                                                               >>$ppd_file_name
+echo '*BRRed -16/-16: "'                                                               >>$ppd_file_name
+echo '*BRRed -15/-15: "'                                                               >>$ppd_file_name
+echo '*BRRed -14/-14: "'                                                               >>$ppd_file_name
+echo '*BRRed -13/-13: "'                                                               >>$ppd_file_name
+echo '*BRRed -12/-12: "'                                                               >>$ppd_file_name
+echo '*BRRed -11/-11: "'                                                               >>$ppd_file_name
+echo '*BRRed -10/-10: "'                                                               >>$ppd_file_name
+echo '*BRRed -9/-9: "'                                                                 >>$ppd_file_name
+echo '*BRRed -8/-8: "'                                                                 >>$ppd_file_name
+echo '*BRRed -7/-7: "'                                                                 >>$ppd_file_name
+echo '*BRRed -6/-6: "'                                                                 >>$ppd_file_name
+echo '*BRRed -5/-5: "'                                                                 >>$ppd_file_name
+echo '*BRRed -4/-4: "'                                                                 >>$ppd_file_name
+echo '*BRRed -3/-3: "'                                                                 >>$ppd_file_name
+echo '*BRRed -2/-2: "'                                                                 >>$ppd_file_name
+echo '*BRRed -1/-1: "'                                                                 >>$ppd_file_name
+echo '*BRRed 0/0: "'                                                                   >>$ppd_file_name
+echo '*BRRed 1/1: "'                                                                   >>$ppd_file_name
+echo '*BRRed 2/2: "'                                                                   >>$ppd_file_name
+echo '*BRRed 3/3: "'                                                                   >>$ppd_file_name
+echo '*BRRed 4/4: "'                                                                   >>$ppd_file_name
+echo '*BRRed 5/5: "'                                                                   >>$ppd_file_name
+echo '*BRRed 6/6: "'                                                                   >>$ppd_file_name
+echo '*BRRed 7/7: "'                                                                   >>$ppd_file_name
+echo '*BRRed 8/8: "'                                                                   >>$ppd_file_name
+echo '*BRRed 9/9: "'                                                                   >>$ppd_file_name
+echo '*BRRed 10/10: "'                                                                 >>$ppd_file_name
+echo '*BRRed 11/11: "'                                                                 >>$ppd_file_name
+echo '*BRRed 12/12: "'                                                                 >>$ppd_file_name
+echo '*BRRed 13/13: "'                                                                 >>$ppd_file_name
+echo '*BRRed 14/14: "'                                                                 >>$ppd_file_name
+echo '*BRRed 15/15: "'                                                                 >>$ppd_file_name
+echo '*BRRed 16/16: "'                                                                 >>$ppd_file_name
+echo '*BRRed 17/17: "'                                                                 >>$ppd_file_name
+echo '*BRRed 18/18: "'                                                                 >>$ppd_file_name
+echo '*BRRed 19/19: "'                                                                 >>$ppd_file_name
+echo '*BRRed 20/20: "'                                                                 >>$ppd_file_name
 echo '*CloseUI: *BRRed'                                                                 >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Green ================================'                                     >>$ppd_file_name
 echo '*OpenUI *BRGreen/Green: PickOne'                                                  >>$ppd_file_name
 echo '*OrderDependency: 28 AnySetup *BRGreen'                                           >>$ppd_file_name
 echo '*DefaultBRGreen: 0'                                                               >>$ppd_file_name
-echo '*BRGreen -20/-20: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -19/-19: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -18/-18: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -17/-17: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -16/-16: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -15/-15: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -14/-14: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -13/-13: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -12/-12: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -11/-11: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -10/-10: ""'                                                             >>$ppd_file_name
-echo '*BRGreen -9/-9: ""'                                                               >>$ppd_file_name
-echo '*BRGreen -8/-8: ""'                                                               >>$ppd_file_name
-echo '*BRGreen -7/-7: ""'                                                               >>$ppd_file_name
-echo '*BRGreen -6/-6: ""'                                                               >>$ppd_file_name
-echo '*BRGreen -5/-5: ""'                                                               >>$ppd_file_name
-echo '*BRGreen -4/-4: ""'                                                               >>$ppd_file_name
-echo '*BRGreen -3/-3: ""'                                                               >>$ppd_file_name
-echo '*BRGreen -2/-2: ""'                                                               >>$ppd_file_name
-echo '*BRGreen -1/-1: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 0/0: ""'                                                                 >>$ppd_file_name
-echo '*BRGreen 1/1: ""'                                                                 >>$ppd_file_name
-echo '*BRGreen 2/2: ""'                                                                 >>$ppd_file_name
-echo '*BRGreen 3/3: ""'                                                                 >>$ppd_file_name
-echo '*BRGreen 4/4: ""'                                                                 >>$ppd_file_name
-echo '*BRGreen 5/5: ""'                                                                 >>$ppd_file_name
-echo '*BRGreen 6/6: ""'                                                                 >>$ppd_file_name
-echo '*BRGreen 7/7: ""'                                                                 >>$ppd_file_name
-echo '*BRGreen 8/8: ""'                                                                 >>$ppd_file_name
-echo '*BRGreen 9/9: ""'                                                                 >>$ppd_file_name
-echo '*BRGreen 10/10: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 11/11: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 12/12: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 13/13: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 14/14: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 15/15: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 16/16: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 17/17: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 18/18: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 19/19: ""'                                                               >>$ppd_file_name
-echo '*BRGreen 20/20: ""'                                                               >>$ppd_file_name
+echo '*BRGreen -20/-20: "'                                                             >>$ppd_file_name
+echo '*BRGreen -19/-19: "'                                                             >>$ppd_file_name
+echo '*BRGreen -18/-18: "'                                                             >>$ppd_file_name
+echo '*BRGreen -17/-17: "'                                                             >>$ppd_file_name
+echo '*BRGreen -16/-16: "'                                                             >>$ppd_file_name
+echo '*BRGreen -15/-15: "'                                                             >>$ppd_file_name
+echo '*BRGreen -14/-14: "'                                                             >>$ppd_file_name
+echo '*BRGreen -13/-13: "'                                                             >>$ppd_file_name
+echo '*BRGreen -12/-12: "'                                                             >>$ppd_file_name
+echo '*BRGreen -11/-11: "'                                                             >>$ppd_file_name
+echo '*BRGreen -10/-10: "'                                                             >>$ppd_file_name
+echo '*BRGreen -9/-9: "'                                                               >>$ppd_file_name
+echo '*BRGreen -8/-8: "'                                                               >>$ppd_file_name
+echo '*BRGreen -7/-7: "'                                                               >>$ppd_file_name
+echo '*BRGreen -6/-6: "'                                                               >>$ppd_file_name
+echo '*BRGreen -5/-5: "'                                                               >>$ppd_file_name
+echo '*BRGreen -4/-4: "'                                                               >>$ppd_file_name
+echo '*BRGreen -3/-3: "'                                                               >>$ppd_file_name
+echo '*BRGreen -2/-2: "'                                                               >>$ppd_file_name
+echo '*BRGreen -1/-1: "'                                                               >>$ppd_file_name
+echo '*BRGreen 0/0: "'                                                                 >>$ppd_file_name
+echo '*BRGreen 1/1: "'                                                                 >>$ppd_file_name
+echo '*BRGreen 2/2: "'                                                                 >>$ppd_file_name
+echo '*BRGreen 3/3: "'                                                                 >>$ppd_file_name
+echo '*BRGreen 4/4: "'                                                                 >>$ppd_file_name
+echo '*BRGreen 5/5: "'                                                                 >>$ppd_file_name
+echo '*BRGreen 6/6: "'                                                                 >>$ppd_file_name
+echo '*BRGreen 7/7: "'                                                                 >>$ppd_file_name
+echo '*BRGreen 8/8: "'                                                                 >>$ppd_file_name
+echo '*BRGreen 9/9: "'                                                                 >>$ppd_file_name
+echo '*BRGreen 10/10: "'                                                               >>$ppd_file_name
+echo '*BRGreen 11/11: "'                                                               >>$ppd_file_name
+echo '*BRGreen 12/12: "'                                                               >>$ppd_file_name
+echo '*BRGreen 13/13: "'                                                               >>$ppd_file_name
+echo '*BRGreen 14/14: "'                                                               >>$ppd_file_name
+echo '*BRGreen 15/15: "'                                                               >>$ppd_file_name
+echo '*BRGreen 16/16: "'                                                               >>$ppd_file_name
+echo '*BRGreen 17/17: "'                                                               >>$ppd_file_name
+echo '*BRGreen 18/18: "'                                                               >>$ppd_file_name
+echo '*BRGreen 19/19: "'                                                               >>$ppd_file_name
+echo '*BRGreen 20/20: "'                                                               >>$ppd_file_name
 echo '*CloseUI: *BRGreen'                                                               >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Blue ================================'                                      >>$ppd_file_name
 echo '*OpenUI *BRBlue/Blue: PickOne'                                                    >>$ppd_file_name
 echo '*OrderDependency: 29 AnySetup *BRBlue'                                            >>$ppd_file_name
 echo '*DefaultBRBlue: 0'                                                                >>$ppd_file_name
-echo '*BRBlue -20/-20: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -19/-19: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -18/-18: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -17/-17: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -16/-16: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -15/-15: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -14/-14: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -13/-13: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -12/-12: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -11/-11: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -10/-10: ""'                                                              >>$ppd_file_name
-echo '*BRBlue -9/-9: ""'                                                                >>$ppd_file_name
-echo '*BRBlue -8/-8: ""'                                                                >>$ppd_file_name
-echo '*BRBlue -7/-7: ""'                                                                >>$ppd_file_name
-echo '*BRBlue -6/-6: ""'                                                                >>$ppd_file_name
-echo '*BRBlue -5/-5: ""'                                                                >>$ppd_file_name
-echo '*BRBlue -4/-4: ""'                                                                >>$ppd_file_name
-echo '*BRBlue -3/-3: ""'                                                                >>$ppd_file_name
-echo '*BRBlue -2/-2: ""'                                                                >>$ppd_file_name
-echo '*BRBlue -1/-1: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 0/0: ""'                                                                  >>$ppd_file_name
-echo '*BRBlue 1/1: ""'                                                                  >>$ppd_file_name
-echo '*BRBlue 2/2: ""'                                                                  >>$ppd_file_name
-echo '*BRBlue 3/3: ""'                                                                  >>$ppd_file_name
-echo '*BRBlue 4/4: ""'                                                                  >>$ppd_file_name
-echo '*BRBlue 5/5: ""'                                                                  >>$ppd_file_name
-echo '*BRBlue 6/6: ""'                                                                  >>$ppd_file_name
-echo '*BRBlue 7/7: ""'                                                                  >>$ppd_file_name
-echo '*BRBlue 8/8: ""'                                                                  >>$ppd_file_name
-echo '*BRBlue 9/9: ""'                                                                  >>$ppd_file_name
-echo '*BRBlue 10/10: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 11/11: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 12/12: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 13/13: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 14/14: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 15/15: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 16/16: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 17/17: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 18/18: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 19/19: ""'                                                                >>$ppd_file_name
-echo '*BRBlue 20/20: ""'                                                                >>$ppd_file_name
+echo '*BRBlue -20/-20: "'                                                              >>$ppd_file_name
+echo '*BRBlue -19/-19: "'                                                              >>$ppd_file_name
+echo '*BRBlue -18/-18: "'                                                              >>$ppd_file_name
+echo '*BRBlue -17/-17: "'                                                              >>$ppd_file_name
+echo '*BRBlue -16/-16: "'                                                              >>$ppd_file_name
+echo '*BRBlue -15/-15: "'                                                              >>$ppd_file_name
+echo '*BRBlue -14/-14: "'                                                              >>$ppd_file_name
+echo '*BRBlue -13/-13: "'                                                              >>$ppd_file_name
+echo '*BRBlue -12/-12: "'                                                              >>$ppd_file_name
+echo '*BRBlue -11/-11: "'                                                              >>$ppd_file_name
+echo '*BRBlue -10/-10: "'                                                              >>$ppd_file_name
+echo '*BRBlue -9/-9: "'                                                                >>$ppd_file_name
+echo '*BRBlue -8/-8: "'                                                                >>$ppd_file_name
+echo '*BRBlue -7/-7: "'                                                                >>$ppd_file_name
+echo '*BRBlue -6/-6: "'                                                                >>$ppd_file_name
+echo '*BRBlue -5/-5: "'                                                                >>$ppd_file_name
+echo '*BRBlue -4/-4: "'                                                                >>$ppd_file_name
+echo '*BRBlue -3/-3: "'                                                                >>$ppd_file_name
+echo '*BRBlue -2/-2: "'                                                                >>$ppd_file_name
+echo '*BRBlue -1/-1: "'                                                                >>$ppd_file_name
+echo '*BRBlue 0/0: "'                                                                  >>$ppd_file_name
+echo '*BRBlue 1/1: "'                                                                  >>$ppd_file_name
+echo '*BRBlue 2/2: "'                                                                  >>$ppd_file_name
+echo '*BRBlue 3/3: "'                                                                  >>$ppd_file_name
+echo '*BRBlue 4/4: "'                                                                  >>$ppd_file_name
+echo '*BRBlue 5/5: "'                                                                  >>$ppd_file_name
+echo '*BRBlue 6/6: "'                                                                  >>$ppd_file_name
+echo '*BRBlue 7/7: "'                                                                  >>$ppd_file_name
+echo '*BRBlue 8/8: "'                                                                  >>$ppd_file_name
+echo '*BRBlue 9/9: "'                                                                  >>$ppd_file_name
+echo '*BRBlue 10/10: "'                                                                >>$ppd_file_name
+echo '*BRBlue 11/11: "'                                                                >>$ppd_file_name
+echo '*BRBlue 12/12: "'                                                                >>$ppd_file_name
+echo '*BRBlue 13/13: "'                                                                >>$ppd_file_name
+echo '*BRBlue 14/14: "'                                                                >>$ppd_file_name
+echo '*BRBlue 15/15: "'                                                                >>$ppd_file_name
+echo '*BRBlue 16/16: "'                                                                >>$ppd_file_name
+echo '*BRBlue 17/17: "'                                                                >>$ppd_file_name
+echo '*BRBlue 18/18: "'                                                                >>$ppd_file_name
+echo '*BRBlue 19/19: "'                                                                >>$ppd_file_name
+echo '*BRBlue 20/20: "'                                                                >>$ppd_file_name
 echo '*CloseUI: *BRBlue'                                                                >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%=== Send Fax ================================'                                  >>$ppd_file_name
 echo '*%OpenUI *BROutput/Send Fax: PickOne'                                             >>$ppd_file_name
 echo '*%OrderDependency: 30 AnySetup *BROutput'                                         >>$ppd_file_name
 echo '*%DefaultBROutput: None'                                                          >>$ppd_file_name
-echo '*%BROutput None/Off: ""'                                                          >>$ppd_file_name
+echo '*%BROutput None/Off: "'                                                          >>$ppd_file_name
 echo '*%BROutput FAX/Send Fax: "<</HWResolution [200 200]/cupsColorOrder 0/cupsColorSpace 3/cupsBitsPerColor 8 >> setpagedevice"'  >>$ppd_file_name
 echo '*%CloseUI: *BROutput'                                                             >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
@@ -627,7 +627,7 @@ if ( -d /usr/share/ppd ) then
 endif
 
 
-set  brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperMFC210C
+set brotherlpdwrapper=filters/brlpdwrapperMFC210C
 rm -f  $brotherlpdwrapper
 echo 'rm -f /usr/lib/cups/filter/brlpdwrapperMFC210C'
 touch $brotherlpdwrapper
@@ -1101,7 +1101,7 @@ echo  '	'  >>  $brotherlpdwrapper
 echo  '	set Default = `echo "$Default" | tr -d "*"`'  >>  $brotherlpdwrapper
 echo  ''  >>  $brotherlpdwrapper
 echo  '	while("$PPDdefault[$i]" != "Z" && "$PPDdefault[$i]" != "__PPDLABEL__"  )'  >>  $brotherlpdwrapper
-echo  '	    if(`echo "$Default" | grep "$ppdlabelref":"$PPDdefault[$i]"` != "") then	'  >>  $brotherlpdwrapper
+echo  '	    if(`echo "$Default" | grep "$ppdlabelref":"$PPDdefault[$i]"` != ") then	'  >>  $brotherlpdwrapper
 echo  '		@ i ++'  >>  $brotherlpdwrapper
 echo  '		echo "$BRPRINTCONFIG -P $PRINTER  $PPDdefault[$i]"     >>&"$LOGFILE"'  >>  $brotherlpdwrapper
 echo  '		$BRPRINTCONFIG -P $PRINTER  $PPDdefault[$i]            >>&"$LOGFILE"'  >>  $brotherlpdwrapper
@@ -1121,12 +1121,12 @@ echo  '	set ppdlabel = "$PPDdefaultN[$i]"'  >>  $brotherlpdwrapper
 echo  '	set Default=`grep "$ppdlabel"  "$PPD"`'  >>  $brotherlpdwrapper
 echo  '	set ii = 1'  >>  $brotherlpdwrapper
 echo  '	@ i ++'  >>  $brotherlpdwrapper
-echo  '	if("$Default" != "") then'  >>  $brotherlpdwrapper
+echo  '	if("$Default" != ") then'  >>  $brotherlpdwrapper
 echo  '	    set Default = `echo "$Default" | tr -d "*"`'  >>  $brotherlpdwrapper
 echo  '	    while("$PPDdefaultNValues[$ii]" != "Z")'  >>  $brotherlpdwrapper
 echo  '		set Default2 = `echo "$Default" | grep "$PPDdefaultNValues[$ii]"` '  >>  $brotherlpdwrapper
 echo  '		@ ii ++'  >>  $brotherlpdwrapper
-echo  '		if( "$Default2" != "") then'  >>  $brotherlpdwrapper
+echo  '		if( "$Default2" != ") then'  >>  $brotherlpdwrapper
 echo  '		    set PPDdefaultLabel = `echo "$PPDdefaultN[$i]" | tr -d "="`'  >>  $brotherlpdwrapper
 echo  '		    echo "$BRPRINTCONFIG -P $PRINTER  $PPDdefaultLabel $PPDdefaultNValues[$ii]"    >>&"$LOGFILE"'  >>  $brotherlpdwrapper
 echo  '		    $BRPRINTCONFIG       -P $PRINTER  $PPDdefaultLabel $PPDdefaultNValues[$ii]     >>&"$LOGFILE"'  >>  $brotherlpdwrapper
@@ -1147,7 +1147,7 @@ echo  '  echo  $5 |tr " " '\n' > $INPUT_TEMP_OPTIONS'  >>  $brotherlpdwrapper
 echo  ''  >>  $brotherlpdwrapper
 echo  '  set i = 1'  >>  $brotherlpdwrapper
 echo  '  while("$brcommands[$i]" != "Z")'  >>  $brotherlpdwrapper
-echo  '    if("`grep $brcommands[$i] $INPUT_TEMP_OPTIONS`" != "") then'  >>  $brotherlpdwrapper
+echo  '    if("`grep $brcommands[$i] $INPUT_TEMP_OPTIONS`" != ") then'  >>  $brotherlpdwrapper
 echo  '	@ i ++'  >>  $brotherlpdwrapper
 echo  '	$BRPRINTCONFIG -P $PRINTER  $brcommands[$i]                            >>&"$LOGFILE"'  >>  $brotherlpdwrapper
 echo  '	echo "$BRPRINTCONFIG -P $PRINTER  $brcommands[$i]"                     >>&"$LOGFILE"'  >>  $brotherlpdwrapper
@@ -1161,7 +1161,7 @@ echo  '  set i = 1'  >>  $brotherlpdwrapper
 echo  '  set ii = 2'  >>  $brotherlpdwrapper
 echo  '  while("$brcommands2[$i]" != "Z")'  >>  $brotherlpdwrapper
 echo  '    set INPUT_TEMP_LINE=`grep $brcommands2[$i] $INPUT_TEMP_OPTIONS`'  >>  $brotherlpdwrapper
-echo  '    if($INPUT_TEMP_LINE != "") then'  >>  $brotherlpdwrapper
+echo  '    if($INPUT_TEMP_LINE != ") then'  >>  $brotherlpdwrapper
 echo  '	set option_tmp=`echo  $INPUT_TEMP_LINE | sed s/"$brcommands2[$i]"/"$brcommands2[$ii]"/`'  >>  $brotherlpdwrapper
 echo  '	set command_and_arg="$BRPRINTCONFIG -P $PRINTER  $option_tmp"'  >>  $brotherlpdwrapper
 echo  '	echo $command_and_arg                                        >>&"$LOGFILE"'  >>  $brotherlpdwrapper
@@ -1176,7 +1176,7 @@ echo  ''  >>  $brotherlpdwrapper
 echo  '  set i = 1'  >>  $brotherlpdwrapper
 echo  '  while("$StandardCUPSoptions[$i]" != "Z")'  >>  $brotherlpdwrapper
 echo  '    set INPUT_TEMP_LINE=`grep "$StandardCUPSoptions[$i]" $INPUT_TEMP_OPTIONS`'  >>  $brotherlpdwrapper
-echo  '    if($INPUT_TEMP_LINE != "") then'  >>  $brotherlpdwrapper
+echo  '    if($INPUT_TEMP_LINE != ") then'  >>  $brotherlpdwrapper
 echo  '	@ i ++'  >>  $brotherlpdwrapper
 echo  '	echo "$BRPRINTCONFIG -P $PRINTER  $StandardCUPSoptions[$i]"                     >>&"$LOGFILE"'  >>  $brotherlpdwrapper
 echo  '	$BRPRINTCONFIG -P $PRINTER  $StandardCUPSoptions[$i]                            >>&"$LOGFILE"'  >>  $brotherlpdwrapper
@@ -1202,7 +1202,7 @@ echo  '    cat    $INPUT_TEMP_PS | /usr/local/Brother/lpd/filterMFC210C'  >>  $b
 echo  ''  >>  $brotherlpdwrapper
 echo  '    if($LOGLEVEL > 2) then'  >>  $brotherlpdwrapper
 echo  '	if($LOGFILE != "/dev/null") then'  >>  $brotherlpdwrapper
-echo  '	    echo ""                                             >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '	    echo "                                             >>$LOGFILE'  >>  $brotherlpdwrapper
 echo  '	    echo "    ------PostScript Data-------"             >>$LOGFILE'  >>  $brotherlpdwrapper
 echo  '	    cat    $INPUT_TEMP_PS                                 >>$LOGFILE'  >>  $brotherlpdwrapper
 echo  '	endif'  >>  $brotherlpdwrapper
@@ -1232,8 +1232,8 @@ endif
   endif
 sleep 2s
 set nonomatch
-set port=""
-set port2=""
+set port="
+set port2="
 set port2=`lpinfo -v | grep -i 'usb://Brother/MFC-210C' | head -1`
 if ( "$port2" == '' ) then
  set port2=`lpinfo -v | grep -i 'usb://Brother/' | head -1`
