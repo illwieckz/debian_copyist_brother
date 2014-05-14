@@ -18,46 +18,6 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-if [ "$1" = '-e' ]; then
-  lpadmin -x MFC8500
-  rm -f /usr/share/cups/model/brmfc8500_cups.ppd
-  rm -f /usr/lib/cups/filter/brlpdwrapperMFC8500
-  rm -f /usr/lib64/cups/filter/brlpdwrapperMFC8500
-  rm -f /usr/local/Brother/cupswrapper/brcupsconfig
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-exit 0
-fi
-if [ "$1" = "-r" ]; then
-  lpadmin -x MFC8500
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-exit 0
-fi
-if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
-  echo   'option -h : help'
-  echo   '       -i : install'
-  echo   '       -e : uninstall'
-  echo   '       -r : remove printer'
-exit 0
-fi
-mkdir -p /usr/local/Brother/filter
-mkdir -p /usr/lib/cups/filter
-
-if [ -e "/usr/local/Brother/lpd/filterMFC8500" ]; then
-  :
-else
-  echo "ERROR : Brother LPD filter is not installed."
-fi
-rm -f /usr/share/cups/model/brmfc8500_cups.ppd
 ppd_file_name=ppds/brmfc8500_cups.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
@@ -317,15 +277,9 @@ save
 restore
 "
 *End
-
 ENDOFPPDFILE
 
-
 brotherlpdwrapper=filters/brlpdwrapperMFC8500
-brotherlpdwrapper64=/usr/lib64/cups/filter/brlpdwrapperMFC8500
-rm -f  $brotherlpdwrapper
-echo 'rm -f /usr/lib/cups/filter/brlpdwrapperMFC8500'
-
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh
@@ -470,26 +424,4 @@ rm -f  \$INPUT_TEMP_PS
 exit \$errorcode
 !ENDOFWFILTER!
 
-
-chmod a+x $brotherlpdwrapper
-if [ -e /usr/lib64/cups/filter ]; then
-   cp $brotherlpdwrapper  $brotherlpdwrapper64
-fi
-
-chmod a+w /usr/local/Brother/inf/brMFC8500rc
-chmod a+w /usr/local/Brother/inf
-if [ -e /etc/init.d/lpd ]; then
-   /etc/init.d/lpd stop
-fi
-if [  -e /etc/init.d/lprng ]; then
-   /etc/init.d/lprng stop
-fi
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-sleep 2s
-lpadmin -p MFC8500 -E -v usb:/dev/usb/lp0 -m brmfc8500_cups.ppd
 exit 0

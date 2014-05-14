@@ -18,48 +18,6 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-if [ "$1" = '-e' ]; then
-  lpadmin -x MFC7840W
-  rm -f /usr/share/cups/model/MFC7840W.ppd
-  rm -f /usr/lib/cups/filter/brlpdwrapperMFC7840W
-  rm -f /usr/lib64/cups/filter/brlpdwrapperMFC7840W
-  rm -f /usr/local/Brother/cupswrapper/brcupsconfig3
-  if [ -f /usr/share/ppd/MFC7840W.ppd ];then
-  rm -f /usr/share/ppd/MFC7840W.ppd
-  fi
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-exit 0
-fi
-if [ "$1" = "-r" ]; then
-  lpadmin -x MFC7840W
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-exit 0
-fi
-if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
-  echo   'option -h : help'
-  echo   '       -i : install'
-  echo   '       -e : uninstall'
-  echo   '       -r : remove printer'
-exit 0
-fi
-mkdir -p /usr/lib/cups/filter
-
-if [ -e "/usr/local/Brother/lpd/filterMFC7840W" ]; then
-  :
-else
-  echo "ERROR : Brother LPD filter is not installed."
-fi
-rm -f /usr/share/cups/model/MFC7840W.ppd
 ppd_file_name=ppds/MFC7840W.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
@@ -330,19 +288,9 @@ save
 restore
 "
 *End
-
-
 ENDOFPPDFILE
 
-chmod 755  $ppd_file_name
-if [ -e '/usr/share/ppd' ];then
-  cp  $ppd_file_name  /usr/share/ppd
-fi
-
 brotherlpdwrapper=filters/brlpdwrapperMFC7840W
-brotherlpdwrapper64=/usr/lib64/cups/filter/brlpdwrapperMFC7840W
-rm -f  $brotherlpdwrapper
-
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh
@@ -506,34 +454,4 @@ rm -f  \$INPUT_TEMP_PS
 exit \$errorcode
 !ENDOFWFILTER!
 
-
-chmod 755 $brotherlpdwrapper
-if [ -e /usr/lib64/cups/filter ]; then
-   cp $brotherlpdwrapper  $brotherlpdwrapper64
-fi
-
-chmod a+w /usr/local/Brother/inf/brMFC7840Wrc
-chmod a+w /usr/local/Brother/inf
-if [ -e /etc/init.d/lpd ]; then
-   /etc/init.d/lpd stop
-fi
-if [  -e /etc/init.d/lprng ]; then
-   /etc/init.d/lprng stop
-fi
-  if [ -e /etc/init.d/cups ]; then
-    /etc/init.d/cups restart
-  fi
-  if [ -e /etc/init.d/cupsys ]; then
-    /etc/init.d/cupsys restart
-  fi
-sleep 2s
-port2=`lpinfo -v | grep -i 'usb://Brother/MFC-7840W' | head -1`
-if [ "$port2" = '' ];then
-	port2=`lpinfo -v | grep 'usb://' | head -1`
-fi
-port=`echo $port2| sed s/direct//g`
-if [ "$port" = '' ];then
-	port=usb:/dev/usb/lp0
-fi
-lpadmin -p MFC7840W -E -v $port -P /usr/share/cups/model/MFC7840W.ppd
 exit 0
