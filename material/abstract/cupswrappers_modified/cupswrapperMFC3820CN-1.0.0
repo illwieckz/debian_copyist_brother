@@ -18,33 +18,9 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-if("$1" == '-e')then
-  lpadmin -x MFC3820CN
-  rm -f /usr/share/cups/model/brmfc3820cn_cups.ppd
-  rm -f /usr/lib/cups/filter/brlpdwrapperMFC3820CN
-  /etc/init.d/cups restart
-  exit(0)
-endif
-if("$1" == "-r")then
-  lpadmin -x MFC3820CN
-  /etc/init.d/cups restart
-  exit(0)
-endif
-if($1 == "help" || $1 == "-h")then
-  echo   'option -h : help'
-  echo   '       -i : install'
-  echo   '       -e : uninstall'
-  echo   '       -r : remove printer'
-  exit(0)
-endif
-mkdir -p /usr/local/Brother/filter
-mkdir -p /usr/lib/cups/filter
-
-if(!(-e "/usr/local/Brother/lpd/filterMFC3820CN"))then
-  echo "ERROR : Brother LPD filter is not installed."
-endif
-rm -f /usr/share/cups/model/brmfc3820cn_cups.ppd
 set ppd_file_name=ppds/brmfc3820cn_cups.ppd
+
+touch $ppd_file_name
 
 echo '*PPD-Adobe: "4.3"'                                                                >>$ppd_file_name
 echo '*% '                                                                              >>$ppd_file_name
@@ -605,10 +581,11 @@ echo '*Font BermudaScript: Standard "(001.005)" Standard ROM'                   
 echo '*Font Germany: Standard "(001.005)" Standard ROM'                                 >>$ppd_file_name
 echo '*Font SanDiego: Standard "(001.005)" Standard ROM'                                >>$ppd_file_name
 echo '*Font US-Roman: Standard "(001.005)" Standard ROM'                                >>$ppd_file_name
-echo ''                                                                                 >>$ppd_file_name
-echo ''                                                                                 >>$ppd_file_name
+
 set brotherlpdwrapper=filters/brlpdwrapperMFC3820CN
-rm -f  $brotherlpdwrapper
+
+touch $brotherlpdwrapper
+
 echo 'rm -f /usr/lib/cups/filter/brlpdwrapperMFC3820CN'
 echo  '#! /bin/csh'  >>  $brotherlpdwrapper
 echo  '#'  >>  $brotherlpdwrapper
@@ -1128,20 +1105,5 @@ echo  'endif'  >>  $brotherlpdwrapper
 echo  'rm -f  $INPUT_TEMP_PS'  >>  $brotherlpdwrapper
 echo  ''  >>  $brotherlpdwrapper
 echo  'exit $errorcode'  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-chmod a+x $brotherlpdwrapper
-chmod a+w /usr/local/Brother/inf/brMFC3820CNrc
-chmod a+w /usr/local/Brother/inf
-if( -e /etc/init.d/lpd) then
-   /etc/init.d/lpd stop
-endif
-if( -e /etc/init.d/lprng) then
-   /etc/init.d/lprng stop
-endif
-/etc/init.d/cups restart
-sleep 2s
-lpadmin -p MFC3820CN -E -v usb:/dev/usb/lp0 -m brmfc3820cn_cups.ppd
-  exit(0)
+
+exit(0)

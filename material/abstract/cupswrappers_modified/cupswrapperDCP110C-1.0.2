@@ -583,7 +583,6 @@ echo '*Font Germany: Standard "(001.005)" Standard ROM'                         
 echo '*Font SanDiego: Standard "(001.005)" Standard ROM'                                >>$ppd_file_name
 echo '*Font US-Roman: Standard "(001.005)" Standard ROM'                                >>$ppd_file_name
 
-
 set brotherlpdwrapper=filters/brlpdwrapperDCP110C
 
 touch $brotherlpdwrapper
@@ -1168,11 +1167,5 @@ echo  'endif'  >>  $brotherlpdwrapper
 echo  'rm -f  $INPUT_TEMP_PS'  >>  $brotherlpdwrapper
 echo  ''  >>  $brotherlpdwrapper
 echo  'exit $errorcode'  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-
-chmod a+x $brotherlpdwrapper
 
 exit(0)

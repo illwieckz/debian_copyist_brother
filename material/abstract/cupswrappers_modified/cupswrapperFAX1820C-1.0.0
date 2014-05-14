@@ -21,6 +21,7 @@
 set ppd_file_name=ppds/brfax1820c_cups.ppd
 
 touch $ppd_file_name
+
 echo '*PPD-Adobe: "4.3"'                                                                >>$ppd_file_name
 echo '*%================================================'                               >>$ppd_file_name
 echo '*%	Copyright(C) 2004 Brother Industries, Ltd.'                                    >>$ppd_file_name
@@ -584,6 +585,7 @@ echo ''                                                                         
 set brotherlpdwrapper=filters/brlpdwrapperFAX1820C
 
 touch $brotherlpdwrapper
+
 echo  '#! /bin/csh'  >>  $brotherlpdwrapper
 echo  '#'  >>  $brotherlpdwrapper
 echo  '# Brother Print filter  '  >>  $brotherlpdwrapper
@@ -1102,9 +1104,5 @@ echo  'endif'  >>  $brotherlpdwrapper
 echo  'rm -f  $INPUT_TEMP_PS'  >>  $brotherlpdwrapper
 echo  ''  >>  $brotherlpdwrapper
 echo  'exit $errorcode'  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
 
 exit(0)

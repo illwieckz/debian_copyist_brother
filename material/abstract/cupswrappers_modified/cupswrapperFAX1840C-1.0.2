@@ -21,6 +21,7 @@
 set ppd_file_name=ppds/brfax1840c_cups.ppd
 
 touch $ppd_file_name
+
 echo '*PPD-Adobe: "4.3"'                                                                >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 echo '*%================================================'                               >>$ppd_file_name
@@ -588,6 +589,7 @@ echo '*Font US-Roman: Standard "(001.005)" Standard ROM'                        
 set brotherlpdwrapper=filters/brlpdwrapperFAX1840C
 
 touch $brotherlpdwrapper
+
 echo  '#! /bin/csh'  >>  $brotherlpdwrapper
 echo  '#'  >>  $brotherlpdwrapper
 echo  '# Brother Print filter  '  >>  $brotherlpdwrapper
@@ -1168,9 +1170,5 @@ echo  'endif'  >>  $brotherlpdwrapper
 echo  'rm -f  $INPUT_TEMP_PS'  >>  $brotherlpdwrapper
 echo  ''  >>  $brotherlpdwrapper
 echo  'exit $errorcode'  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
-echo  ''  >>  $brotherlpdwrapper
 
 exit(0)
