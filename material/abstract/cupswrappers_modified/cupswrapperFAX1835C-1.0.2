@@ -1,0 +1,1252 @@
+#! /bin/csh
+#
+# Brother Print filter
+# Copyright (C) 2004 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+if("$1" == '-e') then
+  lpadmin -x FAX1835C
+  rm -f /usr/share/cups/model/brfax1835c_cups.ppd
+  rm -f /usr/share/ppd/brfax1835c_cups.ppd
+  rm -f /usr/lib/cups/filter/brlpdwrapperFAX1835C
+  if( -e /etc/init.d/cups ) then
+    /etc/init.d/cups restart
+  endif
+  if( -e /etc/init.d/cupsys ) then
+    /etc/init.d/cupsys restart
+  endif
+  exit(0)
+endif
+if("$1" == "-r") then
+  lpadmin -x FAX1835C
+  if( -e /etc/init.d/cups ) then
+    /etc/init.d/cups restart
+  endif
+  if( -e /etc/init.d/cupsys ) then
+    /etc/init.d/cupsys restart
+  endif
+  exit(0)
+endif
+if($1 == "help" || $1 == "-h") then
+  echo   'option -h : help'
+  echo   '       -i : install'
+  echo   '       -e : uninstall'
+  echo   '       -r : remove printer'
+  exit(0)
+endif
+mkdir -p /usr/local/Brother/filter
+mkdir -p /usr/lib/cups/filter
+
+if(!(-e "/usr/local/Brother/lpd/filterFAX1835C")) then
+  echo "ERROR : Brother LPD filter is not installed."
+endif
+rm -f /usr/share/cups/model/brfax1835c_cups.ppd
+set  ppd_file_name=/usr/share/cups/model/brfax1835c_cups.ppd
+
+touch $ppd_file_name
+
+echo '*PPD-Adobe: "4.3"'                                                                >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%================================================'                               >>$ppd_file_name
+echo '*%	Copyright(C) 2004 Brother Industries, Ltd.'                                    >>$ppd_file_name
+echo '*%	"Brother FAX-1835C CUPS"'                                                      >>$ppd_file_name
+echo '*%================================================ '                              >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%==== General Information Keywords ========================'                     >>$ppd_file_name
+echo '*FormatVersion: "4.3"'                                                            >>$ppd_file_name
+echo '*FileVersion: "1.01"'                                                             >>$ppd_file_name
+echo '*LanguageVersion: English'                                                        >>$ppd_file_name
+echo '*LanguageEncoding: ISOLatin1'                                                     >>$ppd_file_name
+echo '*PCFileName: "FAX1835C.PPD"'                                                      >>$ppd_file_name
+echo '*Manufacturer: "Brother"'                                                         >>$ppd_file_name
+echo '*Product: "(FAX-1835C)"'                                                          >>$ppd_file_name
+echo '*1284DeviceID: "MFG:Brother;MDL:FAX-1835C"'                                       >>$ppd_file_name
+echo '*cupsVersion: 1.1'                                                                >>$ppd_file_name
+echo '*cupsManualCopies: False'                                                         >>$ppd_file_name
+echo '*cupsFilter: "application/vnd.cups-postscript 0 brlpdwrapperFAX1835C"'            >>$ppd_file_name
+echo '*cupsModelNumber: 6'                                                              >>$ppd_file_name
+echo '*ModelName: "Brother FAX-1835C"'                                                  >>$ppd_file_name
+echo '*ShortNickName: "Brother FAX-1835C"'                                              >>$ppd_file_name
+echo '*NickName: "Brother FAX-1835C CUPS v1.1"'                                         >>$ppd_file_name
+echo '*PSVersion: "(3010.106) 3"'                                                       >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%==== Basic Device Capabilities ============='                                   >>$ppd_file_name
+echo '*LanguageLevel: "3"'                                                              >>$ppd_file_name
+echo '*ColorDevice: True'                                                               >>$ppd_file_name
+echo '*DefaultColorSpace: RGB'                                                          >>$ppd_file_name
+echo '*FileSystem: False'                                                               >>$ppd_file_name
+echo '*Throughput: "12"'                                                                >>$ppd_file_name
+echo '*LandscapeOrientation: Plus90'                                                    >>$ppd_file_name
+echo '*VariablePaperSize: False'                                                        >>$ppd_file_name
+echo '*TTRasterizer: Type42'                                                            >>$ppd_file_name
+echo '*FreeVM: "1700000"'                                                               >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*DefaultOutputOrder: Reverse'                                                     >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%==== Media Selection ======================'                                    >>$ppd_file_name
+echo '*OpenUI *PageSize/Media Size: PickOne'                                            >>$ppd_file_name
+echo '*OrderDependency: 11 AnySetup *PageSize'                                          >>$ppd_file_name
+echo '*DefaultPageSize: BrLetter'                                                       >>$ppd_file_name
+echo '*PageSize BrA4/A4: "                      "'                                      >>$ppd_file_name
+echo '*PageSize BrA4_B/A4 (Borderless): "                      "'                       >>$ppd_file_name
+echo '*PageSize BrLetter/Letter: "                      "'                              >>$ppd_file_name
+echo '*PageSize BrLetter_B/Letter (Borderless): "                      "'               >>$ppd_file_name
+echo '*PageSize BrLegal/Legal: "                      "'                                >>$ppd_file_name
+echo '*PageSize BrExecutive/Executive: "                      "'                        >>$ppd_file_name
+echo '*PageSize BrJISB5/JIS B5: "                      "'                               >>$ppd_file_name
+echo '*PageSize BrA5/A5: "                      "'                                      >>$ppd_file_name
+echo '*PageSize BrA6/A6: "                      "'                                      >>$ppd_file_name
+echo '*PageSize BrA6_B/A6 (Borderless): "                      "'                       >>$ppd_file_name
+echo '*PageSize BrPostC4x6/Photo: "                      "'                             >>$ppd_file_name
+echo '*PageSize BrPostC4x6_B/Photo (Borderless): "                      "'              >>$ppd_file_name
+echo '*PageSize BrIndexC5x8/Index Card: "                      "'                       >>$ppd_file_name
+echo '*PageSize BrIndexC5x8_B/Index Card (Borderless): "                      "'        >>$ppd_file_name
+echo '*PageSize BrPhotoL/Photo L: "                      "'                             >>$ppd_file_name
+echo '*PageSize BrPhotoL_B/Photo L (Borderless): "                      "'              >>$ppd_file_name
+echo '*PageSize BrPhoto2L/Photo 2L: "                      "'                           >>$ppd_file_name
+echo '*PageSize BrPhoto2L_B/Photo 2L (Borderless): "                      "'            >>$ppd_file_name
+echo '*PageSize BrHagaki/PostCard 1: "                      "'                          >>$ppd_file_name
+echo '*PageSize BrHagaki_B/PostCard 1 (Borderless): "                      "'           >>$ppd_file_name
+echo '*PageSize BrDoubleHagaki/PostCard 2 (Double): "                      "'           >>$ppd_file_name
+echo '*PageSize BrC5/C5 Envelope: "                      "'                             >>$ppd_file_name
+echo '*PageSize BrDL/DL Envelope: "                      "'                             >>$ppd_file_name
+echo '*PageSize BrCom10/Com-10: "                      "'                               >>$ppd_file_name
+echo '*PageSize BrMonarch/Monarch: "                      "'                            >>$ppd_file_name
+echo '*PageSize BrYokei4/JE4 Envelope: "                      "'                        >>$ppd_file_name
+echo '*CloseUI: *PageSize'                                                              >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*OpenUI *PageRegion: PickOne'                                                     >>$ppd_file_name
+echo '*OrderDependency: 12 AnySetup *PageRegion'                                        >>$ppd_file_name
+echo '*DefaultPageRegion: BrLetter'                                                     >>$ppd_file_name
+echo '*PageRegion BrA4/A4: "                      "'                                    >>$ppd_file_name
+echo '*PageRegion BrA4_B/A4 (Borderless): "                      "'                     >>$ppd_file_name
+echo '*PageRegion BrLetter/Letter: "                      "'                            >>$ppd_file_name
+echo '*PageRegion BrLetter_B/Letter (Borderless): "                      "'             >>$ppd_file_name
+echo '*PageRegion BrLegal/Legal: "                      "'                              >>$ppd_file_name
+echo '*PageRegion BrExecutive/Executive: "                      "'                      >>$ppd_file_name
+echo '*PageRegion BrJISB5/JIS B5: "                      "'                             >>$ppd_file_name
+echo '*PageRegion BrA5/A5: "                      "'                                    >>$ppd_file_name
+echo '*PageRegion BrA6/A6: "                      "'                                    >>$ppd_file_name
+echo '*PageRegion BrA6_B/A6 (Borderless): "                      "'                     >>$ppd_file_name
+echo '*PageRegion BrPostC4x6/Photo: "                      "'                           >>$ppd_file_name
+echo '*PageRegion BrPostC4x6_B/Photo (Borderless): "                      "'            >>$ppd_file_name
+echo '*PageRegion BrIndexC5x8/Index Card: "                      "'                     >>$ppd_file_name
+echo '*PageRegion BrIndexC5x8_B/Index Card (Borderless): "                      "'      >>$ppd_file_name
+echo '*PageRegion BrPhotoL/Photo L: "                      "'                           >>$ppd_file_name
+echo '*PageRegion BrPhotoL_B/Photo L (Borderless): "                      "'            >>$ppd_file_name
+echo '*PageRegion BrPhoto2L/Photo 2L: "                      "'                         >>$ppd_file_name
+echo '*PageRegion BrPhoto2L_B/Photo 2L (Borderless): "                      "'          >>$ppd_file_name
+echo '*PageRegion BrHagaki/PostCard 1: "                      "'                        >>$ppd_file_name
+echo '*PageRegion BrHagaki_B/PostCard 1 (Borderless): "                      "'         >>$ppd_file_name
+echo '*PageRegion BrDoubleHagaki/PostCard 2 (Double): "                      "'         >>$ppd_file_name
+echo '*PageRegion BrC5/C5 Envelope: "                      "'                           >>$ppd_file_name
+echo '*PageRegion BrDL/DL Envelope: "                      "'                           >>$ppd_file_name
+echo '*PageRegion BrCom10/Com-10: "                      "'                             >>$ppd_file_name
+echo '*PageRegion BrMonarch/Monarch: "                      "'                          >>$ppd_file_name
+echo '*PageRegion BrYokei4/JE4 Envelope: "                      "'                      >>$ppd_file_name
+echo '*CloseUI: *PageRegion'                                                            >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*DefaultImageableArea: BrLetter '                                                 >>$ppd_file_name
+echo '*ImageableArea BrA4/A4:					"9 9 586 833"'                                        >>$ppd_file_name
+echo '*ImageableArea BrA4_B/A4 (Borderless):			"6 6 615 862"'                           >>$ppd_file_name
+echo '*ImageableArea BrLetter/Letter:				"9 9 603 783"'                                 >>$ppd_file_name
+echo '*ImageableArea BrLetter_B/Letter (Borderless):		"9 9 629 809"'                    >>$ppd_file_name
+echo '*ImageableArea BrLegal/Legal:				"9 9 603 999"'                                   >>$ppd_file_name
+echo '*ImageableArea BrExecutive/Executive:			"9 9 513 747"'                            >>$ppd_file_name
+echo '*ImageableArea BrJISB5/JIS B5:				"9 9 507 720"'                                  >>$ppd_file_name
+echo '*ImageableArea BrA5/A5:					"9 9 411 586"'                                        >>$ppd_file_name
+echo '*ImageableArea BrA6/A6:					"9 9 289 410"'                                        >>$ppd_file_name
+echo '*ImageableArea BrA6_B/A6 (Borderless):			"6 6 319 439"'                           >>$ppd_file_name
+echo '*ImageableArea BrPostC4x6/Photo:			"9 9 279 423"'                                 >>$ppd_file_name
+echo '*ImageableArea BrPostC4x6_B/Photo (Borderless):		"6 6 308 452"'                   >>$ppd_file_name
+echo '*ImageableArea BrIndexC5x8/Index Card:			"9 9 351 567"'                           >>$ppd_file_name
+echo '*ImageableArea BrIndexC5x8_B/Index Card (Borderless):	"6 6 380 596"'              >>$ppd_file_name
+echo '*ImageableArea BrPhotoL/Photo L:			"9 9 243 351"'                                 >>$ppd_file_name
+echo '*ImageableArea BrPhotoL_B/Photo L (Borderless):		"6 6 273 380"'                   >>$ppd_file_name
+echo '*ImageableArea BrPhoto2L/Photo 2L:			"9 9 351 495"'                               >>$ppd_file_name
+echo '*ImageableArea BrPhoto2L_B/Photo 2L (Borderless):	"6 6 380 525"'                  >>$ppd_file_name
+echo '*ImageableArea BrHagaki/PostCard 1: 			"9 9 274 410"'                             >>$ppd_file_name
+echo '*ImageableArea BrHagaki_B/PostCard 1 (Borderless):	"6 6 303 439"'                 >>$ppd_file_name
+echo '*ImageableArea BrDoubleHagaki/PostCard 2 (Double): 	"9 9 411 558"'                >>$ppd_file_name
+echo '*ImageableArea BrC5/C5 Envelope: 			"9 68 450 615"'                               >>$ppd_file_name
+echo '*ImageableArea BrDL/DL Envelope:			"9 68 303 590"'                                >>$ppd_file_name
+echo '*ImageableArea BrCom10/Com-10:				"9 68 288 650"'                                 >>$ppd_file_name
+echo '*ImageableArea BrMonarch/Monarch:			"9 68 270 506"'                               >>$ppd_file_name
+echo '*ImageableArea BrYokei4/JE4 Envelope: 			"9 68 288 630"'                          >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%==== Information About Media Sizes ========'                                    >>$ppd_file_name
+echo '*DefaultPaperDimension: BrLetter'                                                 >>$ppd_file_name
+echo '*PaperDimension BrA4/A4:				"595 842"'                                            >>$ppd_file_name
+echo '*PaperDimension BrA4_B/A4 (Borderless):			"621 868"'                              >>$ppd_file_name
+echo '*PaperDimension BrLetter/Letter:			"612 792"'                                     >>$ppd_file_name
+echo '*PaperDimension BrLetter_B/Letter (Borderless):		"638 818"'                       >>$ppd_file_name
+echo '*PaperDimension BrLegal/Legal:				"612 1008"'                                     >>$ppd_file_name
+echo '*PaperDimension BrExecutive/Executive:			"522 756"'                               >>$ppd_file_name
+echo '*PaperDimension BrJISB5/JIS B5:				"516 729"'                                     >>$ppd_file_name
+echo '*PaperDimension BrA5/A5:				"420 595"'                                            >>$ppd_file_name
+echo '*PaperDimension BrA6/A6:				"298 419"'                                            >>$ppd_file_name
+echo '*PaperDimension BrA6_B/A6 (Borderless):			"325 445"'                              >>$ppd_file_name
+echo '*PaperDimension BrPostC4x6/Photo:			"288 432"'                                    >>$ppd_file_name
+echo '*PaperDimension BrPostC4x6_B/Photo (Borderless):	"314 458"'                       >>$ppd_file_name
+echo '*PaperDimension BrIndexC5x8/Index Card:			"360 576"'                              >>$ppd_file_name
+echo '*PaperDimension BrIndexC5x8_B/Index Card (Borderless):	"386 602"'                 >>$ppd_file_name
+echo '*PaperDimension BrPhotoL/Photo L:			"252 360"'                                    >>$ppd_file_name
+echo '*PaperDimension BrPhotoL_B/Photo L (Borderless):	"279 386"'                       >>$ppd_file_name
+echo '*PaperDimension BrPhoto2L/Photo 2L:			"360 504"'                                  >>$ppd_file_name
+echo '*PaperDimension BrPhoto2L_B/Photo 2L (Borderless):	"386 531"'                     >>$ppd_file_name
+echo '*PaperDimension BrHagaki/PostCard 1: 			"283 419"'                                >>$ppd_file_name
+echo '*PaperDimension BrHagaki_B/PostCard 1 (Borderless):	"309 445"'                    >>$ppd_file_name
+echo '*PaperDimension BrDoubleHagaki/PostCard 2 (Double): 	"420 567"'                   >>$ppd_file_name
+echo '*PaperDimension BrC5/C5 Envelope: 			"459 649"'                                   >>$ppd_file_name
+echo '*PaperDimension BrDL/DL Envelope:			"312 624"'                                    >>$ppd_file_name
+echo '*PaperDimension BrCom10/Com-10:				"297 684"'                                     >>$ppd_file_name
+echo '*PaperDimension BrMonarch/Monarch:			"279 540"'                                   >>$ppd_file_name
+echo '*PaperDimension BrYokei4/JE4 Envelope: 			"297 664"'                              >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Paper Feed================================'                                 >>$ppd_file_name
+echo '*OpenUI *BRInputSlot/Paper Feed: PickOne'                                         >>$ppd_file_name
+echo '*OrderDependency: 13 AnySetup *BRInputSlot'                                       >>$ppd_file_name
+echo '*DefaultBRInputSlot: AutoSelect'                                                  >>$ppd_file_name
+echo '*BRInputSlot AutoSelect/Auto Select: "                      "'                    >>$ppd_file_name
+echo '*CloseUI: *BRInputSlot'                                                           >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%==== Resolution Features ================================='                     >>$ppd_file_name
+echo '*OpenUI *Resolution/Media Type/Quality : PickOne'                                 >>$ppd_file_name
+echo '*OrderDependency: 14 AnySetup *Resolution'                                        >>$ppd_file_name
+echo '*DefaultResolution: Normal0'                                                      >>$ppd_file_name
+echo '*Resolution	Fast0/Plain Paper/Fast Normal: "                      "'              >>$ppd_file_name
+echo '*Resolution	Normal0/Plain Paper/Normal: "                      "'                 >>$ppd_file_name
+echo '*Resolution	EnhNormal0/Plain Paper/Enhanced Normal: "                      "'                         >>$ppd_file_name
+echo '*Resolution	Fine0/Plain Paper/Fine: "                      "'                     >>$ppd_file_name
+echo '*Resolution	Fine1/Inkjet Paper/Fine: "                      "'                    >>$ppd_file_name
+echo '*Resolution	Photo1/Inkjet Paper/Photo: "                      "'                  >>$ppd_file_name
+echo '*Resolution	Fine2/Glossy Paper/Fine: "                      "'                    >>$ppd_file_name
+echo '*Resolution	Photo2/Glossy Paper/Photo: "                      "'                  >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*Resolution	Highest2/Glossy Paper/Highest: "                      "'              >>$ppd_file_name
+echo '*Resolution	Normal3/Transparencies/Normal: "                      "'              >>$ppd_file_name
+echo '*Resolution	EnhNormal3/Transparencies/Enhanced Normal: "                      "'                      >>$ppd_file_name
+echo '*Resolution	Fine3/Transparencies/Fine: "                      "'                  >>$ppd_file_name
+echo '*Resolution	Fast4/Slow Drying Paper/Fast Normal: "                      "'                            >>$ppd_file_name
+echo '*Resolution	Normal4/Slow Drying Paper/Normal: "                      "'           >>$ppd_file_name
+echo '*Resolution	EnhNormal4/Slow Drying Paper/Enhanced Normal: "                      "'                   >>$ppd_file_name
+echo '*Resolution	Fine4/Slow Drying Paper/Fine: "                      "'               >>$ppd_file_name
+echo '*CloseUI: *Resolution'                                                            >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== MonoOrColor ================================'                               >>$ppd_file_name
+echo '*OpenUI *BRMonoColor/Color/Grayscale: PickOne'                                    >>$ppd_file_name
+echo '*OrderDependency: 15 AnySetup *BRMonoColor'                                       >>$ppd_file_name
+echo '*DefaultBRMonoColor: Color'                                                       >>$ppd_file_name
+echo '*BRMonoColor Color/Color: ""'                                                     >>$ppd_file_name
+echo '*BRMonoColor Mono/Grayscale: ""'                                                  >>$ppd_file_name
+echo '*CloseUI: *BRMonoColor'                                                           >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Paper Thick ================================'                               >>$ppd_file_name
+echo '*OpenUI *BRColorPaperThick/Paper Thickness: PickOne'                              >>$ppd_file_name
+echo '*OrderDependency: 17 AnySetup *BRColorPaperThick'                                 >>$ppd_file_name
+echo '*DefaultBRColorPaperThick: Regular'                                               >>$ppd_file_name
+echo '*BRColorPaperThick Regular/Regular: ""'                                           >>$ppd_file_name
+echo '*BRColorPaperThick Thick/Thick: ""'                                               >>$ppd_file_name
+echo '*CloseUI: *BRColorPaperThick'                                                     >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Bi-DirKey ================================'                                 >>$ppd_file_name
+echo '*OpenUI *BRBiDir/Bi-Directional Printing: PickOne'                                >>$ppd_file_name
+echo '*OrderDependency: 18 AnySetup *BRColorPaperThick'                                 >>$ppd_file_name
+echo '*DefaultBRBiDir: ON'                                                              >>$ppd_file_name
+echo '*BRBiDir OFF/OFF: ""'                                                             >>$ppd_file_name
+echo '*BRBiDir ON/ON: ""'                                                               >>$ppd_file_name
+echo '*CloseUI: *BRBiDir'                                                               >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Mirror Printing ================================'                           >>$ppd_file_name
+echo '*OpenUI *BRMirror/Mirror Printing: PickOne'                                       >>$ppd_file_name
+echo '*OrderDependency: 20 AnySetup *BRMirror'                                          >>$ppd_file_name
+echo '*DefaultBRMirror: OFF'                                                            >>$ppd_file_name
+echo '*BRMirror OFF/OFF: ""'                                                            >>$ppd_file_name
+echo '*BRMirror ON/ON: ""'                                                              >>$ppd_file_name
+echo '*CloseUI: *BRMirror'                                                              >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Document ================================'                                  >>$ppd_file_name
+echo '*OpenUI *BRDocument/Document: PickOne'                                            >>$ppd_file_name
+echo '*OrderDependency: 21 AnySetup *BRDocument'                                        >>$ppd_file_name
+echo '*DefaultBRDocument: Photo'                                                        >>$ppd_file_name
+echo '*BRDocument Photo/Photo: ""'                                                      >>$ppd_file_name
+echo '*BRDocument Graphics/Graphics: ""'                                                >>$ppd_file_name
+echo '*BRDocument Custom/Custom: ""'                                                    >>$ppd_file_name
+echo '*CloseUI: *BRDocument'                                                            >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Color Matching ================================'                            >>$ppd_file_name
+echo '*OpenUI *BRColorMatching/Color Matching: PickOne'                                 >>$ppd_file_name
+echo '*OrderDependency: 22 AnySetup *BRColorMatching'                                   >>$ppd_file_name
+echo '*DefaultBRColorMatching: Natural'                                                 >>$ppd_file_name
+echo '*BRColorMatching Natural/Natural: ""'                                             >>$ppd_file_name
+echo '*BRColorMatching Vivid/Vivid: ""'                                                 >>$ppd_file_name
+echo '*BRColorMatching None/None: ""'                                                   >>$ppd_file_name
+echo '*CloseUI: *BRColorMatching'                                                       >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Half Tone Pattern ================================'                         >>$ppd_file_name
+echo '*OpenUI *BRHalfTonePattern/Half Tone Pattern: PickOne'                            >>$ppd_file_name
+echo '*OrderDependency: 23 AnySetup *BRHalfTonePattern'                                 >>$ppd_file_name
+echo '*DefaultBRHalfTonePattern: Diffusion'                                             >>$ppd_file_name
+echo '*BRHalfTonePattern Diffusion/Diffusion: ""'                                       >>$ppd_file_name
+echo '*BRHalfTonePattern Dither/Dither: ""'                                             >>$ppd_file_name
+echo '*CloseUI: *BRHalfTonePattern'                                                     >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== True2Life ================================'                                 >>$ppd_file_name
+echo '*OpenUI *BRColorEnhancement/Color Enhancement (True2Life): PickOne'               >>$ppd_file_name
+echo '*OrderDependency: 24 AnySetup *BRColorEnhancement'                                >>$ppd_file_name
+echo '*DefaultBRColorEnhancement: OFF'                                                  >>$ppd_file_name
+echo '*BRColorEnhancement OFF/OFF: ""'                                                  >>$ppd_file_name
+echo '*BRColorEnhancement ON/ON: ""'                                                    >>$ppd_file_name
+echo '*CloseUI: *BRColorEnhancement'                                                    >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Brightness ================================'                                >>$ppd_file_name
+echo '*OpenUI *BRBrightness/Brightness: PickOne'                                        >>$ppd_file_name
+echo '*OrderDependency: 25 AnySetup *BRBrightness'                                      >>$ppd_file_name
+echo '*DefaultBRBrightness: 0'                                                          >>$ppd_file_name
+echo '*BRBrightness -20/-20: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -19/-19: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -18/-18: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -17/-17: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -16/-16: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -15/-15: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -14/-14: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -13/-13: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -12/-12: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -11/-11: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -10/-10: ""'                                                        >>$ppd_file_name
+echo '*BRBrightness -9/-9: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness -8/-8: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness -7/-7: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness -6/-6: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness -5/-5: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness -4/-4: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness -3/-3: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness -2/-2: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness -1/-1: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 0/0: ""'                                                            >>$ppd_file_name
+echo '*BRBrightness 1/1: ""'                                                            >>$ppd_file_name
+echo '*BRBrightness 2/2: ""'                                                            >>$ppd_file_name
+echo '*BRBrightness 3/3: ""'                                                            >>$ppd_file_name
+echo '*BRBrightness 4/4: ""'                                                            >>$ppd_file_name
+echo '*BRBrightness 5/5: ""'                                                            >>$ppd_file_name
+echo '*BRBrightness 6/6: ""'                                                            >>$ppd_file_name
+echo '*BRBrightness 7/7: ""'                                                            >>$ppd_file_name
+echo '*BRBrightness 8/8: ""'                                                            >>$ppd_file_name
+echo '*BRBrightness 9/9: ""'                                                            >>$ppd_file_name
+echo '*BRBrightness 10/10: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 11/11: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 12/12: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 13/13: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 14/14: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 15/15: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 16/16: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 17/17: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 18/18: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 19/19: ""'                                                          >>$ppd_file_name
+echo '*BRBrightness 20/20: ""'                                                          >>$ppd_file_name
+echo '*CloseUI: *BRBrightness'                                                          >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Contrast ================================'                                  >>$ppd_file_name
+echo '*OpenUI *BRContrast/Contrast: PickOne'                                            >>$ppd_file_name
+echo '*OrderDependency: 26 AnySetup *BRContrast'                                        >>$ppd_file_name
+echo '*DefaultBRContrast: 0'                                                            >>$ppd_file_name
+echo '*BRContrast -20/-20: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -19/-19: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -18/-18: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -17/-17: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -16/-16: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -15/-15: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -14/-14: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -13/-13: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -12/-12: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -11/-11: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -10/-10: ""'                                                          >>$ppd_file_name
+echo '*BRContrast -9/-9: ""'                                                            >>$ppd_file_name
+echo '*BRContrast -8/-8: ""'                                                            >>$ppd_file_name
+echo '*BRContrast -7/-7: ""'                                                            >>$ppd_file_name
+echo '*BRContrast -6/-6: ""'                                                            >>$ppd_file_name
+echo '*BRContrast -5/-5: ""'                                                            >>$ppd_file_name
+echo '*BRContrast -4/-4: ""'                                                            >>$ppd_file_name
+echo '*BRContrast -3/-3: ""'                                                            >>$ppd_file_name
+echo '*BRContrast -2/-2: ""'                                                            >>$ppd_file_name
+echo '*BRContrast -1/-1: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 0/0: ""'                                                              >>$ppd_file_name
+echo '*BRContrast 1/1: ""'                                                              >>$ppd_file_name
+echo '*BRContrast 2/2: ""'                                                              >>$ppd_file_name
+echo '*BRContrast 3/3: ""'                                                              >>$ppd_file_name
+echo '*BRContrast 4/4: ""'                                                              >>$ppd_file_name
+echo '*BRContrast 5/5: ""'                                                              >>$ppd_file_name
+echo '*BRContrast 6/6: ""'                                                              >>$ppd_file_name
+echo '*BRContrast 7/7: ""'                                                              >>$ppd_file_name
+echo '*BRContrast 8/8: ""'                                                              >>$ppd_file_name
+echo '*BRContrast 9/9: ""'                                                              >>$ppd_file_name
+echo '*BRContrast 10/10: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 11/11: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 12/12: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 13/13: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 14/14: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 15/15: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 16/16: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 17/17: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 18/18: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 19/19: ""'                                                            >>$ppd_file_name
+echo '*BRContrast 20/20: ""'                                                            >>$ppd_file_name
+echo '*CloseUI: *BRContrast'                                                            >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Red ================================'                                       >>$ppd_file_name
+echo '*OpenUI *BRRed/Red: PickOne'                                                      >>$ppd_file_name
+echo '*OrderDependency: 27 AnySetup *BRRed'                                             >>$ppd_file_name
+echo '*DefaultBRRed: 0'                                                                 >>$ppd_file_name
+echo '*BRRed -20/-20: ""'                                                               >>$ppd_file_name
+echo '*BRRed -19/-19: ""'                                                               >>$ppd_file_name
+echo '*BRRed -18/-18: ""'                                                               >>$ppd_file_name
+echo '*BRRed -17/-17: ""'                                                               >>$ppd_file_name
+echo '*BRRed -16/-16: ""'                                                               >>$ppd_file_name
+echo '*BRRed -15/-15: ""'                                                               >>$ppd_file_name
+echo '*BRRed -14/-14: ""'                                                               >>$ppd_file_name
+echo '*BRRed -13/-13: ""'                                                               >>$ppd_file_name
+echo '*BRRed -12/-12: ""'                                                               >>$ppd_file_name
+echo '*BRRed -11/-11: ""'                                                               >>$ppd_file_name
+echo '*BRRed -10/-10: ""'                                                               >>$ppd_file_name
+echo '*BRRed -9/-9: ""'                                                                 >>$ppd_file_name
+echo '*BRRed -8/-8: ""'                                                                 >>$ppd_file_name
+echo '*BRRed -7/-7: ""'                                                                 >>$ppd_file_name
+echo '*BRRed -6/-6: ""'                                                                 >>$ppd_file_name
+echo '*BRRed -5/-5: ""'                                                                 >>$ppd_file_name
+echo '*BRRed -4/-4: ""'                                                                 >>$ppd_file_name
+echo '*BRRed -3/-3: ""'                                                                 >>$ppd_file_name
+echo '*BRRed -2/-2: ""'                                                                 >>$ppd_file_name
+echo '*BRRed -1/-1: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 0/0: ""'                                                                   >>$ppd_file_name
+echo '*BRRed 1/1: ""'                                                                   >>$ppd_file_name
+echo '*BRRed 2/2: ""'                                                                   >>$ppd_file_name
+echo '*BRRed 3/3: ""'                                                                   >>$ppd_file_name
+echo '*BRRed 4/4: ""'                                                                   >>$ppd_file_name
+echo '*BRRed 5/5: ""'                                                                   >>$ppd_file_name
+echo '*BRRed 6/6: ""'                                                                   >>$ppd_file_name
+echo '*BRRed 7/7: ""'                                                                   >>$ppd_file_name
+echo '*BRRed 8/8: ""'                                                                   >>$ppd_file_name
+echo '*BRRed 9/9: ""'                                                                   >>$ppd_file_name
+echo '*BRRed 10/10: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 11/11: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 12/12: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 13/13: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 14/14: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 15/15: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 16/16: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 17/17: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 18/18: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 19/19: ""'                                                                 >>$ppd_file_name
+echo '*BRRed 20/20: ""'                                                                 >>$ppd_file_name
+echo '*CloseUI: *BRRed'                                                                 >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Green ================================'                                     >>$ppd_file_name
+echo '*OpenUI *BRGreen/Green: PickOne'                                                  >>$ppd_file_name
+echo '*OrderDependency: 28 AnySetup *BRGreen'                                           >>$ppd_file_name
+echo '*DefaultBRGreen: 0'                                                               >>$ppd_file_name
+echo '*BRGreen -20/-20: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -19/-19: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -18/-18: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -17/-17: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -16/-16: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -15/-15: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -14/-14: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -13/-13: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -12/-12: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -11/-11: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -10/-10: ""'                                                             >>$ppd_file_name
+echo '*BRGreen -9/-9: ""'                                                               >>$ppd_file_name
+echo '*BRGreen -8/-8: ""'                                                               >>$ppd_file_name
+echo '*BRGreen -7/-7: ""'                                                               >>$ppd_file_name
+echo '*BRGreen -6/-6: ""'                                                               >>$ppd_file_name
+echo '*BRGreen -5/-5: ""'                                                               >>$ppd_file_name
+echo '*BRGreen -4/-4: ""'                                                               >>$ppd_file_name
+echo '*BRGreen -3/-3: ""'                                                               >>$ppd_file_name
+echo '*BRGreen -2/-2: ""'                                                               >>$ppd_file_name
+echo '*BRGreen -1/-1: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 0/0: ""'                                                                 >>$ppd_file_name
+echo '*BRGreen 1/1: ""'                                                                 >>$ppd_file_name
+echo '*BRGreen 2/2: ""'                                                                 >>$ppd_file_name
+echo '*BRGreen 3/3: ""'                                                                 >>$ppd_file_name
+echo '*BRGreen 4/4: ""'                                                                 >>$ppd_file_name
+echo '*BRGreen 5/5: ""'                                                                 >>$ppd_file_name
+echo '*BRGreen 6/6: ""'                                                                 >>$ppd_file_name
+echo '*BRGreen 7/7: ""'                                                                 >>$ppd_file_name
+echo '*BRGreen 8/8: ""'                                                                 >>$ppd_file_name
+echo '*BRGreen 9/9: ""'                                                                 >>$ppd_file_name
+echo '*BRGreen 10/10: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 11/11: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 12/12: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 13/13: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 14/14: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 15/15: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 16/16: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 17/17: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 18/18: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 19/19: ""'                                                               >>$ppd_file_name
+echo '*BRGreen 20/20: ""'                                                               >>$ppd_file_name
+echo '*CloseUI: *BRGreen'                                                               >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Blue ================================'                                      >>$ppd_file_name
+echo '*OpenUI *BRBlue/Blue: PickOne'                                                    >>$ppd_file_name
+echo '*OrderDependency: 29 AnySetup *BRBlue'                                            >>$ppd_file_name
+echo '*DefaultBRBlue: 0'                                                                >>$ppd_file_name
+echo '*BRBlue -20/-20: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -19/-19: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -18/-18: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -17/-17: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -16/-16: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -15/-15: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -14/-14: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -13/-13: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -12/-12: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -11/-11: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -10/-10: ""'                                                              >>$ppd_file_name
+echo '*BRBlue -9/-9: ""'                                                                >>$ppd_file_name
+echo '*BRBlue -8/-8: ""'                                                                >>$ppd_file_name
+echo '*BRBlue -7/-7: ""'                                                                >>$ppd_file_name
+echo '*BRBlue -6/-6: ""'                                                                >>$ppd_file_name
+echo '*BRBlue -5/-5: ""'                                                                >>$ppd_file_name
+echo '*BRBlue -4/-4: ""'                                                                >>$ppd_file_name
+echo '*BRBlue -3/-3: ""'                                                                >>$ppd_file_name
+echo '*BRBlue -2/-2: ""'                                                                >>$ppd_file_name
+echo '*BRBlue -1/-1: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 0/0: ""'                                                                  >>$ppd_file_name
+echo '*BRBlue 1/1: ""'                                                                  >>$ppd_file_name
+echo '*BRBlue 2/2: ""'                                                                  >>$ppd_file_name
+echo '*BRBlue 3/3: ""'                                                                  >>$ppd_file_name
+echo '*BRBlue 4/4: ""'                                                                  >>$ppd_file_name
+echo '*BRBlue 5/5: ""'                                                                  >>$ppd_file_name
+echo '*BRBlue 6/6: ""'                                                                  >>$ppd_file_name
+echo '*BRBlue 7/7: ""'                                                                  >>$ppd_file_name
+echo '*BRBlue 8/8: ""'                                                                  >>$ppd_file_name
+echo '*BRBlue 9/9: ""'                                                                  >>$ppd_file_name
+echo '*BRBlue 10/10: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 11/11: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 12/12: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 13/13: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 14/14: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 15/15: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 16/16: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 17/17: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 18/18: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 19/19: ""'                                                                >>$ppd_file_name
+echo '*BRBlue 20/20: ""'                                                                >>$ppd_file_name
+echo '*CloseUI: *BRBlue'                                                                >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*%=== Send Fax ================================'                                  >>$ppd_file_name
+echo '*%OpenUI *BROutput/Send Fax: PickOne'                                             >>$ppd_file_name
+echo '*%OrderDependency: 30 AnySetup *BROutput'                                         >>$ppd_file_name
+echo '*%DefaultBROutput: None'                                                          >>$ppd_file_name
+echo '*%BROutput None/Off: ""'                                                          >>$ppd_file_name
+echo '*%BROutput FAX/Send Fax: "<</HWResolution [200 200]/cupsColorOrder 0/cupsColorSpace 3/cupsBitsPerColor 8 >> setpagedevice"'  >>$ppd_file_name
+echo '*%CloseUI: *BROutput'                                                             >>$ppd_file_name
+echo ''                                                                                 >>$ppd_file_name
+echo '*DefaultFont: Courier'                                                            >>$ppd_file_name
+echo '*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM'                        >>$ppd_file_name
+echo '*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM'                 >>$ppd_file_name
+echo '*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM'                        >>$ppd_file_name
+echo '*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM'                 >>$ppd_file_name
+echo '*Font Bookman-Demi: Standard "(001.004S)" Standard ROM'                           >>$ppd_file_name
+echo '*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM'                     >>$ppd_file_name
+echo '*Font Bookman-Light: Standard "(001.004S)" Standard ROM'                          >>$ppd_file_name
+echo '*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM'                    >>$ppd_file_name
+echo '*Font Courier: Standard "(002.004S)" Standard ROM'                                >>$ppd_file_name
+echo '*Font Courier-Bold: Standard "(002.004S)" Standard ROM'                           >>$ppd_file_name
+echo '*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM'                    >>$ppd_file_name
+echo '*Font Courier-Oblique: Standard "(002.004S)" Standard ROM'                        >>$ppd_file_name
+echo '*Font Helvetica: Standard "(001.006S)" Standard ROM'                              >>$ppd_file_name
+echo '*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM'                         >>$ppd_file_name
+echo '*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM'                  >>$ppd_file_name
+echo '*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM'                       >>$ppd_file_name
+echo '*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM'                  >>$ppd_file_name
+echo '*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM'           >>$ppd_file_name
+echo '*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM'               >>$ppd_file_name
+echo '*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM'                      >>$ppd_file_name
+echo '*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM'                  >>$ppd_file_name
+echo '*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM'            >>$ppd_file_name
+echo '*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM'                >>$ppd_file_name
+echo '*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM'                 >>$ppd_file_name
+echo '*Font Palatino-Bold: Standard "(001.005S)" Standard ROM'                          >>$ppd_file_name
+echo '*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM'                    >>$ppd_file_name
+echo '*Font Palatino-Italic: Standard "(001.005S)" Standard ROM'                        >>$ppd_file_name
+echo '*Font Palatino-Roman: Standard "(001.005S)" Standard ROM'                         >>$ppd_file_name
+echo '*Font Times-Bold: Standard "(001.007S)" Standard ROM'                             >>$ppd_file_name
+echo '*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM'                       >>$ppd_file_name
+echo '*Font Times-Italic: Standard "(001.007S)" Standard ROM'                           >>$ppd_file_name
+echo '*Font Times-Roman: Standard "(001.007S)" Standard ROM'                            >>$ppd_file_name
+echo '*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM'              >>$ppd_file_name
+echo '*Font ZapfDingbats: Special "(001.004S)" Special ROM'                             >>$ppd_file_name
+echo '*Font Symbol: Special "(001.007S)" Special ROM'                                   >>$ppd_file_name
+echo '*Font Alaska: Standard "(001.005)" Standard ROM'                                  >>$ppd_file_name
+echo '*Font AlaskaExtrabold: Standard "(001.005)" Standard ROM'                         >>$ppd_file_name
+echo '*Font AntiqueOakland: Standard "(001.005)" Standard ROM'                          >>$ppd_file_name
+echo '*Font AntiqueOakland-Bold: Standard "(001.005)" Standard ROM'                     >>$ppd_file_name
+echo '*Font AntiqueOakland-Oblique: Standard "(001.005)" Standard ROM'                  >>$ppd_file_name
+echo '*Font ClevelandCondensed: Standard "(001.005)" Standard ROM'                      >>$ppd_file_name
+echo '*Font Connecticut: Standard "(001.005)" Standard ROM'                             >>$ppd_file_name
+echo '*Font Guatemala-Antique: Standard "(001.005)" Standard ROM'                       >>$ppd_file_name
+echo '*Font Guatemala-Bold: Standard "(001.005)" Standard ROM'                          >>$ppd_file_name
+echo '*Font Guatemala-Italic: Standard "(001.005)" Standard ROM'                        >>$ppd_file_name
+echo '*Font Guatemala-BoldItalic: Standard "(001.005)" Standard ROM'                    >>$ppd_file_name
+echo '*Font LetterGothic: Standard "(001.005)" Standard ROM'                            >>$ppd_file_name
+echo '*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM'                       >>$ppd_file_name
+echo '*Font LetterGothic-Oblique: Standard "(001.005)" Standard ROM'                    >>$ppd_file_name
+echo '*Font Maryland: Standard "(001.005)" Standard ROM'                                >>$ppd_file_name
+echo '*Font Oklahoma: Standard "(001.005)" Standard ROM'                                >>$ppd_file_name
+echo '*Font Oklahoma-Bold: Standard "(001.005)" Standard ROM'                           >>$ppd_file_name
+echo '*Font Oklahoma-Oblique: Standard "(001.005)" Standard ROM'                        >>$ppd_file_name
+echo '*Font Oklahoma-BoldOblique: Standard "(001.005)" Standard ROM'                    >>$ppd_file_name
+echo '*Font Utah: Standard "(001.005)" Standard ROM'                                    >>$ppd_file_name
+echo '*Font Utah-Bold: Standard "(001.005)" Standard ROM'                               >>$ppd_file_name
+echo '*Font Utah-Oblique: Standard "(001.005)" Standard ROM'                            >>$ppd_file_name
+echo '*Font Utah-BoldOblique: Standard "(001.005)" Standard ROM'                        >>$ppd_file_name
+echo '*Font UtahCondensed: Standard "(001.005)" Standard ROM'                           >>$ppd_file_name
+echo '*Font UtahCondensed-Bold: Standard "(001.005)" Standard ROM'                      >>$ppd_file_name
+echo '*Font UtahCondensed-Oblique: Standard "(001.004)" Standard ROM'                   >>$ppd_file_name
+echo '*Font UtahCondensed-BoldOblique: Standard "(001.005)" Standard ROM'               >>$ppd_file_name
+echo '*Font BermudaScript: Standard "(001.005)" Standard ROM'                           >>$ppd_file_name
+echo '*Font Germany: Standard "(001.005)" Standard ROM'                                 >>$ppd_file_name
+echo '*Font SanDiego: Standard "(001.005)" Standard ROM'                                >>$ppd_file_name
+echo '*Font US-Roman: Standard "(001.005)" Standard ROM'                                >>$ppd_file_name
+if ( -d /usr/share/ppd ) then
+    cp  $ppd_file_name /usr/share/ppd
+endif
+
+
+set  brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperFAX1835C
+rm -f  $brotherlpdwrapper
+echo 'rm -f /usr/lib/cups/filter/brlpdwrapperFAX1835C'
+touch $brotherlpdwrapper
+echo  '#! /bin/csh'  >>  $brotherlpdwrapper
+echo  '#'  >>  $brotherlpdwrapper
+echo  '# Brother Print filter  '  >>  $brotherlpdwrapper
+echo  '# Copyright (C) 2004 Brother. Industries, Ltd.'  >>  $brotherlpdwrapper
+echo  '#                                    Ver0.80'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '# This program is free software; you can redistribute it and/or modify it'  >>  $brotherlpdwrapper
+echo  '# under the terms of the GNU General Public License as published by the Free'  >>  $brotherlpdwrapper
+echo  '# Software Foundation; either version 2 of the License, or (at your option)'  >>  $brotherlpdwrapper
+echo  '# any later version.'  >>  $brotherlpdwrapper
+echo  '#'  >>  $brotherlpdwrapper
+echo  '# This program is distributed in the hope that it will be useful, but WITHOUT'  >>  $brotherlpdwrapper
+echo  '# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or'  >>  $brotherlpdwrapper
+echo  '# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for'  >>  $brotherlpdwrapper
+echo  '# more details.'  >>  $brotherlpdwrapper
+echo  '#'  >>  $brotherlpdwrapper
+echo  '# You should have received a copy of the GNU General Public License along with'  >>  $brotherlpdwrapper
+echo  '# this program; if not, write to the Free Software Foundation, Inc., 59 Temple'  >>  $brotherlpdwrapper
+echo  '# Place, Suite 330, Boston, MA  02111-1307  USA'  >>  $brotherlpdwrapper
+echo  '#'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set  LOGFILE=/dev/null'  >>  $brotherlpdwrapper
+echo  'set  LOGLEVEL=1'  >>  $brotherlpdwrapper
+echo  'set  DEBUG=0'  >>  $brotherlpdwrapper
+echo  'set  LOG_LATESTONLY=1'  >>  $brotherlpdwrapper
+echo  'set  errorcode=0'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'if($DEBUG != 0) then'  >>  $brotherlpdwrapper
+echo  '    set  LOGFILE=/tmp/br_cupsfilter_debug_log'  >>  $brotherlpdwrapper
+echo  'endif'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set  PRINTER=FAX1835C'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set BRPRINTCONFIG='brprintconfij2''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set printerdefaults = ( \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -md PLAIN" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -reso 300" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -bidir ON" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -mirro OFF" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -pt A4" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -thick  REGULAR" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -feed AUTO" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -copy 1" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -corm COLOR" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -doc PHOTO" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -cm NATURAL" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -ht DIFFUSION" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -ce OFF" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -brit 0" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -cont 0" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -red 0" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -green 0" \'  >>  $brotherlpdwrapper
+echo  '		    "$BRPRINTCONFIG -P $PRINTER  -blue 0" \'  >>  $brotherlpdwrapper
+echo  '		    Z \'  >>  $brotherlpdwrapper
+echo  '                )'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set brcommands = ( \'  >>  $brotherlpdwrapper
+echo  '    Media=PlainPaper		"-md PLAIN"   \'  >>  $brotherlpdwrapper
+echo  '    Media=InkjetPaper		"-md INKJET"   \'  >>  $brotherlpdwrapper
+echo  '    Media=Glossy		"-md GLOSSY"   \'  >>  $brotherlpdwrapper
+echo  '    Media=Transpare		"-md TRANS"   \'  >>  $brotherlpdwrapper
+echo  '    Media=TranspareMirror	"-md TRANSMIR"   \'  >>  $brotherlpdwrapper
+echo  '    Resolution=300		"-reso 300"   \'  >>  $brotherlpdwrapper
+echo  '    Resolution=600		"-reso 600"   \'  >>  $brotherlpdwrapper
+echo  '    Resolution=1200		"-reso 1200"   \'  >>  $brotherlpdwrapper
+echo  '    Resolution=750		"-reso 750"   \'  >>  $brotherlpdwrapper
+echo  '    Resolution=1200x600		"-reso 1200x600"   \'  >>  $brotherlpdwrapper
+echo  '    Resolution=1200x2400	"-reso 1200x2400"   \'  >>  $brotherlpdwrapper
+echo  '    Resolution=1200x6000	"-reso 1200x6000"   \'  >>  $brotherlpdwrapper
+echo  '    Bi-DirPrinting=OFF		"-bidir OFF"   \'  >>  $brotherlpdwrapper
+echo  '    Bi-DirPrinting=ON	        "-bidir ON"   \'  >>  $brotherlpdwrapper
+echo  '    MirrorPrint=ON              "-mirro ON"  \'  >>  $brotherlpdwrapper
+echo  '    MirrorPrint=OFF             "-mirro OFF" \'  >>  $brotherlpdwrapper
+echo  '    PaperType=A4		"-pt A4"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=A4_B		"-pt A4_B"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Letter		"-pt LT"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Letter_B		"-pt LT_B"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Legal		"-pt LGL"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Exective		"-pt EXE"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=B5		"-pt B5"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=A5		"-pt A5"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=A6		"-pt A6"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=A6_B		"-pt A6_B"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=PostCard		"-pt POSTC"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=PostCard_B	"-pt POSTC_B"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=IndexCard		"-pt INDEXC"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=IndexCard_B	"-pt INDEXC_B"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=PhotoL		"-pt PHOTOL"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=PhotoL_B		"-pt PHOTOL_B"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Photo2L		"-pt PHOTO2L"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Photo2L_B		"-pt PHOTO2L_B"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Hagaki		"-pt HAGAKI"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Hagaki_B		"-pt HAGAKI_B"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=DblHagaki		"-pt DBLHAGAKI"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=C5		"-pt C5"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=EnvC5		"-pt C5"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=DL		"-pt DL"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=EnvDL		"-pt DL"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Com-10		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=COM10		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=COM-10		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Env10		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=EnvCOM10		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Monarch		"-pt MONARCH"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=EnvMonarch	"-pt MONARCH"   \'  >>  $brotherlpdwrapper
+echo  '    PaperType=Youkei4		"-pt YOUKEI4"   \'  >>  $brotherlpdwrapper
+echo  '    PaperThickness=Regular	"-thick REGULAR"   \'  >>  $brotherlpdwrapper
+echo  '    PaperThickness=Thick	"-thick THICK"   \'  >>  $brotherlpdwrapper
+echo  '    PaperSource=Tray1		"-feed TRAY1"   \'  >>  $brotherlpdwrapper
+echo  '    PaperSource=Tray2		"-feed TRAY2"   \'  >>  $brotherlpdwrapper
+echo  '    PaperSource=AUTO		"-feed AUTO"   \'  >>  $brotherlpdwrapper
+echo  '    ColorOrMono=Mono		"-corm MONO"   \'  >>  $brotherlpdwrapper
+echo  '    ColorOrMono=Color		"-corm COLOR"   \'  >>  $brotherlpdwrapper
+echo  '    Document=PHOTO		"-doc PHOTO"   \'  >>  $brotherlpdwrapper
+echo  '    Document=GRAPH		"-doc GRAPH"   \'  >>  $brotherlpdwrapper
+echo  '    Document=CUSTOM		"-doc CUSTOM"   \'  >>  $brotherlpdwrapper
+echo  '    ColorMatching=NATURAL	"-cm NATURAL"   \'  >>  $brotherlpdwrapper
+echo  '    ColorMatching=VIVID		"-cm VIVID"   \'  >>  $brotherlpdwrapper
+echo  '    ColorMatching=NONE		"-cm NONE"   \'  >>  $brotherlpdwrapper
+echo  '    HalfTone=DIFFUSION		"-ht DIFFUSION" \'  >>  $brotherlpdwrapper
+echo  '    HalfTone=DITHER		"-ht DITHER"   \'  >>  $brotherlpdwrapper
+echo  '    ColorEnhance=OFF		"-ce OFF"   \'  >>  $brotherlpdwrapper
+echo  '    ColorEnhance=ON		"-ce ON"   \'  >>  $brotherlpdwrapper
+echo  '    Z                           Z)'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set brcommands2 = (\'  >>  $brotherlpdwrapper
+echo  '    Copies=			"-copy "   \'  >>  $brotherlpdwrapper
+echo  '    Brightness=			"-brit "   \'  >>  $brotherlpdwrapper
+echo  '    Contrast=			"-cont "  \'  >>  $brotherlpdwrapper
+echo  '    RedKey=			"-red "   \'  >>  $brotherlpdwrapper
+echo  '    GreenKey=			"-green "   \'  >>  $brotherlpdwrapper
+echo  '    BlueKey=			"-blue "   \'  >>  $brotherlpdwrapper
+echo  '    Z                            Z)'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set StandardCUPSoptions = ( \'  >>  $brotherlpdwrapper
+echo  '    media=PlainPaper		"-md PLAIN"   \'  >>  $brotherlpdwrapper
+echo  '    media=InkjetPaper		"-md INKJET"   \'  >>  $brotherlpdwrapper
+echo  '    media=Glossy		"-md GLOSSY"   \'  >>  $brotherlpdwrapper
+echo  '    media=Transpare		"-md TRANS"   \'  >>  $brotherlpdwrapper
+echo  '    media=TranspareMirror	"-md TRANSMIR"   \'  >>  $brotherlpdwrapper
+echo  '    media=A4			"-pt A4"   \'  >>  $brotherlpdwrapper
+echo  '    media=A4_B			"-pt A4_B"   \'  >>  $brotherlpdwrapper
+echo  '    media=Letter		"-pt LT"   \'  >>  $brotherlpdwrapper
+echo  '    media=Letter_B		"-pt LT_B"   \'  >>  $brotherlpdwrapper
+echo  '    media=Legal			"-pt LGL"   \'  >>  $brotherlpdwrapper
+echo  '    media=Exective		"-pt EXE"   \'  >>  $brotherlpdwrapper
+echo  '    media=B5			"-pt B5"   \'  >>  $brotherlpdwrapper
+echo  '    media=A5			"-pt A5"   \'  >>  $brotherlpdwrapper
+echo  '    media=A6			"-pt A6"   \'  >>  $brotherlpdwrapper
+echo  '    media=A6_B			"-pt A6_B"   \'  >>  $brotherlpdwrapper
+echo  '    media=PostCard		"-pt POSTC"   \'  >>  $brotherlpdwrapper
+echo  '    media=PostCard_B		"-pt POSTC_B"   \'  >>  $brotherlpdwrapper
+echo  '    media=IndexCard		"-pt INDEXC"   \'  >>  $brotherlpdwrapper
+echo  '    media=IndexCard_B		"-pt INDEXC_B"   \'  >>  $brotherlpdwrapper
+echo  '    media=PhotoL		"-pt PHOTOL"   \'  >>  $brotherlpdwrapper
+echo  '    media=PhotoL_B		"-pt PHOTOL_B"   \'  >>  $brotherlpdwrapper
+echo  '    media=Photo2L		"-pt PHOTO2L"   \'  >>  $brotherlpdwrapper
+echo  '    media=Photo2L_B		"-pt PHOTO2L_B"   \'  >>  $brotherlpdwrapper
+echo  '    media=Hagaki		"-pt HAGAKI"   \'  >>  $brotherlpdwrapper
+echo  '    media=Hagaki_B		"-pt HAGAKI_B"   \'  >>  $brotherlpdwrapper
+echo  '    media=DblHagaki		"-pt DBLHAGAKI"   \'  >>  $brotherlpdwrapper
+echo  '    media=C5			"-pt C5"   \'  >>  $brotherlpdwrapper
+echo  '    media=EnvC5			"-pt C5"   \'  >>  $brotherlpdwrapper
+echo  '    media=DL			"-pt DL"   \'  >>  $brotherlpdwrapper
+echo  '    media=EnvDL			"-pt DL"   \'  >>  $brotherlpdwrapper
+echo  '    media=Com-10		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    media=COM10			"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    media=COM-10		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    media=Env10			"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    media=EnvCOM10		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    media=Monarch		"-pt MONARCH"   \'  >>  $brotherlpdwrapper
+echo  '    media=EnvMonarch		"-pt MONARCH"   \'  >>  $brotherlpdwrapper
+echo  '    media=Youkei4		"-pt YOUKEI4"   \'  >>  $brotherlpdwrapper
+echo  '    media=Regular		"-thick REGULAR"   \'  >>  $brotherlpdwrapper
+echo  '    media=Thick			"-thick THICK"   \'  >>  $brotherlpdwrapper
+echo  '    media=Tray1			"-feed TRAY1"   \'  >>  $brotherlpdwrapper
+echo  '    media=Tray2			"-feed TRAY2"   \'  >>  $brotherlpdwrapper
+echo  '    media=AUTO			"-feed AUTO"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,PlainPaper"	"-md PLAIN"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,InkjetPaper"	"-md INKJET"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Glossy"		"-md GLOSSY"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Transpare"	"-md TRANS"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,TranspareMirror"	"-md TRANSMIR"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,A4"		"-pt A4"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,A4_B"		"-pt A4_B"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Letter"		"-pt LT"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Letter_B"		"-pt LT_B"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Legal"		"-pt LGL"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Exective"		"-pt EXE"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,B5"		"-pt B5"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,A5"		"-pt A5"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,A6"		"-pt A6"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,A6_B"		"-pt A6_B"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,PostCard"		"-pt POSTC"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,PostCard_B"	"-pt POSTC_B"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,IndexCard"	"-pt INDEXC"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,IndexCard_B"	"-pt INDEXC_B"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,PhotoL"		"-pt PHOTOL"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,PhotoL_B"		"-pt PHOTOL_B"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Photo2L"		"-pt PHOTO2L"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Photo2L_B"	"-pt PHOTO2L_B"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Hagaki"		"-pt HAGAKI"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Hagaki_B"		"-pt HAGAKI_B"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,DblHagaki"	"-pt DBLHAGAKI"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,C5"		"-pt C5"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,EnvC5"		"-pt C5"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,DL"		"-pt DL"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,EnvDL"		"-pt DL"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Com-10"		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,COM10"		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,COM-10"		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Env10"		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,EnvCOM10"		"-pt COM-10"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Monarch"		"-pt MONARCH"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,EnvMonarch"	"-pt MONARCH"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Youkei4"		"-pt YOUKEI4"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Regular"		"-thick REGULAR"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Thick"		"-thick THICK"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Tray1"		"-feed TRAY1"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,Tray2"		"-feed TRAY2"   \'  >>  $brotherlpdwrapper
+echo  '    "media=.*,AUTO"		"-feed AUTO"   \'  >>  $brotherlpdwrapper
+echo  '    Z                            Z)'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set PPDdefault = ( \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultBRMirror" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultBRMirror" \'  >>  $brotherlpdwrapper
+echo  '		OFF		"-mirro OFF"   \'  >>  $brotherlpdwrapper
+echo  '		ON		"-mirro ON"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultPageSize" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultPageSize" \'  >>  $brotherlpdwrapper
+echo  '                BrA4           		"-pt A4" \'  >>  $brotherlpdwrapper
+echo  '                BrA4_B        		"-pt A4_B" \'  >>  $brotherlpdwrapper
+echo  '                BrLetter       		"-pt LT" \'  >>  $brotherlpdwrapper
+echo  '                BrLetter_B     		"-pt LT_B" \'  >>  $brotherlpdwrapper
+echo  '                BrLegal        		"-pt LGL" \'  >>  $brotherlpdwrapper
+echo  '                BrExecutive     	"-pt EXE" \'  >>  $brotherlpdwrapper
+echo  '                BrA5           		"-pt A5" \'  >>  $brotherlpdwrapper
+echo  '                BrA6           		"-pt A6" \'  >>  $brotherlpdwrapper
+echo  '                BrA6_B           		"-pt A6_B" \'  >>  $brotherlpdwrapper
+echo  '                BrB5           		"-pt B5" \'  >>  $brotherlpdwrapper
+echo  '                BrB6           		"-pt B6" \'  >>  $brotherlpdwrapper
+echo  '                BrC5           		"-pt C5" \'  >>  $brotherlpdwrapper
+echo  '                BrDL           		"-pt DL" \'  >>  $brotherlpdwrapper
+echo  '                BrEnv10 	       	"-pt COM10" \'  >>  $brotherlpdwrapper
+echo  '                "Env Monarch"      	"-pt MONARCH" \'  >>  $brotherlpdwrapper
+echo  '		BrJISB5			"-pt B5" \'  >>  $brotherlpdwrapper
+echo  '		BrPostC4x6		"-pt POSTC" \'  >>  $brotherlpdwrapper
+echo  '		BrPostC4x6_B		"-pt POSTC_B" \'  >>  $brotherlpdwrapper
+echo  '		BrIndexC5x8		"-pt INDEXC" \'  >>  $brotherlpdwrapper
+echo  '		BrIndexC5x8_B		"-pt INDEXC_B" \'  >>  $brotherlpdwrapper
+echo  '		BrPhotoL		"-pt PHOTOL" \'  >>  $brotherlpdwrapper
+echo  '		BrPhotoL_B		"-pt PHOTOL_B" \'  >>  $brotherlpdwrapper
+echo  '		BrPhoto2L		"-pt PHOTO2L" \'  >>  $brotherlpdwrapper
+echo  '		BrPhoto2L_B		"-pt PHOTO2L_B" \'  >>  $brotherlpdwrapper
+echo  '		BrHagaki		"-pt HAGAKI" \'  >>  $brotherlpdwrapper
+echo  '		BrHagaki_B		"-pt HAGAKI_B" \'  >>  $brotherlpdwrapper
+echo  '		BrDoubleHagaki		"-pt DBLHAGAKI" \'  >>  $brotherlpdwrapper
+echo  '		BrC5			"-pt C5" \'  >>  $brotherlpdwrapper
+echo  '		BrDL			"-pt DL" \'  >>  $brotherlpdwrapper
+echo  '		BrCom10			"-pt COM-10" \'  >>  $brotherlpdwrapper
+echo  '		BrMonarch		"-pt MONARCH" \'  >>  $brotherlpdwrapper
+echo  '		BrYokei4		"-pt YOKEI4" \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultResolution" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultResolution" \'  >>  $brotherlpdwrapper
+echo  '		Normal			"-reso 300" \'  >>  $brotherlpdwrapper
+echo  '		Fine			"-reso 600" \'  >>  $brotherlpdwrapper
+echo  '		S\.Fine			"-reso 600" \'  >>  $brotherlpdwrapper
+echo  '		Photo			"-reso 600" \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultBRColorMediaType" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultBRColorMediaType" \'  >>  $brotherlpdwrapper
+echo  '		Plain			"-md PLAIN"   \'  >>  $brotherlpdwrapper
+echo  '		Inkjet			"-md INKJET"   \'  >>  $brotherlpdwrapper
+echo  '		Glossy			"-md GLOSSY"   \'  >>  $brotherlpdwrapper
+echo  '		Transparencies		"-md TRANS"   \'  >>  $brotherlpdwrapper
+echo  '		Transparencies.Mirror	"-md TRANSMIR"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultBRColorPaperThick" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultBRColorPaperThick" \'  >>  $brotherlpdwrapper
+echo  '		Regular			"-thick REGULAR"   \'  >>  $brotherlpdwrapper
+echo  '		Thick			"-thick THICK"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultBRBiDir" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultBRBiDir" \'  >>  $brotherlpdwrapper
+echo  '		OFF		"-bidir OFF"   \'  >>  $brotherlpdwrapper
+echo  '		ON		"-bidir ON"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultBRDocument" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultBRDocument" \'  >>  $brotherlpdwrapper
+echo  '		Photo		"-doc PHOTO"   \'  >>  $brotherlpdwrapper
+echo  '		Graphics	"-doc GRAPH"   \'  >>  $brotherlpdwrapper
+echo  '		Custom		"-doc CUSTOM"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultBRColorMatching" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultBRColorMatching" \'  >>  $brotherlpdwrapper
+echo  '		Natural		"-cm NATURAL"   \'  >>  $brotherlpdwrapper
+echo  '		Vivid		"-cm VIVID"   \'  >>  $brotherlpdwrapper
+echo  '		None		"-cm NONE"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultBRHalfTonePattern" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultBRHalfTonePattern" \'  >>  $brotherlpdwrapper
+echo  '		Diffusion	"-ht DIFFUSION"   \'  >>  $brotherlpdwrapper
+echo  '		Dither		"-ht DITHER"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultBRColorEnhancement" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultBRColorEnhancement" \'  >>  $brotherlpdwrapper
+echo  '		OFF		"-ce OFF"   \'  >>  $brotherlpdwrapper
+echo  '		ON		"-ce ON"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultInputSlot" \'  >>  $brotherlpdwrapper
+echo  '	"^DefaultInputSlot" \'  >>  $brotherlpdwrapper
+echo  '		AutoSelect	"-feed AUTO"   \'  >>  $brotherlpdwrapper
+echo  '		Tray1		"-feed TRAY1"   \'  >>  $brotherlpdwrapper
+echo  '		Tray2		"-feed TRAY2"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultBRInputSlot" \'  >>  $brotherlpdwrapper
+echo  '	"^DefaultBRInputSlot" \'  >>  $brotherlpdwrapper
+echo  '		AutoSelect	"-feed AUTO"   \'  >>  $brotherlpdwrapper
+echo  '		Tray1		"-feed TRAY1"   \'  >>  $brotherlpdwrapper
+echo  '		Tray2		"-feed TRAY2"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultBRMonoColor" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultBRMonoColor" \'  >>  $brotherlpdwrapper
+echo  '		Color		"-corm COLOR"   \'  >>  $brotherlpdwrapper
+echo  '		Mono		"-corm MONO"   \'  >>  $brotherlpdwrapper
+echo  '	"__PPDLABEL__"	"^\*DefaultResolution" \'  >>  $brotherlpdwrapper
+echo  '	"DefaultResolution" \'  >>  $brotherlpdwrapper
+echo  '                Fast0		"-reso 300          -md PLAIN   -doc GRAPH"   \'  >>  $brotherlpdwrapper
+echo  '                Normal0		"-reso 600          -md PLAIN   -doc GRAPH"   \'  >>  $brotherlpdwrapper
+echo  '                EnhNormal0	"-reso 750          -md PLAIN   -doc GRAPH"   \'  >>  $brotherlpdwrapper
+echo  '                Fine0		"-reso 1200         -md PLAIN   -doc GRAPH"   \'  >>  $brotherlpdwrapper
+echo  '                Fine1		"-reso 1200x600     -md INKJET  -doc GRAPH"   \'  >>  $brotherlpdwrapper
+echo  '                Photo1		"-reso 1200         -md INKJET  -doc PHOTO"   \'  >>  $brotherlpdwrapper
+echo  '                Fine2		"-reso 1200         -md GLOSSY  -doc GRAPH"   \'  >>  $brotherlpdwrapper
+echo  '                Photo2		"-reso 1200         -md GLOSSY  -doc PHOTO"   \'  >>  $brotherlpdwrapper
+echo  '                Highest2	"-reso 1200x600     -md GLOSSY  -doc GRAPH"   \'  >>  $brotherlpdwrapper
+echo  '                Normal3		"-reso 600   	    -md TRANS"   \'  >>  $brotherlpdwrapper
+echo  '                EnhNormal3	"-reso 750          -md TRANS"   \'  >>  $brotherlpdwrapper
+echo  '                Fine3		"-reso 1200         -md TRANS"   \'  >>  $brotherlpdwrapper
+echo  '                Fast4		"-reso 300          -md SLOWDRY"   \'  >>  $brotherlpdwrapper
+echo  '                Normal4		"-reso 600          -md SLOWDRY"   \'  >>  $brotherlpdwrapper
+echo  '                EnhNormal4	"-reso 750          -md SLOWDRY"   \'  >>  $brotherlpdwrapper
+echo  '                Fine4		"-reso 1200         -md SLOWDRY"   \'  >>  $brotherlpdwrapper
+echo  '		Z			Z )'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '	'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set PPDdefaultN = ( \'  >>  $brotherlpdwrapper
+echo  '	"^\*Default*BRBrightness" 	-brit=\'  >>  $brotherlpdwrapper
+echo  '	"^\*DefaultBRContrast" 		-cont=\'  >>  $brotherlpdwrapper
+echo  '	"^\*DefaultBRRed" 		-red=\'  >>  $brotherlpdwrapper
+echo  '	"^\*DefaultBRGreen" 		-green=\'  >>  $brotherlpdwrapper
+echo  '	"^\*DefaultBRBlue" 		-blue=\'  >>  $brotherlpdwrapper
+echo  '	Z )'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set PPDdefaultNValues = ( \'  >>  $brotherlpdwrapper
+echo  '	0	0	\'  >>  $brotherlpdwrapper
+echo  '	2	+2	\'  >>  $brotherlpdwrapper
+echo  '	1	+1	\'  >>  $brotherlpdwrapper
+echo  '	"\-2"	-2	\'  >>  $brotherlpdwrapper
+echo  '	"\-1"	-1	\'  >>  $brotherlpdwrapper
+echo  '	20	+20	\'  >>  $brotherlpdwrapper
+echo  '	19	+19	\'  >>  $brotherlpdwrapper
+echo  '	18	+18	\'  >>  $brotherlpdwrapper
+echo  '	17	+17	\'  >>  $brotherlpdwrapper
+echo  '	16	+16	\'  >>  $brotherlpdwrapper
+echo  '	15	+15	\'  >>  $brotherlpdwrapper
+echo  '	14	+14	\'  >>  $brotherlpdwrapper
+echo  '	13	+13	\'  >>  $brotherlpdwrapper
+echo  '	12	+12	\'  >>  $brotherlpdwrapper
+echo  '	11	+11	\'  >>  $brotherlpdwrapper
+echo  '	10	+10	\'  >>  $brotherlpdwrapper
+echo  '	9	+9	\'  >>  $brotherlpdwrapper
+echo  '	8	+8	\'  >>  $brotherlpdwrapper
+echo  '	7	+7	\'  >>  $brotherlpdwrapper
+echo  '	6	+6	\'  >>  $brotherlpdwrapper
+echo  '	5	+5	\'  >>  $brotherlpdwrapper
+echo  '	4	+4	\'  >>  $brotherlpdwrapper
+echo  '	3	+3	\'  >>  $brotherlpdwrapper
+echo  '	"\-20"	-20	\'  >>  $brotherlpdwrapper
+echo  '	"\-19"	-19	\'  >>  $brotherlpdwrapper
+echo  '	"\-18"	-18	\'  >>  $brotherlpdwrapper
+echo  '	"\-17"	-17	\'  >>  $brotherlpdwrapper
+echo  '	"\-16"	-16	\'  >>  $brotherlpdwrapper
+echo  '	"\-15"	-15	\'  >>  $brotherlpdwrapper
+echo  '	"\-14"	-14	\'  >>  $brotherlpdwrapper
+echo  '	"\-13"	-13	\'  >>  $brotherlpdwrapper
+echo  '	"\-12"	-12	\'  >>  $brotherlpdwrapper
+echo  '	"\-11"	-11	\'  >>  $brotherlpdwrapper
+echo  '	"\-10"	-10	\'  >>  $brotherlpdwrapper
+echo  '	"\-9"	-9	\'  >>  $brotherlpdwrapper
+echo  '	"\-8"	-8	\'  >>  $brotherlpdwrapper
+echo  '	"\-7"	-7	\'  >>  $brotherlpdwrapper
+echo  '	"\-6"	-6	\'  >>  $brotherlpdwrapper
+echo  '	"\-5"	-5	\'  >>  $brotherlpdwrapper
+echo  '	"\-4"	-4	\'  >>  $brotherlpdwrapper
+echo  '	"\-3"	-3	\'  >>  $brotherlpdwrapper
+echo  '	Z 	Z)'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'if($LOGFILE != "/dev/null") then'  >>  $brotherlpdwrapper
+echo  ' if($LOG_LATESTONLY == "1") then'  >>  $brotherlpdwrapper
+echo  '    rm -f $LOGFILE'  >>  $brotherlpdwrapper
+echo  '    date                                                  >$LOGFILE'  >>  $brotherlpdwrapper
+echo  ' else'  >>  $brotherlpdwrapper
+echo  '    if(-e $LOGFILE) then'  >>  $brotherlpdwrapper
+echo  '	date                                             >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    else'  >>  $brotherlpdwrapper
+echo  '	date                                              >$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    endif'  >>  $brotherlpdwrapper
+echo  ' endif'  >>  $brotherlpdwrapper
+echo  '    echo "arg0 = $0"                                     >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    echo "arg1 = $1"                                     >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    echo "arg2 = $2"                                     >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    echo "arg3 = $3"                                     >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    echo "arg4 = $4"                                     >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    echo "arg5 = $5"                                     >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    echo "arg6 = $6"                                     >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    echo "PPD  = $PPD"                                   >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  'endif'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'if(!(-e /usr/local/Brother/lpd/filterFAX1835C)) then'  >>  $brotherlpdwrapper
+echo  '    echo "ERROR: /usr/local/Brother/lpd/filterFAX1835C does not exist"                      >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    set errorcode=30'  >>  $brotherlpdwrapper
+echo  '    exit $errorcode'  >>  $brotherlpdwrapper
+echo  'endif'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'set  INPUT_TEMP_PS=`mktemp /tmp/br_input_ps.XXXXXX`'  >>  $brotherlpdwrapper
+echo  'if ($#argv >= 7) then'  >>  $brotherlpdwrapper
+echo  '	cp $6  $INPUT_TEMP_PS'  >>  $brotherlpdwrapper
+echo  'else'  >>  $brotherlpdwrapper
+echo  '	cat    > $INPUT_TEMP_PS'  >>  $brotherlpdwrapper
+echo  'endif'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'if(-e "/usr/bin/$BRPRINTCONFIG") then'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '    echo  "-------set printer defaults-------"               >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '    set i = 1'  >>  $brotherlpdwrapper
+echo  '    while("$printerdefaults[$i]" != "Z")'  >>  $brotherlpdwrapper
+echo  '	$printerdefaults[$i]                                 >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '	echo "$printerdefaults[$i]"                          >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '        @ i ++'  >>  $brotherlpdwrapper
+echo  '    end'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '    echo  "-------set Postscript defaults-------"               >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '    set i = 1'  >>  $brotherlpdwrapper
+echo  '    set Default=XXXXX'  >>  $brotherlpdwrapper
+echo  '    set ppdlabel = YYYYY'  >>  $brotherlpdwrapper
+echo  '    while("$PPDdefault[$i]" != "Z")'  >>  $brotherlpdwrapper
+echo  '	if("$PPDdefault[$i]" == "__PPDLABEL__") then'  >>  $brotherlpdwrapper
+echo  '	    @ i ++'  >>  $brotherlpdwrapper
+echo  '	    set ppdlabel = "$PPDdefault[$i]"'  >>  $brotherlpdwrapper
+echo  '	    set Default=`grep "$ppdlabel"  "$PPD"`'  >>  $brotherlpdwrapper
+echo  '	    set Default=`echo "$Default" |sed 's/\" \"//g' |sed 's/\"	\"//g' `'  >>  $brotherlpdwrapper
+echo  '	    @ i ++'  >>  $brotherlpdwrapper
+echo  '	    set ppdlabelref = "$PPDdefault[$i]"'  >>  $brotherlpdwrapper
+echo  '        endif'  >>  $brotherlpdwrapper
+echo  '	@ i ++'  >>  $brotherlpdwrapper
+echo  '	'  >>  $brotherlpdwrapper
+echo  '	set Default = `echo "$Default" | tr -d "*"`'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '	while("$PPDdefault[$i]" != "Z" && "$PPDdefault[$i]" != "__PPDLABEL__"  )'  >>  $brotherlpdwrapper
+echo  '	    if(`echo "$Default" | grep "$ppdlabelref":"$PPDdefault[$i]"` != "") then	'  >>  $brotherlpdwrapper
+echo  '		@ i ++'  >>  $brotherlpdwrapper
+echo  '		echo "$BRPRINTCONFIG -P $PRINTER  $PPDdefault[$i]"     >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '		$BRPRINTCONFIG -P $PRINTER  $PPDdefault[$i]            >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '	    else'  >>  $brotherlpdwrapper
+echo  '		@ i ++'  >>  $brotherlpdwrapper
+echo  '	    endif'  >>  $brotherlpdwrapper
+echo  '	    @ i ++'  >>  $brotherlpdwrapper
+echo  '	end'  >>  $brotherlpdwrapper
+echo  '    end'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '    echo  "-------set Postscript defaults [N]-------"               >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '    set i = 1'  >>  $brotherlpdwrapper
+echo  '    set Default=XXXXX'  >>  $brotherlpdwrapper
+echo  '    set ppdlabel = YYYYY'  >>  $brotherlpdwrapper
+echo  '    while("$PPDdefaultN[$i]" != "Z")'  >>  $brotherlpdwrapper
+echo  '	set ppdlabel = "$PPDdefaultN[$i]"'  >>  $brotherlpdwrapper
+echo  '	set Default=`grep "$ppdlabel"  "$PPD"`'  >>  $brotherlpdwrapper
+echo  '	set ii = 1'  >>  $brotherlpdwrapper
+echo  '	@ i ++'  >>  $brotherlpdwrapper
+echo  '	if("$Default" != "") then'  >>  $brotherlpdwrapper
+echo  '	    set Default = `echo "$Default" | tr -d "*"`'  >>  $brotherlpdwrapper
+echo  '	    while("$PPDdefaultNValues[$ii]" != "Z")'  >>  $brotherlpdwrapper
+echo  '		set Default2 = `echo "$Default" | grep "$PPDdefaultNValues[$ii]"` '  >>  $brotherlpdwrapper
+echo  '		@ ii ++'  >>  $brotherlpdwrapper
+echo  '		if( "$Default2" != "") then'  >>  $brotherlpdwrapper
+echo  '		    set PPDdefaultLabel = `echo "$PPDdefaultN[$i]" | tr -d "="`'  >>  $brotherlpdwrapper
+echo  '		    echo "$BRPRINTCONFIG -P $PRINTER  $PPDdefaultLabel $PPDdefaultNValues[$ii]"    >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '		    $BRPRINTCONFIG       -P $PRINTER  $PPDdefaultLabel $PPDdefaultNValues[$ii]     >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '		endif'  >>  $brotherlpdwrapper
+echo  '		@ ii ++'  >>  $brotherlpdwrapper
+echo  '	    end'  >>  $brotherlpdwrapper
+echo  '	endif'  >>  $brotherlpdwrapper
+echo  '	@ i ++'  >>  $brotherlpdwrapper
+echo  '    end'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '    echo  "-------set options-------"               >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '  set  INPUT_TEMP_LINE'  >>  $brotherlpdwrapper
+echo  '  set  INPUT_TEMP_OPTIONS=`mktemp /tmp/br_input.XXXXXX`'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '  echo  $5 |tr " " '\n' > $INPUT_TEMP_OPTIONS'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '  set i = 1'  >>  $brotherlpdwrapper
+echo  '  while("$brcommands[$i]" != "Z")'  >>  $brotherlpdwrapper
+echo  '    if("`grep $brcommands[$i] $INPUT_TEMP_OPTIONS`" != "") then'  >>  $brotherlpdwrapper
+echo  '	@ i ++'  >>  $brotherlpdwrapper
+echo  '	$BRPRINTCONFIG -P $PRINTER  $brcommands[$i]                            >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '	echo "$BRPRINTCONFIG -P $PRINTER  $brcommands[$i]"                     >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '	@ i --'  >>  $brotherlpdwrapper
+echo  '    endif'  >>  $brotherlpdwrapper
+echo  '    @ i += 2'  >>  $brotherlpdwrapper
+echo  '  end'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '  set i = 1'  >>  $brotherlpdwrapper
+echo  '  set ii = 2'  >>  $brotherlpdwrapper
+echo  '  while("$brcommands2[$i]" != "Z")'  >>  $brotherlpdwrapper
+echo  '    set INPUT_TEMP_LINE=`grep $brcommands2[$i] $INPUT_TEMP_OPTIONS`'  >>  $brotherlpdwrapper
+echo  '    if($INPUT_TEMP_LINE != "") then'  >>  $brotherlpdwrapper
+echo  '	set option_tmp=`echo  $INPUT_TEMP_LINE | sed s/"$brcommands2[$i]"/"$brcommands2[$ii]"/`'  >>  $brotherlpdwrapper
+echo  '	set command_and_arg="$BRPRINTCONFIG -P $PRINTER  $option_tmp"'  >>  $brotherlpdwrapper
+echo  '	echo $command_and_arg                                        >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '	$command_and_arg                                             >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '    endif'  >>  $brotherlpdwrapper
+echo  '    @ i += 2'  >>  $brotherlpdwrapper
+echo  '    @ ii += 2'  >>  $brotherlpdwrapper
+echo  '  end'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '    echo  "-------set CUPS standard options-------"               >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '  set i = 1'  >>  $brotherlpdwrapper
+echo  '  while("$StandardCUPSoptions[$i]" != "Z")'  >>  $brotherlpdwrapper
+echo  '    set INPUT_TEMP_LINE=`grep "$StandardCUPSoptions[$i]" $INPUT_TEMP_OPTIONS`'  >>  $brotherlpdwrapper
+echo  '    if($INPUT_TEMP_LINE != "") then'  >>  $brotherlpdwrapper
+echo  '	@ i ++'  >>  $brotherlpdwrapper
+echo  '	echo "$BRPRINTCONFIG -P $PRINTER  $StandardCUPSoptions[$i]"                     >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '	$BRPRINTCONFIG -P $PRINTER  $StandardCUPSoptions[$i]                            >>&"$LOGFILE"'  >>  $brotherlpdwrapper
+echo  '	@ i --'  >>  $brotherlpdwrapper
+echo  '    endif'  >>  $brotherlpdwrapper
+echo  '    @ i += 2'  >>  $brotherlpdwrapper
+echo  '  end'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '    rm -f $INPUT_TEMP_OPTIONS'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'else'  >>  $brotherlpdwrapper
+echo  '    echo "WARNING: /usr/bin/$BRPRINTCONFIG does not exist"           >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '    set errorcode=31'  >>  $brotherlpdwrapper
+echo  'endif'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'if($DEBUG < 10) then'  >>  $brotherlpdwrapper
+echo  '    cat    $INPUT_TEMP_PS | /usr/local/Brother/lpd/filterFAX1835C'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  '    if($LOGLEVEL > 2) then'  >>  $brotherlpdwrapper
+echo  '	if($LOGFILE != "/dev/null") then'  >>  $brotherlpdwrapper
+echo  '	    echo ""                                             >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '	    echo "    ------PostScript Data-------"             >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '	    cat    $INPUT_TEMP_PS                                 >>$LOGFILE'  >>  $brotherlpdwrapper
+echo  '	endif'  >>  $brotherlpdwrapper
+echo  '    endif'  >>  $brotherlpdwrapper
+echo  'endif'  >>  $brotherlpdwrapper
+echo  'rm -f  $INPUT_TEMP_PS'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  'exit $errorcode'  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+echo  ''  >>  $brotherlpdwrapper
+chmod a+x $brotherlpdwrapper
+chmod a+w /usr/local/Brother/inf/brFAX1835Crc
+chmod a+w /usr/local/Brother/inf
+if( -e /etc/init.d/lpd) then
+   /etc/init.d/lpd stop
+endif
+if( -e /etc/init.d/lprng) then
+   /etc/init.d/lprng stop
+endif
+  if( -e /etc/init.d/cups ) then
+    /etc/init.d/cups restart
+  endif
+  if( -e /etc/init.d/cupsys ) then
+    /etc/init.d/cupsys restart
+  endif
+sleep 2s
+set nonomatch
+set port=""
+set port2=""
+set port2=`lpinfo -v | grep -i 'usb://Brother/FAX-1835C' | head -1`
+if ( "$port2" == '' ) then
+ set port2=`lpinfo -v | grep -i 'usb://Brother/' | head -1`
+endif
+if ( "$port2" == '' ) then
+	set port2=`lpinfo -v | grep 'usb://' | head -1`
+endif
+if ( "$port2" != '' ) then
+  set port=`echo $port2| sed s/direct//g`
+endif
+if ( "$port" == '' ) then
+	set port=usb:/dev/usb/lp0
+endif
+lpadmin -p FAX1835C -E -v $port -m brfax1835c_cups.ppd
+  exit(0)
