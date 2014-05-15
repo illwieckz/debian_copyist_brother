@@ -1,6 +1,15 @@
 web_brother.sh
 ==============
 
+Warning
+-------
+
+**/!\ since May 2014, this tool can't retreive Brother webpage because Brother delete them, this tool is broken for new users that don't have already download data.**
+**So, the developpment of this tool is stalled, some additionnal [La Rache compliant](http://byatoo.com/la-rache/) tools where fast-writed to hack already cached data, but the work has to be redone from zero.**
+
+The tool
+--------
+
 The [`web_brother.sh`](../tools/web_brother.sh) tool helps to query Brother™ web pages: check licenses, list models, list driver files and urls…
 Currently this tools only handles complete printers information (some stubs remaining for scanners and pcfaxes).
 This tool is self-documented.
@@ -28,7 +37,7 @@ MFC-210C
 ```
 
 ```sh
-luser@debian tools $ ./web_brother.sh list_model_files printers DCP-115C
+luser@debian tools $ ./web_brother.sh list_model_archives printers DCP-115C
 cupswrapperMFC210C-1.0.2-3.i386.deb
 mfc210clpr-1.0.2-1.i386.deb
 ```
@@ -36,13 +45,13 @@ mfc210clpr-1.0.2-1.i386.deb
 This tool caches all computed informations:
 
 ```sh
-luser@debian tools $ time ./web_brother.sh list_primary_models_with_files printers | head -n 2
+luser@debian tools $ time ./web_brother.sh list_primary_models_with_archives printers | head -n 2
 DCP-110C	cupswrapperDCP110C-1.0.2-3.i386.deb	dcp110clpr-1.0.2-1.i386.deb
 DCP-130C	dcp130ccupswrapper-1.0.1-1.i386.deb	dcp130clpr-1.0.1-1.i386.deb
 
 real	0m1.200s
 
-luser@debian tools $ time ./web_brother.sh list_primary_models_with_files printers | head -n 2
+luser@debian tools $ time ./web_brother.sh list_primary_models_with_archives printers | head -n 2
 DCP-110C	cupswrapperDCP110C-1.0.2-3.i386.deb	dcp110clpr-1.0.2-1.i386.deb
 DCP-130C	dcp130ccupswrapper-1.0.1-1.i386.deb	dcp130clpr-1.0.1-1.i386.deb
 
@@ -58,13 +67,13 @@ luser@debian tools $ ./web_brother.sh pre_cache >/dev/null
 
 This tool allows you to download files by type or by model, but this functionnality will be moved to another tool.
 
-The tool is self-documented, for more information, invoke 'print_help' keyword:
+The tool is self-documented, for more information, invoke '``print_help``' keyword:
 
 ```sh
 luser@debian tools $ ./web_brother.sh print_help | head -n 2
 ./web_brother.sh:
-	parse information from Brother™ webpages, with many actions (print_help pre_cache list_cache drop_cache get_page_url print_page list_files_with_licenses list_licenses is_license get_license_url print_license list_licenses_urls list_files get_file_license get_file_url list_files_urls is_file list_primary_models list_secondary_models_with_primary list_secondary_models list_models is_primary_model is_secondary_model is_model get_primary_model list_primary_models_with_files list_model_files list_model_files_urls download_file download_model_files download_files)
+	parse information from Brother™ webpages, with many actions (print_help pre_cache list_cache drop_cache get_page_url print_page list_archives_with_licenses list_licenses is_license get_license_url print_license list_licenses_urls list_archives get_file_license get_file_url list_archives_urls is_file list_primary_models list_secondary_models_with_primary list_secondary_models list_models is_primary_model is_secondary_model is_model get_primary_model list_primary_models_with_archives list_model_archives list_model_archives_urls download_file download_model_archives download_archives)
 
-luser@debian tools $ ./web_brother.sh list_primary_models_with_files print_help
+luser@debian tools $ ./web_brother.sh list_primary_models_with_archives print_help
 list models with files by type (printers scanners pcfaxes all)
 ```
