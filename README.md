@@ -8,7 +8,10 @@ Thanks to [Debian France](https://france.debian.net/) to have motivated this wor
 License
 -------
 
-This software and this documentation is distributed under the free non-copyleft laconic [ISC license](COPYING.md).
+Software by Brother is distributed under GPLv2 License or Brother LPR license.
+
+Tools to inspect or manage Brother files are distributed under the free non-copyleft laconic [ISC license](COPYING.md).
+Documentation is distributed under ISC License.
 
 Documentation
 -------------
