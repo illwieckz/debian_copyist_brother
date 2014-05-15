@@ -18,6 +18,7 @@ for s in "${modified_cupswrapper_dir}"*
 do
 	echo "./${s}"
 done
+chmod a+x ppds/* filters/*
 cd - >/dev/null
 
 #EOF
