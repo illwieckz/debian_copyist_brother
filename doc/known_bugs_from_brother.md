@@ -33,7 +33,6 @@ Some cupswrappers was written in C Shell, another in Bourne Shell, but we can se
 rm -f  $brotherlpdwrapper
 #echo 'rm -f /usr/lib/cups/filter/brlpdwrapper${printer_model}'
 
-
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh
 #
