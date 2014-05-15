@@ -102,6 +102,11 @@ Version discordance
 
 For example, the HL2240 printer driver install a file ``brcupsconfig4`` (``/usr/local/Brother/Printer/HL2240/cupswrapper/brcupsconfig4``), but the source package for this driver provide an source for the binary ``brcupsconfig3`` (``brhl2240cups_src-2.0.4-2/brcupsconfig3/brcupsconfig.c``). There is 8 different ``brcupsconfig`` binary files and 4 ``brcupsconfig4`` binary files inside the archives, so is can be more binary than sources.  The various ``brcupsconfig`` files are covered by GPLv2 license, if the source is not available, there may be a GPL violation, we don't know.
 
+Bad archive
+-----------
+
+Many source tarballs (``tar.gz`` format) have "lone zero block" problems, perhaps some are broken.
+
 Duplication
 -----------
 
