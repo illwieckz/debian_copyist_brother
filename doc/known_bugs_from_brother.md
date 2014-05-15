@@ -61,7 +61,7 @@ cat <<ENDOFPPDFILE_END >>$ppd_file_name
 ENDOFPPDFILE_END
 ```
 
-30 other cupswrappers do this test with another value for ``printer_model`` variable, so this code is never executed by this 30 other cupswrappers.
+30 other cupswrappers do this test with another value of ``printer_model`` variable, so this code is never executed by this 30 other cupswrappers.
 
 Bad shebang
 -----------
