@@ -16,7 +16,7 @@ cd "${unwrap_dir}";
 mkdir -p "ppds" "filters";
 for s in "${modified_cupswrapper_dir}"*
 do
-	echo "./${s}"
+	echo "${s}"
 done
 chmod a+x ppds/* filters/*
 cd - >/dev/null
