@@ -79,7 +79,7 @@ Reminiscences
 
 169 Bourne Shell cupswrappers has bits from previous C Shell like that (cupswrapperMFC9660-1.0.2):
 
-```
+```sh
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh
 #
