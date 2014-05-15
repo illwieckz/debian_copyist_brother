@@ -1,0 +1,239 @@
+#! /bin/sh
+#
+# Brother Print filter
+# Copyright (C) 2006 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+PRINTER="DCP8065DN"
+PRINTER_TMP=$(echo $PRINTER | sed -e 's/ //g' -e 's/-//g')
+
+BR_PRT_PATH=/usr/local/Brother
+RCFILE=`eval echo $BR_PRT_PATH/inf/brPRINTERrc | eval sed 's/PRINTER/"$PRINTER_TMP"/'`
+PAPER_INF=$BR_PRT_PATH/inf/paperinf
+PSCONV=$BR_PRT_PATH/lpd/psconvert2
+BRCONV=$BR_PRT_PATH/lpd/rawtobr2
+RCFILE=`eval echo $BR_PRT_PATH/inf/brPRINTERrc | eval sed 's/PRINTER/"$PRINTER_TMP"/'`
+
+INPUT_TEMP=`mktemp /tmp/br_input.XXXXXX`
+INPUT_TEMP1=`mktemp /tmp/br_input.XXXXXX`
+cat > $INPUT_TEMP1
+
+FILE_TYPE=`file $INPUT_TEMP1 | sed -e 's/^.*:[ ]*//' -e 's/[ ].*//'`
+
+#if [ "$FILE_TYPE" = "PostScript" -o "$FILE_TYPE" = "PDF" ] ; then
+	PSCONV_OP="$PAPER_INF $RCFILE"
+	BRCONV_OP="-pi $PAPER_INF -rc $RCFILE"
+#fi
+
+
+
+#
+#landscape
+#
+xoffset=0
+yoffset=0
+ORIENTATION=`grep LandscapeAdjustment $RCFILE|sed 's/LandscapeAdjustment=//'`
+if [ "$ORIENTATION" ]; then
+	if [ "$ORIENTATION" = Adjust ]; then
+ 		PAPERTYPE=`grep PaperType $RCFILE|sed -e's/PaperType=//'`
+		WIDTH=`grep $PAPERTYPE $PAPER_INF`
+		HEIGHT=`grep $PAPERTYPE $PAPER_INF`
+		WIDTH=`echo $WIDTH | sed -e 's/^.*:[ ]//' -e 's/[ ].*//'`
+		HEIGHT=`echo $HEIGHT | sed -e 's/^.*[ ]//'`
+		xoffset=`expr $WIDTH \* 72 / 600`
+		yoffset=`expr $HEIGHT \* 72 / 600`
+	fi
+fi
+
+#
+#xshift and yshift
+#
+INIT_FILE=`eval echo $BR_PRT_PATH/inf/brPRINTERinit|eval sed 's/PRINTER/"$PRINTER"/'`
+if [ -e $INIT_FILE ]; then
+	xshift=`grep xshift $INIT_FILE|sed 's/xshift=//'`
+	yshift=`grep yshift $INIT_FILE|sed 's/yshift=//'`
+	if [ $xshift ]; then
+		echo
+	else
+		xshift=0
+	fi
+	if [ $yshift ]; then
+		echo
+	else
+		yshift=0
+	fi
+
+
+	xoffset=`expr $xoffset + $xshift`
+	
+	#
+	#pre-filter and post-filter
+	#
+	prefilter=`grep pre-filter $INIT_FILE|sed 's/pre-filter=//'`
+	postfilter=`grep post-filter $INIT_FILE|sed 's/post-filter=//'`
+	
+	if [ $prefilter ]; then
+		echo
+	else
+		prefilter=cat
+	fi
+	if [ $prefilter ]; then
+		echo
+	else
+		postfilter=cat
+	fi
+else
+	xshift=0
+	yshift=0
+	prefilter=cat
+	postfilter=cat
+fi
+
+if [ $prefilter = cat ]; then
+	cat $INPUT_TEMP1>$INPUT_TEMP
+else
+	cat $INPUT_TEMP1| $prefilter >$INPUT_TEMP
+fi
+	
+#PSTOPSFILTER=`which pstops`
+
+if [ -e '/usr/bin/pstops' ];then
+	PSTOPSFILTER='/usr/bin/pstops'
+else
+	PSTOPSFILTER=''
+fi
+
+
+trap '' 2
+if [ $postfilter = cat ];then
+	case "$FILE_TYPE" in      
+		"PostScript")
+               		if [ $xshift = 0 ]&&[ $yshift = 0 ]; then
+				if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+                       			eval cat $INPUT_TEMP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,0\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP 
+				else
+					eval cat $INPUT_TEMP | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+				fi
+			else
+				if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+                       			eval cat $INPUT_TEMP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,$yshift\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP 
+				else
+					eval cat $INPUT_TEMP | "$PSTOPSFILTER" 1:0@1.0\($xshift,$yshift\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+				fi
+			fi
+			RET=$?
+			;;
+		"PDF")
+			PS_TEMP=`mktemp /tmp/br_ps.XXXXXX`
+			pdf2ps $INPUT_TEMP $PS_TEMP
+               		if [ $xshift = 0 ]&&[ $yshift = 0 ]; then
+				if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+		               		eval cat $PS_TEMP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,0\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+				else 
+					eval cat $PS_TEMP | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+				fi
+			else
+				if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+		               		eval cat $PS_TEMP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,$yshift\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+				else 
+					eval cat $PS_TEMP | "$PSTOPSFILTER" 1:0@1.0\($xshift,$yshift\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+				fi
+			fi
+			RET=$?
+			rm -f $PS_TEMP
+			;;
+		* )
+			A2PS_OP="--output=- -q -1 --no-header --borders no"
+               		if [ $xshift = 0 ]&&[ $yshift = 0 ]; then
+	                	if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+        	                	eval cat $INPUT_TEMP | a2ps $A2PS_OP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,0\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP 
+				else
+					eval cat $INPUT_TEMP | a2ps $A2PS_OP | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+				fi
+			else
+	                	if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+        	                	eval cat $INPUT_TEMP | a2ps $A2PS_OP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,$yshift\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP 
+				else
+					eval cat $INPUT_TEMP | a2ps $A2PS_OP | "$PSTOPSFILTER" 1:0@1.0\($xshift,$yshift\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+				fi
+			fi
+			RET=$?
+			;;
+	esac
+else
+	case "$FILE_TYPE" in      
+		"PostScript")
+			if [ $xshift = 0 ]&&[ $yshift = 0 ]; then
+                		if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+                        		eval cat $INPUT_TEMP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,0\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP | $postfilter
+       				else
+					eval cat $INPUT_TEMP | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP | $postfilter
+				fi
+			else
+                		if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+                        		eval cat $INPUT_TEMP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,$yshift\) | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP | $postfilter
+       				else
+					eval cat $INPUT_TEMP | "$PSTOPSFILTER" 1:0@1.0\($xshift,$yshift\) | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP | $postfilter
+				fi
+			fi
+			RET=$?
+			;;
+		"PDF")
+			PS_TEMP=`mktemp /tmp/br_ps.XXXXXX`
+			pdf2ps $INPUT_TEMP $PS_TEMP
+			if [ $xshift = 0 ]&&[ $yshift = 0 ]; then			
+				if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+	               			eval cat $PS_TEMP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,0\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP | $postfilter
+				else 
+					eval cat $PS_TEMP | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP | $postfilter
+				fi
+			else
+				if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+	               			eval cat $PS_TEMP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,$yshift\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP | $postfilter
+				else 
+					eval cat $PS_TEMP | "$PSTOPSFILTER" 1:0@1.0\($xshift,$yshift\) | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP | $postfilter
+				fi
+			fi
+			RET=$?
+			rm -f $PS_TEMP
+			;;
+		* )
+			A2PS_OP="--output=- -q -1 --no-header --borders no"
+			if [ $xshift = 0 ]&&[ $yshift = 0 ]; then			
+	                	if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+        	                	eval cat $INPUT_TEMP | a2ps $A2PS_OP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,0\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP  | $postfilter
+				else
+					eval cat $INPUT_TEMP | a2ps $A2PS_OP | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP | $postfilter
+				fi
+			else
+	                	if [ "$ORIENTATION" = Adjust ]&&[ "$PSTOPSFILTER" ]; then
+        	                	eval cat $INPUT_TEMP | a2ps $A2PS_OP |"$PSTOPSFILTER" 1:0L@1.0\($xoffset,$yshift\)| $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP  | $postfilter
+				else
+					eval cat $INPUT_TEMP | a2ps $A2PS_OP |"$PSTOPSFILTER" 1:0@1.0\($xshift,$yshift\) | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP | $postfilter
+				fi
+			fi
+			RET=$?
+			;;
+	esac
+fi
+
+trap 2
+
+rm -f $INPUT_TEMP
+rm -f $INPUT_TEMP1
+exit $RET
+

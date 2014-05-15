@@ -1,0 +1,27 @@
+[HL5370DWT]
+
+[default]
+Resolution={600}
+Paper Source={Tray1}
+Duplex={OFF}
+Duplex Type={Long}
+Paper Type={(LANG_USA,LANG_CANADA)=Letter,A4}
+Media={PlainPaper}
+Copies={1}
+Sleep={PrinterDefault}
+Sleep Count={5}
+Toner Save Mode={OFF}
+
+[SelectionItem]
+Resolution={300,600,1200,HQ1200}
+Resolution2={300,600,1200B,HQ1200B}
+Paper Source={Manual,Tray1,Tray2,Tray3,MpTray,AutoSelect}
+Duplex={OFF,ON}
+Duplex Type={Long,Short}
+Paper Type={A4,Letter,Legal,Exective,A5,A6,B5,B6,C5,DL,Com-10,Monarch}
+Media={PlainPaper,ThinPaper,ThickPaper,Thicker Paper,BondPaper,Transparencies,Envelopes,Env.Thick,Env.Thin}
+Copies={"1-999"}
+Sleep={PrinterDefault,"1-99"}
+Toner Save Mode={ON,OFF}
+
+

@@ -1,0 +1,116 @@
+#/bin/sh
+#
+# psconert [Paper_inf] [rc_file]
+# Copyright (C) 2003 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+PAPER_INF=$1
+RC_FILE=$2
+FUNC_FILE=`echo $RC_FILE | sed s/rc$/func/`
+
+PCL=0
+PS2PS=0
+
+# get Paper Type
+PAPER_TYPE=`sed -n '/PaperType/p' $RC_FILE`
+PAPER_TYPE=`echo $PAPER_TYPE | sed -e 's/ //g' -e 's/PaperType=//'`
+
+# get Resolution
+RESOLUTION=`sed -n '/Resolution/p' $RC_FILE`
+RESOLUTION=`echo $RESOLUTION | sed -e 's/ //g' -e 's/Resolution=//'`
+
+# get paper size
+LINE=`eval sed -n '/^"$PAPER_TYPE"/p' $PAPER_INF`
+WIDTH=$LINE
+HEIGHT=$LINE
+
+WIDTH=`echo $WIDTH | sed -e 's/^.*:[ ]//' -e 's/[ ].*//'`
+HEIGHT=`echo $HEIGHT | sed -e 's/^.*[ ]//'`
+
+PRINTABLEAREA=`sed -n '/PrintableArea/p' $RC_FILE`
+PRINTABLEAREA=`echo $PRINTABLEAREA | sed -e 's/ //g' -e 's/PrintableArea=//'`
+
+#---
+PSTOPS='/usr/sbin/pstops'
+if ! [ -f $PSTOPS ];then
+  PSTOPS=`grep 'pstops=' $FUNC_FILE | head -1 | sed s/'pstops='//`
+fi
+
+#---
+
+
+shift_x_point=18     		# 150 * 72 / 600
+shift_y_point=12     		# 100 * 72 / 600
+printablearea_x_point=`expr   $WIDTH \* 72 / 600  - 36`
+printablearea_y_point=`expr  $HEIGHT \* 72 / 600  - 24`
+case "$RESOLUTION" in
+	"300" )
+		WIDTH=`expr $WIDTH / 2`
+		HEIGHT=`expr $HEIGHT / 2`
+		WIDTH_P=`expr $WIDTH - 150`
+		HEIGHT_P=`expr $HEIGHT - 100`
+		;;
+	"600" )
+		WIDTH_P=`expr $WIDTH - 300`
+		HEIGHT_P=`expr $HEIGHT - 200`
+		;;
+	"1200" | "1200A" | "HQ1200A" | "1200B" | "HQ1200B" )
+		RESOLUTION=1200
+		WIDTH=`expr $WIDTH \* 2`
+		HEIGHT=`expr $HEIGHT \* 2`
+		WIDTH_P=`expr $WIDTH - 600`
+		HEIGHT_P=`expr $HEIGHT - 400`		
+		;;
+esac
+
+
+
+
+if [ -e "$PSTOPS" ] && [ "$PSTOPS" != '' ] && [ $PCL = 1 ];then
+	pclresizecommand="$PSTOPS  -q -b 1:0@1.0($shift_x_point,$shift_y_point) \
+		 -w$printablearea_x_point -h$printablearea_y_point"
+
+else
+	pclresizecommand=""
+fi
+
+
+
+GHOST_SCRIPT=`which gs`
+OUTPUT_TYPE=bit
+GHOST_OPT="-q -dNOPROMPT -dNOPAUSE -dSAFER -sDEVICE=$OUTPUT_TYPE -sOutputFile=- - -c quit"
+
+if [ "$pclresizecommand" != "" ];then
+
+	INPUT_TEMP=`mktemp /tmp/br_pc_input.XXXXXX`
+	cat > $INPUT_TEMP 
+
+	if [ "$PS2PS" != 0 ]; then
+		INTMD_TEMP=`mktemp /tmp/br_pc_input.XXXXXX`
+		exec cat | $GHOST_SCRIPT -q -sDEVICE=pswrite -sOutputFile=$INTMD_TEMP -dNOPAUSE \
+			-dBATCH  -r$RESOLUTION -g${WIDTH_P}x${HEIGHT_P} $INPUT_TEMP
+
+		mv -f  $INTMD_TEMP $INPUT_TEMP
+	fi
+
+	exec $pclresizecommand  $INPUT_TEMP | exec $GHOST_SCRIPT -r$RESOLUTION -g${WIDTH}x${HEIGHT} $GHOST_OPT
+
+	rm -f $INPUT_TEMP 
+else
+	exec $GHOST_SCRIPT -r$RESOLUTION -g${WIDTH}x${HEIGHT} $GHOST_OPT
+fi
+

@@ -1,0 +1,171 @@
+#! /bin/sh
+#
+# CUPS filter for  FAX2890
+# 
+#                                    Ver1.05
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+LOGFILE="/dev/null"
+LOGCLEVEL="7"
+DEBUG=0
+LOG_LATESTONLY=1
+
+PRINTER=FAX2890
+BASEDIR=/opt/brother/Printers/$PRINTER/
+
+LATESTINFO=/tmp/FAX2890_latest_print_info
+rm -f $LATESTINFO
+touch $LATESTINFO
+
+options="$5"
+
+if [ "$(echo   $options | grep 'force-debug=1')" != '' ];then
+  DEBUG=1
+elif [ "$(echo $options | grep 'force-debug=2')" != '' ];then
+  DEBUG=2
+elif [ "$(echo $options | grep 'force-debug=3')" != '' ];then
+  DEBUG=3
+elif [ "$(echo $options | grep 'force-debug=4')" != '' ];then
+  DEBUG=4
+fi
+
+errorcode=0
+
+set +o noclobber
+if [ $DEBUG != 0 ]; then
+    LOGFILE=/tmp/br_cupsfilter_debug_log
+fi
+
+
+
+
+if [ "$PPD" = "" ]; then
+    PPD="/usr/share/cups/model/$PRINTER.ppd"
+fi
+
+
+if [ $LOGFILE != "/dev/null" ]; then
+  if [ $LOG_LATESTONLY = "1" ]; then
+    rm -f $LOGFILE
+    date                                                        >$LOGFILE
+  else
+    if [ -e $LOGFILE ]; then
+	    date                                                >>$LOGFILE
+    else
+	    date                                                >$LOGFILE
+    fi
+  fi
+    echo "arg0 = $0"                                           >>$LOGFILE
+    echo "arg1 = $1"                                           >>$LOGFILE
+    echo "arg2 = $2"                                           >>$LOGFILE
+    echo "arg3 = $3"                                           >>$LOGFILE
+    echo "arg4 = $4"                                           >>$LOGFILE
+    echo "arg5 = $5"                                           >>$LOGFILE
+    echo "arg6 = $6"                                           >>$LOGFILE
+    echo "PPD  = $PPD"                                         >>$LOGFILE
+fi
+
+
+TMP_RC=/tmp/brFAX2890rc_$$
+
+cp  /opt/brother/Printers/$PRINTER//inf/brFAX2890rc  $TMP_RC
+export BRPRINTERRCFILE=$TMP_RC
+  if [ $DEBUG != 0 ]; then
+    echo BRPRINTERRCFILE=$BRPRINTERRCFILE   >>$LOGFILE
+  fi
+
+if [ -e "/$BASEDIR/lpd/filter_"${PRINTER}"" ]; then
+       :
+else
+    echo "ERROR: /$BASEDIR/lpd/filter_"$PRINTER" does not exist"  >>$LOGFILE
+    echo "ERROR: /$BASEDIR/lpd/filter_"$PRINTER" does not exist"  >> $LATESTINFO
+    errorcode=2
+    rm $TMP_RC
+    exit 
+fi
+
+if [ -e "/opt/brother/Printers/$PRINTER//cupswrapper/brcupsconfig4" ]; then
+  if [ $DEBUG = 0 ]; then
+     /opt/brother/Printers/$PRINTER//cupswrapper/brcupsconfig4  $PRINTER  $PPD 0 "$options" >> /dev/null
+  else
+     /opt/brother/Printers/$PRINTER//cupswrapper/brcupsconfig4  $PRINTER  $PPD $LOGCLEVEL "$options" >>$LOGFILE
+  fi
+fi
+
+
+if [ $DEBUG = 0 ]; then
+    if [ $# -ge 7 ]; then
+      cat $6 | /$BASEDIR/lpd/filter_"$PRINTER"
+    else
+      cat     | /$BASEDIR/lpd/filter_"$PRINTER"
+    fi
+
+    echo brFAX2890rc_$$         >> $LATESTINFO
+    cat  $TMP_RC                     >> $LATESTINFO
+
+    rm $TMP_RC
+    exit $errorcode
+else
+##  ---------------- for debug
+    echo ---------------------------                           >>$LOGFILE
+    cat $BRPRINTERRCFILE                                      >>$LOGFILE
+    echo ---------------------------                           >>$LOGFILE
+
+
+    INPUT_TEMP_PS=`mktemp /tmp/br_input_ps.XXXXXX`
+    if [ $# -ge 7 ]; then
+	    cat $6  > $INPUT_TEMP_PS
+    else
+	cat          > $INPUT_TEMP_PS
+    fi
+
+    case $DEBUG in
+	1)
+	export LPD_DEBUG=1
+	cat    $INPUT_TEMP_PS | /$BASEDIR/lpd/filter_"$PRINTER"
+	;;
+	2)
+	export LPD_DEBUG=2
+	echo ""                                                >>$LOGFILE
+	echo "    ------PostScript Data-------"                >>$LOGFILE
+	cat    $INPUT_TEMP_PS                                 >>$LOGFILE
+	cat    $INPUT_TEMP_PS | /$BASEDIR/lpd/filter_"$PRINTER"
+	;;
+	3)
+	export LPD_DEBUG=3
+	echo ""                                                >>$LOGFILE
+	echo "    ------PostScript Data-------"                >>$LOGFILE
+	cat    $INPUT_TEMP_PS                                 >>$LOGFILE
+	;;
+	4)
+	export LPD_DEBUG=4
+	echo ""                                                >>$LOGFILE
+	echo "    ------PostScript Data-------"                >>$LOGFILE
+	cat    $INPUT_TEMP_PS                                 >>$LOGFILE
+	echo "    ------Print Data-------"                     >>$LOGFILE
+	cat    $INPUT_TEMP_PS | 	    /$BASEDIR/lpd/filter_"$PRINTER" | hexdump -C        >>$LOGFILE
+	;;
+    esac
+    rm 
+
+    echo brFAX2890rc_$$      >> $LATESTINFO
+    cat  $TMP_RC                  >> $LATESTINFO
+
+    rm $TMP_RC
+fi
+
+exit 
+

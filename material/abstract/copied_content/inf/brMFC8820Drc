@@ -1,0 +1,11 @@
+[MFC8820D]
+Language=LANG_USA
+Resolution=600
+PaperSource=AutoSelect
+Duplex=OFF
+DuplexType=Long
+PaperType=A4
+Media=PlainPaper
+Copies=1
+Sleep=PrinterDefault
+TonerSaveMode=OFF

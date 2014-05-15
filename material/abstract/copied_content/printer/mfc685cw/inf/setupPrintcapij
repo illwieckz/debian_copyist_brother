@@ -1,0 +1,63 @@
+#! /bin/sh
+#
+# Brother Print filter
+# Copyright (C) 2003 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+BRPRINTER_MODEL=$1
+BRPRINTER_NAME=`echo $BRPRINTER_MODEL | tr '[a-z]' '[A-Z]'`
+PRINTCAP_NAME=/etc/printcap.local
+SPOOLER_NAME=/var/spool/lpd/$BRPRINTER_MODEL
+
+DEVICE_IF=/dev/usb/lp0
+
+if [ ! -f $PRINTCAP_NAME ]; then
+	PRINTCAP_NAME=/etc/printcap
+fi
+
+case "$2" in
+	-i)
+	if [ ! -d $SPOOLER_NAME ]; then
+	        mkdir $SPOOLER_NAME
+	fi
+	chown lp $SPOOLER_NAME
+	chgrp lp $SPOOLER_NAME
+	chmod 700 $SPOOLER_NAME
+
+	if [ "$3" = "USB" ]; then
+		DEVICE_IF=/dev/usb/lp0
+	fi
+	
+	cat <<EOF >>$PRINTCAP_NAME
+${BRPRINTER_NAME}:\\
+        :mx=0:\\
+        :sd=/var/spool/lpd/$BRPRINTER_MODEL:\\
+        :sh:\\
+        :lp=$DEVICE_IF:\\
+        :if=/usr/local/Brother/Printer/$BRPRINTER_MODEL/lpd/filter$BRPRINTER_MODEL:
+EOF
+	;;
+	-e)
+	mv $PRINTCAP_NAME $PRINTCAP_NAME.tmp
+	cat ${PRINTCAP_NAME}.tmp | eval sed "/${BRPRINTER_NAME}:/,/filter$BRPRINTER_MODEL:/d" > ${PRINTCAP_NAME}
+	rm -f ${PRINTCAP_NAME}.tmp
+
+	rm -Rf $SPOOLER_NAME
+	;;
+	*)
+	;;
+esac

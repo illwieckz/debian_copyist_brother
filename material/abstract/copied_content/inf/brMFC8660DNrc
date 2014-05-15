@@ -1,0 +1,11 @@
+[MFC8660DN]
+Language=LANG_USA
+Resolution=600
+PaperSource=Tray1
+Duplex=OFF
+DuplexType=Long
+PaperType=A4
+Media=PlainPaper
+Copies=1
+Sleep=PrinterDefault
+TonerSaveMode=OFF

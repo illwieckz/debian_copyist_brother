@@ -1,0 +1,89 @@
+#!/bin/sh
+#
+# psconertij [Paper_inf] [rc_file] [ImagingArea_file]
+# Copyright (C) 2003-2012 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+PAPER_INF=$1
+RC_FILE=$2
+IMAGINGAREA_FILE=$3
+PAPERDIMENSION=$4
+
+# get Paper Type
+PAPER_TYPE=`sed -n '/PaperType/p' $RC_FILE`
+PAPER_TYPE=`echo $PAPER_TYPE | sed -e 's/ //g' -e 's/PaperType=//'`
+
+# get Resolution
+RESOLUTION=`sed -n '/\<BRResolution/p' $RC_FILE`
+RESOLUTION=`echo $RESOLUTION | sed -e 's/ //g' -e 's/BRResolution=//'`
+
+# get paper size
+LINE=`eval sed -n '/^"$PAPER_TYPE"/p' $PAPER_INF`
+WIDTH=$LINE
+HEIGHT=$LINE
+
+WIDTH=`echo $WIDTH | sed -e 's/^.*:[ ]//' -e 's/[ ].*//'`
+HEIGHT=`echo $HEIGHT | sed -e 's/^.*[ ]//'`
+#############
+
+
+#
+# get paper imagingarea
+#
+LINE=`eval sed -n '/^"$PAPER_TYPE"/p' $IMAGINGAREA_FILE`
+LINE=`echo $LINE | sed -e 's/^.*:[ ]//' -e 's/ /;/g'`
+
+LEFT=`echo $LINE | awk -F';' '{print $1}'`
+TOP=`echo $LINE | awk -F';' '{print $2}'`
+RIGHT=`echo $LINE | awk -F';' '{print $3}'`
+BOTTOM=`echo $LINE | awk -F';' '{print $4}'`
+
+#
+#get paper dimension
+#
+LINE=`eval sed -n '/^"$PAPER_TYPE"/p' $PAPERDIMENSION`
+PAPER_WIDTH=$LINE
+PAPER_HEIGHT=$LINE
+PAPER_WIDTH=`echo $PAPER_WIDTH | sed -e 's/^.*:[ ]//' -e 's/[ ].*//'`
+PAPER_HEIGHT=`echo $PAPER_HEIGHT | sed -e 's/^.*[ ]//'`
+
+PAPER_LEFT=`expr $PAPER_WIDTH - $RIGHT`
+PSTOP=`expr $PAPER_HEIGHT - $BOTTOM`
+PSBOTTOM=`expr $PAPER_HEIGHT - $TOP`
+
+
+if [ "$RESOLUTION" = "300" ] ; then
+
+  WIDTH=`expr $WIDTH / 2`
+  HEIGHT=`expr $HEIGHT / 2`
+
+elif [ "$RESOLUTION" = "150" ] ; then
+  WIDTH=`expr $WIDTH / 4`
+  HEIGHT=`expr $HEIGHT / 4`
+
+fi
+GHOST_SCRIPT=`which gs`
+OUTPUT_TYPE=ppmraw
+OUT="-"
+GHOST_OPT="-q -dNOPROMPT -dNOPAUSE -dSAFER -sDEVICE=$OUTPUT_TYPE -sstdout=%stderr -sOutputFile=$OUT - -c quit"
+
+TEMP=`mktemp /tmp/br_input.XXXXXX`
+echo "<</ImagingBBox [$LEFT $PSTOP $RIGHT $PSBOTTOM] /PageOffset [-$LEFT $PSTOP]>> setpagedevice" > $TEMP
+cat >> $TEMP
+cat $TEMP | exec $GHOST_SCRIPT -r$RESOLUTION -g${WIDTH}x${HEIGHT} $GHOST_OPT
+rm $TEMP
+

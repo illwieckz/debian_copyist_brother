@@ -1,0 +1,61 @@
+#! /bin/sh
+#
+# Copyright (C) 2003-2013 Brother. Industries, Ltd.
+
+HWMARGINS=no
+
+PAPER_INF=$1
+RC_FILE=$2
+FUNC_FILE=`echo $RC_FILE | sed s/rc$/func/`
+
+# get Paper Type
+PAPER_TYPE=`sed -n '/PaperType/p' $RC_FILE`
+PAPER_TYPE=`echo $PAPER_TYPE | sed -e 's/ //g' -e 's/PaperType=//'`
+
+# get Resolution
+RESOLUTION=`sed -n '/Resolution/p' $RC_FILE`
+RESOLUTION=`echo $RESOLUTION | sed -e 's/ //g' -e 's/Resolution=//'`
+
+# get paper size
+LINE=`eval sed -n '/^"$PAPER_TYPE"/p' $PAPER_INF`
+WIDTH=$LINE
+HEIGHT=$LINE
+
+WIDTH=`echo $WIDTH | sed -e 's/^.*:[ ]//' -e 's/[ ].*//'`
+HEIGHT=`echo $HEIGHT | sed -e 's/^.*[ ]//'`
+
+
+#---
+
+
+case "$RESOLUTION" in
+	"300" )
+		WIDTH=`expr $WIDTH / 2`
+		HEIGHT=`expr $HEIGHT / 2`
+		;;
+	"600x300" )
+		HEIGHT=`expr $HEIGHT / 2`
+		;;
+	"1200" | "1200A" | "HQ1200A" | "1200B" | "HQ1200B" )
+		RESOLUTION=1200
+		WIDTH=`expr $WIDTH \* 2`
+		HEIGHT=`expr $HEIGHT \* 2`
+		;;
+esac
+
+
+
+
+
+
+GHOST_SCRIPT=`which gs`
+OUTPUT_TYPE=bit
+GHOST_OPT="-q -dNOPROMPT -dNOPAUSE -dSAFER -sDEVICE=$OUTPUT_TYPE -sstdout=%stderr -sOutputFile=- - -c quit"
+
+if [ $HWMARGINS = yes ];then
+  (echo  "<</.HWMargins[12. 12. 12. 12.]>>setpagedevice" ;cat )|\
+  $GHOST_SCRIPT -r$RESOLUTION -g${WIDTH}x${HEIGHT} $GHOST_OPT 
+else
+  cat | $GHOST_SCRIPT -r$RESOLUTION -g${WIDTH}x${HEIGHT} $GHOST_OPT 
+fi
+

@@ -1,0 +1,65 @@
+#! /bin/sh
+#
+# Brother Print filter
+# Copyright (C) 2003 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+PRINTER="mfc250c"
+PRINTER_TMP=$(echo $PRINTER | sed -e 's/ //g' -e 's/-//g')
+
+BR_PRT_PATH=/usr/local/Brother/Printer/${PRINTER}
+RCFILE=`eval echo $BR_PRT_PATH/inf/brPRINTERrc | eval sed 's/PRINTER/"$PRINTER_TMP"/'`
+PAPER_INF=$BR_PRT_PATH/inf/paperinfij2
+PSCONV=$BR_PRT_PATH/lpd/psconvertij2
+BRCONV=$BR_PRT_PATH/lpd/br${PRINTER}filter
+
+RCFILE=`eval echo $BR_PRT_PATH/inf/brPRINTERrc | eval sed 's/PRINTER/"$PRINTER_TMP"/'`
+
+INPUT_TEMP=`mktemp /tmp/br_input.XXXXXX`
+cat > $INPUT_TEMP
+
+FILE_TYPE=`file $INPUT_TEMP | sed -e 's/^.*:[ ]*//' -e 's/[ ].*//'`
+
+#if [ "$FILE_TYPE" = "PostScript" -o "$FILE_TYPE" = "PDF" ] ; then
+	PSCONV_OP="$PAPER_INF $RCFILE"
+	BRCONV_OP="-pi $PAPER_INF -rc $RCFILE"
+#fi
+
+trap '' 2
+case "$FILE_TYPE" in      
+	"PostScript")
+		eval cat $INPUT_TEMP | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+		RET=$?
+		;;
+	"PDF")
+		PS_TEMP=`mktemp /tmp/br_ps.XXXXXX`
+		pdf2ps $INPUT_TEMP $PS_TEMP
+		eval cat $PS_TEMP | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+		RET=$?
+		rm -f $PS_TEMP
+		;;
+	* )
+		A2PS_OP="--output=- -q -1 --no-header --borders no"
+		eval cat $INPUT_TEMP | a2ps $A2PS_OP | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+		RET=$?
+		;;
+esac
+trap 2
+
+rm -f $INPUT_TEMP
+
+exit $RET

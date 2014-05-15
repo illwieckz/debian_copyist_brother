@@ -1,0 +1,24 @@
+[HL-1870N]
+
+[default]
+Resolution={600}
+Paper Source={AutoSelect}
+Duplex={OFF}
+Duplex Type={Long}
+Paper Type={(LANG_USA,LANG_CANADA)=Letter,A4}
+Media={PlainPaper}
+Copies={1}
+Sleep={PrinterDefault}
+Sleep Count={5}
+Toner Save Mode={OFF}
+
+[SelectionItem]
+Resolution={300,600}
+Paper Source={Manual,MpTray,Tray1,Tray2,AutoSelect}
+Duplex={OFF,ON}
+Duplex Type={Long,Short}
+Paper Type={A4,Letter,Legal,Exective,A5,A6,B5,B6,C5,DL,Com-10,Monarch}
+Media={PlainPaper,ThinPaper,ThickPaper,Thicker Paper,BondPaper,Transparencies,Envelopes,Env.Thick,Env.Thin}
+Copies={"1-999"}
+Sleep={PrinterDefault,"1-99"}
+Toner Save Mode={ON,OFF}

@@ -1,0 +1,24 @@
+[MFC-8440]
+
+[default]
+Resolution={600}
+Paper Source={AutoSelect}
+Duplex={None}
+Duplex Type={None}
+Paper Type={(LANG_USA,LANG_CANADA)=Letter,A4}
+Media={PlainPaper}
+Copies={None}
+Sleep={None}
+Sleep Count={None}
+Toner Save Mode={OFF}
+
+[SelectionItem]
+Resolution={300,600,1200}
+Paper Source={Manual,Tray1,Tray2,AutoSelect}
+Duplex={None}
+Duplex Type={None}
+Paper Type={A4,Letter,Legal,Exective,A5,A6,B5,B6,C5,DL,Com-10,Monarch}
+Media={PlainPaper,ThinPaper,ThickPaper,Thicker Paper,BondPaper,Transparencies,Envelopes,Env.Thick,Env.Thin}
+Copies={None}
+Sleep={None}
+Toner Save Mode={ON,OFF}

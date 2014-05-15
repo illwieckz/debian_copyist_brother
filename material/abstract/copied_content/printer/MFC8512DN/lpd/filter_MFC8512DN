@@ -1,0 +1,96 @@
+#! /bin/sh
+#
+# Brother Print filter
+# Copyright Brother Industries,Ltd 2006-2012
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+PRINTER="MFC8512DN"
+PRINTER_TMP="MFC8512DN"
+PCL=1
+PS=1
+DEBUG=0
+
+if [ "$LPD_DEBUG" != '' ];then 
+  DEBUG=$LPD_DEBUG
+fi
+
+BR_PRT_PATH=/opt/brother/Printers/MFC8512DN
+RCFILE="$BRPRINTERRCFILE"
+if [ "$BRPRINTERRCFILE" = '' ];then
+ RCFILE=$BR_PRT_PATH/inf/br"MFC8512DN"rc 
+fi
+
+PAPER_INF=$BR_PRT_PATH/inf/paperinf
+PSCONV=$BR_PRT_PATH/lpd/psconvert2
+BRCONV=$BR_PRT_PATH/lpd/rawtobr3
+PSCONV_OP="$PAPER_INF $RCFILE"
+BRCONV_OP="-pi $PAPER_INF -rc $RCFILE"
+
+
+
+if [ "$PS" = 0 ];then
+  INPUT_TEMP=`mktemp /tmp/br_input.XXXXXX`
+  cat > $INPUT_TEMP
+  FILE_TYPE=`file $INPUT_TEMP | sed -e 's/^.*:[ ]*//' -e 's/[ ].*//'`
+  if [ "$DEBUG" != '0' ];then
+    cp $INPUT_TEMP     /tmp/br_lpdfilter_input.ps
+    echo $PSCONV $PSCONV_OP   > /tmp/br_lpdfilter_input.op
+    echo $BRCONV $BRCONV_OP  >> /tmp/br_lpdfilter_input.op
+  fi
+else
+  INPUT_TEMP=''
+  FILE_TYPE="PostScript"
+
+  if [ "$DEBUG" != '0' ];then
+    INPUT_TEMP=`mktemp /tmp/br_input.XXXXXX`
+    cat > $INPUT_TEMP
+    cp $INPUT_TEMP  /tmp/br_lpdfilter_input.ps
+    echo $PSCONV $PSCONV_OP   > /tmp/br_lpdfilter_input.op
+    echo $BRCONV $BRCONV_OP  >> /tmp/br_lpdfilter_input.op
+  fi
+fi
+	
+#cp $RCFILE      /tmp/br__last_printoptions.rc  #overwrite
+
+
+trap '' 2
+
+case "$FILE_TYPE" in      
+ "PostScript")
+   eval cat $INPUT_TEMP                      |	$PSCONV $PSCONV_OP                  |	$BRCONV $BRCONV_OP
+   RET=$?
+   ;;
+ "PDF")
+   PS_TEMP=`mktemp /tmp/br_ps.XXXXXX`
+   pdf2ps $INPUT_TEMP $PS_TEMP
+   eval cat $PS_TEMP | $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+   RET=$?
+   rm -f $PS_TEMP
+   ;;
+ * )
+   A2PS_OP="--output=- -q -1 --no-header --borders no"
+   eval cat $INPUT_TEMP | a2ps $A2PS_OP |            $PSCONV $PSCONV_OP | $BRCONV $BRCONV_OP
+   RET=$?
+   ;;
+esac
+
+
+trap 2
+
+rm -f $INPUT_TEMP
+exit $RET
+
