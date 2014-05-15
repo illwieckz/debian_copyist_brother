@@ -8,4 +8,4 @@ Those script manage services and restart them, check packages dependencies, chec
 
 You can find the original cupswrappers in the “[cupswrappers_original](../material/abstract/cupswrappers_original)” directory, and the modified cupswrappers in the “[cupswrappers_modified](../material/abstract/cupswrappers_modified)” directory.
 
-After that, embedded ppds and filters were extracted on the “[generated_content/ppd](../material/abstract/generated_content/ppd)” and the “[generated_content/filter](../material/abstract/generated_content/filter)” directories. Those files are owned by Brother and distributed under GPLv2 license.
+After that, embedded ppds and filters were extracted to the “[generated_content/ppd](../material/abstract/generated_content/ppd)” and the “[generated_content/filter](../material/abstract/generated_content/filter)” directories. Those files are owned by Brother and distributed under GPLv2 license.
