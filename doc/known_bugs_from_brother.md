@@ -43,7 +43,7 @@ cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 Useless code
 ------------
 
-The ``cupswrappermfc660cn`` has this useless structure:
+The ``cupswrappermfc5860cn`` has this useless structure:
 
 ```sh
 printer_model="mfc660cn"
