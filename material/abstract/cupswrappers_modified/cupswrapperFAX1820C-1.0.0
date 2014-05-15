@@ -18,7 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-set ppd_file_name=ppds/brfax1820c_cups.ppd
+set ppd_file_name=ppd/brfax1820c_cups.ppd
 
 touch $ppd_file_name
 
@@ -582,7 +582,7 @@ echo '*Font US-Roman: Standard "(001.005)" Standard ROM'                        
 echo ''                                                                                 >>$ppd_file_name
 echo ''                                                                                 >>$ppd_file_name
 
-set brotherlpdwrapper=filters/brlpdwrapperFAX1820C
+set brotherlpdwrapper=filter/brlpdwrapperFAX1820C
 
 touch $brotherlpdwrapper
 

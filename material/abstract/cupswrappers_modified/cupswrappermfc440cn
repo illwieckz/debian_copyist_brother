@@ -24,7 +24,7 @@ device_name=`echo $printer_name | eval sed -e 's/MFC/MFC-/' -e 's/DCP/DCP-/' -e 
 pcfilename=`echo $printer_name | tr -d '[A-Z]'`
 device_model="Printer"
 
-ppd_file_name=ppds/br${printer_model}.ppd
+ppd_file_name=ppd/br${printer_model}.ppd
 
 cat <<ENDOFPPDFILE1 >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -624,7 +624,7 @@ cat <<ENDOFPPDFILE_END >>$ppd_file_name
 *UIConstraints:	*BRColorMediaType Transparencies	*Resolution	Highest
 ENDOFPPDFILE_END
 
-brotherlpdwrapper=filters/brlpdwrapper${printer_model}
+brotherlpdwrapper=filter/brlpdwrapper${printer_model}
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh

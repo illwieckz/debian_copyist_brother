@@ -18,7 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-ppd_file_name=ppds/MFC7860DN.ppd
+ppd_file_name=ppd/MFC7860DN.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -300,7 +300,7 @@ restore
 *UIConstraints:	*InputSlot MANUAL	*Duplex DuplexNoTumble
 ENDOFPPDFILE
 
-brotherlpdwrapper=filters/brlpdwrapperMFC7860DN
+brotherlpdwrapper=filter/brlpdwrapperMFC7860DN
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh

@@ -18,7 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-ppd_file_name=ppds/brmfc8500_cups.ppd
+ppd_file_name=ppd/brmfc8500_cups.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -279,7 +279,7 @@ restore
 *End
 ENDOFPPDFILE
 
-brotherlpdwrapper=filters/brlpdwrapperMFC8500
+brotherlpdwrapper=filter/brlpdwrapperMFC8500
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh

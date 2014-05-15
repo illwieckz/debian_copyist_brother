@@ -18,7 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-ppd_file_name=ppds/brdcp8020_cups.ppd
+ppd_file_name=ppd/brdcp8020_cups.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -309,7 +309,7 @@ restore
 *End
 ENDOFPPDFILE
 
-brotherlpdwrapper=filters/brlpdwrapperDCP8020
+brotherlpdwrapper=filter/brlpdwrapperDCP8020
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh

@@ -18,7 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-ppd_file_name=ppds/FAX2920.ppd
+ppd_file_name=ppd/FAX2920.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -290,7 +290,7 @@ restore
 *End
 ENDOFPPDFILE
 
-brotherlpdwrapper=filters/brlpdwrapperFAX2920
+brotherlpdwrapper=filter/brlpdwrapperFAX2920
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh

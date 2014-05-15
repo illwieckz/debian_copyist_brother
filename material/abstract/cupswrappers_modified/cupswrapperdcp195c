@@ -23,7 +23,7 @@ printer_name=`echo $printer_model | tr '[a-z]' '[A-Z]'`
 device_name=`echo $printer_name | eval sed -e 's/MFC/MFC-/' -e 's/DCP/DCP-/' -e 's/FAX/FAX-/'`
 pcfilename=`echo $printer_name | tr -d '[A-Z]'`
 device_model="Printers"
-tmp_filter=filters/brlpdwrapper${printer_model}
+tmp_filter=filter/brlpdwrapper${printer_model}
 
 # ppd_file_name=/usr/share/ppd/Brother/brother_${printer_model}_printer_en.ppd
 

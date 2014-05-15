@@ -18,7 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-ppd_file_name=ppds/HL2132.ppd
+ppd_file_name=ppd/HL2132.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -288,7 +288,7 @@ restore
 *End
 ENDOFPPDFILE
 
-brotherlpdwrapper=filters/brlpdwrapperHL2132
+brotherlpdwrapper=filter/brlpdwrapperHL2132
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh

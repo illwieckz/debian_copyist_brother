@@ -18,7 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-ppd_file_name=ppds/HL2242D.ppd
+ppd_file_name=ppd/HL2242D.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -300,7 +300,7 @@ restore
 *UIConstraints:	*InputSlot MANUAL	*Duplex DuplexNoTumble
 ENDOFPPDFILE
 
-brotherlpdwrapper=filters/brlpdwrapperHL2242D
+brotherlpdwrapper=filter/brlpdwrapperHL2242D
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh

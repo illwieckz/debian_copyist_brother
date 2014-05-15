@@ -18,7 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-ppd_file_name=ppds/DCP7065DN.ppd
+ppd_file_name=ppd/DCP7065DN.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -300,7 +300,7 @@ restore
 *UIConstraints:	*InputSlot MANUAL	*Duplex DuplexNoTumble
 ENDOFPPDFILE
 
-brotherlpdwrapper=filters/brlpdwrapperDCP7065DN
+brotherlpdwrapper=filter/brlpdwrapperDCP7065DN
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh

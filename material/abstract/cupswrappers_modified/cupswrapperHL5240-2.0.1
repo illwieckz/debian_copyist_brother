@@ -18,7 +18,7 @@
 # Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-ppd_file_name=ppds/HL5240.ppd
+ppd_file_name=ppd/HL5240.ppd
 
 cat <<ENDOFPPDFILE >$ppd_file_name
 *PPD-Adobe: "4.3"
@@ -321,7 +321,7 @@ restore
 *End
 ENDOFPPDFILE
 
-brotherlpdwrapper=filters/brlpdwrapperHL5240
+brotherlpdwrapper=filter/brlpdwrapperHL5240
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
 #! /bin/sh
