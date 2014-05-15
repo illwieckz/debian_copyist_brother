@@ -25,9 +25,14 @@ The [`web_brother.sh`](tools/web_brother.sh) tool helps to query the Brother™ 
 
 See [web_brother](doc/web_brother.md) documentation.
 
+Contributors
+------------
+
+Thomas Debesse <dev@illwieckz.net>, Samuel Dorsaz <samuel@micheldorsaz.ch> 
+
 Useful links
 ------------
 
-* [Debian France New Contributor Game: Packager for non-free Brother printer drivers](https://wiki.debian.org/DebianFrance/NewContributorGame#Packager_for_non-free_Brother_printer_drivers);
+* [Debian France New Contributor Game: Packager for non-free Brother printer drivers](https://wiki.debian.org/DebianFrance/NewContributorGame#Packagers_for_non-free_Brother_printer_drivers);
 * [Brother Solutions Center : Brother Printer Driver for Linux Distributions](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html);
 * [Debian, the universal operating system](https://www.debian.org/).
