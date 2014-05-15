@@ -24,8 +24,8 @@ tools_dir="$(cd "$(dirname $0)"; pwd)/"
 function _extract_all {
 	cat "${files_list}" | sed -e 's/\t/ /g' | while read file_line
 	do
-		archive_name="$(echo ${file_line} | cut -d ' ' -f 3)"
-		file_path="$(echo ${file_line} | cut -d ' ' -f 5)"
+		archive_name="$(echo ${file_line} | cut -d ' ' -f 4)"
+		file_path="$(echo ${file_line} | cut -d ' ' -f 6)"
 		"${tools_dir}extract_file_from_archive.sh" "${file_path}" "${archive_name}"
 	done
 }

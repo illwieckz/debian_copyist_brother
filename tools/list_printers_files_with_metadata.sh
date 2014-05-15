@@ -42,7 +42,8 @@ function _create_list {
 					if [ "${file_type}" != 'rpm' -a "${file_type}" != 'deb' -a "${file_name}" != 'changelog.Debian.gz' -a "${file_name}" != 'copyright' ]
 					then
 						file_sum="$(tar -Oxzf "${tmp_dir}${embedded_data_archive_name}" "${file_path}" | md5sum | sed -e 's/ -$//')"
-						printf '%s\t%s\t%s\t%s\t%s\n' ${file_sum} ${file_name} ${archive_name} ${archive_license} ${file_path}
+						file_date="$(date +%s --date="$(tar --full-time --utc -tzvf "${tmp_dir}${embedded_data_archive_name}" "${file_path}" | sed -e 's/.*\([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]\).*/\1/')")"
+						printf '%s\t%s\t%s\t%s\t%s\t%s\n' ${file_sum} ${file_name} ${file_date} ${archive_name} ${archive_license} ${file_path}
 					fi
 				done
 				rm "${tmp_dir}${embedded_data_archive_name}"
@@ -52,7 +53,8 @@ function _create_list {
 			file_name="$(basename "${archive_name}" | sed -e 's/.gz$//')"
 			file_path="./${file_name}"
 			file_sum="$(cat "${WORKSPACE}/files/${archive_name}" | gunzip | md5sum | sed -e 's/ -$//')"
-			printf '%s\t%s\t%s\t%s\t%s\n' ${file_sum} ${file_name} ${archive_name} ${archive_license} ${file_path}
+			file_date='0000000000'
+			printf '%s\t%s\t%s\t%s\t%s\t%s\n' ${file_sum} ${file_name} ${file_date} ${archive_name} ${archive_license} ${file_path}
 		fi
 	done
 }
