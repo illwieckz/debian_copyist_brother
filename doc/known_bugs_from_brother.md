@@ -74,8 +74,8 @@ The ``cupswrappermfc6890cdw`` cupswrapper writted in Bourne Shell has this stran
 
 A shee-space-bang with a directory as interpreter!
 
-Reminiscences
--------------
+Reminiscence
+------------
 
 169 Bourne Shell cupswrappers has bits from previous C Shell like that (cupswrapperMFC9660-1.0.2):
 
