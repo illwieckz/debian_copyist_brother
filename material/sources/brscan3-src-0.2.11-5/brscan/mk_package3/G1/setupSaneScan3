@@ -1,0 +1,28 @@
+#! /bin/sh
+FILE_NAME=/etc/sane.d/dll.conf
+
+LIBSANEBROTHER1="brother3"
+LIBSANEBROTHER2="^""$LIBSANEBROTHER1""$"
+
+
+DRV=`grep "$LIBSANEBROTHER2"   $FILE_NAME`
+
+case "$1" in
+	-i)
+	if [ "$DRV" = '' ];then
+	    cat << EOF >> $FILE_NAME
+$LIBSANEBROTHER1
+EOF
+	fi
+
+	;;
+	-e)
+	mv $FILE_NAME  "$FILE_NAME".tmp
+	cat "$FILE_NAME".tmp |\
+	    sed s/"$LIBSANEBROTHER1"//g > $FILE_NAME
+	;;
+	*)
+	;;
+esac
+
+

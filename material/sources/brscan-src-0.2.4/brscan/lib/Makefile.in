@@ -1,0 +1,98 @@
+SHELL = /bin/sh
+
+VPATH = @srcdir@
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+top_builddir = ..
+
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+distdir = $(top_srcdir)/$(PACKAGE)-$(VERSION)
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+configdir = ${sysconfdir}/sane.d
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+RANLIB = @RANLIB@
+
+CC = @CC@
+INCLUDES = -I. -I$(srcdir) \
+	-I$(top_builddir)/include/sane -I$(top_srcdir)/include
+CPPFLAGS = @CPPFLAGS@
+CFLAGS = @CFLAGS@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+DEFS = @DEFS@
+
+COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
+LIBTOOL = ../libtool
+MCOMP	= --mode=compile
+MLINK	= --mode=link
+
+@SET_MAKE@
+
+LIBLIB_OBJS     = alloca.o getopt.o getopt1.o sigprocmask.o strndup.o \
+                  strdup.o strsep.o snprintf.o usleep.o getenv.o \
+                  isfdtype.o vsyslog.o md5.o inet_ntop.o
+LIBLIB_LTOBJS   = alloca.lo getopt.lo getopt1.lo sigprocmask.lo strndup.lo \
+                  strdup.lo strsep.lo snprintf.lo usleep.lo getenv.lo \
+                  isfdtype.lo vsyslog.lo md5.lo inet_ntop.lo
+
+TARGETS = $(LIBLIB_OBJS)
+TARGETS = liblib.a
+
+DISTFILES = Makefile.in alloca.c getenv.c getopt.c getopt1.c \
+  inet_ntop.c isfdtype.c md5.c sigprocmask.c snprintf.c strdup.c \
+  strndup.c strsep.c usleep.c vsyslog.c
+
+.PHONY: all check clean depend dist distclean install uninstall
+
+.SUFFIXES:
+.SUFFIXES: .c .o
+.c.o:
+	@$(LIBTOOL) $(MCOMP) $(COMPILE) $<
+	@test -f $@ || $(COMPILE) $<
+
+all:	$(TARGETS)
+
+liblib.a: $(LIBLIB_OBJS)
+	ar r $@ $(LIBLIB_OBJS)
+	$(RANLIB) $@
+
+install:
+
+uninstall:
+
+check:
+
+depend:
+	makedepend -I. -I../include *.c
+
+clean:
+	rm -f *.out *.o *.lo *~ *.a *.bak $(TESTPROGRAMS)
+	rm -rf .libs
+
+distclean: clean
+	rm -f Makefile
+
+dist: $(DISTFILES)
+	for file in $(DISTFILES); do \
+	  ln $$file $(distdir)/lib 2> /dev/null \
+	    || cp -p $$file $(distdir)/lib ; \
+	done
+

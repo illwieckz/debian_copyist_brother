@@ -1,0 +1,610 @@
+#! /bin/sh
+#
+# Brother Print filter
+# Copyright (C) 2005-2006 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+if [ "$1" = '-e' ]; then
+
+if [ -f /etc/debian_version ] ; then
+sudo rm -rf /var/lib/dpkg/info/pj662cupswrapper*
+fi
+
+  lpadmin -x PJ-662
+  rm -f /usr/share/cups/model/brpj662.ppd
+  rm -f /usr/lib/cups/backend/brusb_pj662
+  rm -f /usr/lib/cups/backend/brserial_pj662
+  rm -f /usr/lib64/cups/backend/brusb_pj662
+  rm -f /usr/lib64/cups/backend/brserial_pj662
+  rm -f /usr/lib64/cups/filter/
+  rm -f /usr/local/Brother/PTouch/pj662/cupswrapper/brcupsconfpt1
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+#  /etc/init.d/cups restart
+  exit 0
+fi
+#S3
+if [ "$1" = "-r" ]; then
+  lpadmin -x PJ-662
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+#  /etc/init.d/cups restart
+  exit 0
+fi
+if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
+  echo   'option -h : help'
+  echo   '       -i : install'
+  echo   '       -e : uninstall'
+  echo   '       -r : remove printer'
+  exit 0
+fi
+#mkdir -p /usr/local/Brother/PTouch/pj662/filter
+#mkdir -p /usr/lib/cups/filter
+
+if [ -e "/usr/local/Brother/PTouch/pj662/lpd/filterpj662" ]; then
+  :
+else
+  echo "ERROR : Brother LPD filter is not installed."
+fi
+
+if [ -f /etc/debian_version ] ; then 
+if [  -d /usr/share/cups/model ]; then
+rm -f /usr/share/cups/model/brpj662.ppd
+ppd_file_name=/usr/share/cups/model/brpj662.ppd
+fi
+if [  -d /usr/share/ppd ]; then
+rm -f /usr/share/ppd/brpj662.ppd
+ppd_file_name1=/usr/share/ppd/brpj662.ppd
+fi
+else 
+rm -f /usr/share/cups/model/brpj662.ppd
+ppd_file_name=/usr/share/cups/model/brpj662.ppd
+ppd_file_name1=/usr/share/cups/model/brpj662.ppd
+fi
+
+cat <<ENDOFPPDFILE | tee $ppd_file_name >> $ppd_file_name1
+*PPD-Adobe: "4.3"
+
+*%================================================
+*%	Copyright(C) 2005-2006 Brother Industries, Ltd.
+*%	"Brother PJ-662 CUPS"
+*%================================================
+
+*%==== General Information Keywords ========================
+*FormatVersion: "4.3"
+*FileVersion: "1.00"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "PJ-662.PPD"
+*Manufacturer: "Brother"
+*Product: "(PJ-662)"
+*1284DeviceID: "MFG: Brother;MDL: PJ-662"
+*cupsVersion: 1.1
+*cupsManualCopies: False
+*cupsFilter: "application/vnd.cups-postscript 0 brlpdwrapperpj662"
+*cupsModelNumber: 1
+*ModelName: "Brother PJ-662"
+*ShortNickName: "Brother PJ-662"
+*NickName: "Brother PJ-662 CUPS v1.1"
+*%APDialogExtension: "/Library/Printers/Brother/PDEs/BRPtouchQuality.plugin"
+*%APPrinterIconPath: "/Library/Printers/Brother/Icons/BRPTPJ.icns"
+*PSVersion: "(3010.106) 3"
+
+*%==== Basic Device Capabilities =============
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: False
+*Throughput: "12"
+*LandscapeOrientation: Plus90
+*VariablePaperSize: False
+*TTRasterizer: Type42
+*FreeVM: "1700000"
+
+*%DefaultOutputOrder: Reverse
+
+*%==== Media Selection ======================
+*OpenGroup: Paper
+
+*OpenUI *PageSize/Paper Size: PickOne
+*OrderDependency: 11 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A4/A4:						"          "
+*PageSize RollA4/A4 (Roll):						"          "
+*PageSize PerfA4/A4 (Perforated Roll):						"          "
+*PageSize RetractA4/A4 (Perforated Roll Retract):						"          "
+*PageSize Legal/US Legal:						"          "
+*PageSize RollLegal/US Legal (Roll):						"          "
+*PageSize PerfLegal/US Legal (Perforated Roll):						"          "
+*PageSize RetractLegal/US Legal (Perforated Roll Retract):						"          "
+*PageSize Letter/US Letter:						"          "
+*PageSize RollLetter/US Letter (Roll):						"          "
+*PageSize PerfLetter/US Letter (Perforated Roll):						"          "
+*PageSize RetractLetter/US Letter (Perforated Roll Retract):						"          "
+*PageSize ContinuousLetter/Infinite:						"          "
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 12 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A4/A4:						"          "
+*PageRegion RollA4/A4 (Roll):						"          "
+*PageRegion PerfA4/A4 (Perforated Roll):						"          "
+*PageRegion RetractA4/A4 (Perforated Roll Retract):						"          "
+*PageRegion Legal/US Legal:						"          "
+*PageRegion RollLegal/US Legal (Roll):						"          "
+*PageRegion PerfLegal/US Legal (Perforated Roll):						"          "
+*PageRegion RetractLegal/US Legal (Perforated Roll Retract):						"          "
+*PageRegion Letter/US Letter:						"          "
+*PageRegion RollLetter/US Letter (Roll):						"          "
+*PageRegion PerfLetter/US Letter (Perforated Roll):						"          "
+*PageRegion RetractLetter/US Letter (Perforated Roll Retract):						"          "
+*PageRegion ContinuousLetter/Infinite:						"          "
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea A4/A4:		"9.72    42.48     585.72   834.48"
+*ImageableArea RollA4/A4 (Roll):		"9.72    18.72     585.72   810.00"
+*ImageableArea PerfA4/A4 (Perforated Roll):		"9.72    50.04     585.72   812.52"
+*ImageableArea RetractA4/A4 (Perforated Roll Retract):		"9.72    44.28     585.72   836.28"
+*ImageableArea Legal/US Legal:	        "12.24  16.92     599.76  1000.8"
+*ImageableArea RollLegal/US Legal (Roll):	        "12.24  18.72     599.76  978.84"
+*ImageableArea PerfLegal/US Legal (Perforated Roll):	        "12.24  50.04     599.76  978.84"
+*ImageableArea RetractLegal/US Legal (Perforated Roll Retract):	        "12.24  18.72     599.76  1002.6"
+*ImageableArea Letter/US Letter:		"12.24  16.92     599.76  784.8"
+*ImageableArea RollLetter/US Letter (Roll):		"12.24  18.72     599.76  762.84"
+*ImageableArea PerfLetter/US Letter (Perforated Roll):		"12.24  50.04     599.76  762.84"
+*ImageableArea RetractLetter/US Letter (Perforated Roll Retract):		"12.24  18.72     599.76  786.6"
+*ImageableArea ContinuousLetter/Infinite:	        "12.24  0     599.76  7175.88"
+
+
+*%==== Information About Media Sizes ========
+*DefaultPaperDimension: Letter
+*PaperDimension A4/A4:	"595.44    841.68"
+*PaperDimension RollA4/A4 (Roll):	"595.44    843.48"
+*PaperDimension PerfA4/A4 (Perforated Roll):	"595.44    843.48"
+*PaperDimension RetractA4/A4 (Perforated Roll Retract):	"595.44    843.48"
+*PaperDimension Legal/US Legal:	"612    1008"
+*PaperDimension RollLegal/US Legal (Roll):	"612    1009.8"
+*PaperDimension PerfLegal/US Legal (Perforated Roll):	"612    1009.8"
+*PaperDimension RetractLegal/US Legal (Perforated Roll Retract):	"612    1009.8"
+*PaperDimension Letter/US Letter:	"612    792"
+*PaperDimension RollLetter/US Letter (Roll):	"612    793.8"
+*PaperDimension PerfLetter/US Letter (Perforated Roll):	"612    793.8"
+*PaperDimension RetractLetter/US Letter (Perforated Roll Retract):	"612    793.8"
+*PaperDimension ContinuousLetter/Infinite:	"612    7175.88"
+
+*CloseGroup: Media
+
+*%Added for Print Density
+*OpenUI *BrDensity/Density: PickOne
+*OrderDependency: 21 AnySetup  *BrDensity
+*DefaultBrDensity: 4
+*BrDensity 0/0: ""
+*BrDensity 1/1: ""
+*BrDensity 2/2: ""
+*BrDensity 3/3: ""
+*BrDensity 4/4: ""
+*BrDensity 5/5: ""
+*BrDensity 6/6: ""
+*BrDensity 7/7: ""
+*BrDensity 8/8: ""
+*BrDensity 9/9: ""
+*BrDensity 10/10: ""
+*CloseUI: *BrDensity
+
+
+*%Added : 2 Ply Mode
+*OpenUI *Br2PlyMode/2-ply Mode: PickOne
+*OrderDependency: 22 AnySetup  *Br2PlyMode
+*DefaultBr2PlyMode: OFF
+*Br2PlyMode OFF/Disable: ""
+*Br2PlyMode ON/Enable: ""
+*CloseUI: *Br2PlyMode
+
+
+*OpenUI *BrFormFeedMode/Form Feed Mode: PickOne
+*OrderDependency: 23 AnySetup  *BrFormFeedMode
+*DefaultBrFormFeedMode: BrFixed
+*BrFormFeedMode BrNofeed/No Feed: ""
+*BrFormFeedMode BrFixed/Fixed Page: ""
+*BrFormFeedMode BrEndofpage/End of Page: ""
+*BrFormFeedMode BrEndofpageretract/End of Page Retract: ""
+*CloseUI: *BrFormFeedMode
+
+
+*OpenUI *BrExtraFeedMode/No Feed Mode Extra Feed: PickOne
+*OrderDependency: 24 AnySetup  *BrExtraFeedMode
+*DefaultBrExtraFeedMode: BrOneinch
+*BrExtraFeedMode BrNone/None: ""
+*BrExtraFeedMode BrHalfinch/1/2 inch (12.7 mm): ""
+*BrExtraFeedMode BrOneinch/1 inch (25.4 mm): ""
+*BrExtraFeedMode BrOneandhalfinch/1-1/2 inches (38.1 mm): ""
+*BrExtraFeedMode BrTwoinch/2 inches (50.8 mm): ""
+*CloseUI: *BrExtraFeedMode
+
+
+*%Added : Dash Line Print
+*OpenUI *BrDashLine/Dash Line Print: PickOne
+*OrderDependency: 25 AnySetup  *BrDashLine
+*DefaultBrDashLine: OFF
+*BrDashLine OFF/Disable: ""
+*BrDashLine ON/Enable: ""
+*CloseUI: *BrDashLine
+
+*OpenUI *BrHalftonePattern/Halftone: PickOne
+*OrderDependency: 26 AnySetup  *BrHalftonePattern
+*DefaultBrHalftonePattern: BrDither
+*BrHalftonePattern BrBinary/Binary: ""
+*BrHalftonePattern BrDither/Dither: ""
+*BrHalftonePattern BrErrorDiffusion/Error Diffusion: ""
+*CloseUI: *BrHalftonePattern
+
+
+*%Added : Negative Print
+*OpenUI *BrNegativePrint/Negative Printing: PickOne
+*OrderDependency: 27 AnySetup  *BrNegativePrint
+*DefaultBrNegativePrint: OFF
+*BrNegativePrint OFF/OFF: ""
+*BrNegativePrint ON/ON: ""
+*CloseUI: *BrNegativePrint
+
+
+*OpenUI *BrMirror/Mirror Printing: PickOne
+*OrderDependency: 28 AnySetup  *BrMirror
+*DefaultBrMirror: OFF
+*BrMirror OFF/OFF: ""
+*BrMirror ON/ON: ""
+*CloseUI: *BrMirror
+
+
+*%==== Resolution Features =================================
+*OpenUI *Resolution/Resolution: PickOne
+*OrderDependency: 29 AnySetup *Resolution
+*DefaultResolution: Normal
+*Resolution	Normal/Normal(200 * 200dpi): 	"          "
+*CloseUI: *Resolution
+
+
+*%==== UI Restriction Features =================================
+*% Paper Type and Form Feed Mode
+*UIConstraints: *PageSize A4 *BrFormFeedMode BrEndofpageretract
+*UIConstraints: *PageSize Legal *BrFormFeedMode BrEndofpageretract
+*UIConstraints: *PageSize Letter *BrFormFeedMode BrEndofpageretract
+
+*UIConstraints: *PageSize RollA4 *BrFormFeedMode BrEndofpage
+*UIConstraints: *PageSize RollA4 *BrFormFeedMode BrEndofpageretract
+*UIConstraints: *PageSize RollLegal *BrFormFeedMode BrEndofpage
+*UIConstraints: *PageSize RollLegal *BrFormFeedMode BrEndofpageretract
+*UIConstraints: *PageSize RollLetter *BrFormFeedMode BrEndofpage
+*UIConstraints: *PageSize RollLetter *BrFormFeedMode BrEndofpageretract
+
+*UIConstraints: *PageSize PerfA4 *BrFormFeedMode BrNofeed
+*UIConstraints: *PageSize PerfA4 *BrFormFeedMode BrFixed
+*UIConstraints: *PageSize PerfA4 *BrFormFeedMode BrEndofpageretract
+*UIConstraints: *PageSize PerfLetter *BrFormFeedMode BrNofeed
+*UIConstraints: *PageSize PerfLetter *BrFormFeedMode BrFixed
+*UIConstraints: *PageSize PerfLetter *BrFormFeedMode BrEndofpageretract
+*UIConstraints: *PageSize PerfLegal *BrFormFeedMode BrNofeed
+*UIConstraints: *PageSize PerfLegal *BrFormFeedMode BrFixed
+*UIConstraints: *PageSize PerfLegal *BrFormFeedMode BrEndofpageretract
+
+*UIConstraints: *PageSize RetractA4 *BrFormFeedMode BrNofeed
+*UIConstraints: *PageSize RetractA4 *BrFormFeedMode BrFixed
+*UIConstraints: *PageSize RetractA4 *BrFormFeedMode BrEndofpage
+*UIConstraints: *PageSize RetractLetter *BrFormFeedMode BrNofeed
+*UIConstraints: *PageSize RetractLetter *BrFormFeedMode BrFixed
+*UIConstraints: *PageSize RetractLetter *BrFormFeedMode BrEndofpage
+*UIConstraints: *PageSize RetractLegal *BrFormFeedMode BrNofeed
+*UIConstraints: *PageSize RetractLegal *BrFormFeedMode BrFixed
+*UIConstraints: *PageSize RetractLegal *BrFormFeedMode BrEndofpage
+
+*UIConstraints: *PageSize ContinuousLetter *BrFormFeedMode BrFixed
+*UIConstraints: *PageSize ContinuousLetter *BrFormFeedMode BrEndofpage
+*UIConstraints: *PageSize ContinuousLetter *BrFormFeedMode BrEndofpageretract
+
+*% Paper Type and Dash Line Print
+*UIConstraints: *PageSize A4 *BrDashLine ON
+*UIConstraints: *PageSize Legal *BrDashLine ON
+*UIConstraints: *PageSize Letter *BrDashLine ON
+
+*UIConstraints: *PageSize PerfA4 *BrDashLine ON
+*UIConstraints: *PageSize PerfLetter *BrDashLine ON
+*UIConstraints: *PageSize PerfLegal *BrDashLine ON
+
+*UIConstraints: *PageSize RetractA4 *BrDashLine ON
+*UIConstraints: *PageSize RetractLetter *BrDashLine ON
+*UIConstraints: *PageSize RetractLegal *BrDashLine ON
+
+*UIConstraints: *PageSize ContinuousLetter *BrDashLine ON
+
+*% Form Feed Mode and Dash Line Print
+*UIConstraints: *BrFormFeedMode BrNofeed *BrDashLine ON
+*UIConstraints: *BrFormFeedMode BrEndofpage *BrDashLine ON
+*UIConstraints: *BrFormFeedMode BrEndofpageretract *BrDashLine ON
+
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Alaska: Standard "(001.005)" Standard ROM
+*Font AlaskaExtrabold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Bold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Oblique: Standard "(001.005)" Standard ROM
+*Font ClevelandCondensed: Standard "(001.005)" Standard ROM
+*Font Connecticut: Standard "(001.005)" Standard ROM
+*Font Guatemala-Antique: Standard "(001.005)" Standard ROM
+*Font Guatemala-Bold: Standard "(001.005)" Standard ROM
+*Font Guatemala-Italic: Standard "(001.005)" Standard ROM
+*Font Guatemala-BoldItalic: Standard "(001.005)" Standard ROM
+
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Oblique: Standard "(001.005)" Standard ROM
+*Font Maryland: Standard "(001.005)" Standard ROM
+*Font Oklahoma: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Bold: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Oblique: Standard "(001.005)" Standard ROM
+*Font Oklahoma-BoldOblique: Standard "(001.005)" Standard ROM
+*Font Utah: Standard "(001.005)" Standard ROM
+*Font Utah-Bold: Standard "(001.005)" Standard ROM
+*Font Utah-Oblique: Standard "(001.005)" Standard ROM
+*Font Utah-BoldOblique: Standard "(001.005)" Standard ROM
+*Font UtahCondensed: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Bold: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Oblique: Standard "(001.004)" Standard ROM
+*Font UtahCondensed-BoldOblique: Standard "(001.005)" Standard ROM
+*Font BermudaScript: Standard "(001.005)" Standard ROM
+*Font Germany: Standard "(001.005)" Standard ROM
+*Font SanDiego: Standard "(001.005)" Standard ROM
+*Font US-Roman: Standard "(001.005)" Standard ROM
+
+
+ENDOFPPDFILE
+
+brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperpj662
+brotherlpdwrapper64=/usr/lib64/cups/filter/brlpdwrapperpj662
+#brotherlpdwrapper=/usr/lib/cups/backend/brusb_pj662
+#brotherlpdwrapper64=/usr/lib64/cups/backend/brusb_pj662
+
+rm -f  $brotherlpdwrapper
+#echo 'rm -f /usr/lib/cups/filter/brlpdwrapperpj662'
+
+
+cat <<!ENDOFWFILTER! >$brotherlpdwrapper
+#! /bin/sh
+#
+# Brother Print filter  >>  /usr/lib/cups/backend/brusb_pj662
+# Copyright (C) 2006 Brother. Industries, Ltd.
+#                                    Ver1.10
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+LOGFILE="/dev/null"
+LOGLEVEL="1"
+LOGCLEVEL="7"
+DEBUG=0
+NUPENABLE=1
+LOG_LATESTONLY=1
+errorcode=0
+
+if [ \$DEBUG != 0 ]; then
+    LOGFILE=/tmp/br_cupsfilter_debug_log
+fi
+
+PPDC=\`printenv | grep "PPD="\`
+PPDC=\`echo \$PPDC | sed -e 's/PPD=//'\`
+
+if [ "\$PPDC" = "" ]; then
+if [ -d /usr/share/cups/model ]; then
+    PPDC="/usr/share/cups/model/brpj662.ppd"
+elif [ -d /usr/share/ppd ]; then
+PPDC="/usr/share/ppd/brpj662.ppd"
+fi
+fi
+
+
+if [ \$LOGFILE != "/dev/null" ]; then
+  if [ \$LOG_LATESTONLY == "1" ]; then
+    rm -f \$LOGFILE
+    date                                                           >\$LOGFILE
+  else
+    if [ -e \$LOGFILE ]; then
+	    date                                                        >>\$LOGFILE
+    else
+	    date                                                        >\$LOGFILE
+    fi
+  fi
+    echo "arg0 = \$0"                                           >>\$LOGFILE
+    echo "arg1 = \$1"                                           >>\$LOGFILE
+    echo "arg2 = \$2"                                           >>\$LOGFILE
+    echo "arg3 = \$3"                                           >>\$LOGFILE
+    echo "arg4 = \$4"                                           >>\$LOGFILE
+    echo "arg5 = \$5"                                           >>\$LOGFILE
+    echo "arg6 = \$6"                                           >>\$LOGFILE
+    echo "PPD  = \$PPD"                                         >>\$LOGFILE
+fi
+
+INPUT_TEMP_PS=\`mktemp /tmp/br_input_ps.XXXXXX\`
+
+nup="cat"
+if [ "`echo \$5 | grep 'Nup='`" != '' ] && [ \$NUPENABLE != 0 ]; then
+
+	if   [ "`echo \$5 | grep 'Nup=64'`" != '' ]; then
+		nup="psnup -64"
+	elif [ "`echo \$5 | grep 'Nup=32'`" != '' ]; then
+		nup="psnup -32"
+	elif [ "`echo \$5 | grep 'Nup=25'`" != '' ]; then
+		nup="psnup -25"
+	elif [ "`echo \$5 | grep 'Nup=16'`" != '' ]; then
+		nup="psnup -16"
+	elif [ "`echo \$5 | grep 'Nup=8'`" != '' ]; then
+		nup="psnup -8"
+	elif [ "`echo \$5 | grep 'Nup=6'`" != '' ]; then
+		nup="psnup -6"
+	elif [ "`echo \$5 | grep 'Nup=4'`" != '' ]; then
+		nup="psnup -4"
+	elif [ "`echo \$5 | grep 'Nup=2'`" != '' ]; then
+		nup="psnup -2"
+	elif [ "`echo \$5 | grep 'Nup=1'`" != '' ]; then
+		nup="cat"
+	fi
+	echo   "NUP=\$nup"                                      >>\$LOGFILE
+   if [ -e /usr/bin/psnup ]; then
+       if [ \$# -ge 7 ]; then
+	       cat \$6  | \$nup > \$INPUT_TEMP_PS
+       else
+	       cat       | \$nup > \$INPUT_TEMP_PS
+       fi
+   else
+       if [ \$# -ge 7 ]; then
+	       cp \$6  \$INPUT_TEMP_PS
+       else
+	       cat    > \$INPUT_TEMP_PS
+       fi
+   fi
+else
+   if [ \$# -ge 7 ]; then
+      cp \$6  \$INPUT_TEMP_PS
+   else
+      cat    > \$INPUT_TEMP_PS
+   fi
+fi
+if [ -e "/usr/local/Brother/PTouch/pj662/lpd/filterpj662" ]; then
+       :
+else
+    echo "ERROR: /usr/local/Brother/PTouch/pj662/lpd/filterpj662 does not exist"   >>\$LOGFILE
+    errorcode=30
+    exit
+fi
+
+CUPSOPTION=\`echo "\$5 Copies=\$4" | sed -e 's/BrCompress/Compress/' -e 's/BrCutAtEnd/CutAtEnd/' -e 's/BrTrimtape/Trimtape/' -e 's/BrCutLabel/CutLabel/' -e 's/PageSize/media/' -e 's/BrMargin/Feed/' -e 's/BrAutoTapeCut/AutoCut/' -e 's/BrMirror/MirrorPrint/' -e 's/BrPriority/Priority/' -e 's/BrQuality/QUALITY/' -e 's/BrSpeed/SPEED/' -e 's/BrHalftonePattern/Halftone/' -e 's/BrDensity/Density/' -e 's/Br2PlyMode/2PlyMode/' -e 's/BrNegativePrint/NegativePrint/'-e 's/BrErrorDiffusion/ERROR/' -e 's/BrBinary/BINARY/' -e 's/BrDither/DITHER/' -e 's/BrFormFeedMode/formfeed/' -e 's/BrFixed/FIXED/' -e 's/BrEndofpage/ENDOFPAGE/' -e 's/BrNofeed/NOFEED/' -e 's/BrEndofpageretract/ENDOFPAGERETRACT/' -e 's/BrExtraFeedMode/extrafeed/' -e 's/BrNone/NONE/' -e 's/BrHalfinch/HALF/' -e 's/BrOneinch/ONE/' -e 's/BrOneandhalfinch/ONEANDHALF/' -e 's/BrTwoinch/TWO/' -e 's/BrBrightness/Brightness/' -e 's/multiple-document-handling/Collate/' -e 's/separate-documents-collated-copies/ON/' -e 's/separate-documents-uncollated-copies/OFF/'\`
+BRURI=\`printenv | grep DEVICE_URI=\`
+BRURI=\`echo \$BRURI | grep "brserial"\`
+PORT="USB"
+if [ "\$BRURI" != "" ]; then
+	PORT="SERIAL"
+fi
+if [ -e "/usr/local/Brother/PTouch/pj662/cupswrapper/brcupsconfpt1" ]; then
+  if [ \$DEBUG = 0 ]; then
+     /usr/local/Brother/PTouch/pj662/cupswrapper/brcupsconfpt1  pj662  \$PPDC 0 "\$CUPSOPTION" >> /dev/null
+  else
+     /usr/local/Brother/PTouch/pj662/cupswrapper/brcupsconfpt1  pj662  \$PPDC \$LOGCLEVEL "\$CUPSOPTION" >>\$LOGFILE
+  fi
+fi
+
+if [ \$DEBUG -lt 10 ]; then
+    cat    \$INPUT_TEMP_PS | /usr/local/Brother/PTouch/pj662/lpd/filterpj662 "\$\$" "CUPS" "\$PORT"
+
+    if [ \$LOGLEVEL -gt 2 ];  then
+	   if [ \$LOGFILE != "/dev/null" ]; then
+	     echo ""                                                >>\$LOGFILE
+	     echo "    ------PostScript Data-------"                >>\$LOGFILE
+	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
+	   fi
+    fi
+fi
+rm -f  \$INPUT_TEMP_PS
+
+exit $errorcode
+
+!ENDOFWFILTER!
+
+chmod a+x $brotherlpdwrapper
+if [ -e /usr/lib64/cups/backend ]; then
+   cp $brotherlpdwrapper  $brotherlpdwrapper64
+fi
+
+chmod a+w /usr/local/Brother/PTouch/pj662/inf/brpj662rc
+chmod a+w /usr/local/Brother/PTouch/pj662/inf
+if [ -e /etc/init.d/lpd ]; then
+   /etc/init.d/lpd stop
+fi
+if [  -e /etc/init.d/lprng ]; then
+   /etc/init.d/lprng stop
+fi
+
+cp -f /usr/local/Brother/PTouch/pj662/lpd/brusb_pj_lpr /usr/lib/cups/backend/brusb_pj662
+#cp -f /usr/local/Brother/PTouch/pj662/lpd/brserial_pj662 /usr/lib/cups/backend/brserial_pj662
+#chmod 00777 /usr/lib/cups/backend/brusb_pj662
+#chmod 00777 /usr/lib/cups/backend/brserial_pj662
+
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+
+sleep 2s
+
+#lpadmin -p PJ-662 -E -v USB:/dev/usb -m brpj662.ppd
+lpadmin -p PJ-662 -E -v usb:/dev/usb/lp0 -m brpj662.ppd
+
+exit 0
+

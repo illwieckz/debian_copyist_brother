@@ -1,0 +1,66 @@
+# /bin/sh
+
+if [ "$1" = '1' ];then
+	LISTFILE=brscan
+	SPEC=brscan-0.2.4-0.spec
+elif [ "$1" = '2' ];then
+	LISTFILE=brscan2
+	SPEC=brscan2-0.2.4-0.spec
+else
+	echo ERROR
+	echo usage:  makerpm [1/2] [r/d]
+	exit 0
+fi
+
+
+
+dstr='r'
+
+
+
+if [ $dstr = 'r' ];then
+	PACK_FORMAT=rpm
+elif [ $dstr = 'd' ];then
+	PACK_FORMAT=deb
+else
+	echo ERROR
+	echo usage:  makerpm [1/2] [r/d]
+	exit 0
+fi
+
+
+
+VER=`cat $LISTFILE.list | grep "%version" | sed s/'%version '//g`
+RELEASE_NUM=`cat $LISTFILE.list | grep %release| sed s/'%release '//g`
+
+OS=redhat
+RELEASE_DIR=linux-2.6-intel
+
+echo ""
+echo Version = $VER
+echo Relese Number = $RELEASE_NUM
+echo ""
+
+if [ $dstr = 'r' ];then
+	if [ "$RELEASE_NUM" = "0" ]
+	then
+		SRC_NAME=linux-2.4-intel.rpm
+	else
+		SRC_NAME=`echo NUM-linux-2.4-intel.rpm | eval sed 's/NUM/"$RELEASE_NUM"/'`
+	fi
+elif [ $dstr = 'd' ];then
+	if [ "$RELEASE_NUM" = "0" ]
+	then
+		SRC_NAME=linux-2.4-intel.deb
+	else
+		SRC_NAME=`echo NUM-linux-2.4-intel.deb | eval sed 's/NUM/"$RELEASE_NUM"/'`
+	fi
+fi
+
+DST_NAME=`echo TEMP1.i386.TEMP2 | eval sed -e 's/TEMP1/"$RELEASE_NUM"/' -e 's/TEMP2/"$PACK_FORMAT"/'`
+
+
+epm -f $PACK_FORMAT $LISTFILE
+
+echo rpmbuild -v  -bb  $SPEC
+rpmbuild -v  -bb  $SPEC

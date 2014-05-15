@@ -1,0 +1,19 @@
+#! /bin/sh
+FILE_NAME=/etc/sane.d/dll.conf
+
+case "$1" in
+	-i)
+	cat << EOF >> $FILE_NAME
+brother
+EOF
+	;;
+	-e)
+	mv $FILE_NAME $FILE_NAME.tmp
+	cat ${FILE_NAME}.tmp | sed '/^brother$/d' > ${FILE_NAME}
+	rm -f ${FILE_NAME}.tmp
+	;;
+	*)
+	;;
+esac
+
+

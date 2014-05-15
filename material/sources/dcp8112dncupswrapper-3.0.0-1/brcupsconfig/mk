@@ -1,0 +1,4 @@
+
+gcc -Wall brcupsconfig.c -o brcupsconfig4
+
+

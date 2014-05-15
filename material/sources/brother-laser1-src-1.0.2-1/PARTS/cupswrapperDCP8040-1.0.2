@@ -1,0 +1,525 @@
+#! /bin/sh
+#
+# Brother Print filter
+# Copyright (C) 2005 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+if [ "$1" = '-e' ]; then
+  lpadmin -x DCP8040
+  rm -f /usr/share/cups/model/brdcp8040_cups.ppd
+  rm -f /usr/lib/cups/filter/brlpdwrapperDCP8040
+  rm -f /usr/lib64/cups/filter/brlpdwrapperDCP8040
+  rm -f /usr/local/Brother/cupswrapper/brcupsconfig
+  if [ -e /etc/init.d/cups ]; then
+    /etc/init.d/cups restart
+  fi
+  if [ -e /etc/init.d/cupsys ]; then
+    /etc/init.d/cupsys restart
+  fi
+  exit 0 
+fi
+if [ "$1" = "-r" ]; then
+  lpadmin -x DCP8040
+  if [ -e /etc/init.d/cups ]; then
+    /etc/init.d/cups restart
+  fi
+  if [ -e /etc/init.d/cupsys ]; then
+    /etc/init.d/cupsys restart
+  fi
+  exit 0 
+fi
+if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
+  echo   'option -h : help'
+  echo   '       -i : install'
+  echo   '       -e : uninstall'
+  echo   '       -r : remove printer'
+  exit 0
+fi
+mkdir -p /usr/local/Brother/filter
+mkdir -p /usr/lib/cups/filter
+
+if [ -e "/usr/local/Brother/lpd/filterDCP8040" ]; then
+  :
+else
+  echo "ERROR : Brother LPD filter is not installed."
+fi
+rm -f /usr/share/cups/model/brdcp8040_cups.ppd
+ppd_file_name=/usr/share/cups/model/brdcp8040_cups.ppd
+
+cat <<ENDOFPPDFILE >$ppd_file_name
+*PPD-Adobe: "4.3"
+*%================================================
+*%	Copyright(C) 2003 Brother Industries, Ltd.
+*%	"Brother DCP-8040 for CUPS"
+*%================================================
+
+*%==== General Information Keywords ========================
+*FormatVersion: "4.3"
+*FileVersion: "1.00"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*PCFileName: "BRDCP8040_CUPS.PPD"
+*Product: "(Brother DCP-8040 series)"
+*cupsVersion:   1.1
+*cupsManualCopies: True
+*cupsModelNumber:       75
+*cupsFilter: "application/vnd.cups-postscript 0 brlpdwrapperDCP8040"
+*PSVersion: "(3010.106) 3"
+*ModelName: "DCP-8040"
+*NickName: "Brother DCP-8040 for CUPS"
+
+*%==== Basic Device Capabilities =============
+*LanguageLevel: "3"
+*TTRasterizer: Type42
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: True
+*?FileSystem:"
+save 
+	/devname (%disk0%) def 
+	/ret false def 
+	0 1 7{ 
+		devname exch 48 add 5 exch put 
+		devname devstatus { 
+			0 ne {/ret true def}if 
+			pop pop pop pop pop pop pop 
+		}if 
+	}for 
+	ret {(True)}{(False)} ifelse = flush 
+restore 
+" 
+*End
+
+*Throughput: "18"
+*FreeVM: "1700000"
+
+*%==== Installable Options ===================
+
+*OpenGroup: InstallableOptions/Options Installed
+
+*OpenUI *OptionTrays/Number of Input Trays: PickOne
+*DefaultOptionTrays: 2Trays
+*OptionTrays 1Trays/ 1: ""
+*OptionTrays 2Trays/ 2: ""
+*?OptionTrays:"
+save
+	<</BRFeeder 1>>setpagedevice currentpagedevice/BRFeeder get
+	1 eq{(2Trays)}{(1Trays)}ifelse
+	= flush 
+restore 
+"
+*End
+*CloseUI: *OptionTrays
+
+*CloseGroup: InstallableOptions
+
+*UIConstraints: *OptionTrays 1Trays *InputSlot Tray2
+*UIConstraints: *OptionTrays 1Trays *InputSlot Tray3
+*UIConstraints: *OptionTrays 1Trays *InputSlot Tray4
+*UIConstraints: *OptionTrays 2Trays *InputSlot Tray3
+*UIConstraints: *OptionTrays 2Trays *InputSlot Tray4
+*UIConstraints: *OptionTrays 3Trays *InputSlot Tray4
+
+*%==== Media Selection ======================
+
+*OpenUI *PageSize: PickOne
+*OrderDependency: 30 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize Letter/Letter:
+*PageSize Legal/Legal:
+*PageSize Executive/Executive:
+*PageSize A4/A4:
+*PageSize A5/A5:
+*PageSize A6/A6:
+*PageSize Env10/Com-10:
+*PageSize EnvMonarch/Monarch:
+*PageSize EnvDL/DL:
+*PageSize EnvC5/C5:
+*PageSize EnvISOB5/B5:
+*PageSize EnvISOB6/B6:
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 40 AnySetup *PageRegion
+*DefaultPageRegion: A4
+*PageRegion Letter/Letter:
+*PageRegion Legal/Legal:
+*PageRegion Executive/Executive:
+*PageRegion A4/A4:
+*PageRegion A5/A5:
+*PageRegion A6/A6:
+*PageRegion Env10/Com-10:
+*PageRegion EnvMonarch/Monarch:
+*PageRegion EnvDL/DL:
+*PageRegion EnvC5/C5:
+*PageRegion EnvISOB5/B5:
+*PageRegion EnvISOB6/B6:
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: A4
+*ImageableArea Letter/Letter: "18 12 594 780"
+*ImageableArea Legal/Legal: "18 12 594 996"
+*ImageableArea Executive/Executive: "18 12 504 744"
+*ImageableArea A4/A4: "18 12 577 830"
+*ImageableArea A5/A5: "18 12 403 583"
+*ImageableArea A6/A6: "18 12 279 408"
+*ImageableArea Env10/Com-10: "18 12 279 672"
+*ImageableArea EnvMonarch/Monarch: "18 12 261 528"
+*ImageableArea EnvDL/DL: "18 12 294 612"
+*ImageableArea EnvC5/C5: "18 12 441 637"
+*ImageableArea EnvISOB5/B5: "18 12 463 697"
+*ImageableArea EnvISOB6/B6: "18 12 336 487"
+
+*%==== Information About Media Sizes ========
+
+*DefaultPaperDimension: A4
+*PaperDimension Letter/Letter: "612 792"
+*PaperDimension Legal/Legal: "612 1008"
+*PaperDimension Executive/Executive: "522 756"
+*PaperDimension A4/A4: "595 842"
+*PaperDimension A5/A5: "420 595"
+*PaperDimension A6/A6: "297 420"
+*PaperDimension Env10/Com-10: "297 684"
+*PaperDimension EnvMonarch/Monarch: "279 540"
+*PaperDimension EnvDL/DL: "312 624"
+*PaperDimension EnvC5/C5: "459 649"
+*PaperDimension EnvISOB5/B5: "499 709"
+*PaperDimension EnvISOB6/B6: "354 499"
+
+*%==== 5.13 Media Handling Features ============================
+*OpenUI *BrMediaType/BrMediaType: PickOne
+*OrderDependency: 28 AnySetup *BrMediaType
+*DefaultBrMediaType: PLAIN
+*BrMediaType PLAIN/Plain Paper:
+*BrMediaType THIN/Thin Paper:
+*BrMediaType THICK/Thick Paper:
+*BrMediaType THICKERPAPER2/Thicker Paper:
+*BrMediaType BOND/Bond Paper:
+*BrMediaType TRANSPARENCIES/Transparencies:
+*BrMediaType ENV/Envelopes:
+*BrMediaType ENVTHICK/Env. Thick:
+*BrMediaType ENVTHIN/Env. Thin:
+*CloseUI: *BrMediaType
+
+*OpenUI *InputSlot/InputSlot: PickOne
+*OrderDependency: 29 AnySetup *InputSlot
+*DefaultInputSlot: AUTO
+*InputSlot MANUAL/Manual Feed:
+*InputSlot MPTRAY/MP Tray:
+*InputSlot TRAY1/Tray1:
+*InputSlot TRAY2/Tray2:
+*InputSlot AUTO/Auto Select:
+*CloseUI: *InputSlot
+
+*RequiresPageRegion All:True
+
+*DefaultOutputBin: OnlyOne
+
+*%=== Duplex ================================
+
+*%=== Output Bin =============================
+*% === Collate ==========
+*%==== 5.14 Finishing Features =================================
+*%%%%% Resolution and Appearance Control %%%%%
+*OpenUI *Resolution: PickOne
+*OrderDependency: 11 AnySetup *Resolution
+*DefaultResolution: 600dpi
+*Resolution	300dpi:
+*Resolution	600dpi:
+*Resolution	1200dpi:
+*CloseUI: *Resolution
+
+*OpenUI *TonerSaveMode/Toner Save: PickOne
+*DefaultTonerSaveMode: Off
+*OrderDependency: 10 AnySetup  *TonerSaveMode
+*TonerSaveMode Off/Off: "statusdict begin false tonersave end"
+*TonerSaveMode On/On: "statusdict begin true tonersave end"
+*CloseUI: *TonerSaveMode
+
+*%==== 5.20 Font Related Keywords ==============================
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Alaska: Standard "(001.005)" Standard ROM
+*Font AlaskaExtrabold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Bold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Oblique: Standard "(001.005)" Standard ROM
+*Font ClevelandCondensed: Standard "(001.005)" Standard ROM
+*Font Connecticut: Standard "(001.005)" Standard ROM
+*Font Guatemala-Antique: Standard "(001.005)" Standard ROM
+*Font Guatemala-Bold: Standard "(001.005)" Standard ROM
+*Font Guatemala-Italic: Standard "(001.005)" Standard ROM
+*Font Guatemala-BoldItalic: Standard "(001.005)" Standard ROM
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Oblique: Standard "(001.005)" Standard ROM
+*Font Maryland: Standard "(001.005)" Standard ROM
+*Font Oklahoma: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Bold: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Oblique: Standard "(001.005)" Standard ROM
+*Font Oklahoma-BoldOblique: Standard "(001.005)" Standard ROM
+*Font Utah: Standard "(001.005)" Standard ROM
+*Font Utah-Bold: Standard "(001.005)" Standard ROM
+*Font Utah-Oblique: Standard "(001.005)" Standard ROM
+*Font Utah-BoldOblique: Standard "(001.005)" Standard ROM
+*Font UtahCondensed: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Bold: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Oblique: Standard "(001.004)" Standard ROM
+*Font UtahCondensed-BoldOblique: Standard "(001.005)" Standard ROM
+*Font BermudaScript: Standard "(001.005)" Standard ROM
+*Font Germany: Standard "(001.005)" Standard ROM
+*Font SanDiego: Standard "(001.005)" Standard ROM
+*Font US-Roman: Standard "(001.005)" Standard ROM
+*?FontQuery: "
+save
+count 1 gt
+  {exch dup dup
+   =string cvs (/) print print (:) print
+   FontDirectory exch known
+     {pop(Yes)}
+     {(fonts/)AppendName exch pop mark exch
+      {}=string filenameforall counttomark
+      0 gt
+        {cleartomark(Yes)}
+        {cleartomark(No)}ifelse
+     }ifelse
+   =
+  }if
+  (*) = flush
+restore
+"
+*End
+*?FontList: "
+save
+  FontDirectory{pop ==}forall
+  (fonts/*)
+  {dup length 6 sub 6 exch getinterval cvn ==
+  }=string filenameforall
+  (*) = flush
+restore
+"
+*End
+ENDOFPPDFILE
+
+
+brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperDCP8040
+brotherlpdwrapper64=/usr/lib64/cups/filter/brlpdwrapperDCP8040
+rm -f  $brotherlpdwrapper
+echo 'rm -f /usr/lib/cups/filter/brlpdwrapperDCP8040'
+
+
+cat <<!ENDOFWFILTER! >$brotherlpdwrapper
+#! /bin/sh
+#
+# Brother Print filter  >>  $brotherlpdwrapper
+# Copyright (C) 2005 Brother. Industries, Ltd.
+#                                    Ver1.00
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+LOGFILE="/dev/null"
+LOGLEVEL="1"
+LOGCLEVEL="7"
+DEBUG=0
+NUPENABLE=1
+LOG_LATESTONLY=1
+errorcode=0
+
+if [ \$DEBUG != 0 ]; then
+    LOGFILE=/tmp/br_cupsfilter_debug_log
+fi
+
+PRINTER=DCP8040
+
+
+PPDC=\`printenv | grep "PPD="\`
+\$PPDC
+if [ "\$PPD" = "" ]; then
+    PPD="/usr/share/cups/model/brdcp8040_cups.ppd"
+fi
+
+
+if [ \$LOGFILE != "/dev/null" ]; then
+  if [ \$LOG_LATESTONLY == "1" ]; then
+    rm -f \$LOGFILE
+    date                                                           >\$LOGFILE
+  else
+    if [ -e \$LOGFILE ]; then
+	    date                                                        >>\$LOGFILE
+    else
+	    date                                                        >\$LOGFILE
+    fi
+  fi
+    echo "arg0 = \$0"                                           >>\$LOGFILE
+    echo "arg1 = \$1"                                           >>\$LOGFILE
+    echo "arg2 = \$2"                                           >>\$LOGFILE
+    echo "arg3 = \$3"                                           >>\$LOGFILE
+    echo "arg4 = \$4"                                           >>\$LOGFILE
+    echo "arg5 = \$5"                                           >>\$LOGFILE
+    echo "arg6 = \$6"                                           >>\$LOGFILE
+    echo "PPD  = \$PPD"                                         >>\$LOGFILE
+fi
+
+INPUT_TEMP_PS=\`mktemp /tmp/br_input_ps.XXXXXX\`
+
+nup="cat"
+if [ "\`echo \$5 | grep 'Nup='\`" != '' ] && [ \$NUPENABLE != 0 ]; then
+
+	if   [ "\`echo \$5 | grep 'Nup=64'\`" != '' ]; then
+		nup="psnup -64"
+	elif [ "\`echo \$5 | grep 'Nup=32'\`" != '' ]; then
+		nup="psnup -32"
+	elif [ "\`echo \$5 | grep 'Nup=25'\`" != '' ]; then
+		nup="psnup -25"
+	elif [ "\`echo \$5 | grep 'Nup=16'\`" != '' ]; then
+		nup="psnup -16"
+	elif [ "\`echo \$5 | grep 'Nup=8'\`" != '' ]; then
+		nup="psnup -8"
+	elif [ "\`echo \$5 | grep 'Nup=6'\`" != '' ]; then
+		nup="psnup -6"
+	elif [ "\`echo \$5 | grep 'Nup=4'\`" != '' ]; then
+		nup="psnup -4"
+	elif [ "\`echo \$5 | grep 'Nup=2'\`" != '' ]; then
+		nup="psnup -2"
+	elif [ "\`echo \$5 | grep 'Nup=1'\`" != '' ]; then
+		nup="cat"
+	fi
+	echo   "NUP=\$nup"                                      >>\$LOGFILE
+   if [ -e /usr/bin/psnup ]; then
+       if [ \$# -ge 7 ]; then
+	       cat \$6  | \$nup > \$INPUT_TEMP_PS
+       else
+	       cat       | \$nup > \$INPUT_TEMP_PS
+       fi
+   else
+       if [ \$# -ge 7 ]; then
+	       cp \$6  \$INPUT_TEMP_PS
+       else
+	       cat    > \$INPUT_TEMP_PS
+       fi
+   fi
+else
+   if [ \$# -ge 7 ]; then
+      cp \$6  \$INPUT_TEMP_PS
+   else
+      cat    > \$INPUT_TEMP_PS
+   fi
+fi
+
+if [ -e "/usr/local/Brother/lpd/filter\$PRINTER" ]; then
+       :
+else
+    echo "ERROR: /usr/local/Brother/lpd/filter\$PRINTER does not exist"   >>\$LOGFILE
+    errorcode=30
+    exit $errorcode
+fi
+
+if [ -e "/usr/local/Brother/cupswrapper/brcupsconfig" ]; then
+  if [ \$DEBUG = 0 ]; then
+     /usr/local/Brother/cupswrapper/brcupsconfig  \$PRINTER  \$PPD 0 "\$5" >> /dev/null
+  else
+     /usr/local/Brother/cupswrapper/brcupsconfig  \$PRINTER  \$PPD \$LOGCLEVEL "\$5" >>\$LOGFILE
+  fi
+fi
+
+
+if [ \$DEBUG -lt 10 ]; then
+    cat    \$INPUT_TEMP_PS | /usr/local/Brother/lpd/filter\$PRINTER
+
+    if [ \$LOGLEVEL -gt 2 ];  then
+	   if [ \$LOGFILE != "/dev/null" ]; then
+	     echo ""                                                >>\$LOGFILE
+	     echo "    ------PostScript Data-------"                >>\$LOGFILE
+	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
+	   fi
+    fi
+fi
+rm -f  \$INPUT_TEMP_PS
+
+exit \$errorcode
+
+!ENDOFWFILTER!
+
+
+chmod a+x $brotherlpdwrapper
+if [ -e /usr/lib64/cups/filter ]; then
+   cp $brotherlpdwrapper  $brotherlpdwrapper64
+fi
+
+chmod a+w /usr/local/Brother/inf/brDCP8040rc
+chmod a+w /usr/local/Brother/inf
+if [ -e /etc/init.d/lpd ]; then
+   /etc/init.d/lpd stop
+fi
+if [  -e /etc/init.d/lprng ]; then
+   /etc/init.d/lprng stop
+fi
+  if [ -e /etc/init.d/cups ]; then
+    /etc/init.d/cups restart
+  fi
+  if [ -e /etc/init.d/cupsys ]; then
+    /etc/init.d/cupsys restart
+  fi
+sleep 2s
+lpadmin -p DCP8040 -E -v usb:/dev/usb/lp0 -m brdcp8040_cups.ppd
+  exit 0 

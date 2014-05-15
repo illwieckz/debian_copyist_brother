@@ -1,0 +1,144 @@
+#!  /bin/sh
+
+# Brother FAX share driver
+# Copyright (C) 2005 Brother. Industries, Ltd.
+
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+
+
+DEBUG=0
+
+
+
+hdir=`echo $HOME | sed s/'\\/'/'\\\\\\/'/g`
+cdir=`echo $PWD  | sed s/'\\/'/'\\\\\\/'/g`
+
+args="$*"
+
+flgn="`echo $args | grep 'fax-number='`"
+flgb="`echo $args | grep 'fax-broadcast='`"
+
+if [ -e '/usr/local/Brother/fax/brmfcfax.jar' ] && [ -e "`which java`" ] && [ "$flgn" = "" ] && [ "$flgb" = "" ]; then
+	extarg="`java  -jar /usr/local/Brother/fax/brmfcfax.jar 2>/dev/null`"
+	number=""
+
+	if [ "`echo "$extarg" | grep 'fax-broadcast='`" != "" ];then 
+		faxbcfile="`echo "$extarg"|sed s/"-o fax-broadcast="//g|sed s/'~'/"$hdir"/g`"		
+	fi
+	if [ "`echo "$extarg" | grep 'fax-number='`" != "" ];then 
+		number="`echo "$extarg"|sed s/"-o fax-number="//g`"','
+	fi
+else
+	extarg=""
+	number=""
+
+	while [ "$1" != '' ]
+	do
+	  if [ "`echo "$1" | grep 'fax-broadcast='`" != "" ];then 
+	      faxbcfile="`echo $1|sed s/fax-broadcast=//g|sed s/'~'/"$hdir"/g`"
+	  fi
+	  if [ "`echo "$1" | grep 'fax-number='`" != "" ];then 
+	      number="`echo $1|sed s/fax-number=//g`"','
+	  fi
+	  shift
+	done
+fi
+
+
+if [ -e "$faxbcfile" ];then
+	groupmember="$number""`cat $faxbcfile | sed -e s/#.*$// \
+		| tr -d ' ' | tr -d '\t' | egrep [0-9] | tr '\n' ',' \
+		| sed s/,$//`"
+else
+	groupmember=$number
+fi
+
+if [ "$groupmember" != "" ];then
+	groupmember_opt="fax-numbers="$groupmember
+else
+	groupmember_opt="fax-numbers="
+fi
+
+if [ "`echo $args | grep ' --brpcfax-debug-flag=1 '`" ];then
+	DEBUG=1
+	lprargs="`echo $args | sed s/'--brpcfax-debug-flag=1'/''/g`"
+elif [ "`echo $args | grep ' --brpcfax-debug-flag=2'`" ];then
+	DEBUG=2
+	lprargs="`echo $args | sed s/'--brpcfax-debug-flag=2'/''/g`"
+elif [ "`echo $args | grep ' --brpcfax-debug-flag=3'`" ];then
+	DEBUG=3
+	lprargs="`echo $args | sed s/'--brpcfax-debug-flag=3'/''/g`"
+elif [ "`echo $args | grep '^--brpcfax-debug-flag=1 '`" ];then
+	DEBUG=1
+	lprargs="`echo $args | sed s/'--brpcfax-debug-flag=1'/''/g`"
+elif [ "`echo $args | grep '^--brpcfax-debug-flag=2'`" ];then
+	DEBUG=2
+	lprargs="`echo $args | sed s/'--brpcfax-debug-flag=2'/''/g`"
+elif [ "`echo $args | grep '^--brpcfax-debug-flag=3'`" ];then
+	DEBUG=3
+	lprargs="`echo $args | sed s/'--brpcfax-debug-flag=3'/''/g`"
+else
+	lprargs=$args
+fi
+
+
+if [ $DEBUG = 1 ];then
+	rm -f  /tmp/br_faxshare_log
+fi
+
+lprcmd="lpr -P BRFAX  -o $groupmember_opt  $lprargs"
+
+
+
+if [ "`echo $lprcmd | grep 'fax-broadcast=\/'`" ];then
+	lprcmd2=$lprcmd
+elif [ "`echo $lprcmd | grep 'fax-broadcast=~'`" ];then
+	lprcmd2="`echo $lprcmd | sed s/"fax-broadcast=~"/"fax-broadcast=""$hdir"/g`"
+else
+	lprcmd2="`echo $lprcmd | sed s/fax-broadcast=/fax-broadcast="$cdir"'\/'/g`"
+fi
+
+
+
+case "$DEBUG" in
+	"0" )
+		$lprcmd2
+		;;
+	"1" )
+		echo $lprcmd >> /tmp/br_faxshare_log
+		$lprcmd2
+		;;
+	"2" )
+		echo $lprcmd2
+        	if [ "$INPUT_TEMP_BCLIST" != "" ];then
+			rm -f $INPUT_TEMP_BCLIST
+		fi
+		;;
+	"3" )
+		lprcmd3="`echo $lprcmd2 | sed s/' -o '/' -o brpcfax-debugoption=4 -o '/`"
+		echo $lprcmd3
+		$lprcmd3
+		;;
+	"*" )
+		$lprcmd2
+		;;
+	esac
+
+
+
+exit 0

@@ -1,0 +1,631 @@
+*PPD-Adobe: "4.3"
+
+*%================================================
+*%	Copyright(C) 2012 Brother Industries, Ltd.
+*%	"Brother MFC-J430W CUPS"
+*%================================================ 
+
+*%==== General Information Keywords ========================
+*FormatVersion: "4.3"
+*FileVersion: "1.1.1"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "MFCJ430W.PPD"
+*Manufacturer: "Brother"
+*Product: "(MFC-J430W)"
+*1284DeviceID: "MFG:Brother;MDL:MFC-J430W"
+*cupsVersion: 1.1
+*cupsManualCopies: True
+*cupsFilter: "application/vnd.cups-postscript 0 brother_lpdwrapper_mfcj430w"
+*cupsModelNumber: 12
+*ModelName: "Brother MFC-J430W"
+*ShortNickName: "MFC-J430W"
+*NickName: "Brother MFC-J430W CUPS"
+*PSVersion: "(3010.106) 3"
+
+*%==== Basic Device Capabilities =============
+*LanguageLevel: "3"
+*ColorDevice: True
+*DefaultColorSpace: RGB
+*FileSystem: False
+*Throughput: "12"
+*VariablePaperSize: False
+*TTRasterizer: Type42
+*FreeVM: "1700000"
+
+*%DefaultOutputOrder: Reverse
+
+
+
+*%==== UI Constraints ======================
+*UIConstraints: *BRResolution Fast *BRMediaType Plain 
+*UIConstraints: *BRResolution Normal *BRMediaType Plain 
+*UIConstraints: *BRResolution Photo *BRMediaType Plain 
+*UIConstraints: *BRResolution PlainFast *BRMediaType Inkjet 
+*UIConstraints: *BRResolution PlainNormal *BRMediaType Inkjet 
+*UIConstraints: *BRResolution Fast *BRMediaType Inkjet 
+*UIConstraints: *BRResolution High *BRMediaType Inkjet 
+*UIConstraints: *BRResolution Best *BRMediaType Inkjet 
+*UIConstraints: *BRResolution PlainFast *BRMediaType BrotherGlossyR 
+*UIConstraints: *BRResolution PlainNormal *BRMediaType BrotherGlossyR 
+*UIConstraints: *BRResolution Normal *BRMediaType BrotherGlossyR 
+*UIConstraints: *BRResolution High *BRMediaType BrotherGlossyR 
+*UIConstraints: *BRResolution PlainFast *BRMediaType BrotherGlossy 
+*UIConstraints: *BRResolution PlainNormal *BRMediaType BrotherGlossy 
+*UIConstraints: *BRResolution Normal *BRMediaType BrotherGlossy 
+*UIConstraints: *BRResolution High *BRMediaType BrotherGlossy 
+*UIConstraints: *BRResolution PlainFast *BRMediaType Glossy 
+*UIConstraints: *BRResolution PlainNormal *BRMediaType Glossy 
+*UIConstraints: *BRResolution Normal *BRMediaType Glossy 
+*UIConstraints: *BRResolution High *BRMediaType Glossy 
+*UIConstraints: *BRResolution PlainFast *BRMediaType Transparencies 
+*UIConstraints: *BRResolution PlainNormal *BRMediaType Transparencies 
+*UIConstraints: *BRResolution Fast *BRMediaType Transparencies 
+*UIConstraints: *BRResolution Photo *BRMediaType Transparencies 
+*UIConstraints: *BRResolution High *BRMediaType Transparencies 
+*UIConstraints: *BRResolution Best *BRMediaType Transparencies 
+*UIConstraints: *BRResolution PlainFast *BRMediaType HagakiAtena 
+*UIConstraints: *BRResolution PlainNormal *BRMediaType HagakiAtena 
+*UIConstraints: *BRResolution Photo *BRMediaType HagakiAtena 
+*UIConstraints: *BRResolution PlainFast *BRMediaType HagakiUra 
+*UIConstraints: *BRResolution PlainNormal *BRMediaType HagakiUra 
+*UIConstraints: *BRResolution Normal *BRMediaType HagakiUra 
+*UIConstraints: *BRResolution High *BRMediaType HagakiUra 
+*UIConstraints: *BRResolution PlainFast *BRMediaType BrotherBP60Matte 
+*UIConstraints: *BRResolution PlainNormal *BRMediaType BrotherBP60Matte 
+*UIConstraints: *BRResolution Fast *BRMediaType BrotherBP60Matte 
+*UIConstraints: *BRResolution High *BRMediaType BrotherBP60Matte 
+*UIConstraints: *BRResolution Best *BRMediaType BrotherBP60Matte 
+*UIConstraints: *BRSlowDrying ON *BRMediaType Inkjet 
+*UIConstraints: *BRSlowDrying ON *BRMediaType BrotherGlossyR 
+*UIConstraints: *BRSlowDrying ON *BRMediaType BrotherGlossy 
+*UIConstraints: *BRSlowDrying ON *BRMediaType Glossy 
+*UIConstraints: *BRSlowDrying ON *BRMediaType Transparencies 
+*UIConstraints: *BRSlowDrying OFF *BRMediaType HagakiAtena 
+*UIConstraints: *BRSlowDrying ON *BRMediaType HagakiUra 
+*UIConstraints: *BRSlowDrying ON *BRMediaType BrotherBP60Matte 
+*UIConstraints: *PageSize BrA4_B *BRMediaType Transparencies 
+*UIConstraints: *PageSize BrLetter_B *BRMediaType Transparencies 
+*UIConstraints: *PageSize BrA6_B *BRMediaType Transparencies 
+*UIConstraints: *PageSize BrPostC4x6_B *BRMediaType Transparencies 
+*UIConstraints: *PageSize BrIndexC5x8_B *BRMediaType Transparencies 
+*UIConstraints: *PageSize BrPhotoL_B *BRMediaType Transparencies 
+*UIConstraints: *PageSize BrPhoto2L_B *BRMediaType Transparencies 
+*UIConstraints: *PageSize BrHagaki_B *BRMediaType Transparencies 
+
+*%==== Media Selection ======================
+*OpenUI *PageSize/Media Size: PickOne
+*OrderDependency: 11 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A4/A4:					"          "
+*PageSize BrA4_B/A4 (Borderless):			"          "
+*PageSize Letter/Letter:				"          "
+*PageSize BrLetter_B/US Letter (Borderless):		"          "
+*PageSize Legal/Legal:				"          "
+*PageSize Executive/Executive: 			"          "
+*PageSize B5/JIS B5:				"          "
+*PageSize A5/A5:					"          "
+*PageSize A6/A6:					"          "
+*PageSize BrA6_B/A6 (Borderless):			"          "
+*PageSize BrPostC4x6_S/4 x 6 in:				"          "
+*PageSize BrPostC4x6_B/4 x 6 in (Borderless):		"          "
+*PageSize BrIndexC5x8_S/5 x 8 in:			"          "
+*PageSize BrIndexC5x8_B/5 x 8 in (Borderless):	"          "
+*PageSize BrPhotoL_S/3.5 x 5 in: 				"          "
+*PageSize BrPhotoL_B/3.5 x 5 in (Borderless):		"          "
+*PageSize BrPhoto2L_S/5 x 7 in: 				"          "
+*PageSize BrPhoto2L_B/5 x 7 in (Borderless):		"          "
+*PageSize Postcard/Postcard 1: 				"          "
+*PageSize BrHagaki_B/Postcard 1 (Borderless):		"          "
+*PageSize DoublePostcardRotated/Postcard 2 (Double): 		"          "
+*PageSize EnvC5/C5 Envelope: 				"          "
+*PageSize EnvDL/DL Envelope: 				"          "
+*PageSize Env10/Com-10:				"          "
+*PageSize EnvMonarch/Monarch:				"          "
+*PageSize EnvYou4/Y4 Envelope: 			"          "
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 12 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A4/A4:					"          "
+*PageRegion BrA4_B/A4 (Borderless):			"          "
+*PageRegion Letter/Letter:				"          "
+*PageRegion BrLetter_B/US Letter (Borderless):		"          "
+*PageRegion Legal/Legal:				"          "
+*PageRegion Executive/Executive: 			"          "
+*PageRegion B5/JIS B5:				"          "
+*PageRegion A5/A5:					"          "
+*PageRegion A6/A6:					"          "
+*PageRegion BrA6_B/A6 (Borderless):			"          "
+*PageRegion BrPostC4x6_S/4 x 6 in:				"          "
+*PageRegion BrPostC4x6_B/4 x 6 in (Borderless):		"          "
+*PageRegion BrIndexC5x8_S/5 x 8 in:			"          "
+*PageRegion BrIndexC5x8_B/5 x 8 in (Borderless):	"          "
+*PageRegion BrPhotoL_S/3.5 x 5 in: 				"          "
+*PageRegion BrPhotoL_B/3.5 x 5 in (Borderless):		"          "
+*PageRegion BrPhoto2L_S/5 x 7 in: 			"          "
+*PageRegion BrPhoto2L_B/5 x 7 in (Borderless):		"          "
+*PageRegion Postcard/Postcard 1: 			"          "
+*PageRegion BrHagaki_B/Postcard 1 (Borderless):		"          "
+*PageRegion DoublePostcardRotated/Postcard 2 (Double):		"          "
+*PageRegion EnvC5/C5 Envelope: 				"          "
+*PageRegion EnvDL/DL Envelope: 				"          "
+*PageRegion Env10/Com-10:				"          "
+*PageRegion EnvMonarch/Monarch:				"          "
+*PageRegion EnvYou4/Y4 Envelope: 			"          "
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea A4/A4:					"9 9 586 833"
+*ImageableArea BrA4_B/A4 (Borderless):			"1 1 594 841"
+*ImageableArea Letter/Letter:				"9 9 603 783"
+*ImageableArea BrLetter_B/US Letter (Borderless):		"1 1 611 791"
+*ImageableArea Legal/Legal:				"9 9 603 999"
+*ImageableArea Executive/Executive:			"9 9 513 747"
+*ImageableArea B5/JIS B5:				"9 9 507 720"
+*ImageableArea A5/A5:					"9 9 411 586"
+*ImageableArea A6/A6:					"9 9 288 411"
+*ImageableArea BrA6_B/A6 (Borderless):			"1 1 296 419"
+*ImageableArea BrPostC4x6_S/4 x 6 in:			"9 9 279 423"
+*ImageableArea BrPostC4x6_B/4 x 6 in (Borderless):		"1 1 287 431"
+*ImageableArea BrIndexC5x8_S/5 x 8 in:			"9 9 351 567"
+*ImageableArea BrIndexC5x8_B/5 x 8 in (Borderless):	"1 1 359 575"
+*ImageableArea BrPhotoL_S/3.5 x 5 in:			"9 9 243 351"
+*ImageableArea BrPhotoL_B/3.5 x 5 in (Borderless):		"1 1 251 359"
+*ImageableArea BrPhoto2L_S/5 x 7 in:			"9 9 350 496"
+*ImageableArea BrPhoto2L_B/5 x 7 in (Borderless):	"1 1 358 504"
+*ImageableArea Postcard/Postcard 1: 			"9 9 275 410"
+*ImageableArea BrHagaki_B/Postcard 1 (Borderless):	"1 1 283 418"
+*ImageableArea DoublePostcardRotated/Postcard 2 (Double): 	"9 9 411 558"
+*ImageableArea EnvC5/C5 Envelope: 			"9 9 450 640"
+*ImageableArea EnvDL/DL Envelope:			"9 9 303 615"
+*ImageableArea Env10/Com-10:				"9 9 288 675"
+*ImageableArea EnvMonarch/Monarch:			"9 9 270 531"
+*ImageableArea EnvYou4/Y4 Envelope: 			"9 9 289 657"
+
+*%==== Information About Media Sizes ========
+*DefaultPaperDimension: Letter
+*PaperDimension A4/A4:				"595 842"
+*PaperDimension BrA4_B/A4 (Borderless):			"595 842"
+*PaperDimension Letter/Letter:			"612 792"
+*PaperDimension BrLetter_B/US Letter (Borderless):		"612 792"
+*PaperDimension Legal/Legal:				"612 1008"
+*PaperDimension Executive/Executive:			"522 756"
+*PaperDimension B5/JIS B5:				"516 729"
+*PaperDimension A5/A5:				"420 595"
+*PaperDimension A6/A6:				"297 420"
+*PaperDimension BrA6_B/A6 (Borderless):			"297 420"
+*PaperDimension BrPostC4x6_S/4 x 6 in:			"288 432"
+*PaperDimension BrPostC4x6_B/4 x 6 in (Borderless):	"288 432"
+*PaperDimension BrIndexC5x8_S/5 x 8 in:			"360 576"
+*PaperDimension BrIndexC5x8_B/5 x 8 in (Borderless):	"360 576"
+*PaperDimension BrPhotoL_S/3.5 x 5 in:			"252 360"
+*PaperDimension BrPhotoL_B/3.5 x 5 in (Borderless):	"252 360"
+*PaperDimension BrPhoto2L_S/5 x 7 in:			"359 505"
+*PaperDimension BrPhoto2L_B/5 x 7 in (Borderless):	"359 505"
+*PaperDimension Postcard/Postcard 1: 			"284 419"
+*PaperDimension BrHagaki_B/Postcard 1 (Borderless):	"284 419"
+*PaperDimension DoublePostcardRotated/Postcard 2 (Double): 	"420 567"
+*PaperDimension EnvC5/C5 Envelope: 			"459 649"
+*PaperDimension EnvDL/DL Envelope:			"312 624"
+*PaperDimension Env10/Com-10:				"297 684"
+*PaperDimension EnvMonarch/Monarch:			"279 540"
+*PaperDimension EnvYou4/Y4 Envelope: 			"298 666"
+
+*%==== Resolution Features =================================
+*OpenUI *BRResolution/Print Quality: PickOne
+*OrderDependency: 14 AnySetup *BRResolution
+*DefaultBRResolution: PlainNormal
+*BRResolution PlainFast/Plain Fast: 	"          "
+*BRResolution PlainNormal/Plain Normal: 	"          "
+*BRResolution Fast/Fast: 		"          "
+*BRResolution Normal/Normal: 		"          "
+*BRResolution Photo/Photo: 		"          "
+*BRResolution High/High: 		"          "
+*BRResolution Best/Best: 	"          "
+*CloseUI: *BRResolution
+
+*%=== MonoOrColor ================================
+*OpenUI *BRMonoColor/Color/Grayscale: PickOne
+*OrderDependency: 15 AnySetup *BRMonoColor
+*DefaultBRMonoColor: Color
+*BRMonoColor Color/Color: "          "
+*BRMonoColor Mono/Grayscale: "          "
+*CloseUI: *BRMonoColor
+
+*%=== SlowDrying ================================
+*OpenUI *BRSlowDrying/Slow Drying Paper: PickOne
+*OrderDependency: 31 AnySetup *BRSlowDrying
+*DefaultBRSlowDrying: OFF
+*BRSlowDrying OFF/Off: "          "
+*BRSlowDrying ON/On: "          "
+*CloseUI: *BRSlowDrying
+
+*%=== Media Type ================================
+*OpenUI *BRMediaType/Media Type: PickOne
+*OrderDependency: 16 AnySetup *BRMediaType
+*DefaultBRMediaType: Plain
+*BRMediaType Plain/Plain Paper: "          "
+*BRMediaType Inkjet/Inkjet Paper: "          "
+*BRMediaType BrotherGlossyR/Brother BP71 Photo Paper: "          "
+*BRMediaType BrotherGlossy/Brother BP61 Photo Paper: "          "
+*BRMediaType BrotherBP60Matte/Brother BP60 Matte Paper: "          "
+*BRMediaType Glossy/Other Photo Paper: "          "
+*BRMediaType Transparencies/Transparencies: "          "
+*BRMediaType HagakiAtena/HagakiAtena: "          "
+*BRMediaType HagakiUra/HagakiUra: "          "
+*CloseUI: *BRMediaType
+
+*%=== Paper Thick ================================
+*OpenUI *BRColorPaperThick/Paper Thickness: PickOne
+*OrderDependency: 17 AnySetup *BRColorPaperThick
+*DefaultBRColorPaperThick: Regular
+*BRColorPaperThick Regular/Regular: "          "
+*BRColorPaperThick Thick/Thick: "          "
+*BRColorPaperThick Env/Envelope: "          "
+*CloseUI: *BRColorPaperThick
+
+*%=== Bi-DirKey ================================
+*OpenUI *BRBiDir/Bi-Directional Printing: PickOne
+*OrderDependency: 18 AnySetup *BRBiDir
+*DefaultBRBiDir: ON
+*BRBiDir OFF/Off: "          "
+*BRBiDir ON/On: "          "
+*CloseUI: *BRBiDir
+
+*%=== Reverse Printing ================================
+*OpenUI *BRReverse/Reverse Print: PickOne
+*OrderDependency: 19 AnySetup *BRReverse
+*DefaultBRReverse: OFF
+*BRReverse OFF/Off: "          "
+*BRReverse ON/On: "          "
+*CloseUI: *BRReverse
+
+*%=== Mirror Printing ================================
+*OpenUI *BRMirror/Mirror Print: Boolean
+*OrderDependency: 20 AnySetup *BRMirror
+*DefaultBRMirror: OFF
+*BRMirror OFF/Off: "          "
+*BRMirror ON/On: "          "
+*CloseUI: *BRMirror
+
+*%=== Color Mode ================================
+*OpenUI *BRColorMatching/Color Mode: PickOne
+*OrderDependency: 21 AnySetup *BRColorMatching
+*DefaultBRColorMatching: Natural
+*BRColorMatching Natural/Natural: "          "
+*BRColorMatching Vivid/Vivid: "          "
+*BRColorMatching None/None: "          "
+*CloseUI: *BRColorMatching
+
+*%=== Jpeg Printing ================================
+*OpenUI *BRJpeg/Change Data Transfer Mode: PickOne
+*OrderDependency: 22 AnySetup *BRJpeg
+*DefaultBRJpeg: Recommended
+*BRJpeg Recommended/Recommended Setting: "          "
+*BRJpeg QualityPrior/Improved Print Quality: "          "
+*BRJpeg SpeedPrior/Improved Print Speed: "          "
+*CloseUI: *BRJpeg
+
+
+
+*%=== Half Tone Pattern ================================
+*OpenUI *BRHalfTonePattern/Halftone Pattern: PickOne
+*OrderDependency: 23 AnySetup * BRHalfTonePattern
+*DefaultBRHalfTonePattern: Diffusion
+*BRHalfTonePattern Diffusion/Diffusion: "          "
+*BRHalfTonePattern Dither/Dither: "          "
+*CloseUI: *BRHalfTonePattern
+
+*%=== True2Life ================================
+*OpenUI *BRColorEnhancement/Color Enhancement: PickOne
+*OrderDependency: 24 AnySetup *BRColorEnhancement
+*DefaultBRColorEnhancement: OFF
+*BRColorEnhancement OFF/Off: "          "
+*BRColorEnhancement ON/On: "          "
+*CloseUI: *BRColorEnhancement
+
+*%=== Brightness ================================
+*OpenUI *BRBrightness/Brightness: PickOne
+*OrderDependency: 25 AnySetup *BRBrightness
+*DefaultBRBrightness: 0
+*BRBrightness -20/-20: "          "
+*BRBrightness -19/-19: "          "
+*BRBrightness -18/-18: "          "
+*BRBrightness -17/-17: "          "
+*BRBrightness -16/-16: "          "
+*BRBrightness -15/-15: "          "
+*BRBrightness -14/-14: "          "
+*BRBrightness -13/-13: "          "
+*BRBrightness -12/-12: "          "
+*BRBrightness -11/-11: "          "
+*BRBrightness -10/-10: "          "
+*BRBrightness -9/-9: "          "
+*BRBrightness -8/-8: "          "
+*BRBrightness -7/-7: "          "
+*BRBrightness -6/-6: "          "
+*BRBrightness -5/-5: "          "
+*BRBrightness -4/-4: "          "
+*BRBrightness -3/-3: "          "
+*BRBrightness -2/-2: "          "
+*BRBrightness -1/-1: "          "
+*BRBrightness 0/0: "          "
+*BRBrightness 1/1: "          "
+*BRBrightness 2/2: "          "
+*BRBrightness 3/3: "          "
+*BRBrightness 4/4: "          "
+*BRBrightness 5/5: "          "
+*BRBrightness 6/6: "          "
+*BRBrightness 7/7: "          "
+*BRBrightness 8/8: "          "
+*BRBrightness 9/9: "          "
+*BRBrightness 10/10: "          "
+*BRBrightness 11/11: "          "
+*BRBrightness 12/12: "          "
+*BRBrightness 13/13: "          "
+*BRBrightness 14/14: "          "
+*BRBrightness 15/15: "          "
+*BRBrightness 16/16: "          "
+*BRBrightness 17/17: "          "
+*BRBrightness 18/18: "          "
+*BRBrightness 19/19: "          "
+*BRBrightness 20/20: "          "
+*CloseUI: *BRBrightness
+
+*%=== Contrast ================================
+*OpenUI *BRContrast/Contrast: PickOne
+*OrderDependency: 26 AnySetup *BRContrast
+*DefaultBRContrast: 0
+*BRContrast -20/-20: "          "
+*BRContrast -19/-19: "          "
+*BRContrast -18/-18: "          "
+*BRContrast -17/-17: "          "
+*BRContrast -16/-16: "          "
+*BRContrast -15/-15: "          "
+*BRContrast -14/-14: "          "
+*BRContrast -13/-13: "          "
+*BRContrast -12/-12: "          "
+*BRContrast -11/-11: "          "
+*BRContrast -10/-10: "          "
+*BRContrast -9/-9: "          "
+*BRContrast -8/-8: "          "
+*BRContrast -7/-7: "          "
+*BRContrast -6/-6: "          "
+*BRContrast -5/-5: "          "
+*BRContrast -4/-4: "          "
+*BRContrast -3/-3: "          "
+*BRContrast -2/-2: "          "
+*BRContrast -1/-1: "          "
+*BRContrast 0/0: "          "
+*BRContrast 1/1: "          "
+*BRContrast 2/2: "          "
+*BRContrast 3/3: "          "
+*BRContrast 4/4: "          "
+*BRContrast 5/5: "          "
+*BRContrast 6/6: "          "
+*BRContrast 7/7: "          "
+*BRContrast 8/8: "          "
+*BRContrast 9/9: "          "
+*BRContrast 10/10: "          "
+*BRContrast 11/11: "          "
+*BRContrast 12/12: "          "
+*BRContrast 13/13: "          "
+*BRContrast 14/14: "          "
+*BRContrast 15/15: "          "
+*BRContrast 16/16: "          "
+*BRContrast 17/17: "          "
+*BRContrast 18/18: "          "
+*BRContrast 19/19: "          "
+*BRContrast 20/20: "          "
+*CloseUI: *BRContrast
+
+*%=== Red ================================
+*OpenUI *BRRed/Red: PickOne
+*OrderDependency: 27 AnySetup *BRRed
+*DefaultBRRed: 0
+*BRRed -20/-20: "          "
+*BRRed -19/-19: "          "
+*BRRed -18/-18: "          "
+*BRRed -17/-17: "          "
+*BRRed -16/-16: "          "
+*BRRed -15/-15: "          "
+*BRRed -14/-14: "          "
+*BRRed -13/-13: "          "
+*BRRed -12/-12: "          "
+*BRRed -11/-11: "          "
+*BRRed -10/-10: "          "
+*BRRed -9/-9: "          "
+*BRRed -8/-8: "          "
+*BRRed -7/-7: "          "
+*BRRed -6/-6: "          "
+*BRRed -5/-5: "          "
+*BRRed -4/-4: "          "
+*BRRed -3/-3: "          "
+*BRRed -2/-2: "          "
+*BRRed -1/-1: "          "
+*BRRed 0/0: "          "
+*BRRed 1/1: "          "
+*BRRed 2/2: "          "
+*BRRed 3/3: "          "
+*BRRed 4/4: "          "
+*BRRed 5/5: "          "
+*BRRed 6/6: "          "
+*BRRed 7/7: "          "
+*BRRed 8/8: "          "
+*BRRed 9/9: "          "
+*BRRed 10/10: "          "
+*BRRed 11/11: "          "
+*BRRed 12/12: "          "
+*BRRed 13/13: "          "
+*BRRed 14/14: "          "
+*BRRed 15/15: "          "
+*BRRed 16/16: "          "
+*BRRed 17/17: "          "
+*BRRed 18/18: "          "
+*BRRed 19/19: "          "
+*BRRed 20/20: "          "
+*CloseUI: *BRRed
+
+*%=== Green ================================
+*OpenUI *BRGreen/Green: PickOne
+*OrderDependency: 28 AnySetup *BRGreen
+*DefaultBRGreen: 0
+*BRGreen -20/-20: "          "
+*BRGreen -19/-19: "          "
+*BRGreen -18/-18: "          "
+*BRGreen -17/-17: "          "
+*BRGreen -16/-16: "          "
+*BRGreen -15/-15: "          "
+*BRGreen -14/-14: "          "
+*BRGreen -13/-13: "          "
+*BRGreen -12/-12: "          "
+*BRGreen -11/-11: "          "
+*BRGreen -10/-10: "          "
+*BRGreen -9/-9: "          "
+*BRGreen -8/-8: "          "
+*BRGreen -7/-7: "          "
+*BRGreen -6/-6: "          "
+*BRGreen -5/-5: "          "
+*BRGreen -4/-4: "          "
+*BRGreen -3/-3: "          "
+*BRGreen -2/-2: "          "
+*BRGreen -1/-1: "          "
+*BRGreen 0/0: "          "
+*BRGreen 1/1: "          "
+*BRGreen 2/2: "          "
+*BRGreen 3/3: "          "
+*BRGreen 4/4: "          "
+*BRGreen 5/5: "          "
+*BRGreen 6/6: "          "
+*BRGreen 7/7: "          "
+*BRGreen 8/8: "          "
+*BRGreen 9/9: "          "
+*BRGreen 10/10: "          "
+*BRGreen 11/11: "          "
+*BRGreen 12/12: "          "
+*BRGreen 13/13: "          "
+*BRGreen 14/14: "          "
+*BRGreen 15/15: "          "
+*BRGreen 16/16: "          "
+*BRGreen 17/17: "          "
+*BRGreen 18/18: "          "
+*BRGreen 19/19: "          "
+*BRGreen 20/20: "          "
+*CloseUI: *BRGreen
+
+*%=== Blue ================================
+*OpenUI *BRBlue/Blue: PickOne
+*OrderDependency: 29 AnySetup *BRBlue
+*DefaultBRBlue: 0
+*BRBlue -20/-20: "          "
+*BRBlue -19/-19: "          "
+*BRBlue -18/-18: "          "
+*BRBlue -17/-17: "          "
+*BRBlue -16/-16: "          "
+*BRBlue -15/-15: "          "
+*BRBlue -14/-14: "          "
+*BRBlue -13/-13: "          "
+*BRBlue -12/-12: "          "
+*BRBlue -11/-11: "          "
+*BRBlue -10/-10: "          "
+*BRBlue -9/-9: "          "
+*BRBlue -8/-8: "          "
+*BRBlue -7/-7: "          "
+*BRBlue -6/-6: "          "
+*BRBlue -5/-5: "          "
+*BRBlue -4/-4: "          "
+*BRBlue -3/-3: "          "
+*BRBlue -2/-2: "          "
+*BRBlue -1/-1: "          "
+*BRBlue 0/0: "          "
+*BRBlue 1/1: "          "
+*BRBlue 2/2: "          "
+*BRBlue 3/3: "          "
+*BRBlue 4/4: "          "
+*BRBlue 5/5: "          "
+*BRBlue 6/6: "          "
+*BRBlue 7/7: "          "
+*BRBlue 8/8: "          "
+*BRBlue 9/9: "          "
+*BRBlue 10/10: "          "
+*BRBlue 11/11: "          "
+*BRBlue 12/12: "          "
+*BRBlue 13/13: "          "
+*BRBlue 14/14: "          "
+*BRBlue 15/15: "          "
+*BRBlue 16/16: "          "
+*BRBlue 17/17: "          "
+*BRBlue 18/18: "          "
+*BRBlue 19/19: "          "
+*BRBlue 20/20: "          "
+*CloseUI: *BRBlue
+
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Alaska: Standard "(001.005)" Standard ROM
+*Font AlaskaExtrabold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Bold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Oblique: Standard "(001.005)" Standard ROM
+*Font ClevelandCondensed: Standard "(001.005)" Standard ROM
+*Font Connecticut: Standard "(001.005)" Standard ROM
+*Font Guatemala-Antique: Standard "(001.005)" Standard ROM
+*Font Guatemala-Bold: Standard "(001.005)" Standard ROM
+*Font Guatemala-Italic: Standard "(001.005)" Standard ROM
+*Font Guatemala-BoldItalic: Standard "(001.005)" Standard ROM
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Oblique: Standard "(001.005)" Standard ROM
+*Font Maryland: Standard "(001.005)" Standard ROM
+*Font Oklahoma: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Bold: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Oblique: Standard "(001.005)" Standard ROM
+*Font Oklahoma-BoldOblique: Standard "(001.005)" Standard ROM
+*Font Utah: Standard "(001.005)" Standard ROM
+*Font Utah-Bold: Standard "(001.005)" Standard ROM
+*Font Utah-Oblique: Standard "(001.005)" Standard ROM
+*Font Utah-BoldOblique: Standard "(001.005)" Standard ROM
+*Font UtahCondensed: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Bold: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Oblique: Standard "(001.004)" Standard ROM
+*Font UtahCondensed-BoldOblique: Standard "(001.005)" Standard ROM
+*Font BermudaScript: Standard "(001.005)" Standard ROM
+*Font Germany: Standard "(001.005)" Standard ROM
+*Font SanDiego: Standard "(001.005)" Standard ROM
+*Font US-Roman: Standard "(001.005)" Standard ROM

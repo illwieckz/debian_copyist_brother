@@ -1,0 +1,882 @@
+#! /bin/sh
+#
+# Brother Print filter
+# Copyright (C) 2005 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+if [ "$1" = '-e' ]; then
+  lpadmin -x MFC9420CN
+  rm -f /usr/share/cups/model/brmfc9420cn.ppd
+  rm -f /usr/lib/cups/filter/brlpdwrapperMFC9420CN
+  rm -f /usr/lib64/cups/filter/brlpdwrapperMFC9420CN
+  rm -f /usr/local/Brother/cupswrapper/brcupsconfcl1
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+#  /etc/init.d/cups restart
+  exit 0
+fi
+if [ "$1" = "-r" ]; then
+  lpadmin -x MFC9420CN
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+#  /etc/init.d/cups restart
+  exit 0
+fi
+if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
+  echo   'option -h : help'
+  echo   '       -i : install'
+  echo   '       -e : uninstall'
+  echo   '       -r : remove printer'
+  exit 0
+fi
+mkdir -p /usr/local/Brother/filter
+mkdir -p /usr/lib/cups/filter
+
+if [ -e "/usr/local/Brother/lpd/filterMFC9420CN" ]; then
+  :
+else
+  echo "ERROR : Brother LPD filter is not installed."
+fi
+rm -f /usr/share/cups/model/brmfc9420cn.ppd
+ppd_file_name=/usr/share/cups/model/brmfc9420cn.ppd
+
+cat <<ENDOFPPDFILE >$ppd_file_name
+*PPD-Adobe: "4.3"
+
+*%================================================
+*%	Copyright(C) 2005 Brother Industries, Ltd.
+*%	"Brother MFC-9420CN series CUPS"
+*%================================================
+
+*%==== General Information Keywords ========================
+*FormatVersion: "4.3"
+*FileVersion: "1.0.0"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "MFC9420CN.PPD"
+*Manufacturer: "Brother"
+*Product: "(MFC-9420CN series)"
+*1284DeviceID: "MFG:Brother;MDL:MFC-9420CN series"
+
+*cupsVersion: 1.1
+*cupsManualCopies: False
+*cupsFilter: "application/vnd.cups-postscript 0 brlpdwrapperMFC9420CN"
+*cupsModelNumber: 1
+*ModelName: "Brother MFC-9420CN series"
+*ShortNickName: "Brother MFC-9420CN series"
+*NickName: "Brother MFC-9420CN series CUPS v1.1"
+*PSVersion: "(3010.106) 3"
+
+*%==== Basic Device Capabilities =============
+*LanguageLevel: "3"
+*ColorDevice: True
+*DefaultColorSpace: RGB
+*FileSystem: False
+*Throughput: "12"
+*LandscapeOrientation: Plus90
+*VariablePaperSize: False
+*TTRasterizer: Type42
+*FreeVM: "1700000"
+
+*%DefaultOutputOrder: Reverse
+
+*%==== Installable Options ===================
+
+*OpenGroup: InstallableOptions/Options Installed
+
+*OpenUI *OptionTrays/Number of Input Trays: PickOne
+*DefaultOptionTrays: 2Trays
+*OptionTrays 1Trays/ 1: ""
+*OptionTrays 2Trays/ 2: ""
+*?OptionTrays:"
+save
+	<</BRFeeder 1>>setpagedevice currentpagedevice/BRFeeder get
+	1 eq{(2Trays)}{(1Trays)}ifelse
+	= flush
+restore
+"
+*End
+*CloseUI: *OptionTrays
+
+*CloseGroup: InstallableOptions
+
+
+*UIConstraints: *OptionTrays 1Trays *InputSlot Tray2
+*UIConstraints: *InputSlot Tray2 *OptionTrays 1Trays
+
+
+*%==== Media Selection ======================
+*OpenUI *PageSize/Media Size: PickOne
+*OrderDependency: 11 AnySetup *PageSize
+*DefaultPageSize: BrLetter
+*PageSize BrA4/A4:					"<</PageSize[595 842]/ImagingBBox null>>setpagedevice"
+*PageSize BrLetter/Letter:				"<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*PageSize BrLegal/Legal:				"<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+*PageSize BrExecutive/Executive: 			"<</PageSize[522 756]/ImagingBBox null>>setpagedevice"
+*PageSize BrA5/A5:					"<</PageSize[420 595]/ImagingBBox null>>setpagedevice"
+*PageSize BrJISB5/JIS B5:				"<</PageSize[516 729]/ImagingBBox null>>setpagedevice"
+*PageSize BrB5/B5:					"<</PageSize[499 709]/ImagingBBox null>>setpagedevice"
+*PageSize BrCom10/Com-10:				"<</PageSize[297 684]/ImagingBBox null>>setpagedevice"
+*PageSize BrDL/DL: 					"<</PageSize[312 624]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 12 AnySetup *PageRegion
+*DefaultPageRegion: BrLetter
+*PageRegion BrA4/A4:					"<</PageSize[595 842]/ImagingBBox null>>setpagedevice"
+*PageRegion BrLetter/Letter:				"<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*PageRegion BrLegal/Legal:				"<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+*PageRegion BrExecutive/Executive: 			"<</PageSize[522 756]/ImagingBBox null>>setpagedevice"
+*PageRegion BrA5/A5:					"<</PageSize[420 595]/ImagingBBox null>>setpagedevice"
+*PageRegion BrJISB5/JIS B5:				"<</PageSize[516 729]/ImagingBBox null>>setpagedevice"
+*PageRegion BrB5/B5:					"<</PageSize[499 709]/ImagingBBox null>>setpagedevice"
+*PageRegion BrCom10/Com-10:				"<</PageSize[297 684]/ImagingBBox null>>setpagedevice"
+*PageRegion BrDL/DL: 					"<</PageSize[312 624]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: BrLetter
+*ImageableArea BrA4/A4:					"12 12 583 830"
+*ImageableArea BrLetter/Letter:				"12 12 600 780"
+*ImageableArea BrLegal/Legal:				"12 12 600 996"
+*ImageableArea BrExecutive/Executive:			"12 12 510 744"
+*ImageableArea BrA5/A5:					"12 12 408 583"
+*ImageableArea BrJISB5/JIS B5:				"12 12 504 717"
+*ImageableArea BrB5/B5:					"12 12 487 697"
+*ImageableArea BrCom10/Com-10:				"12 12 285 672"
+*ImageableArea BrDL/DL:					"12 12 300 612"
+
+*%==== Information About Media Sizes ========
+*DefaultPaperDimension: BrLetter
+*PaperDimension BrA4/A4:				"595 842"
+*PaperDimension BrLetter/Letter:			"612 792"
+*PaperDimension BrLegal/Legal:				"612 1008"
+*PaperDimension BrExecutive/Executive:			"522 756"
+*PaperDimension BrA5/A5:				"420 595"
+*PaperDimension BrJISB5/JIS B5:				"516 729"
+*PaperDimension BrB5/B5:				"499 709"
+*PaperDimension BrCom10/Com-10:				"297 684"
+*PaperDimension BrDL/DL:				"312 624"
+
+*%==== Custom Page Sizes ====================
+*NonUIOrderDependency: 40 AnySetup *CustomPageSize
+*VariablePaperSize: True
+*LeadingEdge Short: ""
+*DefaultLeadingEdge: Short
+*MaxMediaWidth: "612"
+*MaxMediaHeight: "1008"
+*HWMargins: 12 12 12 12
+*CustomPageSize True: "
+	<</BRCustomPageSize true>> setpagedevice
+	pop pop pop
+	<< /PageSize [ 5 -2 roll ] /ImagingBBox null >>
+	setpagedevice
+"
+*End
+*ParamCustomPageSize Width: 1 points 284 612
+*ParamCustomPageSize Height: 2 points 595 1008
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 0 3
+
+*%=== Paper Feed================================
+*OpenUI *InputSlot: PickOne
+*OrderDependency: 13 AnySetup *InputSlot
+*DefaultInputSlot: AutoSelect
+*InputSlot AutoSelect/Auto Select: 	""
+*InputSlot Tray1/Tray1: 		""
+*InputSlot Tray2/Tray2: 		""
+*CloseUI: *InputSlot
+
+*%==== Resolution Features =================================
+*OpenUI *Resolution/Media Type/Print Quality: PickOne
+*OrderDependency: 14 AnySetup *Resolution
+*DefaultResolution: Normal
+*Resolution	Normal/Normal (600 x 600 dpi): 	""
+*Resolution	CAPT/Fine (2400 dpi class): 	""
+*CloseUI: *Resolution
+
+*%=== CAPT ================================
+*OpenUI *BRCAPT/with CAPT (2400 dpi class): PickOne
+*OrderDependency: 15 AnySetup *BRCAPT
+*DefaultBRCAPT: OFF
+*BRCAPT OFF/OFF: ""
+*BRCAPT ON/ON: ""
+*CloseUI: *BRCAPT
+
+*%=== MonoOrColor ================================
+*OpenUI *MonoColor/Color/Mono: PickOne
+*OrderDependency: 16 AnySetup *MonoColor
+*DefaultMonoColor: BrFullColor
+*MonoColor BrFullColor/Full Color: ""
+*MonoColor BrMono/Mono: ""
+*MonoColor BrB&C/Black & Cyan: ""
+*MonoColor BrB&M/Black & Magenta: ""
+*MonoColor BrB&Y/Black & Yellow: ""
+*CloseUI: *MonoColor
+
+*%=== LandscapeAdjustment ================================
+*OpenUI *LandscapeAdjustment/Landscape Adjustment: PickOne
+*OrderDependency: 40 AnySetup *LandscapeAdjustment
+*DefaultLandscapeAdjustment: BrNormal
+*LandscapeAdjustment BrNormal/Normal:
+*LandscapeAdjustment BrAdjust/Adjust:
+*CloseUI: *LandscapeAdjustment
+
+
+*%=== Media Type ================================
+*OpenUI *MediaType/Media Type: PickOne
+*OrderDependency: 17 AnySetup *MediaType
+*DefaultMediaType: Plain
+*MediaType Plain/Plain Paper: ""
+*MediaType Thin/Thin Paper: ""
+*MediaType Thick/Thick Paper: ""
+*MediaType Thicker/Thicker Paper: ""
+*MediaType Transparencies/Transparencies: ""
+*MediaType Recycled/Recycled Paper: ""
+*CloseUI: *MediaType
+
+*%===Color Matching ================================
+*OpenUI *BRColorMatching/Color Mode: PickOne
+*OrderDependency: 18 AnySetup *BRColorMatching
+*DefaultBRColorMatching: MatchMonitor
+*BRColorMatching MatchMonitor/Match Monitor (Recommended): ""
+*BRColorMatching VividText/Vivid/Text: ""
+*BRColorMatching None/None: ""
+*CloseUI: *BRColorMatching
+
+*%=== Improve Gray Color ================================
+*OpenUI *BRGray/Improve Gray Color: PickOne
+*OrderDependency: 19 AnySetup *BRGray
+*DefaultBRGray: OFF
+*BRGray OFF/OFF: ""
+*BRGray ON/ON: ""
+*CloseUI: *BRGray
+
+*%=== Enhance Black Printing ================================
+*OpenUI *BREnhanceBlkPrt/Enhance Black Printing: PickOne
+*OrderDependency: 20 AnySetup *BREnhanceBlkPrt
+*DefaultBREnhanceBlkPrt: OFF
+*BREnhanceBlkPrt OFF/OFF: ""
+*BREnhanceBlkPrt ON/ON: ""
+*CloseUI: *BREnhanceBlkPrt
+
+*%=== Mirror Printing ================================
+*OpenUI *BRMirror/Mirror Printing: PickOne
+*OrderDependency: 21 AnySetup *BRMirror
+*DefaultBRMirror: OFF
+*BRMirror OFF/OFF: ""
+*BRMirror ON/ON: ""
+*CloseUI: *BRMirror
+
+
+*%=== Brightness ================================
+*OpenUI *BRBrightness/Brightness: PickOne
+*OrderDependency: 22 AnySetup *BRBrightness
+*DefaultBRBrightness: 0
+*BRBrightness -20/-20: ""
+*BRBrightness -19/-19: ""
+*BRBrightness -18/-18: ""
+*BRBrightness -17/-17: ""
+*BRBrightness -16/-16: ""
+*BRBrightness -15/-15: ""
+*BRBrightness -14/-14: ""
+*BRBrightness -13/-13: ""
+*BRBrightness -12/-12: ""
+*BRBrightness -11/-11: ""
+*BRBrightness -10/-10: ""
+*BRBrightness -9/-9: ""
+*BRBrightness -8/-8: ""
+*BRBrightness -7/-7: ""
+*BRBrightness -6/-6: ""
+*BRBrightness -5/-5: ""
+*BRBrightness -4/-4: ""
+*BRBrightness -3/-3: ""
+*BRBrightness -2/-2: ""
+*BRBrightness -1/-1: ""
+*BRBrightness 0/0: ""
+*BRBrightness 1/1: ""
+*BRBrightness 2/2: ""
+*BRBrightness 3/3: ""
+*BRBrightness 4/4: ""
+*BRBrightness 5/5: ""
+*BRBrightness 6/6: ""
+*BRBrightness 7/7: ""
+*BRBrightness 8/8: ""
+*BRBrightness 9/9: ""
+*BRBrightness 10/10: ""
+*BRBrightness 11/11: ""
+*BRBrightness 12/12: ""
+*BRBrightness 13/13: ""
+*BRBrightness 14/14: ""
+*BRBrightness 15/15: ""
+*BRBrightness 16/16: ""
+*BRBrightness 17/17: ""
+*BRBrightness 18/18: ""
+*BRBrightness 19/19: ""
+*BRBrightness 20/20: ""
+*CloseUI: *BRBrightness
+
+*%=== Contrast ================================
+*OpenUI *BRContrast/Contrast: PickOne
+*OrderDependency: 23 AnySetup *BRContrast
+*DefaultBRContrast: 0
+*BRContrast -20/-20: ""
+*BRContrast -19/-19: ""
+*BRContrast -18/-18: ""
+*BRContrast -17/-17: ""
+*BRContrast -16/-16: ""
+*BRContrast -15/-15: ""
+*BRContrast -14/-14: ""
+*BRContrast -13/-13: ""
+*BRContrast -12/-12: ""
+*BRContrast -11/-11: ""
+*BRContrast -10/-10: ""
+*BRContrast -9/-9: ""
+*BRContrast -8/-8: ""
+*BRContrast -7/-7: ""
+*BRContrast -6/-6: ""
+*BRContrast -5/-5: ""
+*BRContrast -4/-4: ""
+*BRContrast -3/-3: ""
+*BRContrast -2/-2: ""
+*BRContrast -1/-1: ""
+*BRContrast 0/0: ""
+*BRContrast 1/1: ""
+*BRContrast 2/2: ""
+*BRContrast 3/3: ""
+*BRContrast 4/4: ""
+*BRContrast 5/5: ""
+*BRContrast 6/6: ""
+*BRContrast 7/7: ""
+*BRContrast 8/8: ""
+*BRContrast 9/9: ""
+*BRContrast 10/10: ""
+*BRContrast 11/11: ""
+*BRContrast 12/12: ""
+*BRContrast 13/13: ""
+*BRContrast 14/14: ""
+*BRContrast 15/15: ""
+*BRContrast 16/16: ""
+*BRContrast 17/17: ""
+*BRContrast 18/18: ""
+*BRContrast 19/19: ""
+*BRContrast 20/20: ""
+*CloseUI: *BRContrast
+
+*%=== Red ================================
+*OpenUI *BRRed/Red: PickOne
+
+*OrderDependency: 24 AnySetup *BRRed
+*DefaultBRRed: 0
+*BRRed -20/-20: ""
+*BRRed -19/-19: ""
+*BRRed -18/-18: ""
+*BRRed -17/-17: ""
+*BRRed -16/-16: ""
+*BRRed -15/-15: ""
+*BRRed -14/-14: ""
+*BRRed -13/-13: ""
+*BRRed -12/-12: ""
+*BRRed -11/-11: ""
+*BRRed -10/-10: ""
+*BRRed -9/-9: ""
+*BRRed -8/-8: ""
+*BRRed -7/-7: ""
+*BRRed -6/-6: ""
+*BRRed -5/-5: ""
+*BRRed -4/-4: ""
+*BRRed -3/-3: ""
+*BRRed -2/-2: ""
+*BRRed -1/-1: ""
+*BRRed 0/0: ""
+*BRRed 1/1: ""
+*BRRed 2/2: ""
+*BRRed 3/3: ""
+*BRRed 4/4: ""
+*BRRed 5/5: ""
+*BRRed 6/6: ""
+*BRRed 7/7: ""
+*BRRed 8/8: ""
+*BRRed 9/9: ""
+*BRRed 10/10: ""
+*BRRed 11/11: ""
+*BRRed 12/12: ""
+*BRRed 13/13: ""
+*BRRed 14/14: ""
+*BRRed 15/15: ""
+*BRRed 16/16: ""
+*BRRed 17/17: ""
+*BRRed 18/18: ""
+*BRRed 19/19: ""
+*BRRed 20/20: ""
+*CloseUI: *BRRed
+
+*%=== Green ================================
+*OpenUI *BRGreen/Green: PickOne
+*OrderDependency: 25 AnySetup *BRGreen
+*DefaultBRGreen: 0
+*BRGreen -20/-20: ""
+*BRGreen -19/-19: ""
+*BRGreen -18/-18: ""
+*BRGreen -17/-17: ""
+*BRGreen -16/-16: ""
+*BRGreen -15/-15: ""
+*BRGreen -14/-14: ""
+*BRGreen -13/-13: ""
+*BRGreen -12/-12: ""
+*BRGreen -11/-11: ""
+*BRGreen -10/-10: ""
+*BRGreen -9/-9: ""
+*BRGreen -8/-8: ""
+*BRGreen -7/-7: ""
+*BRGreen -6/-6: ""
+*BRGreen -5/-5: ""
+*BRGreen -4/-4: ""
+*BRGreen -3/-3: ""
+*BRGreen -2/-2: ""
+*BRGreen -1/-1: ""
+*BRGreen 0/0: ""
+*BRGreen 1/1: ""
+*BRGreen 2/2: ""
+*BRGreen 3/3: ""
+*BRGreen 4/4: ""
+*BRGreen 5/5: ""
+*BRGreen 6/6: ""
+*BRGreen 7/7: ""
+*BRGreen 8/8: ""
+*BRGreen 9/9: ""
+*BRGreen 10/10: ""
+*BRGreen 11/11: ""
+*BRGreen 12/12: ""
+*BRGreen 13/13: ""
+*BRGreen 14/14: ""
+*BRGreen 15/15: ""
+*BRGreen 16/16: ""
+*BRGreen 17/17: ""
+*BRGreen 18/18: ""
+*BRGreen 19/19: ""
+*BRGreen 20/20: ""
+*CloseUI: *BRGreen
+
+*%=== Blue ================================
+*OpenUI *BRBlue/Blue: PickOne
+*OrderDependency: 26 AnySetup *BRBlue
+*DefaultBRBlue: 0
+*BRBlue -20/-20: ""
+*BRBlue -19/-19: ""
+*BRBlue -18/-18: ""
+*BRBlue -17/-17: ""
+*BRBlue -16/-16: ""
+*BRBlue -15/-15: ""
+*BRBlue -14/-14: ""
+*BRBlue -13/-13: ""
+*BRBlue -12/-12: ""
+*BRBlue -11/-11: ""
+*BRBlue -10/-10: ""
+*BRBlue -9/-9: ""
+*BRBlue -8/-8: ""
+*BRBlue -7/-7: ""
+*BRBlue -6/-6: ""
+*BRBlue -5/-5: ""
+*BRBlue -4/-4: ""
+*BRBlue -3/-3: ""
+*BRBlue -2/-2: ""
+*BRBlue -1/-1: ""
+*BRBlue 0/0: ""
+*BRBlue 1/1: ""
+*BRBlue 2/2: ""
+*BRBlue 3/3: ""
+*BRBlue 4/4: ""
+*BRBlue 5/5: ""
+*BRBlue 6/6: ""
+*BRBlue 7/7: ""
+*BRBlue 8/8: ""
+*BRBlue 9/9: ""
+*BRBlue 10/10: ""
+*BRBlue 11/11: ""
+*BRBlue 12/12: ""
+*BRBlue 13/13: ""
+*BRBlue 14/14: ""
+*BRBlue 15/15: ""
+*BRBlue 16/16: ""
+*BRBlue 17/17: ""
+*BRBlue 18/18: ""
+*BRBlue 19/19: ""
+*BRBlue 20/20: ""
+*CloseUI: *BRBlue
+
+*%=== Saturation ================================
+*OpenUI *BRSaturation/Saturation: PickOne
+*OrderDependency: 27 AnySetup *BRSaturation
+*DefaultBRSaturation: 0
+*BRSaturation -20/-20: ""
+*BRSaturation -19/-19: ""
+*BRSaturation -18/-18: ""
+*BRSaturation -17/-17: ""
+*BRSaturation -16/-16: ""
+*BRSaturation -15/-15: ""
+*BRSaturation -14/-14: ""
+*BRSaturation -13/-13: ""
+*BRSaturation -12/-12: ""
+*BRSaturation -11/-11: ""
+*BRSaturation -10/-10: ""
+*BRSaturation -9/-9: ""
+*BRSaturation -8/-8: ""
+*BRSaturation -7/-7: ""
+*BRSaturation -6/-6: ""
+*BRSaturation -5/-5: ""
+*BRSaturation -4/-4: ""
+*BRSaturation -3/-3: ""
+*BRSaturation -2/-2: ""
+*BRSaturation -1/-1: ""
+*BRSaturation 0/0: ""
+*BRSaturation 1/1: ""
+*BRSaturation 2/2: ""
+*BRSaturation 3/3: ""
+*BRSaturation 4/4: ""
+*BRSaturation 5/5: ""
+*BRSaturation 6/6: ""
+*BRSaturation 7/7: ""
+*BRSaturation 8/8: ""
+*BRSaturation 9/9: ""
+*BRSaturation 10/10: ""
+*BRSaturation 11/11: ""
+*BRSaturation 12/12: ""
+*BRSaturation 13/13: ""
+*BRSaturation 14/14: ""
+*BRSaturation 15/15: ""
+*BRSaturation 16/16: ""
+*BRSaturation 17/17: ""
+*BRSaturation 18/18: ""
+*BRSaturation 19/19: ""
+*BRSaturation 20/20: ""
+*CloseUI: *BRSaturation
+
+*OpenUI *TonerSaveMode/Toner Save Mode: PickOne
+*OrderDependency: 29 AnySetup  *TonerSaveMode
+*DefaultTonerSaveMode: OFF
+*TonerSaveMode OFF/OFF: "statusdict begin false tonersave end"
+*TonerSaveMode ON/ON: "statusdict begin true tonersave end"
+*CloseUI: *TonerSaveMode
+
+*%==== Sleep Time ============================
+*OpenUI *BRSleepTime: PickOne
+*OrderDependency: 30 AnySetup *BRSleepTime
+*DefaultBRSleepTime: 5
+*BRSleepTime 5/5: ""
+*BRSleepTime 10/10: ""
+*CloseUI: *BRSleepTime
+
+*%==== Sleep Time ============================
+*OpenUI *BRHRC/HRC: PickOne
+*OrderDependency: 31 AnySetup *BRHRC
+*DefaultBRHRC: Default
+*BRHRC Default/Printer Default: ""
+*BRHRC Light/Light: ""
+*BRHRC Medium/Medium: ""
+*BRHRC Dark/Dark: ""
+*BRHRC Off/Off: ""
+*CloseUI: *BRHRC
+
+*%=== Reverse Printing ================================
+*%OpenUI *BRReverse/Reverse Printing: PickOne
+*%OrderDependency: 32 AnySetup *BRReverse
+*%DefaultBRReverse: OFF
+*%BRReverse OFF/OFF: ""
+*%BRReverse ON/ON: ""
+*%CloseUI: *BRReverse
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Alaska: Standard "(001.005)" Standard ROM
+*Font AlaskaExtrabold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Bold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Oblique: Standard "(001.005)" Standard ROM
+*Font ClevelandCondensed: Standard "(001.005)" Standard ROM
+*Font Connecticut: Standard "(001.005)" Standard ROM
+*Font Guatemala-Antique: Standard "(001.005)" Standard ROM
+*Font Guatemala-Bold: Standard "(001.005)" Standard ROM
+*Font Guatemala-Italic: Standard "(001.005)" Standard ROM
+*Font Guatemala-BoldItalic: Standard "(001.005)" Standard ROM
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Oblique: Standard "(001.005)" Standard ROM
+*Font Maryland: Standard "(001.005)" Standard ROM
+*Font Oklahoma: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Bold: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Oblique: Standard "(001.005)" Standard ROM
+*Font Oklahoma-BoldOblique: Standard "(001.005)" Standard ROM
+*Font Utah: Standard "(001.005)" Standard ROM
+*Font Utah-Bold: Standard "(001.005)" Standard ROM
+*Font Utah-Oblique: Standard "(001.005)" Standard ROM
+*Font Utah-BoldOblique: Standard "(001.005)" Standard ROM
+*Font UtahCondensed: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Bold: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Oblique: Standard "(001.004)" Standard ROM
+*Font UtahCondensed-BoldOblique: Standard "(001.005)" Standard ROM
+*Font BermudaScript: Standard "(001.005)" Standard ROM
+*Font Germany: Standard "(001.005)" Standard ROM
+*Font SanDiego: Standard "(001.005)" Standard ROM
+*Font US-Roman: Standard "(001.005)" Standard ROM
+*?FontQuery: "
+save
+count 1 gt
+  {exch dup dup
+   =string cvs (/) print print (:) print
+   FontDirectory exch known
+     {pop(Yes)}
+     {(fonts/)AppendName exch pop mark exch
+      {}=string filenameforall counttomark
+      0 gt
+        {cleartomark(Yes)}
+        {cleartomark(No)}ifelse
+     }ifelse
+   =
+  }if
+  (*) = flush
+restore
+"
+*End
+*?FontList: "
+save
+  FontDirectory{pop ==}forall
+  (fonts/*)
+  {dup length 6 sub 6 exch getinterval cvn ==
+  }=string filenameforall
+  (*) = flush
+restore
+"
+*End
+
+ENDOFPPDFILE
+
+
+brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapperMFC9420CN
+brotherlpdwrapper64=/usr/lib64/cups/filter/brlpdwrapperMFC9420CN
+rm -f  $brotherlpdwrapper
+#echo 'rm -f /usr/lib/cups/filter/brlpdwrapperMFC9420CN'
+
+
+cat <<!ENDOFWFILTER! >$brotherlpdwrapper
+#! /bin/sh
+#
+# Brother Print filter  >>  $brotherlpdwrapper
+# Copyright (C) 2005 Brother. Industries, Ltd.
+#                                    Ver1.10
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+LOGFILE="/dev/null"
+LOGLEVEL="1"
+LOGCLEVEL="7"
+DEBUG=0
+NUPENABLE=1
+LOG_LATESTONLY=1
+errorcode=0
+
+if [ \$DEBUG != 0 ]; then
+    LOGFILE=/tmp/br_cupsfilter_debug_log
+fi
+
+PRINTER=MFC9420CN
+
+
+PPDC=\`printenv | grep "PPD="\`
+\$PPDC
+if [ "\$PPD" = "" ]; then
+    PPD="/usr/share/cups/model/brmfc9420cn.ppd"
+fi
+
+
+if [ \$LOGFILE != "/dev/null" ]; then
+  if [ \$LOG_LATESTONLY == "1" ]; then
+    rm -f \$LOGFILE
+    date                                                           >\$LOGFILE
+  else
+    if [ -e \$LOGFILE ]; then
+	    date                                                        >>\$LOGFILE
+    else
+	    date                                                        >\$LOGFILE
+    fi
+  fi
+    echo "arg0 = \$0"                                           >>\$LOGFILE
+    echo "arg1 = \$1"                                           >>\$LOGFILE
+    echo "arg2 = \$2"                                           >>\$LOGFILE
+    echo "arg3 = \$3"                                           >>\$LOGFILE
+    echo "arg4 = \$4"                                           >>\$LOGFILE
+    echo "arg5 = \$5"                                           >>\$LOGFILE
+    echo "arg6 = \$6"                                           >>\$LOGFILE
+    echo "PPD  = \$PPD"                                         >>\$LOGFILE
+fi
+
+INPUT_TEMP_PS=\`mktemp /tmp/br_input_ps.XXXXXX\`
+
+nup="cat"
+if [ "\`echo \$5 | grep 'Nup='\`" != '' ] && [ \$NUPENABLE != 0 ]; then
+
+	if   [ "\`echo \$5 | grep 'Nup=64'\`" != '' ]; then
+		nup="psnup -64"
+	elif [ "\`echo \$5 | grep 'Nup=32'\`" != '' ]; then
+		nup="psnup -32"
+	elif [ "\`echo \$5 | grep 'Nup=25'\`" != '' ]; then
+		nup="psnup -25"
+	elif [ "\`echo \$5 | grep 'Nup=16'\`" != '' ]; then
+		nup="psnup -16"
+	elif [ "\`echo \$5 | grep 'Nup=8'\`" != '' ]; then
+		nup="psnup -8"
+	elif [ "\`echo \$5 | grep 'Nup=6'\`" != '' ]; then
+		nup="psnup -6"
+	elif [ "\`echo \$5 | grep 'Nup=4'\`" != '' ]; then
+		nup="psnup -4"
+	elif [ "\`echo \$5 | grep 'Nup=2'\`" != '' ]; then
+		nup="psnup -2"
+	elif [ "\`echo \$5 | grep 'Nup=1'\`" != '' ]; then
+		nup="cat"
+	fi
+	echo   "NUP=\$nup"                                      >>\$LOGFILE
+   if [ -e /usr/bin/psnup ]; then
+       if [ \$# -ge 7 ]; then
+	       cat \$6  | \$nup > \$INPUT_TEMP_PS
+       else
+	       cat       | \$nup > \$INPUT_TEMP_PS
+       fi
+   else
+       if [ \$# -ge 7 ]; then
+	       cp \$6  \$INPUT_TEMP_PS
+       else
+	       cat    > \$INPUT_TEMP_PS
+       fi
+   fi
+else
+   if [ \$# -ge 7 ]; then
+      cp \$6  \$INPUT_TEMP_PS
+   else
+      cat    > \$INPUT_TEMP_PS
+   fi
+fi
+
+if [ -e "/usr/local/Brother/lpd/filter\$PRINTER" ]; then
+       :
+else
+    echo "ERROR: /usr/local/Brother/lpd/filter\$PRINTER does not exist"   >>\$LOGFILE
+    errorcode=30
+    exit $errorcode
+fi
+
+if [ -e "/usr/local/Brother/cupswrapper/brcupsconfcl1" ]; then
+  if [ \$DEBUG = 0 ]; then
+     /usr/local/Brother/cupswrapper/brcupsconfcl1  \$PRINTER  \$PPD 0 "\$5" >> /dev/null
+  else
+     /usr/local/Brother/cupswrapper/brcupsconfcl1  \$PRINTER  \$PPD \$LOGCLEVEL "\$5" >>\$LOGFILE
+  fi
+fi
+
+
+if [ \$DEBUG -lt 10 ]; then
+    cat    \$INPUT_TEMP_PS | /usr/local/Brother/lpd/filter\$PRINTER
+
+    if [ \$LOGLEVEL -gt 2 ];  then
+	   if [ \$LOGFILE != "/dev/null" ]; then
+	     echo ""                                                >>\$LOGFILE
+	     echo "    ------PostScript Data-------"                >>\$LOGFILE
+	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
+	   fi
+    fi
+fi
+rm -f  \$INPUT_TEMP_PS
+
+exit \$errorcode
+
+!ENDOFWFILTER!
+
+
+chmod a+x $brotherlpdwrapper
+if [ -e /usr/lib64/cups/filter ]; then
+   cp $brotherlpdwrapper  $brotherlpdwrapper64
+fi
+
+chmod a+w /usr/local/Brother/inf/brMFC9420CNrc
+chmod a+w /usr/local/Brother/inf
+if [ -e /etc/init.d/lpd ]; then
+   /etc/init.d/lpd stop
+fi
+if [  -e /etc/init.d/lprng ]; then
+   /etc/init.d/lprng stop
+fi
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+
+sleep 2s
+lpadmin -p MFC9420CN -E -v usb:/dev/usb/lp0 -m brmfc9420cn.ppd
+  exit 0
+

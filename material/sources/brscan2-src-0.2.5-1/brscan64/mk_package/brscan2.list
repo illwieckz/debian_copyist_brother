@@ -1,0 +1,49 @@
+%product Brother Scanner Driver
+%copyright 2003 Brother Industries, Ltd. All Rights Reserved
+%vendor Brother Industries, Ltd.
+%license COPYING
+%readme README
+%provides brscan
+%description Brother sane backend Driver
+%version 0.2.5
+%release 1
+
+$BR_SRC=..
+$BR_CUR=.
+$UBIN=/usr/bin
+$BACKEND=${BR_SRC}/backend_brscan2/.libs
+$GRAY_CM_SRC=${BR_SRC}/libbrcolm2/GrayCmData
+$LIB_DIR=/usr/lib64
+$LIB_SANE=${LIB_DIR}/sane
+$LOCAL_BR=/usr/local/Brother
+$GRAY_CM_DES=${LOCAL_BR}/sane/GrayCmData
+
+%postinstall ${LOCAL_BR}/sane/setupSaneScan2 -i
+%preremove ${LOCAL_BR}/sane/setupSaneScan2 -e
+
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/ALL
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/AL
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}
+%postremove rmdir --ignore-fail-on-non-empty ${LOCAL_BR}/sane/models2
+%postremove rmdir --ignore-fail-on-non-empty ${LOCAL_BR}/sane
+%postremove rmdir --ignore-fail-on-non-empty ${LOCAL_BR}
+
+
+l 000 root root ${LIB_SANE}/libsane-brother2.so ${LIB_SANE}/libsane-brother2.so.1
+l 000 root root ${LIB_SANE}/libsane-brother2.so.1 ${LIB_SANE}/libsane-brother2.so.1.0.7
+f 755 root root ${LIB_SANE}/libsane-brother2.so.1.0.7 ${BACKEND}/libsane-brother2.so.1.0.7
+l 000 root root ${LIB_DIR}/libbrscandec2.so ${LIB_DIR}/libbrscandec2.so.1
+l 000 root root ${LIB_DIR}/libbrscandec2.so.1 ${LIB_DIR}/libbrscandec2.so.1.0.0
+f 755 root root ${LIB_DIR}/libbrscandec2.so.1.0.0 ${BR_SRC}/libbrscandec2/libbrscandec2.so.1.0.0
+l 000 root root ${LIB_DIR}/libbrcolm2.so ${LIB_DIR}/libbrcolm2.so.1
+l 000 root root ${LIB_DIR}/libbrcolm2.so.1 ${LIB_DIR}/libbrcolm2.so.1.0.1
+f 755 root root ${LIB_DIR}/libbrcolm2.so.1.0.1 ${BR_SRC}/libbrcolm2/libbrcolm2.so.1.0.1
+f 644 root root ${LOCAL_BR}/sane/Brsane2.ini ${BR_CUR}/Brsane2.ini
+f 644 root root ${GRAY_CM_DES}/ALL/ ${GRAY_CM_SRC}/ALL/*
+f 644 root root ${GRAY_CM_DES}/AL/ ${GRAY_CM_SRC}/AL/*
+f 755 root root ${LOCAL_BR}/sane/setupSaneScan2 ${BR_CUR}/setupSaneScan2
+f 666 root root ${LOCAL_BR}/sane/brsanenetdevice2.cfg ${BR_CUR}/brsanenetdevice2.cfg
+f 755 root root ${LOCAL_BR}/sane/brsaneconfig2   ${BR_SRC}/netconfig/brsaneconfig2
+l 000 root root ${UBIN}/brsaneconfig2 ${LOCAL_BR}/sane/brsaneconfig2
+f 644 root root ${LOCAL_BR}/sane/models2/ext1.ini ${BR_CUR}/ext1.ini
+f 644 root root ${LOCAL_BR}/sane/models2/ext2.ini ${BR_CUR}/ext2.ini

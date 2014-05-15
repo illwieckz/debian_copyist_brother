@@ -1,0 +1,66 @@
+%product Brother CUPS Printer Definitions
+%copyright 2003 Brother Industries, Ltd. All Rights Reserved
+%vendor Brother Industries, Ltd.
+%license COPYING
+%readme README
+%provides brscan
+%description Brother sane backend Driver
+%version 0.2.5
+%release 1
+
+$BR_SRC=..
+$BR_CUR=.
+$UBIN=/usr/bin
+$BACKEND=${BR_SRC}/backend_brscan/.libs
+$GRAY_CM_SRC=${BR_SRC}/libbrcolm/GrayCmData
+$LIB_DIR=/usr/lib64
+$LIB_SANE=${LIB_DIR}/sane
+$LOCAL_BR=/usr/local/Brother
+$GRAY_CM_DES=${LOCAL_BR}/sane/GrayCmData
+
+%postinstall ${LOCAL_BR}/sane/setupSaneScan -i
+%preremove ${LOCAL_BR}/sane/setupSaneScan -e
+
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/BHL
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/BHL2
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/BHL2FB
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/BHLFB
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/BHMFB
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/BHminiFB
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/YL4
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/YL4FB
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/ZL2
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/ZL2FB
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/ZLe
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}/ZLeFB
+%postremove rmdir --ignore-fail-on-non-empty ${GRAY_CM_DES}
+%postremove rmdir --ignore-fail-on-non-empty ${LOCAL_BR}/sane
+
+
+l 000 root root ${LIB_SANE}/libsane-brother.so ${LIB_SANE}/libsane-brother.so.1
+l 000 root root ${LIB_SANE}/libsane-brother.so.1 ${LIB_SANE}/libsane-brother.so.1.0.7
+f 755 root root ${LIB_SANE}/libsane-brother.so.1.0.7 ${BACKEND}//libsane-brother.so.1.0.7
+l 000 root root ${LIB_DIR}/libbrscandec.so ${LIB_DIR}/libbrscandec.so.1
+l 000 root root ${LIB_DIR}/libbrscandec.so.1 ${LIB_DIR}/libbrscandec.so.1.0.0
+f 755 root root ${LIB_DIR}/libbrscandec.so.1.0.0 ${BR_SRC}/libbrscandec/libbrscandec.so.1.0.0
+l 000 root root ${LIB_DIR}/libbrcolm.so ${LIB_DIR}/libbrcolm.so.1
+l 000 root root ${LIB_DIR}/libbrcolm.so.1 ${LIB_DIR}/libbrcolm.so.1.0.1
+f 755 root root ${LIB_DIR}/libbrcolm.so.1.0.1 ${BR_SRC}/libbrcolm/libbrcolm.so.1.0.1
+f 644 root root ${LOCAL_BR}/sane/Brsane.ini ${BR_CUR}/Brsane.ini
+f 666 root root ${LOCAL_BR}/sane/brsanenetdevice.cfg ${BR_CUR}/brsanenetdevice.cfg
+f 755 root root ${LOCAL_BR}/sane/brsaneconfig   ${BR_SRC}/netconfig/brsaneconfig
+l 000 root root ${UBIN}/brsaneconfig ${LOCAL_BR}/sane/brsaneconfig
+
+f 644 root root ${GRAY_CM_DES}/BHL/ ${GRAY_CM_SRC}/BHL/*
+f 644 root root ${GRAY_CM_DES}/BHL2/ ${GRAY_CM_SRC}/BHL2/*
+f 644 root root ${GRAY_CM_DES}/BHL2FB/ ${GRAY_CM_SRC}/BHL2FB/*
+f 644 root root ${GRAY_CM_DES}/BHLFB/ ${GRAY_CM_SRC}/BHLFB/*
+f 644 root root ${GRAY_CM_DES}/BHMFB/ ${GRAY_CM_SRC}/BHMFB/*
+f 644 root root ${GRAY_CM_DES}/BHminiFB/ ${GRAY_CM_SRC}/BHminiFB/*
+f 644 root root ${GRAY_CM_DES}/YL4/ ${GRAY_CM_SRC}/YL4/*
+f 644 root root ${GRAY_CM_DES}/YL4FB/ ${GRAY_CM_SRC}/YL4FB/*
+f 644 root root ${GRAY_CM_DES}/ZL2/ ${GRAY_CM_SRC}/ZL2/*
+f 644 root root ${GRAY_CM_DES}/ZL2FB/ ${GRAY_CM_SRC}/ZL2FB/*
+f 644 root root ${GRAY_CM_DES}/ZLe/ ${GRAY_CM_SRC}/ZLe/*
+f 644 root root ${GRAY_CM_DES}/ZLeFB/ ${GRAY_CM_SRC}/ZLeFB/*
+f 755 root root ${LOCAL_BR}/sane/setupSaneScan ${BR_CUR}/setupSaneScan

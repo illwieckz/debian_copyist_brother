@@ -1,0 +1,190 @@
+*PPD-Adobe: "4.3"
+*% This program is free software; you can redistribute it and/or modify it
+*% under the terms of the GNU General Public License as published by the Free
+*% Software Foundation; either version 2 of the License, or (at your option)
+*% any later version.
+*%
+*% This program is distributed in the hope that it will be useful, but WITHOUT
+*% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+*% FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+*% more details.
+*%
+*% You should have received a copy of the GNU General Public License along with
+*% this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+*% Place, Suite 330, Boston, MA  02111-1307  USA
+*%
+
+
+*%================================================
+*%	Copyright(C) 2003 Brother Industries, Ltd.
+*%	"Brother BRMFCFAX for CUPS"
+*%================================================
+
+*%==== General Information Keywords ========================
+*FormatVersion: "4.3"
+*FileVersion: "1.00"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+*PCFileName: "brfax_cups.ppd"
+*Product: "(Brother BRMFCFAX series)"
+*cupsVersion:   1.1
+*cupsManualCopies: True
+*cupsModelNumber:       68
+*cupsFilter:    "application/vnd.cups-postscript 0 brfaxfilter"
+*PSVersion: "(3010.106) 3"
+*ModelName: "BRMFCFAX"
+*NickName: "Brother BRMFCFAX for CUPS"
+
+*%==== Basic Device Capabilities =============
+*LanguageLevel: "3"
+*TTRasterizer: Type42
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: True
+*?FileSystem:"
+save 
+	/devname (%disk0%) def 
+	/ret false def 
+	0 1 7{ 
+		devname exch 48 add 5 exch put 
+		devname devstatus { 
+			0 ne {/ret true def}if 
+			pop pop pop pop pop pop pop 
+		}if 
+	}for 
+	ret {(True)}{(False)} ifelse = flush 
+restore 
+" 
+*End
+
+*Throughput: "18"
+*FreeVM: "1700000"
+
+*%==== Installable Options ===================
+
+*%==== Media Selection ======================
+
+*OpenUI *PageSize: PickOne
+*OrderDependency: 30 AnySetup *PageSize
+*DefaultPageSize: A4
+*PageSize Letter/Letter: ""
+*PageSize Legal/Legal: ""
+*PageSize A4/A4: ""
+*CloseUI: *PageSize
+
+
+
+
+
+*OpenUI *Quality: PickOne
+*OrderDependency: 30 AnySetup *Quality
+*DefaultQuality: STD
+*Quality STD/Standard: ""
+*Quality FINE/Fine: ""
+*CloseUI: *Quality
+
+
+*%=== Duplex ================================
+*%=== Output Bin =============================
+*% === Collate ==========
+*%==== 5.14 Finishing Features =================================
+*%%%%% Resolution and Appearance Control %%%%%
+
+
+*%==== 5.20 Font Related Keywords ==============================
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Alaska: Standard "(001.005)" Standard ROM
+*Font AlaskaExtrabold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Bold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Oblique: Standard "(001.005)" Standard ROM
+*Font ClevelandCondensed: Standard "(001.005)" Standard ROM
+*Font Connecticut: Standard "(001.005)" Standard ROM
+*Font Guatemala-Antique: Standard "(001.005)" Standard ROM
+*Font Guatemala-Bold: Standard "(001.005)" Standard ROM
+*Font Guatemala-Italic: Standard "(001.005)" Standard ROM
+*Font Guatemala-BoldItalic: Standard "(001.005)" Standard ROM
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Oblique: Standard "(001.005)" Standard ROM
+*Font Maryland: Standard "(001.005)" Standard ROM
+*Font Oklahoma: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Bold: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Oblique: Standard "(001.005)" Standard ROM
+*Font Oklahoma-BoldOblique: Standard "(001.005)" Standard ROM
+*Font Utah: Standard "(001.005)" Standard ROM
+*Font Utah-Bold: Standard "(001.005)" Standard ROM
+*Font Utah-Oblique: Standard "(001.005)" Standard ROM
+*Font Utah-BoldOblique: Standard "(001.005)" Standard ROM
+*Font UtahCondensed: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Bold: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Oblique: Standard "(001.004)" Standard ROM
+*Font UtahCondensed-BoldOblique: Standard "(001.005)" Standard ROM
+*Font BermudaScript: Standard "(001.005)" Standard ROM
+*Font Germany: Standard "(001.005)" Standard ROM
+*Font SanDiego: Standard "(001.005)" Standard ROM
+*Font US-Roman: Standard "(001.005)" Standard ROM
+*?FontQuery: "
+save
+count 1 gt
+  {exch dup dup
+   =string cvs (/) print print (:) print
+   FontDirectory exch known
+     {pop(Yes)}
+     {(fonts/)AppendName exch pop mark exch
+      {}=string filenameforall counttomark
+      0 gt
+        {cleartomark(Yes)}
+        {cleartomark(No)}ifelse
+     }ifelse
+   =
+  }if
+  (*) = flush
+restore
+"
+*End
+*?FontList: "
+save
+  FontDirectory{pop ==}forall
+  (fonts/*)
+  {dup length 6 sub 6 exch getinterval cvn ==
+  }=string filenameforall
+  (*) = flush
+restore
+"
+*End

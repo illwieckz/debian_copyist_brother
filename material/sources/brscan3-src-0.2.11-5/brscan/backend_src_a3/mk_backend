@@ -1,0 +1,157 @@
+#! /bin/sh
+
+files="\
+brother.h \
+brother_bugchk.c \
+brother_bugchk.h \
+brother_cmatch.c \
+brother_cmatch.h \
+brother_devaccs.c \
+brother_devaccs.h \
+brother_devinfo.c \
+brother_devinfo.h \
+brother_dtype.h \
+brother_log.c \
+brother_log.h \
+brother_mfccmd.c \
+brother_mfccmd.h \
+brother_mfcinfo.h \
+brother_misc.c \
+brother_misc.h \
+brother_modelinf.c \
+brother_modelinf.h \
+brother_scanner.c \
+brother_scanner.h \
+brother_netdev.c \
+brother_netdev.h \
+brother_advini.c \
+brother_advini.h \
+sane_strstatus.c \
+stubs.c \
+dll.c"
+
+
+
+echo make libsane-brother3
+main=brother3.c
+
+case $1 in
+    release)
+        srcget=0
+        if ! [ -e $main ];then
+	    cp -p -f  ../backend_src_a3/brother2.c $main 
+	    for file in $files; do
+		cp -p -f ../backend_src_a3/$file  $file 
+	    done
+	    srcget=1
+	fi
+        rm -f brscan.diff.tmp
+	diff ../backend_src_a3/brother2.c $main   > brscan.diff.tmp
+        for file in $files; do
+	    diff  ../backend_src_a3/$file  $file >> brscan.diff.tmp
+	done
+	if [ "`cat brscan.diff.tmp`" = "" ];then
+	    make all
+	else
+	    echo ""
+	    echo "  !!! Make sure  source files are correct !!!"
+	    echo ""
+	    cat     brscan.diff.tmp
+	    echo ""
+	fi
+	if [ $srcget = 1 ];then
+            rm -f $main 
+	    for file in $files; do
+		rm -f $file 
+	    done
+	fi
+	;;
+    make)
+       make all
+    ;;
+    clean)
+       make clean
+    ;;
+    all)
+        make clean
+	rm $main 
+	ln -s ../backend_src_a3/brother2.c $main 
+        for file in $files; do
+	    rm $file 
+	    ln -s ../backend_src_a3/$file  $file 
+	done
+	make all
+	;;
+    diff)
+	diff ../backend_src_a3/brother2.c $main 
+        for file in $files; do
+	    diff  ../backend_src_a3/$file  $file 
+#	    echo "check $file"
+	done
+	;;
+    get)
+        if [ "$2" = "" ];then
+	    cp -f  ../backend_src_a3/brother2.c $main 
+	    echo cp -f  ../backend_src_a3/brother2.c $main 
+	    for file in $files; do
+		cp -f   ../backend_src_a3/$file  $file 
+		echo cp -f   ../backend_src_a3/$file  $file 
+	    done 
+	else
+	    cp -f  ../backend_src_a3/$2 $2 
+	fi
+	;;
+    link)
+        rm -f $main 
+	ln -s ../backend_src_a3/brother2.c $main 
+        for file in $files; do
+	    rm -f $file 
+	    ln -s ../backend_src_a3/$file  $file 
+	done
+	;;
+    put)
+       make clean
+       make all
+       if [ $main = brother.c ];then
+	   cp -f -p .libs/libsane-brother.so.1.0.7  /usr/lib/sane
+	   rm   /usr/lib/sane/libsane-brother.so.1.0
+	   rm   /usr/lib/sane/libsane-brother.so.1
+	   rm   /usr/lib/sane/libsane-brother.so
+	   ln -s /usr/lib/sane/libsane-brother.so.1.0.7  /usr/lib/sane/libsane-brother.so.1.0
+	   ln -s /usr/lib/sane/libsane-brother.so.1.0.7  /usr/lib/sane/libsane-brother.so.1
+	   ln -s /usr/lib/sane/libsane-brother.so.1.0.7  /usr/lib/sane/libsane-brother.so
+       else
+	   cp -f .libs/libsane-brother3.so.1.0.7  /usr/lib/sane
+	   rm   /usr/lib/sane/libsane-brother3.so.1.0
+	   rm   /usr/lib/sane/libsane-brother3.so.1
+	   rm   /usr/lib/sane/libsane-brother3.so
+	   ln -s /usr/lib/sane/libsane-brother3.so.1.0.7  /usr/lib/sane/libsane-brother3.so.1.0
+	   ln -s /usr/lib/sane/libsane-brother3.so.1.0.7  /usr/lib/sane/libsane-brother3.so.1
+	   ln -s /usr/lib/sane/libsane-brother3.so.1.0.7  /usr/lib/sane/libsane-brother3.so
+       fi
+       ;;
+    rm)
+        rm -f $main 
+        for file in $files; do
+	    rm -f $file 
+	done
+       ;;
+    *)
+        wcho " USAGE:"
+        echo " $0 make         : make all"
+        echo " $0 all          : make clean and all"
+        echo " $0 clean        : make clean"
+        echo " $0 diff         : compare all files with 
+        echo "                 :      with files at brscan_src directory"
+        echo " $0 get          : copy all files from brscan_src directory"
+        echo " $0 get [file]   : copy file specified with 3rd argument 
+        echo "                 :      from brscan_src directory"
+        echo " $0 link         : make symbolic link to brscan_src directory"
+        echo " $0 release      : check files and make"
+	echo "                 :   if files are not same as ones of brscan_src"
+	echo "                 :   directory, make is not done"
+	echo " $0 put          : copy the backend to /usr/lib/sane"
+	echo " $0 rm           : remove source copy"
+	;;
+esac
+

@@ -1,0 +1,27 @@
+#! /bin/sh
+FILE_NAME=/etc/sane.d/dll.conf
+OLD_SCRIPT_NAME=/usr/local/Brother/sane/setupSaneScan
+
+case "$1" in
+	-i)
+	cat << EOF >> $FILE_NAME
+brother2
+EOF
+        if [ -e $OLD_SCRIPT_NAME ];
+        then
+               mv $OLD_SCRIPT_NAME $OLD_SCRIPT_NAME.tmp
+	       cat ${OLD_SCRIPT_NAME}.tmp | sed 's/brother\/d/^brother$\/d/' > ${OLD_SCRIPT_NAME}
+	       rm -f ${OLD_SCRIPT_NAME}.tmp
+	       chmod 755 $OLD_SCRIPT_NAME
+        fi
+	;;
+	-e)
+	mv $FILE_NAME $FILE_NAME.tmp
+        cat ${FILE_NAME}.tmp | sed '/^brother2$/d' > ${FILE_NAME}
+	rm -f ${FILE_NAME}.tmp
+	;;
+	*)
+	;;
+esac
+
+

@@ -1,0 +1,38 @@
+%product Brother Scanner Driver
+%copyright 2008-2009 Brother Industries, Ltd. All Rights Reserved
+%vendor Brother Industries, Ltd.
+%license COPYING
+%readme README
+%provides brscan
+%description Brother sane backend Driver
+%version 0.2.8
+%release 1
+
+$BR_SRC=../..
+$BR_CUR=.
+$BR_COM=../G1
+$UBIN=/usr/bin
+$BACKEND=${BR_SRC}/backend_brscan3/.libs
+$LIB_DIR=/usr/lib
+$LIB_SANE=${LIB_DIR}/sane
+$LOCAL_BR=/usr/local/Brother
+
+%postinstall ${LOCAL_BR}/sane/setupSaneScan3 -i
+%preremove ${LOCAL_BR}/sane/setupSaneScan3 -e
+
+
+d 755 root root ${LOCAL_BR} -
+d 755 root root ${LOCAL_BR}/sane -
+d 755 root root ${LOCAL_BR}/sane/models3 -
+l 000 root root ${LIB_SANE}/libsane-brother3.so ${LIB_SANE}/libsane-brother3.so.1
+l 000 root root ${LIB_SANE}/libsane-brother3.so.1 ${LIB_SANE}/libsane-brother3.so.1.0.7
+f 755 root root ${LIB_SANE}/libsane-brother3.so.1.0.7 ${BACKEND}/libsane-brother3.so.1.0.7
+l 000 root root ${LIB_DIR}/libbrscandec3.so ${LIB_DIR}/libbrscandec3.so.1
+l 000 root root ${LIB_DIR}/libbrscandec3.so.1 ${LIB_DIR}/libbrscandec3.so.1.0.0
+f 755 root root ${LIB_DIR}/libbrscandec3.so.1.0.0 ${BR_SRC}/libbrscandec2/libbrscandec2.so.1.0.0
+f 644 root root ${LOCAL_BR}/sane/Brsane3.ini ${BR_CUR}/Brsane3.ini
+f 755 root root ${LOCAL_BR}/sane/setupSaneScan3 ${BR_COM}/setupSaneScan3
+f 666 root root ${LOCAL_BR}/sane/brsanenetdevice3.cfg ${BR_COM}/brsanenetdevice3.cfg
+f 755 root root ${LOCAL_BR}/sane/brsaneconfig3   ${BR_SRC}/netconfig3/brsaneconfig3
+l 000 root root ${UBIN}/brsaneconfig3 ${LOCAL_BR}/sane/brsaneconfig3
+f 644 root root ${LOCAL_BR}/sane/models3/ext1.ini ${BR_CUR}/ext1.ini

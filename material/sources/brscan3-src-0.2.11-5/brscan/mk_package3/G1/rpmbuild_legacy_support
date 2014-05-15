@@ -1,0 +1,5 @@
+#! /bin/bash
+echo rpmbuild_legacy_support
+mv $2  $2.org
+cat $2.org | sed s/^Copyright:/License: Copyright/ > $2
+/usr/bin/rpmbuild -bb -v $2

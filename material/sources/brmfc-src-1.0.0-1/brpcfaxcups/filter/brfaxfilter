@@ -1,0 +1,185 @@
+#! /bin/sh
+#
+# Brother CUPS Fax filter  
+# Copyright (C) 2005 Brother. Industries, Ltd.
+#                                    Ver1.00
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+LOGFILE="/dev/null"
+DEBUG=0
+LOG_LATESTONLY=1
+FAXNUMLABEL="fax-number="
+FAXNUMSLABEL="fax-numbers="
+BROADCASTDBLABEL="fax-broadcast="
+
+
+errorcode=0
+
+if [ "`echo $5 | grep brpcfax-debugoption=4`" !=  "" ]; then
+    DEBUG=4
+fi
+
+if [ $DEBUG != 0 ]; then
+    LOGFILE=/tmp/br_faxfilter_debug_log
+fi
+
+
+
+PPDC=`printenv | grep "PPD="`
+$PPDC
+if [ "$PPD" = "" ]; then
+    PPD="/usr/share/cups/model/brfax_cups.ppd"
+fi
+
+
+if [ $LOGFILE != "/dev/null" ]; then
+  if [ $LOG_LATESTONLY == "1" ]; then
+    rm -f $LOGFILE
+    date                                                       >$LOGFILE
+  else
+    if [ -e $LOGFILE ]; then
+	    date                                               >>$LOGFILE
+    else
+	    date                                               >$LOGFILE
+    fi
+  fi
+    echo "args = $*"                                           >>$LOGFILE
+    echo "arg0 = $0"                                           >>$LOGFILE
+    echo "arg1 = $1"                                           >>$LOGFILE
+    echo "arg2 = $2"                                           >>$LOGFILE
+    echo "arg3 = $3"                                           >>$LOGFILE
+    echo "arg4 = $4"                                           >>$LOGFILE
+    echo "arg5 = $5"                                           >>$LOGFILE
+    echo "arg6 = $6"                                           >>$LOGFILE
+
+    echo "arg7 = $7"                                           >>$LOGFILE
+    echo "arg8 = $8"                                           >>$LOGFILE
+    echo "arg9 = $9"                                           >>$LOGFILE
+
+    echo "PPD  = $PPD"                                         >>$LOGFILE
+fi
+
+INPUT_TEMP_PS=`mktemp /tmp/br_input_faxps.XXXXXX`
+INPUT_TEMP_DT=`mktemp /tmp/br_input_faxdata.XXXXXX`
+INPUT_TEMP_WK=`mktemp /tmp/br_input_work.XXXXXX`
+INPUT_TEMP_LG=`mktemp /tmp/br_input_log.XXXXXX`
+INPUT_TEMP_NM=`mktemp /tmp/br_input_nums.XXXXXX`
+
+if [ $# -ge 7 ]; then
+       cat $6  > $INPUT_TEMP_PS
+else
+       cat     > $INPUT_TEMP_PS
+fi
+
+
+
+if [ "`grep "*DefaultQuality:" $PPD | grep "FINE"`" != "" ]; then
+    faxquality="FINE"
+else
+    faxquality="STD"
+fi
+
+tmp="`grep "*DefaultPageSize:" $PPD`"
+if [ "`echo $tmp | grep A4`" != "" ]; then
+    paper=A4
+elif [ "`echo $tmp | grep Letter`" != "" ]; then
+    paper=LETTER
+elif [ "`echo $tmp | grep Legal`" != "" ]; then
+    paper=LEGAL
+else
+    paper=A4
+fi
+
+
+if [ "`echo $5 | tr ' ' '\n' | grep -i 'Paper' | grep -i  'A4'`" ]; then
+    paper=A4
+fi
+if [ "`echo $5 | tr ' ' '\n' | grep -i 'Paper' | grep -i  'Letter'`" ]; then
+    paper=LETTER
+fi
+if [ "`echo $5 | tr ' ' '\n' | grep -i 'Paper' | grep -i  'Legal'`" ]; then
+    paper=LEGAL
+fi
+
+
+
+if [ "`echo $5 | tr ' ' '\n' | grep -i 'Quality' | grep -i  'Fine'`" ]; then
+    faxquality="FINE"
+fi
+if [ "`echo $5 | tr ' ' '\n' | grep -i 'Quality' | grep -i  'Standard'`" ]; then
+    faxquality="STD"
+fi
+
+
+num="`echo $5 | tr ' ' '\n' | grep -i "$FAXNUMLABEL" | sed s/"$FAXNUMLABEL"//g`"
+broadcastdb="`echo $5 | tr ' ' '\n' | grep -i "$BROADCASTDBLABEL" | sed s/"$BROADCASTDBLABEL"//g`"
+
+nums="`echo $5 | tr ' ' '\n' | grep -i "$FAXNUMSLABEL" | sed s/"$FAXNUMSLABEL"//g`"
+if [ "$nums" != "" ];then
+    num=""
+    echo $nums | tr ',' '\n' > $INPUT_TEMP_NM
+    broadcastdb=$INPUT_TEMP_NM
+fi
+
+
+if [ "$num" = "" ];then
+    num="&&"
+fi
+if [ "$broadcastdb" = "" ];then
+    broadcastdb="&&"
+fi
+
+
+
+
+if [ -e /usr/local/Brother/lpd/filterBRFAX ]; then
+    if [ $DEBUG != 0 ]; then
+     echo     sh /usr/local/Brother/lpd/filterBRFAX\
+	-faxoption-papersize     $paper        \
+        -faxoption-quality       $faxquality   \
+	-faxoption-faxnumber     $num          \
+	-faxoption-faxnumlist    $broadcastdb  \
+	-faxoption-ignorercfile  ON            \
+	-faxoption-debug         $DEBUG        \
+	-faxoption-logfile       $LOGFILE      \
+	< $INPUT_TEMP_PS                                    >>$LOGFILE
+     echo "----------------- lpd filter -----------------"   >>$LOGFILE
+    fi
+
+    cat   $INPUT_TEMP_PS  |                    \
+    sh /usr/local/Brother/lpd/filterBRFAX      \
+	-faxoption-papersize     $paper        \
+        -faxoption-quality       $faxquality   \
+	-faxoption-faxnumber     $num          \
+	-faxoption-faxnumlist    $broadcastdb  \
+	-faxoption-ignorercfile  ON            \
+	-faxoption-debug         $DEBUG        \
+	-faxoption-logfile       $LOGFILE      
+
+else
+    errorcode=101
+fi
+
+
+rm -f  $INPUT_TEMP_PS
+rm -f  $INPUT_TEMP_DT
+rm -f  $INPUT_TEMP_WK
+rm -f  $INPUT_TEMP_LG
+rm -f  $INPUT_TEMP_NM
+
+
+exit $errorcode
+

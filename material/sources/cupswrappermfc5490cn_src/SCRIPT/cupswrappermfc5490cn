@@ -1,0 +1,907 @@
+#! /bin/sh
+#
+# Brother Print filter
+# Copyright (C) 2005 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+printer_model="mfc5490cn"
+printer_name=`echo $printer_model | tr '[a-z]' '[A-Z]'`
+device_name=`echo $printer_name | eval sed -e 's/MFC/MFC-/' -e 's/DCP/DCP-/' -e 's/FAX/FAX-/'`
+pcfilename=`echo $printer_name | tr -d '[A-Z]'`
+device_model="Printer"
+if [ "$1" = '-e' ]; then
+  lpadmin -x ${printer_name}
+  rm -f /usr/share/cups/model/br${printer_model}.ppd
+  rm -f /usr/share/ppd/br${printer_model}.ppd
+  rm -f /usr/lib/cups/filter/brlpdwrapper${printer_model}
+  rm -f /usr/lib64/cups/filter/brlpdwrapper${printer_model}
+  rm -f /usr/local/Brother/${device_model}/${printer_model}/cupswrapper/brcupsconfpt1
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+#  /etc/init.d/cups restart
+  exit 0
+fi
+if [ "$1" = "-r" ]; then
+  lpadmin -x ${printer_name}
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+#  /etc/init.d/cups restart
+  exit 0
+fi
+if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
+  echo   'option -h : help'
+  echo   '       -i : install'
+  echo   '       -e : uninstall'
+  echo   '       -r : remove printer'
+  exit 0
+fi
+#mkdir -p /usr/local/Brother/${device_model}/${printer_model}/filter
+#mkdir -p /usr/lib/cups/filter
+
+if [ -e "/usr/local/Brother/${device_model}/${printer_model}/lpd/filter${printer_model}" ]; then
+  :
+else
+  echo "ERROR : Brother LPD filter is not installed."
+fi
+rm -f /usr/share/cups/model/br${printer_model}.ppd
+if [ -d "/usr/share/cups/model" ]; then
+  ppd_file_name=/usr/share/cups/model/br${printer_model}.ppd
+else
+  ppd_file_name=/usr/share/ppd/br${printer_model}.ppd
+fi
+#ppd_file_name=/usr/share/cups/model/br${printer_model}.ppd
+
+cat <<ENDOFPPDFILE1 >$ppd_file_name
+*PPD-Adobe: "4.3"
+
+*%================================================
+*%	Copyright(C) 2006 Brother Industries, Ltd.
+*%	"Brother ${device_name} CUPS"
+*%================================================
+
+*%==== General Information Keywords ========================
+*FormatVersion: "4.3"
+*FileVersion: "1.00"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "BR${pcfilename}_2.PPD"
+*Manufacturer: "Brother"
+*Product: "(${device_name})"
+*1284DeviceID: "MFG:Brother;MDL:${device_name}"
+*cupsVersion: 1.1
+*cupsManualCopies: False
+*cupsFilter: "application/vnd.cups-postscript 0 brlpdwrapper${printer_model}"
+*cupsModelNumber: 8
+*ModelName: "Brother ${device_name}"
+*ShortNickName: "Brother ${device_name}"
+*NickName: "Brother ${device_name} CUPS v1.1"
+*PSVersion: "(3010.106) 3"
+
+*%==== Basic Device Capabilities =============
+*LanguageLevel: "3"
+*ColorDevice: True
+*DefaultColorSpace: RGB
+*FileSystem: False
+*Throughput: "12"
+*LandscapeOrientation: Plus90
+*VariablePaperSize: False
+*TTRasterizer: Type42
+*FreeVM: "1700000"
+
+*%DefaultOutputOrder: Reverse
+
+*%==== UI Constraints ======================
+
+*%==== Media Selection ======================
+*OpenUI *PageSize/Media Size: PickOne
+*OrderDependency: 11 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize A4/A4:					"          "
+*PageSize BrA4_B/A4 (Borderless):			"          "
+*PageSize Letter/Letter:				"          "
+*PageSize BrLetter_B/US Letter (Borderless):		"          "
+*PageSize Legal/Legal:				"          "
+*PageSize Executive/Executive: 			"          "
+*PageSize B5/JIS B5:				"          "
+*PageSize A5/A5:					"          "
+*PageSize A6/A6:					"          "
+*PageSize BrA6_B/A6 (Borderless):			"          "
+*PageSize PostC4x6/Photo:				"          "
+*PageSize BrPostC4x6_B/Photo (Borderless):		"          "
+*PageSize IndexC5x8/Index Card:			"          "
+*PageSize BrIndexC5x8_B/Index Card (Borderless):	"          "
+*PageSize PhotoL/Photo L: 				"          "
+*PageSize BrPhotoL_B/Photo L (Borderless):		"          "
+*PageSize Photo2L/Photo 2L: 				"          "
+*PageSize BrPhoto2L_B/Photo 2L (Borderless):		"          "
+*PageSize Postcard/Postcard 1: 				"          "
+*PageSize BrHagaki_B/Postcard 1 (Borderless):		"          "
+*PageSize DoublePostcardRotated/Postcard 2 (Double): 		"          "
+*PageSize EnvC5/C5 Envelope: 				"          "
+*PageSize EnvDL/DL Envelope: 				"          "
+*PageSize Env10/Com-10:				"          "
+*PageSize EnvMonarch/Monarch:				"          "
+*PageSize EnvYou4/JE4 Envelope: 			"          "
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 12 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion A4/A4:					"          "
+*PageRegion BrA4_B/A4 (Borderless):			"          "
+*PageRegion Letter/Letter:				"          "
+*PageRegion BrLetter_B/US Letter (Borderless):		"          "
+*PageRegion Legal/Legal:				"          "
+*PageRegion Executive/Executive: 			"          "
+*PageRegion B5/JIS B5:				"          "
+*PageRegion A5/A5:					"          "
+*PageRegion A6/A6:					"          "
+*PageRegion BrA6_B/A6 (Borderless):			"          "
+*PageRegion PostC4x6/Photo:				"          "
+*PageRegion BrPostC4x6_B/Photo (Borderless):		"          "
+*PageRegion IndexC5x8/Index Card:			"          "
+*PageRegion BrIndexC5x8_B/Index Card (Borderless):	"          "
+*PageRegion PhotoL/Photo L: 				"          "
+*PageRegion BrPhotoL_B/Photo L (Borderless):		"          "
+*PageRegion Photo2L/Photo 2L: 			"          "
+*PageRegion BrPhoto2L_B/Photo 2L (Borderless):		"          "
+*PageRegion Postcard/Postcard 1: 			"          "
+*PageRegion BrHagaki_B/Postcard 1 (Borderless):		"          "
+*PageRegion DoublePostcardRotated/Postcard 2 (Double):		"          "
+*PageRegion EnvC5/C5 Envelope: 				"          "
+*PageRegion EnvDL/DL Envelope: 				"          "
+*PageRegion Env10/Com-10:				"          "
+*PageRegion EnvMonarch/Monarch:				"          "
+*PageRegion EnvYou4/JE4 Envelope: 			"          "
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: Letter
+*ImageableArea A4/A4:					"9 9 576 820"
+*ImageableArea BrA4_B/A4 (Borderless):			"6 6 595  839"
+*ImageableArea Letter/Letter:				"9 9 593 770"
+*ImageableArea BrLetter_B/US Letter (Borderless):		"9 9 615 792"
+*ImageableArea Legal/Legal:				"9 9 593 986"
+*ImageableArea Executive/Executive:			"9 9 503 734"
+*ImageableArea B5/JIS B5:				"9 9 481 687"
+*ImageableArea A5/A5:					"9 9 401 573"
+*ImageableArea A6/A6:					"9 9 279 397"
+*ImageableArea BrA6_B/A6 (Borderless):			"6 6 296 424"
+*ImageableArea PostC4x6/Photo:			"9 9 269 410"
+*ImageableArea BrPostC4x6_B/Photo (Borderless):		"6 6 285 436"
+*ImageableArea IndexC5x8/Index Card:			"9 9 341 554"
+*ImageableArea BrIndexC5x8_B/Index Card (Borderless):	"6 6 357 580"
+*ImageableArea PhotoL/Photo L:			"9 9 233 338"
+*ImageableArea BrPhotoL_B/Photo L (Borderless):		"6 6 251 364"
+*ImageableArea Photo2L/Photo 2L:			"9 9 340 483"
+*ImageableArea BrPhoto2L_B/Photo 2L (Borderless):	"6 6 357 509"
+*ImageableArea Postcard/Postcard 1: 			"9 9 264 397"
+*ImageableArea BrHagaki_B/Postcard 1 (Borderless):	"6 6 280 423"
+*ImageableArea DoublePostcardRotated/Postcard 2 (Double): 	"9 9 401 545"
+*ImageableArea EnvC5/C5 Envelope: 			"9 68 440 686"
+*ImageableArea EnvDL/DL Envelope:			"9 68 293 661"
+*ImageableArea Env10/Com-10:				"9 68 275 721"
+*ImageableArea EnvMonarch/Monarch:			"9 68 260 577"
+*ImageableArea EnvYou4/JE4 Envelope: 			"9 68 278 701"
+
+*%==== Information About Media Sizes ========
+*DefaultPaperDimension: Letter
+*PaperDimension A4/A4:				"585 829"
+*PaperDimension BrA4_B/A4 (Borderless):			"601 845"
+*PaperDimension Letter/Letter:			"602 779"
+*PaperDimension BrLetter_B/US Letter (Borderless):		"624 801"
+*PaperDimension Legal/Legal:				"602 995"
+*PaperDimension Executive/Executive:			"612 743"
+*PaperDimension B5/JIS B5:				"490 696"
+*PaperDimension A5/A5:				"410 582"
+*PaperDimension A6/A6:				"288 406"
+*PaperDimension BrA6_B/A6 (Borderless):			"302 430"
+*PaperDimension PostC4x6/Photo:			"278 419"
+*PaperDimension BrPostC4x6_B/Photo (Borderless):	"291 442"
+*PaperDimension IndexC5x8/Index Card:			"350 563"
+*PaperDimension BrIndexC5x8_B/Index Card (Borderless):	"363 586"
+*PaperDimension PhotoL/Photo L:			"242 347"
+*PaperDimension BrPhotoL_B/Photo L (Borderless):	"257 370"
+*PaperDimension Photo2L/Photo 2L:			"349 492"
+*PaperDimension BrPhoto2L_B/Photo 2L (Borderless):	"363 515"
+*PaperDimension Postcard/Postcard 1: 			"273 406"
+*PaperDimension BrHagaki_B/Postcard 1 (Borderless):	"286 429"
+*PaperDimension DoublePostcardRotated/Postcard 2 (Double): 	"410 554"
+*PaperDimension EnvC5/C5 Envelope: 			"449 720"
+*PaperDimension EnvDL/DL Envelope:			"302 695"
+*PaperDimension Env10/Com-10:				"284 755"
+*PaperDimension EnvMonarch/Monarch:			"269 611"
+*PaperDimension EnvYou4/JE4 Envelope: 			"287 735"
+
+*%==== Custom Page Sizes ====================
+*NonUIOrderDependency: 40 AnySetup *CustomPageSize
+*VariablePaperSize: True
+*LeadingEdge Short: ""
+*MaxMediaWidth: "612"
+*MaxMediaHeight: "1008"
+*HWMargins: 8.5 8.5 8.5 8.5
+*CustomPageSize True: "          "
+*End
+*ParamCustomPageSize Width: 1 points 252 612
+*ParamCustomPageSize Height: 2 points 360 1008
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 0 3
+
+*%=== Paper Feed================================
+
+*%==== Resolution Features =================================
+*OpenUI *Resolution/Quality: PickOne
+*OrderDependency: 14 AnySetup *Resolution
+*DefaultResolution: 600x600dpi
+*Resolution 150x150dpi/Fast: 	"          "
+*Resolution 300x300dpi/Fast Normal: 	"          "
+*Resolution 600x600dpi/Normal: 		"          "
+*Resolution 1200x1200dpi/Fine: 		"          "
+*Resolution 1200x2400dpi/Photo: 		"          "
+*Resolution 1200x6000dpi/Highest: 	"          "
+*CloseUI: *Resolution
+
+*%=== MonoOrColor ================================
+*OpenUI *BRMonoColor/Color/Grayscale: PickOne
+*OrderDependency: 15 AnySetup *BRMonoColor
+*DefaultBRMonoColor: Color
+*BRMonoColor Color/Color: ""
+*BRMonoColor Mono/Grayscale: ""
+*CloseUI: *BRMonoColor
+
+*%=== SlowDrying ================================
+*OpenUI *BRSlowDrying/Slow Drying Paper: PickOne
+*OrderDependency: 31 AnySetup *BRSlowDrying
+*DefaultBRSlowDrying: OFF
+*BRSlowDrying OFF/OFF: ""
+*BRSlowDrying ON/ON: ""
+*CloseUI: *BRSlowDrying
+
+*%=== Media Type ================================
+*OpenUI *BRColorMediaType/Media Type: PickOne
+*OrderDependency: 16 AnySetup *BRColorMediaType
+*DefaultBRColorMediaType: Plain
+*BRColorMediaType Plain/Plain Paper: "          "
+*BRColorMediaType Inkjet/Inkjet Paper: "          "
+*BRColorMediaType BrotherGlossyR/Brother BP71 Photo Paper: "          "
+*BRColorMediaType BrotherGlossy/Brother BP61 Photo Paper: "          "
+*BRColorMediaType Glossy/Other Photo Paper: "          "
+*BRColorMediaType Transparencies/Transparencies: "          "
+*%BRColorMediaType HagakiAtena: "          "
+*%BRColorMediaType HagakiUra: "          "
+*CloseUI: *BRColorMediaType
+
+*%=== Paper Thick ================================
+*OpenUI *BRColorPaperThick/Paper Thickness: PickOne
+*OrderDependency: 17 AnySetup *BRColorPaperThick
+*DefaultBRColorPaperThick: Regular
+*BRColorPaperThick Regular/Regular: ""
+*BRColorPaperThick Thick/Thick: ""
+*CloseUI: *BRColorPaperThick
+
+*%=== Bi-DirKey ================================
+*OpenUI *BRBiDir/Bi-Directional Printing: PickOne
+*OrderDependency: 18 AnySetup *BRColorPaperThick
+*DefaultBRBiDir: ON
+*BRBiDir OFF/OFF: ""
+*BRBiDir ON/ON: ""
+*CloseUI: *BRBiDir
+
+*%=== Reverse Printing ================================
+*OpenUI *BRReverse/Reverse Printing: PickOne
+*OrderDependency: 19 AnySetup *BRReverse
+*DefaultBRReverse: OFF
+*BRReverse OFF/OFF: ""
+*BRReverse ON/ON: ""
+*CloseUI: *BRReverse
+
+*%=== Mirror Printing ================================
+*OpenUI *BrMirror/Mirror Printing: PickOne
+*OrderDependency: 20 AnySetup *BrMirror
+*DefaultBrMirror: OFF
+*BrMirror OFF/OFF: "          "
+*BrMirror ON/ON: "          "
+*CloseUI: *BrMirror
+
+*%=== Jpeg Printing ================================
+*OpenUI *BRJpeg/Data Transfer Mode: PickOne
+*OrderDependency: 22 AnySetup *BRJpeg
+*DefaultBRJpeg: Recommended
+*BRJpeg Recommended/Recommended Setting: ""
+*BRJpeg QualityPrior/Improved Print Quality: ""
+*BRJpeg SpeedPrior/Improved Print Speed: ""
+*CloseUI: *BRJpeg
+
+*OpenGroup:Image Type
+*%=== Color Mode ================================
+*OpenUI *BRColorMatching/Color Mode: PickOne
+*OrderDependency: 21 AnySetup *BRColorMatching
+*DefaultBRColorMatching: Natural
+*BRColorMatching Natural/Natural: ""
+*BRColorMatching Vivid/Vivid: ""
+*BRColorMatching None/None: ""
+*CloseUI: *BRColorMatching
+
+*%=== Half Tone Pattern ================================
+*OpenUI *BRHalfTonePattern/Halftone Pattern: PickOne
+*OrderDependency: 23 AnySetup * BRHalfTonePattern
+*DefaultBRHalfTonePattern: Diffusion
+*BRHalfTonePattern Diffusion/Diffusion: ""
+*BRHalfTonePattern Dither/Dither: ""
+*CloseUI: *BRHalfTonePattern
+
+*CloseGroup:Image Type
+
+*OpenGroup:Color Enhancement
+*%=== True2Life ================================
+*OpenUI *BRColorEnhancement/     Color Enhancement(True2Life): PickOne
+*OrderDependency: 24 AnySetup *BRColorEnhancement
+*DefaultBRColorEnhancement: OFF
+*BRColorEnhancement OFF/OFF: ""
+*BRColorEnhancement ON/ON: ""
+*CloseUI: *BRColorEnhancement
+
+*%=== Brightness ================================
+*OpenUI *BRBrightness/    Brightness: PickOne
+*OrderDependency: 25 AnySetup *BRBrightness
+*DefaultBRBrightness: 0
+*BRBrightness -20/-20: ""
+*BRBrightness -19/-19: ""
+*BRBrightness -18/-18: ""
+*BRBrightness -17/-17: ""
+*BRBrightness -16/-16: ""
+*BRBrightness -15/-15: ""
+*BRBrightness -14/-14: ""
+*BRBrightness -13/-13: ""
+*BRBrightness -12/-12: ""
+*BRBrightness -11/-11: ""
+*BRBrightness -10/-10: ""
+*BRBrightness -9/-9: ""
+*BRBrightness -8/-8: ""
+*BRBrightness -7/-7: ""
+*BRBrightness -6/-6: ""
+*BRBrightness -5/-5: ""
+*BRBrightness -4/-4: ""
+*BRBrightness -3/-3: ""
+*BRBrightness -2/-2: ""
+*BRBrightness -1/-1: ""
+*BRBrightness 0/0: ""
+*BRBrightness 1/1: ""
+*BRBrightness 2/2: ""
+*BRBrightness 3/3: ""
+*BRBrightness 4/4: ""
+*BRBrightness 5/5: ""
+*BRBrightness 6/6: ""
+*BRBrightness 7/7: ""
+*BRBrightness 8/8: ""
+*BRBrightness 9/9: ""
+*BRBrightness 10/10: ""
+*BRBrightness 11/11: ""
+*BRBrightness 12/12: ""
+*BRBrightness 13/13: ""
+*BRBrightness 14/14: ""
+*BRBrightness 15/15: ""
+*BRBrightness 16/16: ""
+*BRBrightness 17/17: ""
+*BRBrightness 18/18: ""
+*BRBrightness 19/19: ""
+*BRBrightness 20/20: ""
+*CloseUI: *BRBrightness
+
+*%=== Contrast ================================
+*OpenUI *BRContrast/   Contrast: PickOne
+*OrderDependency: 26 AnySetup *BRContrast
+*DefaultBRContrast: 0
+*BRContrast -20/-20: ""
+*BRContrast -19/-19: ""
+*BRContrast -18/-18: ""
+*BRContrast -17/-17: ""
+*BRContrast -16/-16: ""
+*BRContrast -15/-15: ""
+*BRContrast -14/-14: ""
+*BRContrast -13/-13: ""
+*BRContrast -12/-12: ""
+*BRContrast -11/-11: ""
+*BRContrast -10/-10: ""
+*BRContrast -9/-9: ""
+*BRContrast -8/-8: ""
+*BRContrast -7/-7: ""
+*BRContrast -6/-6: ""
+*BRContrast -5/-5: ""
+*BRContrast -4/-4: ""
+*BRContrast -3/-3: ""
+*BRContrast -2/-2: ""
+*BRContrast -1/-1: ""
+*BRContrast 0/0: ""
+*BRContrast 1/1: ""
+*BRContrast 2/2: ""
+*BRContrast 3/3: ""
+*BRContrast 4/4: ""
+*BRContrast 5/5: ""
+*BRContrast 6/6: ""
+*BRContrast 7/7: ""
+*BRContrast 8/8: ""
+*BRContrast 9/9: ""
+*BRContrast 10/10: ""
+*BRContrast 11/11: ""
+*BRContrast 12/12: ""
+*BRContrast 13/13: ""
+*BRContrast 14/14: ""
+*BRContrast 15/15: ""
+*BRContrast 16/16: ""
+*BRContrast 17/17: ""
+*BRContrast 18/18: ""
+*BRContrast 19/19: ""
+*BRContrast 20/20: ""
+*CloseUI: *BRContrast
+
+*%=== Red ================================
+*OpenUI *BRRed/  Red: PickOne
+*OrderDependency: 27 AnySetup *BRRed
+*DefaultBRRed: 0
+*BRRed -20/-20: ""
+*BRRed -19/-19: ""
+*BRRed -18/-18: ""
+*BRRed -17/-17: ""
+*BRRed -16/-16: ""
+*BRRed -15/-15: ""
+*BRRed -14/-14: ""
+*BRRed -13/-13: ""
+*BRRed -12/-12: ""
+*BRRed -11/-11: ""
+*BRRed -10/-10: ""
+*BRRed -9/-9: ""
+*BRRed -8/-8: ""
+*BRRed -7/-7: ""
+*BRRed -6/-6: ""
+*BRRed -5/-5: ""
+*BRRed -4/-4: ""
+*BRRed -3/-3: ""
+*BRRed -2/-2: ""
+*BRRed -1/-1: ""
+*BRRed 0/0: ""
+*BRRed 1/1: ""
+*BRRed 2/2: ""
+*BRRed 3/3: ""
+*BRRed 4/4: ""
+*BRRed 5/5: ""
+*BRRed 6/6: ""
+*BRRed 7/7: ""
+*BRRed 8/8: ""
+*BRRed 9/9: ""
+*BRRed 10/10: ""
+*BRRed 11/11: ""
+*BRRed 12/12: ""
+*BRRed 13/13: ""
+*BRRed 14/14: ""
+*BRRed 15/15: ""
+*BRRed 16/16: ""
+*BRRed 17/17: ""
+*BRRed 18/18: ""
+*BRRed 19/19: ""
+*BRRed 20/20: ""
+*CloseUI: *BRRed
+
+*%=== Green ================================
+*OpenUI *BRGreen/ Green: PickOne
+*OrderDependency: 28 AnySetup *BRGreen
+*DefaultBRGreen: 0
+*BRGreen -20/-20: ""
+*BRGreen -19/-19: ""
+*BRGreen -18/-18: ""
+*BRGreen -17/-17: ""
+*BRGreen -16/-16: ""
+*BRGreen -15/-15: ""
+*BRGreen -14/-14: ""
+*BRGreen -13/-13: ""
+*BRGreen -12/-12: ""
+*BRGreen -11/-11: ""
+*BRGreen -10/-10: ""
+*BRGreen -9/-9: ""
+*BRGreen -8/-8: ""
+*BRGreen -7/-7: ""
+*BRGreen -6/-6: ""
+*BRGreen -5/-5: ""
+*BRGreen -4/-4: ""
+*BRGreen -3/-3: ""
+*BRGreen -2/-2: ""
+*BRGreen -1/-1: ""
+*BRGreen 0/0: ""
+*BRGreen 1/1: ""
+*BRGreen 2/2: ""
+*BRGreen 3/3: ""
+*BRGreen 4/4: ""
+*BRGreen 5/5: ""
+*BRGreen 6/6: ""
+*BRGreen 7/7: ""
+*BRGreen 8/8: ""
+*BRGreen 9/9: ""
+*BRGreen 10/10: ""
+*BRGreen 11/11: ""
+*BRGreen 12/12: ""
+*BRGreen 13/13: ""
+*BRGreen 14/14: ""
+*BRGreen 15/15: ""
+*BRGreen 16/16: ""
+*BRGreen 17/17: ""
+*BRGreen 18/18: ""
+*BRGreen 19/19: ""
+*BRGreen 20/20: ""
+*CloseUI: *BRGreen
+
+*%=== Blue ================================
+*OpenUI *BRBlue/Blue: PickOne
+*OrderDependency: 29 AnySetup *BRBlue
+*DefaultBRBlue: 0
+*BRBlue -20/-20: ""
+*BRBlue -19/-19: ""
+*BRBlue -18/-18: ""
+*BRBlue -17/-17: ""
+*BRBlue -16/-16: ""
+*BRBlue -15/-15: ""
+*BRBlue -14/-14: ""
+*BRBlue -13/-13: ""
+*BRBlue -12/-12: ""
+*BRBlue -11/-11: ""
+*BRBlue -10/-10: ""
+*BRBlue -9/-9: ""
+*BRBlue -8/-8: ""
+*BRBlue -7/-7: ""
+*BRBlue -6/-6: ""
+*BRBlue -5/-5: ""
+*BRBlue -4/-4: ""
+*BRBlue -3/-3: ""
+*BRBlue -2/-2: ""
+*BRBlue -1/-1: ""
+*BRBlue 0/0: ""
+*BRBlue 1/1: ""
+*BRBlue 2/2: ""
+*BRBlue 3/3: ""
+*BRBlue 4/4: ""
+*BRBlue 5/5: ""
+*BRBlue 6/6: ""
+*BRBlue 7/7: ""
+*BRBlue 8/8: ""
+*BRBlue 9/9: ""
+*BRBlue 10/10: ""
+*BRBlue 11/11: ""
+*BRBlue 12/12: ""
+*BRBlue 13/13: ""
+*BRBlue 14/14: ""
+*BRBlue 15/15: ""
+*BRBlue 16/16: ""
+*BRBlue 17/17: ""
+*BRBlue 18/18: ""
+*BRBlue 19/19: ""
+*BRBlue 20/20: ""
+*CloseUI: *BRBlue
+
+*CloseGroup:Color Enhancement
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Alaska: Standard "(001.005)" Standard ROM
+*Font AlaskaExtrabold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Bold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Oblique: Standard "(001.005)" Standard ROM
+*Font ClevelandCondensed: Standard "(001.005)" Standard ROM
+*Font Connecticut: Standard "(001.005)" Standard ROM
+*Font Guatemala-Antique: Standard "(001.005)" Standard ROM
+*Font Guatemala-Bold: Standard "(001.005)" Standard ROM
+*Font Guatemala-Italic: Standard "(001.005)" Standard ROM
+*Font Guatemala-BoldItalic: Standard "(001.005)" Standard ROM
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Oblique: Standard "(001.005)" Standard ROM
+*Font Maryland: Standard "(001.005)" Standard ROM
+*Font Oklahoma: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Bold: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Oblique: Standard "(001.005)" Standard ROM
+*Font Oklahoma-BoldOblique: Standard "(001.005)" Standard ROM
+*Font Utah: Standard "(001.005)" Standard ROM
+*Font Utah-Bold: Standard "(001.005)" Standard ROM
+*Font Utah-Oblique: Standard "(001.005)" Standard ROM
+*Font Utah-BoldOblique: Standard "(001.005)" Standard ROM
+*Font UtahCondensed: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Bold: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Oblique: Standard "(001.004)" Standard ROM
+*Font UtahCondensed-BoldOblique: Standard "(001.005)" Standard ROM
+*Font BermudaScript: Standard "(001.005)" Standard ROM
+*Font Germany: Standard "(001.005)" Standard ROM
+*Font SanDiego: Standard "(001.005)" Standard ROM
+*Font US-Roman: Standard "(001.005)" Standard ROM
+
+*UIConstraints:	*BRColorMediaType Plain	*Resolution	1200x2400dpi
+*UIConstraints:	*BRColorMediaType Plain	*Resolution	1200x6000dpi
+*UIConstraints:	*BRColorMediaType Inkjet	*Resolution	150x150dpi
+*UIConstraints:	*BRColorMediaType Inkjet	*Resolution	300x300dpi
+*UIConstraints:	*BRColorMediaType Inkjet	*Resolution	600x600dpi
+*UIConstraints:	*BRColorMediaType Inkjet	*Resolution	1200x6000dpi
+*UIConstraints:	*BRColorMediaType BrotherGlossyR	*Resolution	150x150dpi
+*UIConstraints:	*BRColorMediaType BrotherGlossyR	*Resolution	300x300dpi
+*UIConstraints:	*BRColorMediaType BrotherGlossyR	*Resolution	600x600dpi
+*UIConstraints:	*BRColorMediaType BrotherGlossy	*Resolution	150x150dpi
+*UIConstraints:	*BRColorMediaType BrotherGlossy	*Resolution	300x300dpi
+*UIConstraints:	*BRColorMediaType BrotherGlossy	*Resolution	600x600dpi
+*UIConstraints:	*BRColorMediaType Glossy	*Resolution	150x150dpi
+*UIConstraints:	*BRColorMediaType Glossy	*Resolution	300x300dpi
+*UIConstraints:	*BRColorMediaType Glossy	*Resolution	600x600dpi
+*UIConstraints:	*BRColorMediaType Transparencies	*Resolution	150x150dpi
+*UIConstraints:	*BRColorMediaType Transparencies	*Resolution	300x300dpi
+*UIConstraints:	*BRColorMediaType Transparencies	*Resolution	1200x2400dpi
+*UIConstraints:	*BRColorMediaType Transparencies	*Resolution	1200x6000dpi
+
+*UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrA4_B
+*UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrLetter_B
+*UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrA6_B
+*UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrPostC4x6_B
+*UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrIndexC5x8_B
+*UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrPhotoL_B
+*UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrPhoto2L_B
+*UIConstraints:	*BRColorMediaType Transparencies	*PageSize BrHagaki_B
+
+ENDOFPPDFILE1
+
+chmod 644 $ppd_file_name
+
+if [ -d /usr/share/ppd ]
+then
+if [ -d /usr/share/cups/model ]
+then
+	cp $ppd_file_name /usr/share/ppd/br${printer_model}.ppd
+	chmod 644 /usr/share/ppd/br${printer_model}.ppd
+fi
+fi
+
+#################################################
+
+if [ -d /usr/lib/cups/filter ]
+then
+	brotherlpdwrapper=/usr/lib/cups/filter/brlpdwrapper${printer_model}
+else
+	brotherlpdwrapper=/usr/lib64/cups/filter/brlpdwrapper${printer_model}
+fi
+
+
+rm -f  $brotherlpdwrapper
+#echo 'rm -f /usr/lib/cups/filter/brlpdwrapper${printer_model}'
+
+
+cat <<!ENDOFWFILTER! >$brotherlpdwrapper
+#! /bin/sh
+#
+# Copyright (C) 2005 Brother. Industries, Ltd.
+#                                    Ver1.10
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+LOGFILE="/dev/null"
+LOGLEVEL="1"
+LOGCLEVEL="7"
+DEBUG=0
+NUPENABLE=1
+LOG_LATESTONLY=1
+errorcode=0
+
+if [ \$DEBUG != 0 ]; then
+    LOGFILE=/tmp/br_cupsfilter_debug_log
+fi
+
+PPDC=\`printenv | grep "PPD="\`
+PPDC=\`echo \$PPDC | sed -e 's/PPD=//'\`
+
+if [ "\$PPDC" = "" ]; then
+    PPDC="/usr/share/cups/model/br${printer_model}.ppd"
+fi
+
+
+if [ \$LOGFILE != "/dev/null" ]; then
+  if [ \$LOG_LATESTONLY == "1" ]; then
+    rm -f \$LOGFILE
+    date                                                           >\$LOGFILE
+  else
+    if [ -e \$LOGFILE ]; then
+	    date                                                        >>\$LOGFILE
+    else
+	    date                                                        >\$LOGFILE
+    fi
+  fi
+    echo "arg0 = \$0"                                           >>\$LOGFILE
+    echo "arg1 = \$1"                                           >>\$LOGFILE
+    echo "arg2 = \$2"                                           >>\$LOGFILE
+    echo "arg3 = \$3"                                           >>\$LOGFILE
+    echo "arg4 = \$4"                                           >>\$LOGFILE
+    echo "arg5 = \$5"                                           >>\$LOGFILE
+    echo "arg6 = \$6"                                           >>\$LOGFILE
+    echo "PPD  = \$PPD"                                         >>\$LOGFILE
+fi
+
+INPUT_TEMP_PS=\`mktemp /tmp/br_input_ps.XXXXXX\`
+
+nup="cat"
+if [ "`echo \$5 | grep 'Nup='`" != '' ] && [ \$NUPENABLE != 0 ]; then
+
+	if   [ "`echo \$5 | grep 'Nup=64'`" != '' ]; then
+		nup="psnup -64"
+	elif [ "`echo \$5 | grep 'Nup=32'`" != '' ]; then
+		nup="psnup -32"
+	elif [ "`echo \$5 | grep 'Nup=25'`" != '' ]; then
+		nup="psnup -25"
+	elif [ "`echo \$5 | grep 'Nup=16'`" != '' ]; then
+		nup="psnup -16"
+	elif [ "`echo \$5 | grep 'Nup=8'`" != '' ]; then
+		nup="psnup -8"
+	elif [ "`echo \$5 | grep 'Nup=6'`" != '' ]; then
+		nup="psnup -6"
+	elif [ "`echo \$5 | grep 'Nup=4'`" != '' ]; then
+		nup="psnup -4"
+	elif [ "`echo \$5 | grep 'Nup=2'`" != '' ]; then
+		nup="psnup -2"
+	elif [ "`echo \$5 | grep 'Nup=1'`" != '' ]; then
+		nup="cat"
+	fi
+	echo   "NUP=\$nup"                                      >>\$LOGFILE
+   if [ -e /usr/bin/psnup ]; then
+       if [ \$# -ge 7 ]; then
+	       cat \$6  | \$nup > \$INPUT_TEMP_PS
+       else
+	       cat       | \$nup > \$INPUT_TEMP_PS
+       fi
+   else
+       if [ \$# -ge 7 ]; then
+	       cp \$6  \$INPUT_TEMP_PS
+       else
+	       cat    > \$INPUT_TEMP_PS
+       fi
+   fi
+else
+   if [ \$# -ge 7 ]; then
+      cp \$6  \$INPUT_TEMP_PS
+   else
+      cat    > \$INPUT_TEMP_PS
+   fi
+fi
+if [ -e "/usr/local/Brother/${device_model}/${printer_model}/lpd/filter${printer_model}" ]; then
+       :
+else
+    echo "ERROR: /usr/local/Brother/${device_model}/${printer_model}/lpd/filter${printer_model} does not exist"   >>\$LOGFILE
+    errorcode=30
+    exit
+fi
+
+CUPSOPTION=\`echo "\$5 Copies=\$4" | sed -e 's/BrMirror=OFF/MirrorPrint=OFF/' -e 's/BrMirror=ON/MirrorPrint=ON/' -e 's/BrChain/Chain/' -e 's/BrBrightness/Brightness/' -e 's/BrContrast/Contrast/' -e 's/BrHalfCut/HalfCut/' -e 's/BrAutoTapeCut/AutoCut/' -e 's/BrHalftonePattern/Halftone/' -e 's/Binary/Binary/' -e 's/Dither/Dither/' -e 's/ErrorDiffusion/ErrorDiffusion/' -e 's/PageSize/media/' -e 's/BrSheets/Sheets/' -e 's/multiple-document-handling/Collate/' -e 's/separate-documents-collated-copies/ON/' -e 's/separate-documents-uncollated-copies/OFF/'\`
+if [ -e "/usr/local/Brother/${device_model}/${printer_model}/cupswrapper/brcupsconfpt1" ]; then
+  if [ \$DEBUG = 0 ]; then
+     /usr/local/Brother/${device_model}/${printer_model}/cupswrapper/brcupsconfpt1  ${printer_name}  \$PPDC 0 "\$CUPSOPTION" "${printer_model}">> /dev/null
+  else
+     /usr/local/Brother/${device_model}/${printer_model}/cupswrapper/brcupsconfpt1  ${printer_name}  \$PPDC \$LOGCLEVEL "\$CUPSOPTION" "${printer_model}">>\$LOGFILE
+  fi
+fi
+
+if [ \$DEBUG -lt 10 ]; then
+    cat    \$INPUT_TEMP_PS | /usr/local/Brother/${device_model}/${printer_model}/lpd/filter${printer_model} "\$\$" "CUPS" "USB"
+
+    if [ \$LOGLEVEL -gt 2 ];  then
+	   if [ \$LOGFILE != "/dev/null" ]; then
+	     echo ""                                                >>\$LOGFILE
+	     echo "    ------PostScript Data-------"                >>\$LOGFILE
+	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
+	   fi
+    fi
+fi
+rm -f  \$INPUT_TEMP_PS
+
+exit $errorcode
+
+!ENDOFWFILTER!
+
+chmod 755 $brotherlpdwrapper
+#if [ -e /usr/lib64/cups/backend ]; then
+#   cp $brotherlpdwrapper  $brotherlpdwrapper64
+#fi
+
+chmod a+w /usr/local/Brother/${device_model}/${printer_model}/inf/br${printer_model}rc
+chmod a+w /usr/local/Brother/${device_model}/${printer_model}/inf
+if [ -e /etc/init.d/lpd ]; then
+   /etc/init.d/lpd stop
+fi
+if [  -e /etc/init.d/lprng ]; then
+   /etc/init.d/lprng stop
+fi
+
+
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+
+sleep 2s
+
+
+port2=`lpinfo -v | grep -i 'usb://Brother/${device_name}' | head -1`
+if [ "$port2" = '' ];then
+    port2=`lpinfo -v | grep 'usb://Brother' | head -1`
+fi
+
+if [ "$port2" = '' ];then
+    port2=`lpinfo -v | grep 'usb://' | head -1`
+fi
+port=`echo $port2| sed s/direct//g`
+
+if [ "$port" = '' ];then
+    port=usb:/dev/usb/lp0
+fi
+#lpadmin -p ${printer_name} -E -v $port -m br${printer_model}.ppd
+lpadmin -p ${printer_name} -E -v $port -P $ppd_file_name
+
+exit 0
+

@@ -1,0 +1,82 @@
+SHELL = /bin/sh
+
+VPATH = @srcdir@
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+top_builddir = .
+
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+
+distdir = $(top_srcdir)/$(PACKAGE)-$(VERSION)
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+MKDIR = $(top_srcdir)/mkinstalldirs
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+
+@SET_MAKE@
+
+INSTALLED_INCLUDES = $(addprefix $(top_srcdir)/include/sane/,sane.h \
+	saneopts.h)
+
+SANE_INCLUDES = $(INSTALLED_INCLUDES) \
+                $(addprefix $(top_srcdir)/include/sane/,config.h.in sanei.h \
+                sanei_ab306.h sanei_auth.h sanei_backend.h \
+                sanei_codec_ascii.h sanei_codec_bin.h sanei_config.h \
+                sanei_debug.h sanei_lm983x.h sanei_net.h sanei_pa4s2.h \
+                sanei_pio.h sanei_pv8630.h sanei_scsi.h sanei_thread.h \
+                sanei_usb.h sanei_wire.h)
+
+OTHER_INCLUDES = $(addprefix $(top_srcdir)/include/,Makefile.in getopt.h \
+                lalloca.h lassert.h md5.h )
+
+DISTFILES = $(SANE_INCLUDES) $(OTHER_INCLUDES)
+
+.PHONY: all clean depend dist distclean install uninstall 
+
+all:
+
+clean:
+
+distclean: clean
+	rm -f Makefile
+	rm -f *~ sane/*~ sane/config.h
+
+install:
+	$(MKDIR) $(includedir)/sane
+	@list="$(INSTALLED_INCLUDES)"; for file in $$list; do \
+	  echo installing $${file} in $(includedir)/sane...; \
+	  $(INSTALL_DATA) $${file} $(includedir)/sane || exit 1; \
+	done
+
+uninstall:
+	rm -rf $(includedir)/sane
+
+depend:
+
+dist: $(DISTFILES)
+	$(MKDIR) $(distdir)/include/sane
+	for file in $(OTHER_INCLUDES); do \
+	  ln $$file $(distdir)/include 2> /dev/null \
+	    || cp -p $$file $(distdir)/include; \
+	done
+	for file in $(SANE_INCLUDES); do \
+	  ln $$file $(distdir)/include/sane 2> /dev/null \
+	    || cp -p $$file $(distdir)/include/sane; \
+	done

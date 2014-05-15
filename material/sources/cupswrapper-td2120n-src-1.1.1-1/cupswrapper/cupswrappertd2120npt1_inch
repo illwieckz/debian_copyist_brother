@@ -1,0 +1,894 @@
+#! /bin/sh
+#
+# Brother Print filter
+# Copyright (C) 2005-2013 Brother. Industries, Ltd.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+if [ "$1" = '-e' ]; then
+# comments
+if [ -f /etc/debian_version ] ; then
+sudo rm -rf /var/lib/dpkg/info/td2120ncupswrapper*
+fi
+# comments
+#*********** Below line uncommented on 20120830_1130am **********
+  lpadmin -x TD-2120N
+  rm -f /usr/share/cups/model/brother_td2120n_printer_en.ppd
+#*********** Below line commented  on 20120830_1130am **********
+#  rm -f /usr/lib/cups/backend/brusb_td2120n
+#  rm -f /usr/lib/cups/backend/brserial_td2120n
+#*********** Below line commented  on 20120830_1130am **********
+#  rm -f /usr/lib64/cups/backend/brusb_td2120n
+#  rm -f /usr/lib64/cups/backend/brserial_td2120n
+  rm -f /usr/lib64/cups/filter/
+  rm -f /opt/brother/PTouch/td2120n/cupswrapper/brcupsconfpt1
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+#  /etc/init.d/cups restart
+  exit 0
+fi
+if [ "$1" = "-r" ]; then
+#*********** Below line uncommented  on 20120830_1130am **********
+  lpadmin -x TD-2120N
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+#  /etc/init.d/cups restart
+  exit 0
+fi
+if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
+  echo   'option -h : help'
+  echo   '       -i : install'
+  echo   '       -e : uninstall'
+  echo   '       -r : remove printer'
+  exit 0
+fi
+#mkdir -p /opt/brother/PTouch/ql720nw/filter
+#mkdir -p /usr/lib/cups/filter
+
+if [ -e "/opt/brother/PTouch/td2120n/lpd/filtertd2120n" ]; then
+  :
+else
+  echo "ERROR : Brother LPD filter is not installed."
+fi
+#comments
+if [ -f /etc/debian_version ] ; then 
+if [  -d /usr/share/cups/model ]; then
+rm -f /usr/share/cups/model/brother_td2120n_printer_en.ppd
+ppd_file_name=/usr/share/cups/model/brother_td2120n_printer_en.ppd
+ppd_file_name1=/usr/share/cups/model/brother_td2120n_printer_en.ppd
+fi
+if [  -d /usr/share/ppd ]; then
+rm -f /usr/share/ppd/brother_td2120n_printer_en.ppd
+ppd_file_name1=/usr/share/ppd/brother_td2120n_printer_en.ppd
+fi
+else 
+rm -f /usr/share/cups/model/brother_td2120n_printer_en.ppd
+ppd_file_name=/usr/share/cups/model/brother_td2120n_printer_en.ppd
+ppd_file_name1=/usr/share/cups/model/brother_td2120n_printer_en.ppd
+fi
+# comments
+cat <<ENDOFPPDFILE | tee $ppd_file_name >> $ppd_file_name1
+*PPD-Adobe: "4.3"
+
+*%================================================
+*%	Copyright(C) 2005-2013 Brother Industries, Ltd.
+*%	"Brother TD-2120N CUPS"
+*%================================================
+
+*%==== General Information Keywords ========================
+*FormatVersion: "4.3"
+*FileVersion: "3.0.0"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "TD-2120N.PPD"
+*Manufacturer: "Brother"
+*Product: "(TD-2120N)"
+*1284DeviceID: "MFG: Brother;MDL: TD-2120N"
+*cupsVersion: 1.4
+*cupsManualCopies: False
+*cupsFilter: "application/vnd.cups-postscript 0 brother_lpdwrapper_td2120n"
+*cupsModelNumber: 1
+*ModelName: "Brother TD-2120N"
+*ShortNickName: "Brother TD-2120N"
+*NickName: "Brother TD-2120N CUPS v1.4"
+*%APDialogExtension: "/Library/Printers/Brother/PDEs/BRPtouchQuality.plugin"
+*%APPrinterIconPath: "/Library/Printers/Brother/Icons/BRPTQL.icns"
+*PSVersion: "(3010.106) 3"
+
+*%==== Basic Device Capabilities =============
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: False
+*Throughput: "12"
+*LandscapeOrientation: Plus90
+*VariablePaperSize: False
+*TTRasterizer: Type42
+*FreeVM: "1700000"
+
+*%DefaultOutputOrder: Reverse
+
+*%==== Media Selection ======================
+*OpenGroup: Basic
+
+*OpenUI *PageSize/Media Size: PickOne
+*OrderDependency: 11 AnySetup *PageSize
+*DefaultPageSize: 50x30
+*PageSize 30x30/1.1" x 1.1":	"          "
+*PageSize 40x40/1.5" x 1.5":	"          "
+*PageSize 40x50/1.5" x 1.9":	"          "
+*PageSize 40x60/1.5" x 2.3":	"          "
+*PageSize 50x30/1.9" x 1.1":	"          "
+*PageSize 51x26/2.0" x 1.0":	"          "
+*PageSize 60x60/2.3" x 2.3":	"          "
+*PageSize 57X1/2.25":			"          "
+*PageSize 58X1/2.28":			"          "
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 12 AnySetup *PageRegion
+*DefaultPageRegion: 50x30
+*PageRegion 30x30/1.1" x 1.1":	"          "
+*PageRegion 40x40/1.5" x 1.5":	"          "
+*PageRegion 40x50/1.5" x 1.9":	"          "
+*PageRegion 40x60/1.5" x 2.3":	"          "
+*PageRegion 50x30/1.9" x 1.1":	"          "
+*PageRegion 51x26/2.0" x 1.0":	"          "
+*PageRegion 60x60/2.3" x 2.3":	"          "
+*PageRegion 57X1/2.25":			"          "
+*PageRegion 58X1/2.28":			"          "
+*CloseUI: *PageRegion
+
+
+*DefaultImageableArea: 50x30
+*ImageableArea 30x30/1.1" x 1.1":	"4.26 8.51 80.87 76.61"
+*ImageableArea 40x40/1.5" x 1.5":	"4.26 8.51 109.24 104.99"
+*ImageableArea 40x50/1.5" x 1.9":	"4.26 8.51 109.24 133.36"
+*ImageableArea 40x60/1.5" x 2.3":	"4.26 8.51 109.24 161.73"
+*ImageableArea 50x30/1.9" x 1.1":	"4.26 8.51 137.62 76.61"
+*ImageableArea 51x26/2.0" x 1.0":	"4.26 8.51 139.74 64.20"
+*ImageableArea 60x60/2.3" x 2.3":	"5.67 8.51 164.57 161.73"
+*ImageableArea 57X1/2.25":			"4.26 8.51 157.83 275.23"
+*ImageableArea 58X1/2.28":			"4.26 8.51 160.32 275.23"
+
+*%==== Information About Media Sizes ========
+*DefaultPaperDimension: 50x30
+*PaperDimension 30x30/1.1" x 1.1":	"85.12 85.12"
+*PaperDimension 40x40/1.5" x 1.5":	"113.50 113.50"
+*PaperDimension 40x50/1.5" x 1.9":	"113.50 141.87"
+*PaperDimension 40x60/1.5" x 2.3":	"113.50 170.25"
+*PaperDimension 50x30/1.9" x 1.1":	"141.87 85.12"
+*PaperDimension 51x26/2.0" x 1.0":	"144.00 72.71"
+*PaperDimension 60x60/2.3" x 2.3":	"170.25 170.25"
+*PaperDimension 57X1/2.25":			"162.09 283.74"
+*PaperDimension 58X1/2.28":			"164.57 283.74"
+
+
+*OpenUI *BrMargin/Feed(invalid for Die-Cut tape): PickOne
+*OrderDependency: 23 AnySetup  *BrMargin
+*DefaultBrMargin: 3
+*BrMargin 3/0.12": "          "
+*BrMargin 4/0.16": "          "
+*BrMargin 5/0.2": "          "
+*BrMargin 6/0.24": "          "
+*BrMargin 7/0.27": "          "
+*BrMargin 8/0.31": "          "
+*BrMargin 9/0.35": "          "
+*BrMargin 10/0.39": "          "
+*BrMargin 11/0.43": "          "
+*BrMargin 12/0.47": "          "
+*BrMargin 13/0.51": "          "
+*BrMargin 14/0.55": "          "
+*BrMargin 15/0.59": "          "
+*BrMargin 16/0.63": "          "
+*BrMargin 17/0.67": "          "
+*BrMargin 18/0.71": "          "
+*BrMargin 19/0.75": "          "
+*BrMargin 20/0.79": "          "
+*BrMargin 21/0.83": "          "
+*BrMargin 22/0.87": "          "
+*BrMargin 23/0.91": "          "
+*BrMargin 24/0.94": "          "
+*BrMargin 25/0.98": "          "
+*BrMargin 26/1.02": "          "
+*BrMargin 27/1.06": "          "
+*BrMargin 28/1.1": "          "
+*BrMargin 29/1.14": "          "
+*BrMargin 30/1.18": "          "
+*CloseUI: *BrMargin
+
+*OpenUI *BrPriority/Quality: PickOne
+*OrderDependency: 22 AnySetup  *BrPriority
+*DefaultBrPriority: BrSpeed
+*BrPriority BrSpeed/Give priority to print speed 203*203dpi: "          "
+*BrPriority BrQuality/Give priority to print quality 203*203dpi: "          "
+*CloseUI: *BrPriority
+
+*% added start printing/Compress for QL720NW
+*OpenUI *BrCompress/Start printing: PickOne
+*OrderDependency: 23 AnySetup  *BrCompress
+*DefaultBrCompress: OFF
+*BrCompress OFF/Immediately after starting to receive data: "          "
+*BrCompress ON/After one page of data is received: "          "
+*CloseUI: *BrCompress
+
+*CloseGroup: Basic
+
+
+*OpenGroup: Option
+*% added for QL720NW
+*%OpenUI *BrCutLabel/Cut every: PickOne
+*%OrderDependency: 23 AnySetup  *BrCutLabel
+*%DefaultBrCutLabel: 1
+*%BrCutLabel 0/OFF: "          "
+*%BrCutLabel 1/1 label: "          "
+*%BrCutLabel 2/2 labels: "          "
+*%BrCutLabel 3/3 labels: "          "
+*%BrCutLabel 4/4 labels: "          "
+*%BrCutLabel 5/5 labels: "          "
+*%BrCutLabel 6/6 labels: "          "
+*%BrCutLabel 7/7 labels: "          "
+*%BrCutLabel 8/8 labels: "          "
+*%BrCutLabel 9/9 labels: "          "
+*%BrCutLabel 10/10 labels: "          "
+*%BrCutLabel 11/11 labels: "          "
+*%BrCutLabel 12/12 labels: "          "
+*%BrCutLabel 13/13 labels: "          "
+*%BrCutLabel 14/14 labels: "          "
+*%BrCutLabel 15/15 labels: "          "
+*%BrCutLabel 16/16 labels: "          "
+*%BrCutLabel 17/17 labels: "          "
+*%BrCutLabel 18/18 labels: "          "
+*%BrCutLabel 19/19 labels: "          "
+*%BrCutLabel 20/20 labels: "          "
+*%BrCutLabel 21/21 labels: "          "
+*%BrCutLabel 22/22 labels: "          "
+*%BrCutLabel 23/23 labels: "          "
+*%BrCutLabel 24/24 labels: "          "
+*%BrCutLabel 25/25 labels: "          "
+*%BrCutLabel 26/26 labels: "          "
+*%BrCutLabel 27/27 labels: "          "
+*%BrCutLabel 28/28 labels: "          "
+*%BrCutLabel 29/29 labels: "          "
+*%BrCutLabel 30/30 labels: "          "
+*%CloseUI: *BrCutLabel
+
+
+*% added Cut At End for QL720NW
+*%OpenUI *BrCutAtEnd/Cut at end: PickOne
+*%OrderDependency: 21 AnySetup  *BrCutAtEnd
+*%DefaultBrCutAtEnd: ON
+*%BrCutAtEnd OFF/OFF: "          "
+*%BrCutAtEnd ON/ON: "          "
+*%CloseUI: *BrCutAtEnd
+
+*%=====  Added trim tape for QL720NW... =====
+*OpenUI *BrTrimtape/Trim tape after data: PickOne
+*OrderDependency: 21 AnySetup  *BrTrimtape
+*DefaultBrTrimtape: OFF
+*BrTrimtape OFF/OFF: "          "
+*BrTrimtape ON/ON: "          "
+*CloseUI: *BrTrimtape
+*%===== ... Added trim tape for QL720NW =====
+
+
+*OpenUI *BrMirror/Mirror Printing: PickOne
+*OrderDependency: 21 AnySetup  *BrMirror
+*DefaultBrMirror: OFF
+*BrMirror OFF/OFF: "          "
+*BrMirror ON/ON: "          "
+*CloseUI: *BrMirror
+
+*OpenUI *BrRotate/Rotate Printing: PickOne
+*OrderDependency: 21 AnySetup  *BrRotate
+*DefaultBrRotate: OFF
+*BrRotate OFF/OFF: "          "
+*BrRotate ON/ON: "          "
+*CloseUI: *BrRotate
+
+*OpenUI *BrPeeler/Peeler: PickOne
+*OrderDependency: 21 AnySetup  *BrPeeler
+*DefaultBrPeeler: OFF
+*BrPeeler OFF/OFF: "          "
+*BrPeeler ON/ON: "          "
+*CloseUI: *BrPeeler
+
+*CloseGroup: Option
+
+*%==== Custom Page Sizes ====================
+*%NonUIOrderDependency: 40 AnySetup *CustomPageSize
+*%VariablePaperSize: True
+*%LeadingEdge Short: "          "
+*%DefaultLeadingEdge: Short
+*%MaxMediaWidth: "612"
+*%MaxMediaHeight: "1008"
+*%HWMargins: 12 12 12 12
+*%CustomPageSize True: "
+*%	<</BRCustomPageSize true>> setpagedevice
+*%	pop pop pop
+*%	<< /PageSize [ 5 -2 roll ] /ImagingBBox null >>
+*%	setpagedevice
+*%"
+*%End
+*%ParamCustomPageSize Width: 1 points 284 612
+*%ParamCustomPageSize Height: 2 points 595 1008
+*%ParamCustomPageSize WidthOffset: 3 points 0 0
+*%ParamCustomPageSize HeightOffset: 4 points 0 0
+*%ParamCustomPageSize Orientation: 5 int 0 3
+
+*%=== Paper Feed================================
+*%OpenUI *InputSlot: PickOne
+*%OrderDependency: 13 AnySetup *InputSlot
+*%DefaultInputSlot: AutoSelect
+*%InputSlot AutoSelect/Auto Select: 	"          "
+*%InputSlot Tray1/Tray1: 		"          "
+*%InputSlot Manual/Manual: 		"          "
+*%CloseUI: *InputSlot
+
+*%==== Resolution Features =================================
+*%OpenUI *Resolution/Resolution: PickOne
+*%OrderDependency: 14 AnySetup *Resolution
+*%DefaultResolution: Normal
+*%Resolution	Normal/Normal(203 * 203dpi): 	"          "
+*%CloseUI: *Resolution
+
+*%=== Media Type ================================
+*%OpenUI *MediaType/Media Type: PickOne
+*%OrderDependency: 17 AnySetup *MediaType
+*%DefaultMediaType: Plain
+*%MediaType Plain/Plain Paper: "          "
+*%MediaType Thin/Thin Paper: "          "
+*%MediaType Thick/Thick Paper: "          "
+*%MediaType Thicker/Thicker Paper: "          "
+*%MediaType Transparencies/Transparencies: "          "
+*%MediaType Recycled/Recycled Paper: "          "
+*%CloseUI: *MediaType
+
+*% commented for QL720NW
+*%OpenUI *BrAutoTapeCut/Auto Tape Cut: PickOne
+*%OrderDependency: 20 AnySetup  *BrAutoTapeCut
+*%DefaultBrAutoTapeCut: ON
+*%BrAutoTapeCut OFF/OFF: "          "
+*%BrAutoTapeCut ON/ON: "          "
+*%CloseUI: *BrAutoTapeCut
+
+*%#S1
+
+*OpenGroup: Advanced
+
+*OpenUI *BrHalftonePattern/Halftone: PickOne
+*OrderDependency: 24 AnySetup  *BrHalftonePattern
+*DefaultBrHalftonePattern: BrErrorDiffusion
+*BrHalftonePattern BrBinary/Binary: "          "
+*BrHalftonePattern BrDither/Dither: "          "
+*BrHalftonePattern BrErrorDiffusion/Error Diffusion: "          "
+*CloseUI: *BrHalftonePattern
+
+*OpenUI *BrBrightness/Brightness: PickOne
+*OrderDependency: 25 AnySetup  *BrBrightness
+*DefaultBrBrightness: 0
+*BrBrightness 50/50: "          "
+*BrBrightness 49/49: "          "
+*BrBrightness 48/48: "          "
+*BrBrightness 47/47: "          "
+*BrBrightness 46/46: "          "
+*BrBrightness 45/45: "          "
+*BrBrightness 44/44: "          "
+*BrBrightness 43/43: "          "
+*BrBrightness 42/42: "          "
+*BrBrightness 41/41: "          "
+*BrBrightness 40/40: "          "
+*BrBrightness 39/39: "          "
+*BrBrightness 38/38: "          "
+*BrBrightness 37/37: "          "
+*BrBrightness 36/36: "          "
+*BrBrightness 35/35: "          "
+*BrBrightness 34/34: "          "
+*BrBrightness 33/33: "          "
+*BrBrightness 32/32: "          "
+*BrBrightness 31/31: "          "
+*BrBrightness 30/30: "          "
+*BrBrightness 29/29: "          "
+*BrBrightness 28/28: "          "
+*BrBrightness 27/27: "          "
+*BrBrightness 26/26: "          "
+*BrBrightness 25/25: "          "
+*BrBrightness 24/24: "          "
+*BrBrightness 23/23: "          "
+*BrBrightness 22/22: "          "
+*BrBrightness 21/21: "          "
+*BrBrightness 20/20: "          "
+*BrBrightness 19/19: "          "
+*BrBrightness 18/18: "          "
+*BrBrightness 17/17: "          "
+*BrBrightness 16/16: "          "
+*BrBrightness 15/15: "          "
+*BrBrightness 14/14: "          "
+*BrBrightness 13/13: "          "
+*BrBrightness 12/12: "          "
+*BrBrightness 11/11: "          "
+*BrBrightness 10/10: "          "
+*BrBrightness 9/9: "          "
+*BrBrightness 8/8: "          "
+*BrBrightness 7/7: "          "
+*BrBrightness 6/6: "          "
+*BrBrightness 5/5: "          "
+*BrBrightness 4/4: "          "
+*BrBrightness 3/3: "          "
+*BrBrightness 2/2: "          "
+*BrBrightness 1/1: "          "
+*BrBrightness 0/0: "          "
+*BrBrightness -1/-1: "          "
+*BrBrightness -2/-2: "          "
+*BrBrightness -3/-3: "          "
+*BrBrightness -4/-4: "          "
+*BrBrightness -5/-5: "          "
+*BrBrightness -6/-6: "          "
+*BrBrightness -7/-7: "          "
+*BrBrightness -8/-8: "          "
+*BrBrightness -9/-9: "          "
+*BrBrightness -10/-10: "          "
+*BrBrightness -11/-11: "          "
+*BrBrightness -12/-12: "          "
+*BrBrightness -13/-13: "          "
+*BrBrightness -14/-14: "          "
+*BrBrightness -15/-15: "          "
+*BrBrightness -16/-16: "          "
+*BrBrightness -17/-17: "          "
+*BrBrightness -18/-18: "          "
+*BrBrightness -19/-19: "          "
+*BrBrightness -20/-20: "          "
+*BrBrightness -21/-21: "          "
+*BrBrightness -22/-22: "          "
+*BrBrightness -23/-23: "          "
+*BrBrightness -24/-24: "          "
+*BrBrightness -25/-25: "          "
+*BrBrightness -26/-26: "          "
+*BrBrightness -27/-27: "          "
+*BrBrightness -28/-28: "          "
+*BrBrightness -29/-29: "          "
+*BrBrightness -30/-30: "          "
+*BrBrightness -31/-31: "          "
+*BrBrightness -32/-32: "          "
+*BrBrightness -33/-33: "          "
+*BrBrightness -34/-34: "          "
+*BrBrightness -35/-35: "          "
+*BrBrightness -36/-36: "          "
+*BrBrightness -37/-37: "          "
+*BrBrightness -38/-38: "          "
+*BrBrightness -39/-39: "          "
+*BrBrightness -40/-40: "          "
+*BrBrightness -41/-41: "          "
+*BrBrightness -42/-42: "          "
+*BrBrightness -43/-43: "          "
+*BrBrightness -44/-44: "          "
+*BrBrightness -45/-45: "          "
+*BrBrightness -46/-46: "          "
+*BrBrightness -47/-47: "          "
+*BrBrightness -48/-48: "          "
+*BrBrightness -49/-49: "          "
+*BrBrightness -50/-50: "          "
+*CloseUI: *BrBrightness
+
+*OpenUI *BrContrast/Contrast: PickOne
+*OrderDependency: 26 AnySetup  *BrContrast
+*DefaultBrContrast: 0
+*BrContrast 50/50: "          "
+*BrContrast 49/49: "          "
+*BrContrast 48/48: "          "
+*BrContrast 47/47: "          "
+*BrContrast 46/46: "          "
+*BrContrast 45/45: "          "
+*BrContrast 44/44: "          "
+*BrContrast 43/43: "          "
+*BrContrast 42/42: "          "
+*BrContrast 41/41: "          "
+*BrContrast 40/40: "          "
+*BrContrast 39/39: "          "
+*BrContrast 38/38: "          "
+*BrContrast 37/37: "          "
+*BrContrast 36/36: "          "
+*BrContrast 35/35: "          "
+*BrContrast 34/34: "          "
+*BrContrast 33/33: "          "
+*BrContrast 32/32: "          "
+*BrContrast 31/31: "          "
+*BrContrast 30/30: "          "
+*BrContrast 29/29: "          "
+*BrContrast 28/28: "          "
+*BrContrast 27/27: "          "
+*BrContrast 26/26: "          "
+*BrContrast 25/25: "          "
+*BrContrast 24/24: "          "
+*BrContrast 23/23: "          "
+*BrContrast 22/22: "          "
+*BrContrast 21/21: "          "
+*BrContrast 20/20: "          "
+*BrContrast 19/19: "          "
+*BrContrast 18/18: "          "
+*BrContrast 17/17: "          "
+*BrContrast 16/16: "          "
+*BrContrast 15/15: "          "
+*BrContrast 14/14: "          "
+*BrContrast 13/13: "          "
+*BrContrast 12/12: "          "
+*BrContrast 11/11: "          "
+*BrContrast 10/10: "          "
+*BrContrast 9/9: "          "
+*BrContrast 8/8: "          "
+*BrContrast 7/7: "          "
+*BrContrast 6/6: "          "
+*BrContrast 5/5: "          "
+*BrContrast 4/4: "          "
+*BrContrast 3/3: "          "
+*BrContrast 2/2: "          "
+*BrContrast 1/1: "          "
+*BrContrast 0/0: "          "
+*BrContrast -1/-1: "          "
+*BrContrast -2/-2: "          "
+*BrContrast -3/-3: "          "
+*BrContrast -4/-4: "          "
+*BrContrast -5/-5: "          "
+*BrContrast -6/-6: "          "
+*BrContrast -7/-7: "          "
+*BrContrast -8/-8: "          "
+*BrContrast -9/-9: "          "
+*BrContrast -10/-10: "          "
+*BrContrast -11/-11: "          "
+*BrContrast -12/-12: "          "
+*BrContrast -13/-13: "          "
+*BrContrast -14/-14: "          "
+*BrContrast -15/-15: "          "
+*BrContrast -16/-16: "          "
+*BrContrast -17/-17: "          "
+*BrContrast -18/-18: "          "
+*BrContrast -19/-19: "          "
+*BrContrast -20/-20: "          "
+*BrContrast -21/-21: "          "
+*BrContrast -22/-22: "          "
+*BrContrast -23/-23: "          "
+*BrContrast -24/-24: "          "
+*BrContrast -25/-25: "          "
+*BrContrast -26/-26: "          "
+*BrContrast -27/-27: "          "
+*BrContrast -28/-28: "          "
+*BrContrast -29/-29: "          "
+*BrContrast -30/-30: "          "
+*BrContrast -31/-31: "          "
+*BrContrast -32/-32: "          "
+*BrContrast -33/-33: "          "
+*BrContrast -34/-34: "          "
+*BrContrast -35/-35: "          "
+*BrContrast -36/-36: "          "
+*BrContrast -37/-37: "          "
+*BrContrast -38/-38: "          "
+*BrContrast -39/-39: "          "
+*BrContrast -40/-40: "          "
+*BrContrast -41/-41: "          "
+*BrContrast -42/-42: "          "
+*BrContrast -43/-43: "          "
+*BrContrast -44/-44: "          "
+*BrContrast -45/-45: "          "
+*BrContrast -46/-46: "          "
+*BrContrast -47/-47: "          "
+*BrContrast -48/-48: "          "
+*BrContrast -49/-49: "          "
+*BrContrast -50/-50: "          "
+*CloseUI: *BrContrast
+
+*CloseGroup: Advanced
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Alaska: Standard "(001.005)" Standard ROM
+*Font AlaskaExtrabold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Bold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Oblique: Standard "(001.005)" Standard ROM
+*Font ClevelandCondensed: Standard "(001.005)" Standard ROM
+*Font Connecticut: Standard "(001.005)" Standard ROM
+*Font Guatemala-Antique: Standard "(001.005)" Standard ROM
+*Font Guatemala-Bold: Standard "(001.005)" Standard ROM
+*Font Guatemala-Italic: Standard "(001.005)" Standard ROM
+*Font Guatemala-BoldItalic: Standard "(001.005)" Standard ROM
+
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Oblique: Standard "(001.005)" Standard ROM
+*Font Maryland: Standard "(001.005)" Standard ROM
+*Font Oklahoma: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Bold: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Oblique: Standard "(001.005)" Standard ROM
+*Font Oklahoma-BoldOblique: Standard "(001.005)" Standard ROM
+*Font Utah: Standard "(001.005)" Standard ROM
+*Font Utah-Bold: Standard "(001.005)" Standard ROM
+*Font Utah-Oblique: Standard "(001.005)" Standard ROM
+*Font Utah-BoldOblique: Standard "(001.005)" Standard ROM
+*Font UtahCondensed: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Bold: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Oblique: Standard "(001.004)" Standard ROM
+*Font UtahCondensed-BoldOblique: Standard "(001.005)" Standard ROM
+*Font BermudaScript: Standard "(001.005)" Standard ROM
+*Font Germany: Standard "(001.005)" Standard ROM
+*Font SanDiego: Standard "(001.005)" Standard ROM
+*Font US-Roman: Standard "(001.005)" Standard ROM
+
+
+ENDOFPPDFILE
+
+brotherlpdwrapper=/usr/lib/cups/filter/brother_lpdwrapper_td2120n
+brotherlpdwrapper64=/usr/lib64/cups/filter/brother_lpdwrapper_td2120n
+#brotherlpdwrapper=/usr/lib/cups/backend/brusb_td2120n
+#brotherlpdwrapper64=/usr/lib64/cups/backend/brusb_td2120n
+
+rm -f  $brotherlpdwrapper
+#echo 'rm -f /usr/lib/cups/filter/brlpdwrappertd2120n'
+
+
+cat <<!ENDOFWFILTER! >$brotherlpdwrapper
+#! /bin/sh
+#
+# Brother Print filter  >>  /usr/lib/cups/backend/brusb_td2120n
+# Copyright (C) 2006-2013 Brother. Industries, Ltd.
+#                                    Ver1.10
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+LOGFILE="/dev/null"
+LOGLEVEL="1"
+LOGCLEVEL="7"
+DEBUG=0
+NUPENABLE=1
+LOG_LATESTONLY=1
+
+touch /tmp/td2120n_latest_print_info
+chmod 600 -R /tmp/td2120n_latest_print_info
+
+errorcode=0
+
+if [ \$DEBUG != 0 ]; then
+    LOGFILE=/tmp/br_cupsfilter_debug_log
+fi
+
+PPDC=\`printenv | grep "PPD="\`
+PPDC=\`echo \$PPDC | sed -e 's/PPD=//'\`
+
+if [ "\$PPDC" = "" ]; then
+    PPDC="/usr/share/cups/model/brother_td2120n_printer_en.ppd"
+fi
+
+
+if [ \$LOGFILE != "/dev/null" ]; then
+  if [ \$LOG_LATESTONLY == "1" ]; then
+    rm -f \$LOGFILE
+    date                                                           >\$LOGFILE
+  else
+    if [ -e \$LOGFILE ]; then
+	    date                                                        >>\$LOGFILE
+    else
+	    date                                                        >\$LOGFILE
+    fi
+  fi
+    echo "arg0 = \$0"                                           >>\$LOGFILE
+    echo "arg1 = \$1"                                           >>\$LOGFILE
+    echo "arg2 = \$2"                                           >>\$LOGFILE
+    echo "arg3 = \$3"                                           >>\$LOGFILE
+    echo "arg4 = \$4"                                           >>\$LOGFILE
+    echo "arg5 = \$5"                                           >>\$LOGFILE
+    echo "arg6 = \$6"                                           >>\$LOGFILE
+    echo "PPD  = \$PPD"                                         >>\$LOGFILE
+fi
+
+cp  /opt/brother/PTouch/td2120n/inf/brtd2120nrc  /tmp/brtd2120nrc_\$$
+chmod 777 -R /tmp/brtd2120nrc_\$$
+export BRPRINTERRCFILE=/tmp/brtd2120nrc_\$$
+
+INPUT_TEMP_PS=\`mktemp /tmp/br_input_ps.XXXXXX\`
+
+nup="cat"
+if [ "\`echo \$5 | grep 'Nup='\`" != '' ] && [ \$NUPENABLE != 0 ]; then
+
+	if   [ "\`echo \$5 | grep 'Nup=64'\`" != '' ]; then
+		nup="psnup -64"
+	elif [ "\`echo \$5 | grep 'Nup=32'\`" != '' ]; then
+		nup="psnup -32"
+	elif [ "\`echo \$5 | grep 'Nup=25'\`" != '' ]; then
+		nup="psnup -25"
+	elif [ "\`echo \$5 | grep 'Nup=16'\`" != '' ]; then
+		nup="psnup -16"
+	elif [ "\`echo \$5 | grep 'Nup=8'\`" != '' ]; then
+		nup="psnup -8"
+	elif [ "\`echo \$5 | grep 'Nup=6'\`" != '' ]; then
+		nup="psnup -6"
+	elif [ "\`echo \$5 | grep 'Nup=4'\`" != '' ]; then
+		nup="psnup -4"
+	elif [ "\`echo \$5 | grep 'Nup=2'\`" != '' ]; then
+		nup="psnup -2"
+	elif [ "\`echo \$5 | grep 'Nup=1'\`" != '' ]; then
+		nup="cat"
+	fi
+	echo   "NUP=\$nup"                                      >>\$LOGFILE
+   if [ -e /usr/bin/psnup ]; then
+       if [ \$# -ge 7 ]; then
+	       cat \$6  | \$nup > \$INPUT_TEMP_PS
+       else
+	       cat       | \$nup > \$INPUT_TEMP_PS
+       fi
+   else
+       if [ \$# -ge 7 ]; then
+	       cp \$6  \$INPUT_TEMP_PS
+       else
+	       cat    > \$INPUT_TEMP_PS
+       fi
+   fi
+else
+   if [ \$# -ge 7 ]; then
+      cp \$6  \$INPUT_TEMP_PS
+   else
+      cat    > \$INPUT_TEMP_PS
+   fi
+fi
+if [ -e "/opt/brother/PTouch/td2120n/lpd/filtertd2120n" ]; then
+       :
+else
+    echo "ERROR: /opt/brother/PTouch/td2120n/lpd/filtertd2120n does not exist"   >>\$LOGFILE
+    echo "ERROR: /opt/brother/PTouch/td2120n/lpd/filtertd2120n does not exist"   >> /tmp/td2120n_latest_print_info
+    errorcode=30
+    exit
+fi
+
+CUPSOPTION=\`echo "\$5 Copies=\$4" | sed -e 's/PageSize/media/' -e 's/BrMargin/Feed/' -e 's/BrCompress/Compress/' -e 's/BrCutAtEnd/CutAtEnd/' -e  's/BrTrimtape/Trimtape/' -e 's/BrRotate/RotatePrint/' -e 's/BrPeeler/Peeler/' -e 's/BrCutLabel/CutLabel/' -e 's/BrMirror/MirrorPrint/' -e 's/BrPriority/Priority/' -e 's/BrQuality/QUALITY/' -e 's/BrSpeed/SPEED/' -e 's/BrHalftonePattern/Halftone/' -e 's/BrErrorDiffusion/ERROR/' -e 's/BrBinary/BINARY/' -e 's/BrDither/DITHER/' -e 's/BrBrightness/Brightness/' -e 's/BrContrast/Contrast/' -e 's/multiple-document-handling/Collate/' -e 's/separate-documents-collated-copies/ON/' -e 's/separate-documents-uncollated-copies/OFF/'\`
+
+
+
+
+BRURI=\`printenv | grep DEVICE_URI=\`
+BRURI=\`echo \$BRURI | grep "brserial"\`
+PORT="USB"
+if [ "\$BRURI" != "" ]; then
+	PORT="SERIAL"
+fi
+
+if [ -e "/opt/brother/PTouch/td2120n/cupswrapper/brcupsconfpt1" ]; then
+  if [ \$DEBUG = 0 ]; then
+     /opt/brother/PTouch/td2120n/cupswrapper/brcupsconfpt1  td2120n  \$PPDC 0 "\$CUPSOPTION" \$BRPRINTERRCFILE>> /dev/null
+  else
+     /opt/brother/PTouch/td2120n/cupswrapper/brcupsconfpt1  td2120n  \$PPDC \$LOGCLEVEL "\$CUPSOPTION" \$BRPRINTERRCFILE>>\$LOGFILE
+  fi
+fi
+
+if [ \$DEBUG -lt 10 ]; then
+    cat    \$INPUT_TEMP_PS | /opt/brother/PTouch/td2120n/lpd/filtertd2120n "\$\$" "CUPS" "\$PORT"
+    echo brtd2120nrc_\$$   > /tmp/td2120n_latest_print_info
+    cat  /tmp/brtd2120nrc_\$$  >> /tmp/td2120n_latest_print_info
+    rm -f /tmp/brtd2120nrc_\$$
+    if [ \$LOGLEVEL -gt 2 ];  then
+	   if [ \$LOGFILE != "/dev/null" ]; then
+	     echo ""                                                >>\$LOGFILE
+	     echo "    ------PostScript Data-------"                >>\$LOGFILE
+	     cat    \$INPUT_TEMP_PS                                  >>\$LOGFILE
+	   fi
+    fi
+fi
+rm -f  \$INPUT_TEMP_PS
+
+exit $errorcode
+
+!ENDOFWFILTER!
+
+chmod a+x $brotherlpdwrapper
+if [ -e /usr/lib64/cups/backend ]; then
+   cp $brotherlpdwrapper  $brotherlpdwrapper64
+fi
+
+#chmod a+w /opt/brother/PTouch/td2120n/inf/brtd2120nrc
+#chmod a+w /opt/brother/PTouch/td2120n/inf
+if [ -e /etc/init.d/lpd ]; then
+   /etc/init.d/lpd stop
+fi
+if [  -e /etc/init.d/lprng ]; then
+   /etc/init.d/lprng stop
+fi
+
+#*********** Below line commented  on 20120830_1130am **********
+#cp -f /usr/local/Brother/PTouch/td2120n/lpd/brusb_ql_lpr /usr/lib/cups/backend/brusb_td2120n
+#cp -f /usr/local/Brother/PTouch/td2120n/lpd/brserial_td2120n /usr/lib/cups/backend/brserial_td2120n
+#chmod 00777 /usr/lib/cups/backend/brusb_td2120n
+#chmod 00777 /usr/lib/cups/backend/brserial_td2120n
+
+if [  -e /etc/init.d/cups ]; then
+   /etc/init.d/cups restart
+elif [  -e /etc/init.d/cupsys ]; then
+   /etc/init.d/cupsys restart
+fi
+
+sleep 2s
+
+#*********** Below line commented  on 20120830_1130am **********
+#lpadmin -p TD-2120N -E -v brusb_qtd2120n:/dev/usb -m brtd2120n.ppd
+#lpadmin -p TD-2120N -E -v usb://Brother/TD-2120N -P /usr/share/ppd/brtd2120n.ppd
+
+port2=`lpinfo -v | grep -i 'usb://Brother/TD-2120N' | head -1`
+if [ "$port2" = '' ];then
+    port2=`lpinfo -v | grep 'usb://Brother' | head -1`
+fi
+
+if [ "$port2" = '' ];then
+    port2=`lpinfo -v | grep 'usb://' | head -1`
+fi
+port=`echo $port2| sed s/direct//g`
+
+if [ "$port" = '' ];then
+    port=usb:/dev/usb/lp0
+fi
+
+lpadmin -p TD-2120N -E -v $port -P /usr/share/cups/model/brother_td2120n_printer_en.ppd
+
+exit 0
+

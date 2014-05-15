@@ -1,0 +1,572 @@
+*PPD-Adobe: "4.3"
+
+*%================================================
+*%	Copyright(C) 2005-2013 Brother Industries, Ltd.
+*%	"Brother TD-2120N CUPS"
+*%================================================
+
+*%==== General Information Keywords ========================
+*FormatVersion: "4.3"
+*FileVersion: "1.00"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "TD-2120N.PPD"
+*Manufacturer: "Brother"
+*Product: "(TD-2120N)"
+*1284DeviceID: "MFG: Brother;MDL: TD-2120N"
+*cupsVersion: 1.4
+*cupsManualCopies: False
+*cupsFilter: "application/vnd.cups-postscript 0 brother_lpdwrapper_td2120n"
+*cupsModelNumber: 1
+*ModelName: "Brother TD-2120N"
+*ShortNickName: "Brother TD-2120N"
+*NickName: "Brother TD-2120N CUPS v1.4"
+*%APDialogExtension: "/Library/Printers/Brother/PDEs/BRPtouchQuality.plugin"
+*%APPrinterIconPath: "/Library/Printers/Brother/Icons/BRPTQL.icns"
+*PSVersion: "(3010.106) 3"
+
+*%==== Basic Device Capabilities =============
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: False
+*Throughput: "12"
+*LandscapeOrientation: Plus90
+*VariablePaperSize: False
+*TTRasterizer: Type42
+*FreeVM: "1700000"
+
+*%DefaultOutputOrder: Reverse
+
+*%==== Media Selection ======================
+*OpenGroup: Basic
+
+*OpenUI *PageSize/Media Size: PickOne
+*OrderDependency: 11 AnySetup *PageSize
+*DefaultPageSize: 50x30
+*PageSize 30x30/30mm x 30mm:	"          "
+*PageSize 40x40/40mm x 40mm:	"          "
+*PageSize 40x50/40mm x 50mm:	"          "
+*PageSize 40x60/40mm x 60mm:	"          "
+*PageSize 50x30/50mm x 30mm:	"          "
+*PageSize 51x26/51mm x 26mm:	"          "
+*PageSize 60x60/60mm x 60mm:	"          "
+*PageSize 57X1/57mm:			"          "
+*PageSize 58X1/58mm:			"          "
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 12 AnySetup *PageRegion
+*DefaultPageRegion: 50x30
+*PageRegion 30x30/30mm x 30mm:	"          "
+*PageRegion 40x40/40mm x 40mm:	"          "
+*PageRegion 40x50/40mm x 50mm:	"          "
+*PageRegion 40x60/40mm x 60mm:	"          "
+*PageRegion 50x30/50mm x 30mm:	"          "
+*PageRegion 51x26/51mm x 26mm:	"          "
+*PageRegion 60x60/60mm x 60mm:	"          "
+*PageRegion 57X1/57mm:			"          "
+*PageRegion 58X1/58mm:			"          "
+*CloseUI: *PageRegion
+
+
+*DefaultImageableArea: 50x30
+*ImageableArea 30x30/30mm x 30mm:	"4.26 8.51 80.87 76.61"
+*ImageableArea 40x40/40mm x 40mm:	"4.26 8.51 109.24 104.99"
+*ImageableArea 40x50/40mm x 50mm:	"4.26 8.51 109.24 133.36"
+*ImageableArea 40x60/40mm x 60mm:	"4.26 8.51 109.24 161.73"
+*ImageableArea 50x30/50mm x 30mm:	"4.26 8.51 137.62 76.61"
+*ImageableArea 51x26/51mm x 26mm:	"4.26 8.51 139.74 64.20"
+*ImageableArea 60x60/60mm x 60mm:	"5.67 8.51 164.57 161.73"
+*ImageableArea 57X1/57mm:			"4.26 8.51 157.83 275.23"
+*ImageableArea 58X1/58mm:			"4.26 8.51 160.32 275.23"
+
+*%==== Information About Media Sizes ========
+*DefaultPaperDimension: 50x30
+*PaperDimension 30x30/30mm x 30mm:	"85.12 85.12"
+*PaperDimension 40x40/40mm x 40mm:	"113.50 113.50"
+*PaperDimension 40x50/40mm x 50mm:	"113.50 141.87"
+*PaperDimension 40x60/40mm x 60mm:	"113.50 170.25"
+*PaperDimension 50x30/50mm x 30mm:	"141.87 85.12"
+*PaperDimension 51x26/51mm x 26mm:	"144.00 72.71"
+*PaperDimension 60x60/60mm x 60mm:	"170.25 170.25"
+*PaperDimension 57X1/57mm:			"162.09 283.74"
+*PaperDimension 58X1/58mm:			"164.57 283.74"
+
+
+*OpenUI *BrMargin/Feed(invalid for Die-Cut tape): PickOne
+*OrderDependency: 23 AnySetup  *BrMargin
+*DefaultBrMargin: 3
+*BrMargin 3/3 mm: "          "
+*BrMargin 4/4 mm: "          "
+*BrMargin 5/5 mm: "          "
+*BrMargin 6/6 mm: "          "
+*BrMargin 7/7 mm: "          "
+*BrMargin 8/8 mm: "          "
+*BrMargin 9/9 mm: "          "
+*BrMargin 10/10 mm: "          "
+*BrMargin 11/11 mm: "          "
+*BrMargin 12/12 mm: "          "
+*BrMargin 13/13 mm: "          "
+*BrMargin 14/14 mm: "          "
+*BrMargin 15/15 mm: "          "
+*BrMargin 16/16 mm: "          "
+*BrMargin 17/17 mm: "          "
+*BrMargin 18/18 mm: "          "
+*BrMargin 19/19 mm: "          "
+*BrMargin 20/20 mm: "          "
+*BrMargin 21/21 mm: "          "
+*BrMargin 22/22 mm: "          "
+*BrMargin 23/23 mm: "          "
+*BrMargin 24/24 mm: "          "
+*BrMargin 25/25 mm: "          "
+*BrMargin 26/26 mm: "          "
+*BrMargin 27/27 mm: "          "
+*BrMargin 28/28 mm: "          "
+*BrMargin 29/29 mm: "          "
+*BrMargin 30/30 mm: "          "
+*CloseUI: *BrMargin
+
+*OpenUI *BrPriority/Quality: PickOne
+*OrderDependency: 22 AnySetup  *BrPriority
+*DefaultBrPriority: BrSpeed
+*BrPriority BrSpeed/Give priority to print speed 203*203dpi: "          "
+*BrPriority BrQuality/Give priority to print quality 203*203dpi: "          "
+*CloseUI: *BrPriority
+
+*% added start printing/Compress for QL720NW
+*OpenUI *BrCompress/Start printing: PickOne
+*OrderDependency: 23 AnySetup  *BrCompress
+*DefaultBrCompress: OFF
+*BrCompress OFF/Immediately after starting to receive data: "          "
+*BrCompress ON/After one page of data is received: "          "
+*CloseUI: *BrCompress
+
+*CloseGroup: Basic
+
+
+*OpenGroup: Option
+*% added for QL720NW
+*%OpenUI *BrCutLabel/Cut every: PickOne
+*%OrderDependency: 23 AnySetup  *BrCutLabel
+*%DefaultBrCutLabel: 1
+*%BrCutLabel 0/OFF: "          "
+*%BrCutLabel 1/1 label: "          "
+*%BrCutLabel 2/2 labels: "          "
+*%BrCutLabel 3/3 labels: "          "
+*%BrCutLabel 4/4 labels: "          "
+*%BrCutLabel 5/5 labels: "          "
+*%BrCutLabel 6/6 labels: "          "
+*%BrCutLabel 7/7 labels: "          "
+*%BrCutLabel 8/8 labels: "          "
+*%BrCutLabel 9/9 labels: "          "
+*%BrCutLabel 10/10 labels: "          "
+*%BrCutLabel 11/11 labels: "          "
+*%BrCutLabel 12/12 labels: "          "
+*%BrCutLabel 13/13 labels: "          "
+*%BrCutLabel 14/14 labels: "          "
+*%BrCutLabel 15/15 labels: "          "
+*%BrCutLabel 16/16 labels: "          "
+*%BrCutLabel 17/17 labels: "          "
+*%BrCutLabel 18/18 labels: "          "
+*%BrCutLabel 19/19 labels: "          "
+*%BrCutLabel 20/20 labels: "          "
+*%BrCutLabel 21/21 labels: "          "
+*%BrCutLabel 22/22 labels: "          "
+*%BrCutLabel 23/23 labels: "          "
+*%BrCutLabel 24/24 labels: "          "
+*%BrCutLabel 25/25 labels: "          "
+*%BrCutLabel 26/26 labels: "          "
+*%BrCutLabel 27/27 labels: "          "
+*%BrCutLabel 28/28 labels: "          "
+*%BrCutLabel 29/29 labels: "          "
+*%BrCutLabel 30/30 labels: "          "
+*%CloseUI: *BrCutLabel
+
+
+*%  added Cut At End for QL720NW
+*%OpenUI *BrCutAtEnd/Cut at end: PickOne
+*%OrderDependency: 21 AnySetup  *BrCutAtEnd
+*%DefaultBrCutAtEnd: ON
+*%BrCutAtEnd OFF/OFF: "          "
+*%BrCutAtEnd ON/ON: "          "
+*%CloseUI: *BrCutAtEnd
+
+*%=====  Added trim tape for QL720NW... =====
+*OpenUI *BrTrimtape/Trim tape after data: PickOne
+*OrderDependency: 21 AnySetup  *BrTrimtape
+*DefaultBrTrimtape: OFF
+*BrTrimtape OFF/OFF: "          "
+*BrTrimtape ON/ON: "          "
+*CloseUI: *BrTrimtape
+*%===== ... Added trim tape for QL720NW =====
+
+
+*OpenUI *BrMirror/Mirror Printing: PickOne
+*OrderDependency: 21 AnySetup  *BrMirror
+*DefaultBrMirror: OFF
+*BrMirror OFF/OFF: "          "
+*BrMirror ON/ON: "          "
+*CloseUI: *BrMirror
+
+*OpenUI *BrRotate/Rotate Printing: PickOne
+*OrderDependency: 21 AnySetup  *BrRotate
+*DefaultBrRotate: OFF
+*BrRotate OFF/OFF: "          "
+*BrRotate ON/ON: "          "
+*CloseUI: *BrRotate
+
+*OpenUI *BrPeeler/Peeler: PickOne
+*OrderDependency: 21 AnySetup  *BrPeeler
+*DefaultBrPeeler: OFF
+*BrPeeler OFF/OFF: "          "
+*BrPeeler ON/ON: "          "
+*CloseUI: *BrPeeler
+
+*CloseGroup: Option
+
+*%==== Custom Page Sizes ====================
+*%NonUIOrderDependency: 40 AnySetup *CustomPageSize
+*%VariablePaperSize: True
+*%LeadingEdge Short: "          "
+*%DefaultLeadingEdge: Short
+*%MaxMediaWidth: "612"
+*%MaxMediaHeight: "1008"
+*%HWMargins: 12 12 12 12
+*%CustomPageSize True: "
+*%	<</BRCustomPageSize true>> setpagedevice
+*%	pop pop pop
+*%	<< /PageSize [ 5 -2 roll ] /ImagingBBox null >>
+*%	setpagedevice
+*%"
+*%End
+*%ParamCustomPageSize Width: 1 points 284 612
+*%ParamCustomPageSize Height: 2 points 595 1008
+*%ParamCustomPageSize WidthOffset: 3 points 0 0
+*%ParamCustomPageSize HeightOffset: 4 points 0 0
+*%ParamCustomPageSize Orientation: 5 int 0 3
+
+*%=== Paper Feed================================
+*%OpenUI *InputSlot: PickOne
+*%OrderDependency: 13 AnySetup *InputSlot
+*%DefaultInputSlot: AutoSelect
+*%InputSlot AutoSelect/Auto Select: 	"          "
+*%InputSlot Tray1/Tray1: 		"          "
+*%InputSlot Manual/Manual: 		"          "
+*%CloseUI: *InputSlot
+
+*%==== Resolution Features =================================
+*%OpenUI *Resolution/Resolution: PickOne
+*%OrderDependency: 14 AnySetup *Resolution
+*%DefaultResolution: Normal
+*%Resolution	Normal/Normal(203 * 203dpi): 	"          "
+*%CloseUI: *Resolution
+
+*%=== Media Type ================================
+*%OpenUI *MediaType/Media Type: PickOne
+*%OrderDependency: 17 AnySetup *MediaType
+*%DefaultMediaType: Plain
+*%MediaType Plain/Plain Paper: "          "
+*%MediaType Thin/Thin Paper: "          "
+*%MediaType Thick/Thick Paper: "          "
+*%MediaType Thicker/Thicker Paper: "          "
+*%MediaType Transparencies/Transparencies: "          "
+*%MediaType Recycled/Recycled Paper: "          "
+*%CloseUI: *MediaType
+
+*%#S1
+
+*OpenGroup: Advanced
+
+*OpenUI *BrHalftonePattern/Halftone: PickOne
+*OrderDependency: 24 AnySetup  *BrHalftonePattern
+*DefaultBrHalftonePattern: BrErrorDiffusion
+*BrHalftonePattern BrBinary/Binary: "          "
+*BrHalftonePattern BrDither/Dither: "          "
+*BrHalftonePattern BrErrorDiffusion/Error Diffusion: "          "
+*CloseUI: *BrHalftonePattern
+
+*OpenUI *BrBrightness/Brightness: PickOne
+*OrderDependency: 25 AnySetup  *BrBrightness
+*DefaultBrBrightness: 0
+*BrBrightness 50/50: "          "
+*BrBrightness 49/49: "          "
+*BrBrightness 48/48: "          "
+*BrBrightness 47/47: "          "
+*BrBrightness 46/46: "          "
+*BrBrightness 45/45: "          "
+*BrBrightness 44/44: "          "
+*BrBrightness 43/43: "          "
+*BrBrightness 42/42: "          "
+*BrBrightness 41/41: "          "
+*BrBrightness 40/40: "          "
+*BrBrightness 39/39: "          "
+*BrBrightness 38/38: "          "
+*BrBrightness 37/37: "          "
+*BrBrightness 36/36: "          "
+*BrBrightness 35/35: "          "
+*BrBrightness 34/34: "          "
+*BrBrightness 33/33: "          "
+*BrBrightness 32/32: "          "
+*BrBrightness 31/31: "          "
+*BrBrightness 30/30: "          "
+*BrBrightness 29/29: "          "
+*BrBrightness 28/28: "          "
+*BrBrightness 27/27: "          "
+*BrBrightness 26/26: "          "
+*BrBrightness 25/25: "          "
+*BrBrightness 24/24: "          "
+*BrBrightness 23/23: "          "
+*BrBrightness 22/22: "          "
+*BrBrightness 21/21: "          "
+*BrBrightness 20/20: "          "
+*BrBrightness 19/19: "          "
+*BrBrightness 18/18: "          "
+*BrBrightness 17/17: "          "
+*BrBrightness 16/16: "          "
+*BrBrightness 15/15: "          "
+*BrBrightness 14/14: "          "
+*BrBrightness 13/13: "          "
+*BrBrightness 12/12: "          "
+*BrBrightness 11/11: "          "
+*BrBrightness 10/10: "          "
+*BrBrightness 9/9: "          "
+*BrBrightness 8/8: "          "
+*BrBrightness 7/7: "          "
+*BrBrightness 6/6: "          "
+*BrBrightness 5/5: "          "
+*BrBrightness 4/4: "          "
+*BrBrightness 3/3: "          "
+*BrBrightness 2/2: "          "
+*BrBrightness 1/1: "          "
+*BrBrightness 0/0: "          "
+*BrBrightness -1/-1: "          "
+*BrBrightness -2/-2: "          "
+*BrBrightness -3/-3: "          "
+*BrBrightness -4/-4: "          "
+*BrBrightness -5/-5: "          "
+*BrBrightness -6/-6: "          "
+*BrBrightness -7/-7: "          "
+*BrBrightness -8/-8: "          "
+*BrBrightness -9/-9: "          "
+*BrBrightness -10/-10: "          "
+*BrBrightness -11/-11: "          "
+*BrBrightness -12/-12: "          "
+*BrBrightness -13/-13: "          "
+*BrBrightness -14/-14: "          "
+*BrBrightness -15/-15: "          "
+*BrBrightness -16/-16: "          "
+*BrBrightness -17/-17: "          "
+*BrBrightness -18/-18: "          "
+*BrBrightness -19/-19: "          "
+*BrBrightness -20/-20: "          "
+*BrBrightness -21/-21: "          "
+*BrBrightness -22/-22: "          "
+*BrBrightness -23/-23: "          "
+*BrBrightness -24/-24: "          "
+*BrBrightness -25/-25: "          "
+*BrBrightness -26/-26: "          "
+*BrBrightness -27/-27: "          "
+*BrBrightness -28/-28: "          "
+*BrBrightness -29/-29: "          "
+*BrBrightness -30/-30: "          "
+*BrBrightness -31/-31: "          "
+*BrBrightness -32/-32: "          "
+*BrBrightness -33/-33: "          "
+*BrBrightness -34/-34: "          "
+*BrBrightness -35/-35: "          "
+*BrBrightness -36/-36: "          "
+*BrBrightness -37/-37: "          "
+*BrBrightness -38/-38: "          "
+*BrBrightness -39/-39: "          "
+*BrBrightness -40/-40: "          "
+*BrBrightness -41/-41: "          "
+*BrBrightness -42/-42: "          "
+*BrBrightness -43/-43: "          "
+*BrBrightness -44/-44: "          "
+*BrBrightness -45/-45: "          "
+*BrBrightness -46/-46: "          "
+*BrBrightness -47/-47: "          "
+*BrBrightness -48/-48: "          "
+*BrBrightness -49/-49: "          "
+*BrBrightness -50/-50: "          "
+*CloseUI: *BrBrightness
+
+*OpenUI *BrContrast/Contrast: PickOne
+*OrderDependency: 26 AnySetup  *BrContrast
+*DefaultBrContrast: 0
+*BrContrast 50/50: "          "
+*BrContrast 49/49: "          "
+*BrContrast 48/48: "          "
+*BrContrast 47/47: "          "
+*BrContrast 46/46: "          "
+*BrContrast 45/45: "          "
+*BrContrast 44/44: "          "
+*BrContrast 43/43: "          "
+*BrContrast 42/42: "          "
+*BrContrast 41/41: "          "
+*BrContrast 40/40: "          "
+*BrContrast 39/39: "          "
+*BrContrast 38/38: "          "
+*BrContrast 37/37: "          "
+*BrContrast 36/36: "          "
+*BrContrast 35/35: "          "
+*BrContrast 34/34: "          "
+*BrContrast 33/33: "          "
+*BrContrast 32/32: "          "
+*BrContrast 31/31: "          "
+*BrContrast 30/30: "          "
+*BrContrast 29/29: "          "
+*BrContrast 28/28: "          "
+*BrContrast 27/27: "          "
+*BrContrast 26/26: "          "
+*BrContrast 25/25: "          "
+*BrContrast 24/24: "          "
+*BrContrast 23/23: "          "
+*BrContrast 22/22: "          "
+*BrContrast 21/21: "          "
+*BrContrast 20/20: "          "
+*BrContrast 19/19: "          "
+*BrContrast 18/18: "          "
+*BrContrast 17/17: "          "
+*BrContrast 16/16: "          "
+*BrContrast 15/15: "          "
+*BrContrast 14/14: "          "
+*BrContrast 13/13: "          "
+*BrContrast 12/12: "          "
+*BrContrast 11/11: "          "
+*BrContrast 10/10: "          "
+*BrContrast 9/9: "          "
+*BrContrast 8/8: "          "
+*BrContrast 7/7: "          "
+*BrContrast 6/6: "          "
+*BrContrast 5/5: "          "
+*BrContrast 4/4: "          "
+*BrContrast 3/3: "          "
+*BrContrast 2/2: "          "
+*BrContrast 1/1: "          "
+*BrContrast 0/0: "          "
+*BrContrast -1/-1: "          "
+*BrContrast -2/-2: "          "
+*BrContrast -3/-3: "          "
+*BrContrast -4/-4: "          "
+*BrContrast -5/-5: "          "
+*BrContrast -6/-6: "          "
+*BrContrast -7/-7: "          "
+*BrContrast -8/-8: "          "
+*BrContrast -9/-9: "          "
+*BrContrast -10/-10: "          "
+*BrContrast -11/-11: "          "
+*BrContrast -12/-12: "          "
+*BrContrast -13/-13: "          "
+*BrContrast -14/-14: "          "
+*BrContrast -15/-15: "          "
+*BrContrast -16/-16: "          "
+*BrContrast -17/-17: "          "
+*BrContrast -18/-18: "          "
+*BrContrast -19/-19: "          "
+*BrContrast -20/-20: "          "
+*BrContrast -21/-21: "          "
+*BrContrast -22/-22: "          "
+*BrContrast -23/-23: "          "
+*BrContrast -24/-24: "          "
+*BrContrast -25/-25: "          "
+*BrContrast -26/-26: "          "
+*BrContrast -27/-27: "          "
+*BrContrast -28/-28: "          "
+*BrContrast -29/-29: "          "
+*BrContrast -30/-30: "          "
+*BrContrast -31/-31: "          "
+*BrContrast -32/-32: "          "
+*BrContrast -33/-33: "          "
+*BrContrast -34/-34: "          "
+*BrContrast -35/-35: "          "
+*BrContrast -36/-36: "          "
+*BrContrast -37/-37: "          "
+*BrContrast -38/-38: "          "
+*BrContrast -39/-39: "          "
+*BrContrast -40/-40: "          "
+*BrContrast -41/-41: "          "
+*BrContrast -42/-42: "          "
+*BrContrast -43/-43: "          "
+*BrContrast -44/-44: "          "
+*BrContrast -45/-45: "          "
+*BrContrast -46/-46: "          "
+*BrContrast -47/-47: "          "
+*BrContrast -48/-48: "          "
+*BrContrast -49/-49: "          "
+*BrContrast -50/-50: "          "
+*CloseUI: *BrContrast
+
+*CloseGroup: Advanced
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Special ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Alaska: Standard "(001.005)" Standard ROM
+*Font AlaskaExtrabold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Bold: Standard "(001.005)" Standard ROM
+*Font AntiqueOakland-Oblique: Standard "(001.005)" Standard ROM
+*Font ClevelandCondensed: Standard "(001.005)" Standard ROM
+*Font Connecticut: Standard "(001.005)" Standard ROM
+*Font Guatemala-Antique: Standard "(001.005)" Standard ROM
+*Font Guatemala-Bold: Standard "(001.005)" Standard ROM
+*Font Guatemala-Italic: Standard "(001.005)" Standard ROM
+*Font Guatemala-BoldItalic: Standard "(001.005)" Standard ROM
+
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Oblique: Standard "(001.005)" Standard ROM
+*Font Maryland: Standard "(001.005)" Standard ROM
+*Font Oklahoma: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Bold: Standard "(001.005)" Standard ROM
+*Font Oklahoma-Oblique: Standard "(001.005)" Standard ROM
+*Font Oklahoma-BoldOblique: Standard "(001.005)" Standard ROM
+*Font Utah: Standard "(001.005)" Standard ROM
+*Font Utah-Bold: Standard "(001.005)" Standard ROM
+*Font Utah-Oblique: Standard "(001.005)" Standard ROM
+*Font Utah-BoldOblique: Standard "(001.005)" Standard ROM
+*Font UtahCondensed: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Bold: Standard "(001.005)" Standard ROM
+*Font UtahCondensed-Oblique: Standard "(001.004)" Standard ROM
+*Font UtahCondensed-BoldOblique: Standard "(001.005)" Standard ROM
+*Font BermudaScript: Standard "(001.005)" Standard ROM
+*Font Germany: Standard "(001.005)" Standard ROM
+*Font SanDiego: Standard "(001.005)" Standard ROM
+*Font US-Roman: Standard "(001.005)" Standard ROM
+
+

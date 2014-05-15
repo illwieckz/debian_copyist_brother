@@ -1,0 +1,100 @@
+# /bin/sh
+
+#
+#  This script is configured for the Ubuntu 6.0.6
+#     with rpm/librpm/librpm-dev 4.2.
+#  Default rpm is 4.4.1 , so it is needed to replace them.
+#  (rpm 4.4.2 does not work with epm 3.7.)
+#
+
+if [ "$1" = '1' ];then
+	LISTFILE=brscan
+elif [ "$1" = '2' ];then
+	LISTFILE=brscan2
+else
+	echo ERROR
+	echo usage:  makerpm [1/2] [r/d]
+	exit 0
+fi
+
+BUILDDIR=/usr/src/rpm/RPMS/i386
+
+
+if [ "$2" = 'r' ];then
+	dstr='r'
+elif [ "$2" = 'd' ];then
+	dstr='d'
+else
+	if [ "`which dpkg 2>nul`" != '' ];then
+	    	dstr='d'
+	elif [ "`which rpm 2>nul`" != '' ];then
+	        dstr='r'
+	else
+		echo ERROR
+		echo usage:  makerpm [1/2] [r/d]
+		exit 0
+	fi
+fi
+
+
+if [ $dstr = 'r' ];then
+	PACK_FORMAT=rpm
+elif [ $dstr = 'd' ];then
+	PACK_FORMAT=deb
+else
+	echo ERROR
+	echo usage:  makerpm [1/2] [r/d]
+	exit 0
+fi
+
+
+
+VER=`cat $LISTFILE.list | grep "%version" | sed s/'%version '//g`
+RELEASE_NUM=`cat $LISTFILE.list | grep %release| sed s/'%release '//g`
+
+OS=redhat
+RELEASE_DIR=linux-2.6-intel
+
+rm -fR  $RELEASE_DIR/buildroot
+
+echo ""
+echo Version = $VER
+echo Relese Number = $RELEASE_NUM
+echo ""
+
+if [ $dstr = 'r' ];then
+	if [ "$RELEASE_NUM" = "0" ]
+	then
+		SRC_NAME=linux-2.6-intel.rpm
+	else
+		SRC_NAME=`echo NUM-linux-2.6-intel.rpm | eval sed 's/NUM/"$RELEASE_NUM"/'`
+	fi
+elif [ $dstr = 'd' ];then
+	if [ "$RELEASE_NUM" = "0" ]
+	then
+		SRC_NAME=linux-2.6-intel.deb
+	else
+		SRC_NAME=`echo NUM-linux-2.6-intel.deb | eval sed 's/NUM/"$RELEASE_NUM"/'`
+	fi
+fi
+
+DST_NAME=`echo TEMP1.i386.TEMP2 | eval sed -e 's/TEMP1/"$RELEASE_NUM"/' -e 's/TEMP2/"$PACK_FORMAT"/'`
+
+
+epm -f $PACK_FORMAT $LISTFILE
+if [ $dstr = 'r' ];then
+  mv $RELEASE_DIR/$LISTFILE.spec  $RELEASE_DIR/$LISTFILE.spec.org
+  cat $RELEASE_DIR/$LISTFILE.spec.org |  \
+     sed s/"^Copyright:"/"License: Copyright "/ > $RELEASE_DIR/$LISTFILE.spec
+  rpmbuild  -v -bb  $RELEASE_DIR/$LISTFILE.spec
+  cp $BUILDDIR/"$LISTFILE"-"$VER"-"$RELEASE_NUM".i386.rpm $RELEASE_DIR
+  mv $BUILDDIR/"$LISTFILE"-"$VER"-"$RELEASE_NUM".i386.rpm ../RELEASE
+  exit 0
+fi
+
+PACKAGE=`echo $RELEASE_DIR/TEMP1-TEMP2-TEMP3 | eval sed 's/TEMP1/"$LISTFILE"/' | eval sed 's/TEMP2/"$VER"/'`
+PACKAGE1=`echo $PACKAGE | eval sed 's/TEMP3/"$SRC_NAME"/'`
+PACKAGE2=`echo $PACKAGE | eval sed 's/TEMP3/"$DST_NAME"/'`
+
+mv $PACKAGE1 $PACKAGE2
+
