@@ -5,7 +5,7 @@ Brother™ distributes drivers as Red Hat packages (`.rpm`) and Debian packages 
 
 Debian packages seems to contain more meta-information than Red Hat packages (the `DEBIAN/control` file).
 
-File organization is messy, some packages installs in `/opt`, others in `/usr/local`. Those path are hardcoded inside binaries that do not have source.
+File organization is messy, some packages install files in `/opt`, others in `/usr/local`. Those path are hardcoded inside binaries that do not have source.
 
 For some printers, drivers are distributed as only one non-packaged gzipped ppd (`.ppd.gz`).
 
