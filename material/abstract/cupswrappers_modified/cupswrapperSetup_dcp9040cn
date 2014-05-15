@@ -34,7 +34,7 @@ tmp_filter=filters/brlpdwrapper${printer_model}
 cat <<!ENDOFWFILTER! >$tmp_filter
 #! /bin/sh
 #
-# Brother Print filter  >>
+# Brother Print filter
 # Copyright (C) 2005 Brother. Industries, Ltd.
 #                                    Ver1.10
 
