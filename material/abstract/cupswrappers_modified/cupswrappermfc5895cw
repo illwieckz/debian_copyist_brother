@@ -24,7 +24,9 @@ device_name=`echo $printer_name | eval sed -e 's/MFC/MFC-/' -e 's/DCP/DCP-/' -e 
 pcfilename=`echo $printer_name | tr -d '[A-Z]'`
 device_model="Printer"
 tmp_filter=filters/brlpdwrapper${printer_model}
-# ppd_file_name=ppds/br${printer_model}.ppd
+# 
+
+ppd_file_name=ppds/br${printer_model}.ppd
 
 #
 #	create temporary CUPS Filter

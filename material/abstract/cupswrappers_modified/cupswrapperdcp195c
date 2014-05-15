@@ -172,6 +172,4 @@ rm -f  \$INPUT_TEMP_PS
 exit $errorcode
 !ENDOFWFILTER!
 
-chmod 755 $tmp_filter
-
 exit 0

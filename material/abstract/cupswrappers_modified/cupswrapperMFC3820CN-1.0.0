@@ -586,7 +586,6 @@ set brotherlpdwrapper=filters/brlpdwrapperMFC3820CN
 
 touch $brotherlpdwrapper
 
-echo 'rm -f /usr/lib/cups/filter/brlpdwrapperMFC3820CN'
 echo  '#! /bin/csh'  >>  $brotherlpdwrapper
 echo  '#'  >>  $brotherlpdwrapper
 echo  '# Brother Print filter  '  >>  $brotherlpdwrapper

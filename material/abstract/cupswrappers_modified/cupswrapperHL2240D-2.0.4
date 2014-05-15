@@ -301,13 +301,6 @@ restore
 
 ENDOFPPDFILE
 
-chmod 755  $ppd_file_name
-if [ -e '/usr/share/ppd' ];then
-  if [ -e '/usr/share/cups/model' ];then
-    cp  $ppd_file_name  /usr/share/ppd
-  fi
-fi
-
 brotherlpdwrapper=filters/brlpdwrapperHL2240D
 
 cat <<!ENDOFWFILTER! >$brotherlpdwrapper
