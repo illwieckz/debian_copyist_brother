@@ -23,7 +23,7 @@ printer_name=`echo $printer_model | tr '[a-z]' '[A-Z]'`
 device_name=`echo $printer_name | eval sed -e 's/MFC/MFC-/' -e 's/DCP/DCP-/' -e 's/FAX/FAX-/'`
 pcfilename=`echo $printer_name | tr -d '[A-Z]'`
 device_model="Printer"
-ppd_file_name=filters/br${printer_model}.ppd
+ppd_file_name=ppds/br${printer_model}.ppd
 
 cat <<ENDOFPPDFILE_END >$ppd_file_name
 *PPD-Adobe: "4.3"
