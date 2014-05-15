@@ -68,7 +68,7 @@ fi
 PPDC=\`printenv | grep "PPD="\`
 PPDC=\`echo \$PPDC | sed -e 's/PPD=//'\`
 
-if [ "\$PPDC" = " ]; then
+if [ "\$PPDC" = "" ]; then
     PPDC="/usr/share/cups/model/Brother/brother_${printer_model}_printer_en.ppd"
 fi
 
