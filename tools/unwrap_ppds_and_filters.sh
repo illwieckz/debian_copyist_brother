@@ -8,7 +8,7 @@ else
 fi
 
 modified_cupswrapper_dir="${WORKSPACE}/abstract/cupswrappers_modified/"
-unwrap_dir="${WORKSPACE}/abstract/generated_content_original/"
+unwrap_dir="${WORKSPACE}/abstract/generated_content/"
 mkdir -p "${modified_cupswrapper_dir}"
 mkdir -p "${unwrap_dir}"
 
