@@ -22,6 +22,8 @@ Also this driver assume that the Brother printer is known as `/dev/usb/lp0`. If 
 
 Some other driver use named path, for example `cupswrapperMFC7820N-2.0.1` assume that the USB device is `usb://Brother/MFC-7820N` using `usb:/dev/usb/lp0` only as a fallbacck. Because the existence of this fallback, the driver assumes that the printer is used even when the USB name is not available on the system, so the driver can’t be installed if the printer is not really used.
 
+Some printers (like the TD-2020) have two drivers for [SI unit](http://en.wikipedia.org/wiki/International_System_of_Unit) (_mm_) or [Imperial units](http://en.wikipedia.org/wiki/Imperial_units) (_inch_), those drivers overwrite others.
+
 Mutualisation
 -------------
 
