@@ -1,0 +1,518 @@
+#! /bin/csh
+#
+# Brother Print filter  
+# Copyright (C) 2004 Brother. Industries, Ltd.
+#                                    Ver0.80
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+
+set  LOGFILE=/dev/null
+set  LOGLEVEL=1
+set  DEBUG=0
+set  LOG_LATESTONLY=1
+set  errorcode=0
+
+if($DEBUG != 0) then
+    set  LOGFILE=/tmp/br_cupsfilter_debug_log
+endif
+
+set  PRINTER=MFC3320CN
+
+
+if ( `printenv | grep "PPD="` == ") then
+    set  PPD = "/usr/share/cups/model/brmfc3320cn_cups.ppd"
+endif
+
+
+set BRPRINTCONFIG=brprintconfij
+
+set printerdefaults = ( \
+		    "$BRPRINTCONFIG -P $PRINTER  -md PLAIN" \
+		    "$BRPRINTCONFIG -P $PRINTER  -reso 300" \
+		    "$BRPRINTCONFIG -P $PRINTER  -bidir ON" \
+		    "$BRPRINTCONFIG -P $PRINTER  -pt A4" \
+		    "$BRPRINTCONFIG -P $PRINTER  -thick  REGULAR" \
+		    "$BRPRINTCONFIG -P $PRINTER  -ps AUTO" \
+		    "$BRPRINTCONFIG -P $PRINTER  -copy 1" \
+		    "$BRPRINTCONFIG -P $PRINTER  -corm COLOR" \
+		    "$BRPRINTCONFIG -P $PRINTER  -doc PHOTO" \
+		    "$BRPRINTCONFIG -P $PRINTER  -cm NATURAL" \
+		    "$BRPRINTCONFIG -P $PRINTER  -ht DIFFUSION" \
+		    "$BRPRINTCONFIG -P $PRINTER  -ce OFF" \
+		    "$BRPRINTCONFIG -P $PRINTER  -brit 0" \
+		    "$BRPRINTCONFIG -P $PRINTER  -cont 0" \
+		    "$BRPRINTCONFIG -P $PRINTER  -red 0" \
+		    "$BRPRINTCONFIG -P $PRINTER  -green 0" \
+		    "$BRPRINTCONFIG -P $PRINTER  -blue 0" \
+		    Z \
+                )
+
+set brcommands = ( \
+    Media=PlainPaper		"-md PLAIN"   \
+    Media=InkjetPaper		"-md INKJET"   \
+    Media=Glossy4		"-md GLOSSY4"   \
+    Media=Glossy3		"-md GLOSSY3"   \
+    Media=Transpare		"-md TRANS"   \
+    Media=TranspareMirror	"-md TRANSMIR"   \
+    Resolution=300		"-reso 300"   \
+    Resolution=600		"-reso 600"   \
+    Resolution=1200		"-reso 1200"   \
+    Resolution=1200x600		"-reso 1200x600"   \
+    Bi-DirPrinting=OFF		"-bidir OFF"   \
+    Bi-DirPrinting=ON	        "-bidir ON"   \
+    PaperType=A4		"-pt A4"   \
+    PaperType=Letter		"-pt LT"   \
+    PaperType=Legal		"-pt LGL"   \
+    PaperType=Exective		"-pt EXE"   \
+    PaperType=B5		"-pt B5"   \
+    PaperType=A5		"-pt A5"   \
+    PaperType=A6		"-pt A6"   \
+    PaperType=PostCard		"-pt POSTC"   \
+    PaperType=IndexCard		"-pt INDEXC"   \
+    PaperType=PhotoL		"-pt PHOTOL"   \
+    PaperType=Photo2L		"-pt PHOTO2L"   \
+    PaperType=Hagaki		"-pt HAGAKI"   \
+    PaperType=DblHagaki		"-pt DBLHAGAKI"   \
+    PaperType=C5		"-pt C5"   \
+    PaperType=EnvC5		"-pt C5"   \
+    PaperType=DL		"-pt DL"   \
+    PaperType=EnvDL		"-pt DL"   \
+    PaperType=Com-10		"-pt COM-10"   \
+    PaperType=COM10		"-pt COM-10"   \
+    PaperType=COM-10		"-pt COM-10"   \
+    PaperType=Env10		"-pt COM-10"   \
+    PaperType=EnvCOM10		"-pt COM-10"   \
+    PaperType=Monarch		"-pt MONARCH"   \
+    PaperType=EnvMonarch	"-pt MONARCH"   \
+    PaperType=Youkei4		"-pt YOUKEI4"   \
+    PaperThickness=Regular	"-thick REGULAR"   \
+    PaperThickness=Thick	"-thick THICK"   \
+    PaperSource=MANUAL		"-ps MANUAL"   \
+    PaperSource=AUTO		"-ps AUTO"   \
+    ColorOrMono=Mono		"-corm MONO"   \
+    ColorOrMono=Color		"-corm COLOR"   \
+    Document=PHOTO		"-doc PHOTO"   \
+    Document=GRAPH		"-doc GRAPH"   \
+    Document=CUSTOM		"-doc CUSTOM"   \
+    ColorMatching=NATURAL	"-cm NATURAL"   \
+    ColorMatching=VIVID		"-cm VIVID"   \
+    ColorMatching=NONE		"-cm NONE"   \
+    HalfTone=DIFFUSION		"-ht DIFFUSION" \
+    HalfTone=DITHER		"-ht DITHER"   \
+    ColorEnhance=OFF		"-ce OFF"   \
+    ColorEnhance=ON		"-ce ON"   \
+    Z                           Z)
+
+set brcommands2 = (\
+    Copies=			"-copy "   \
+    Brightness=			"-brit "   \
+    Contrast=			"-cont "  \
+    RedKey=			"-red "   \
+    GreenKey=			"-green "   \
+    BlueKey=			"-blue "   \
+    Z                            Z)
+
+
+set StandardCUPSoptions = ( \
+    media=PlainPaper		"-md PLAIN"   \
+    media=InkjetPaper		"-md INKJET"   \
+    media=Glossy4		"-md GLOSSY4"   \
+    media=Glossy3		"-md GLOSSY3"   \
+    media=Transpare		"-md TRANS"   \
+    media=TranspareMirror	"-md TRANSMIR"   \
+    media=A4			"-pt A4"   \
+    media=Letter		"-pt LT"   \
+    media=Legal			"-pt LGL"   \
+    media=Exective		"-pt EXE"   \
+    media=B5			"-pt B5"   \
+    media=A5			"-pt A5"   \
+    media=A6			"-pt A6"   \
+    media=PostCard		"-pt POSTC"   \
+    media=IndexCard		"-pt INDEXC"   \
+    media=PhotoL		"-pt PHOTOL"   \
+    media=Photo2L		"-pt PHOTO2L"   \
+    media=Hagaki		"-pt HAGAKI"   \
+    media=DblHagaki		"-pt DBLHAGAKI"   \
+    media=C5			"-pt C5"   \
+    media=EnvC5			"-pt C5"   \
+    media=DL			"-pt DL"   \
+    media=EnvDL			"-pt DL"   \
+    media=Com-10		"-pt COM-10"   \
+    media=COM10			"-pt COM-10"   \
+    media=COM-10		"-pt COM-10"   \
+    media=Env10			"-pt COM-10"   \
+    media=EnvCOM10		"-pt COM-10"   \
+    media=Monarch		"-pt MONARCH"   \
+    media=EnvMonarch		"-pt MONARCH"   \
+    media=Youkei4		"-pt YOUKEI4"   \
+    media=Regular		"-thick REGULAR"   \
+    media=Thick			"-thick THICK"   \
+    media=MANUAL		"-ps MANUAL"   \
+    media=AUTO			"-ps AUTO"   \
+    "media=.*,PlainPaper"	"-md PLAIN"   \
+    "media=.*,InkjetPaper"	"-md INKJET"   \
+    "media=.*,Glossy4"		"-md GLOSSY4"   \
+    "media=.*,Glossy3"		"-md GLOSSY3"   \
+    "media=.*,Transpare"	"-md TRANS"   \
+    "media=.*,TranspareMirror"	"-md TRANSMIR"   \
+    "media=.*,A4"		"-pt A4"   \
+    "media=.*,Letter"		"-pt LT"   \
+    "media=.*,Legal"		"-pt LGL"   \
+    "media=.*,Exective"		"-pt EXE"   \
+    "media=.*,B5"		"-pt B5"   \
+    "media=.*,A5"		"-pt A5"   \
+    "media=.*,A6"		"-pt A6"   \
+    "media=.*,PostCard"		"-pt POSTC"   \
+    "media=.*,IndexCard"	"-pt INDEXC"   \
+    "media=.*,PhotoL"		"-pt PHOTOL"   \
+    "media=.*,Photo2L"		"-pt PHOTO2L"   \
+    "media=.*,Hagaki"		"-pt HAGAKI"   \
+    "media=.*,DblHagaki"	"-pt DBLHAGAKI"   \
+    "media=.*,C5"		"-pt C5"   \
+    "media=.*,EnvC5"		"-pt C5"   \
+    "media=.*,DL"		"-pt DL"   \
+    "media=.*,EnvDL"		"-pt DL"   \
+    "media=.*,Com-10"		"-pt COM-10"   \
+    "media=.*,COM10"		"-pt COM-10"   \
+    "media=.*,COM-10"		"-pt COM-10"   \
+    "media=.*,Env10"		"-pt COM-10"   \
+    "media=.*,EnvCOM10"		"-pt COM-10"   \
+    "media=.*,Monarch"		"-pt MONARCH"   \
+    "media=.*,EnvMonarch"	"-pt MONARCH"   \
+    "media=.*,Youkei4"		"-pt YOUKEI4"   \
+    "media=.*,Regular"		"-thick REGULAR"   \
+    "media=.*,Thick"		"-thick THICK"   \
+    "media=.*,MANUAL"		"-ps MANUAL"   \
+    "media=.*,AUTO"		"-ps AUTO"   \
+    Z                            Z)
+
+
+
+set PPDdefault = ( \
+	"__PPDLABEL__"	"^\*DefaultPageSize" \
+	"DefaultPageSize" \
+                BrA4           		"-pt A4" \
+                BrLetter       		"-pt LT" \
+                BrLegal        		"-pt LGL" \
+                BrExecutive     	"-pt EXE" \
+                BrA5           		"-pt A5" \
+                BrA6           		"-pt A6" \
+                BrB5           		"-pt B5" \
+                BrB6           		"-pt B6" \
+                BrC5           		"-pt C5" \
+                BrDL           		"-pt DL" \
+                BrEnv10 	       	"-pt COM10" \
+                "Env Monarch"      	"-pt MONARCH" \
+		BrJISB5			"-pt B5" \
+		BrPostC4x6		"-pt POSTC" \
+		BrIndexC5x8		"-pt INDEXC" \
+		BrPhotoL		"-pt PHOTOL" \
+		BrPhoto2L		"-pt PHOTO2L" \
+		BrHagaki		"-pt HAGAKI" \
+		BrDoubleHagaki		"-pt DBLHAGAKI" \
+		BrC5			"-pt C5" \
+		BrDL			"-pt DL" \
+		BrCom10			"-pt COM-10" \
+		BrMonarch		"-pt MONARCH" \
+		BrYokei4		"-pt YOKEI4" \
+	"__PPDLABEL__"	"^\*DefaultResolution" \
+	"DefaultResolution" \
+		Normal			"-reso 300" \
+		Fine			"-reso 600" \
+		S\.Fine			"-reso 600" \
+		Photo			"-reso 600" \
+	"__PPDLABEL__"	"^\*DefaultBRColorMediaType" \
+	"DefaultBRColorMediaType" \
+		Plain			"-md PLAIN"   \
+		Inkjet			"-md INKJET"   \
+		Glossy4			"-md GLOSSY4"   \
+		Glossy3			"-md GLOSSY3"   \
+		Transparencies		"-md TRANS"   \
+		Transparencies.Mirror	"-md TRANSMIR"   \
+	"__PPDLABEL__"	"^\*DefaultBRColorPaperThick" \
+	"DefaultBRColorPaperThick" \
+		Regular			"-thick REGULAR"   \
+		Thick			"-thick THICK"   \
+	"__PPDLABEL__"	"^\*DefaultBRBiDir" \
+	"DefaultBRBiDir" \
+		OFF		"-bidir OFF"   \
+		ON		"-bidir ON"   \
+	"__PPDLABEL__"	"^\*DefaultBRDocument" \
+	"DefaultBRDocument" \
+		Photo		"-doc PHOTO"   \
+		Graphics	"-doc GRAPH"   \
+		Custom		"-doc CUSTOM"   \
+	"__PPDLABEL__"	"^\*DefaultBRColorMatching" \
+	"DefaultBRColorMatching" \
+		Natural		"-cm NATURAL"   \
+		Vivid		"-cm VIVID"   \
+		None		"-cm NONE"   \
+	"__PPDLABEL__"	"^\*DefaultBRHalfTonePattern" \
+	"DefaultBRHalfTonePattern" \
+		Diffusion	"-ht DIFFUSION"   \
+		Dither		"-ht DITHER"   \
+	"__PPDLABEL__"	"^\*DefaultBRColorEnhancement" \
+	"DefaultBRColorEnhancement" \
+		OFF		"-ce OFF"   \
+		ON		"-ce ON"   \
+	"__PPDLABEL__"	"^\*DefaultInputSlot" \
+	"^DefaultInputSlot" \
+		AutoSelect	"-ps AUTO"   \
+		Manual		"-ps MANUAL"   \
+	"__PPDLABEL__"	"^\*DefaultBRMonoColor" \
+	"DefaultBRMonoColor" \
+		Color		"-corm COLOR"   \
+		Mono		"-corm MONO"   \
+		Z			Z )
+
+
+	
+
+
+
+
+set PPDdefaultN = ( \
+	"^\*Default*BRBrightness" 	-brit=\
+	"^\*DefaultBRContrast" 		-cont=\
+	"^\*DefaultBRRed" 		-red=\
+	"^\*DefaultBRGreen" 		-green=\
+	"^\*DefaultBRBlue" 		-blue=\
+	Z )
+
+
+set PPDdefaultNValues = ( \
+	0	0	\
+	2	+2	\
+	1	+1	\
+	"\-2"	-2	\
+	"\-1"	-1	\
+	20	+20	\
+	19	+19	\
+	18	+18	\
+	17	+17	\
+	16	+16	\
+	15	+15	\
+	14	+14	\
+	13	+13	\
+	12	+12	\
+	11	+11	\
+	10	+10	\
+	9	+9	\
+	8	+8	\
+	7	+7	\
+	6	+6	\
+	5	+5	\
+	4	+4	\
+	3	+3	\
+	"\-20"	-20	\
+	"\-19"	-19	\
+	"\-18"	-18	\
+	"\-17"	-17	\
+	"\-16"	-16	\
+	"\-15"	-15	\
+	"\-14"	-14	\
+	"\-13"	-13	\
+	"\-12"	-12	\
+	"\-11"	-11	\
+	"\-10"	-10	\
+	"\-9"	-9	\
+	"\-8"	-8	\
+	"\-7"	-7	\
+	"\-6"	-6	\
+	"\-5"	-5	\
+	"\-4"	-4	\
+	"\-3"	-3	\
+	Z 	Z)
+
+
+
+if($LOGFILE != "/dev/null") then
+ if($LOG_LATESTONLY == "1") then
+    rm -f $LOGFILE
+    date                                                  >$LOGFILE
+ else
+    if(-e $LOGFILE) then
+	date                                             >>$LOGFILE
+    else
+	date                                              >$LOGFILE
+    endif
+ endif
+    echo "arg0 = $0"                                     >>$LOGFILE
+    echo "arg1 = $1"                                     >>$LOGFILE
+    echo "arg2 = $2"                                     >>$LOGFILE
+    echo "arg3 = $3"                                     >>$LOGFILE
+    echo "arg4 = $4"                                     >>$LOGFILE
+    echo "arg5 = $5"                                     >>$LOGFILE
+    echo "arg6 = $6"                                     >>$LOGFILE
+    echo "PPD  = $PPD"                                   >>$LOGFILE
+endif
+
+if(!(-e /usr/local/Brother/lpd/filterMFC3320CN)) then
+    echo "ERROR: /usr/local/Brother/lpd/filterMFC3320CN does not exist"                      >>$LOGFILE
+    set errorcode=30
+    exit $errorcode
+endif
+
+set  INPUT_TEMP_PS=`mktemp /tmp/br_input_ps.XXXXXX`
+if ($#argv >= 7) then
+	cp $6  $INPUT_TEMP_PS
+else
+	cat    > $INPUT_TEMP_PS
+endif
+
+
+if(-e "/usr/bin/$BRPRINTCONFIG") then
+
+    echo  "-------set printer defaults-------"               >>&"$LOGFILE"
+    set i = 1
+    while("$printerdefaults[$i]" != "Z")
+	$printerdefaults[$i]                                 >>&"$LOGFILE"
+	echo "$printerdefaults[$i]"                          >>&"$LOGFILE"
+        @ i ++
+    end
+
+
+
+    echo  "-------set Postscript defaults-------"               >>&"$LOGFILE"
+
+    set i = 1
+    set Default=XXXXX
+    set ppdlabel = YYYYY
+    while("$PPDdefault[$i]" != "Z")
+	if("$PPDdefault[$i]" == "__PPDLABEL__") then
+	    @ i ++
+	    set ppdlabel = "$PPDdefault[$i]"
+	    set Default=`grep "$ppdlabel"  "$PPD"`
+	    set Default=`echo "$Default" |sed s/" "//g |sed s/" "//g `
+	    @ i ++
+	    set ppdlabelref = "$PPDdefault[$i]"
+        endif
+	@ i ++
+	
+	set Default = `echo "$Default" | tr -d "*"`
+
+	while("$PPDdefault[$i]" != "Z" && "$PPDdefault[$i]" != "__PPDLABEL__"  )
+	    if(`echo "$Default" | grep "$ppdlabelref":"$PPDdefault[$i]"` != ") then	
+		@ i ++
+		echo "$BRPRINTCONFIG -P $PRINTER  $PPDdefault[$i]"     >>&"$LOGFILE"
+		$BRPRINTCONFIG -P $PRINTER  $PPDdefault[$i]            >>&"$LOGFILE"
+	    else
+		@ i ++
+	    endif
+	    @ i ++
+	end
+    end
+
+    echo  "-------set Postscript defaults [N]-------"               >>&"$LOGFILE"
+    set i = 1
+    set Default=XXXXX
+    set ppdlabel = YYYYY
+    while("$PPDdefaultN[$i]" != "Z")
+	set ppdlabel = "$PPDdefaultN[$i]"
+	set Default=`grep "$ppdlabel"  "$PPD"`
+	set ii = 1
+	@ i ++
+	if("$Default" != ") then
+	    set Default = `echo "$Default" | tr -d "*"`
+	    while("$PPDdefaultNValues[$ii]" != "Z")
+		set Default2 = `echo "$Default" | grep "$PPDdefaultNValues[$ii]"` 
+		@ ii ++
+		if( "$Default2" != ") then
+		    set PPDdefaultLabel = `echo "$PPDdefaultN[$i]" | tr -d "="`
+		    echo "$BRPRINTCONFIG -P $PRINTER  $PPDdefaultLabel $PPDdefaultNValues[$ii]"    >>&"$LOGFILE"
+		    $BRPRINTCONFIG       -P $PRINTER  $PPDdefaultLabel $PPDdefaultNValues[$ii]     >>&"$LOGFILE"
+		endif
+		@ ii ++
+	    end
+	endif
+	@ i ++
+    end
+
+
+    echo  "-------set options-------"               >>&"$LOGFILE"
+
+  set  INPUT_TEMP_LINE
+  set  INPUT_TEMP_OPTIONS=`mktemp /tmp/br_input.XXXXXX`
+
+  echo  $5 |tr " " n > $INPUT_TEMP_OPTIONS
+
+  set i = 1
+  while("$brcommands[$i]" != "Z")
+    if("`grep $brcommands[$i] $INPUT_TEMP_OPTIONS`" != ") then
+	@ i ++
+	$BRPRINTCONFIG -P $PRINTER  $brcommands[$i]                            >>&"$LOGFILE"
+	echo "$BRPRINTCONFIG -P $PRINTER  $brcommands[$i]"                     >>&"$LOGFILE"
+	@ i --
+    endif
+    @ i += 2
+  end
+
+
+  set i = 1
+  set ii = 2
+  while("$brcommands2[$i]" != "Z")
+    set INPUT_TEMP_LINE=`grep $brcommands2[$i] $INPUT_TEMP_OPTIONS`
+    if($INPUT_TEMP_LINE != ") then
+	set option_tmp=`echo  $INPUT_TEMP_LINE | sed s/"$brcommands2[$i]"/"$brcommands2[$ii]"/`
+	set command_and_arg="$BRPRINTCONFIG -P $PRINTER  $option_tmp"
+	echo $command_and_arg                                        >>&"$LOGFILE"
+	$command_and_arg                                             >>&"$LOGFILE"
+    endif
+    @ i += 2
+    @ ii += 2
+  end
+
+    echo  "-------set CUPS standard options-------"               >>&"$LOGFILE"
+
+  set i = 1
+  while("$StandardCUPSoptions[$i]" != "Z")
+    set INPUT_TEMP_LINE=`grep "$StandardCUPSoptions[$i]" $INPUT_TEMP_OPTIONS`
+    if($INPUT_TEMP_LINE != ") then
+	@ i ++
+	echo "$BRPRINTCONFIG -P $PRINTER  $StandardCUPSoptions[$i]"                     >>&"$LOGFILE"
+	$BRPRINTCONFIG -P $PRINTER  $StandardCUPSoptions[$i]                            >>&"$LOGFILE"
+	@ i --
+    endif
+    @ i += 2
+  end
+
+
+    rm -f $INPUT_TEMP_OPTIONS
+
+
+else
+    echo "WARNING: /usr/bin/$BRPRINTCONFIG does not exist"           >>$LOGFILE
+    set errorcode=31
+endif
+
+
+
+
+if($DEBUG < 10) then
+    cat    $INPUT_TEMP_PS | /usr/local/Brother/lpd/filterMFC3320CN
+
+    if($LOGLEVEL > 2) then
+	if($LOGFILE != "/dev/null") then
+	    echo "                                             >>$LOGFILE
+	    echo "    ------PostScript Data-------"             >>$LOGFILE
+	    cat    $INPUT_TEMP_PS                                 >>$LOGFILE
+	endif
+    endif
+endif
+rm -f  $INPUT_TEMP_PS
+
+exit $errorcode
