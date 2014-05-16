@@ -11,4 +11,4 @@ For some printers, drivers are distributed as only one non-packaged gzipped ppd 
 
 Oldest drivers date from 2005.
 
-Some binaries have sources under GPLv2 licenses (on [another page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_src.html)) and can be recompiled.
+Some binaries have sources under GPLv2 licenses (on ~~[another page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_src.html)~~ [(web archive)](http://web.archive.org/web/20140319075144/http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_src.html)) and can be recompiled.
