@@ -1,6 +1,8 @@
 Documentation
 =============
 
+* [About this project](../README.md] _(README)_.
+
 Good to know
 ------------
 
