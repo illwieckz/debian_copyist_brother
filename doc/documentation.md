@@ -36,6 +36,6 @@ Debian stuff
 Legal stuff
 -----------
 
-*[Brother™ legal](brother_legal.md);
-*[License of tools and this documentation](../COPYING.md) (except Brother™ files).
+* [Brother™ legal](brother_legal.md);
+* [License of tools and this documentation](../COPYING.md) (except Brother™ files).
 
