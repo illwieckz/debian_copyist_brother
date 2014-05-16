@@ -9,7 +9,7 @@ No many information, the guy seems to have corrected or cleaned some code.
 
 * [ozancaglayan/install-brother-printer-driver](https://github.com/ozancaglayan/install-brother-printer-driver);
 
-This tool is a gui that generate a list of model printers and allow the user to download ``.rpm`` packaged drivers, it’s a tool designed for the [Pardus](http://www.pardus.org.tr/eng) distribution. This tool is broken since Brother™ had delete usefull pages in May 2014.
+This tool is a gui that generate a list of model printers and allow the user to download ``.rpm`` packaged drivers, it’s a tool designed for the [Pardus](http://www.pardus.org.tr/eng) distribution. This tool is broken since Brother™ had delete usefull pages in April 2014.
 
 * [brother/linux-brprinter-installer](http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.0.0-1.gz) (``.gz``);
 
