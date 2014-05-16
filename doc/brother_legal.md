@@ -18,9 +18,21 @@ Unfortunately, it does not seems to be any public source for printers LPR binary
 
 So,
 
-* Debian can legaly repackage and redistribute any printer driver binary covered by the “English_lpr” license.
+* Debian can legaly repackage and redistribute any binary printer driver covered by the “English_lpr” license.
 * Debian can repackage and redistribute any printer driver binary covered byt the “GPLv2” license. If source code is available on the source download page, Debian can recompile it.
 
 Note: The “[English_source](http://www.brother.com/agreement/English_source/agree.html)” license seem more conflictual, but no one printer binary driver is covered by this license.
 
 Note: The [abstract](abstract/) directory contain plain-text copy of licenses used by Brother™, and links to original on-line HTML licenses files on official Brother™ website.
+
+File Licenses
+-------------
+
+[This file](../material/lists/printers_files_with_metadata.txt) lists every usefull file from printers drivers package associated with checksum and license, so you can easily know which file copied here from package is covered with which license.
+
+The files (PPDs, filters) under the [``generated_content``](../material/abstract/generated_content) directory are all covered by GPLv2 License and their author is Brother™.
+
+The sources extracted in the [``sources``](../material/sources) directory are all covered by GPLv2 License and their author is Brother™.
+
+Other files written by the “Debian copyist brother” team is covered by the free laconic non copyleft [ISC license](../COPYING.md).
+

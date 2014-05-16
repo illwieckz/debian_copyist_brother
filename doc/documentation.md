@@ -39,5 +39,5 @@ Legal stuff
 -----------
 
 * [Brother™ legal](brother_legal.md);
-* [License of tools and this documentation](../COPYING.md) (except Brother™ files).
+* [License of tools and this documentation](../COPYING.md) (all files in this repository that is not Brother™ files).
 
