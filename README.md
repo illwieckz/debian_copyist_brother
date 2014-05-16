@@ -28,7 +28,8 @@ See [web_brother](doc/web_brother.md) documentation.
 Contributors
 ------------
 
-Thomas Debesse <dev@illwieckz.net>, Samuel Dorsaz <samuel@micheldorsaz.ch> 
+* Mentor: DidierRaboud <odyx@debian.org>
+* Contributors: Thomas Debesse <dev@illwieckz.net>, Samuel Dorsaz <samuel@micheldorsaz.ch> 
 
 Useful links
 ------------
