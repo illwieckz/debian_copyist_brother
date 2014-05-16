@@ -16,7 +16,7 @@ Documentation is distributed under ISC License.
 Documentation
 -------------
 
-See [doc](doc).
+See [documentation](doc/documentation.md).
 
 Tools
 -----
