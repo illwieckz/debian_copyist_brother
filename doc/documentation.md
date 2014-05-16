@@ -26,6 +26,7 @@ More
 ----
 
 * [Other projects working on Brother™ drivers](other_projects_working_on_brother_drivers.md).
+* [Other projects working on other brands](other_projects_working_on_other_brand.md).
 
 Debian stuff
 ------------
