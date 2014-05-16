@@ -22,7 +22,7 @@ About drivers
 Tools
 -----
 
-* [``web_brother.sh`` documentation](web_brother.md).
+* [web_brother](web_brother.md).
 
 More
 ----
