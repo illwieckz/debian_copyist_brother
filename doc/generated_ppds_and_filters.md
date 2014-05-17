@@ -6,6 +6,6 @@ Some package genrate both filter and ppd, other embed the ppd and generate the f
 
 Those script manage services and restart them, check packages dependencies, check connected printers… they can't be launched easily to extract content, so they was rewritted to delete useless parts and keep only the generation code.
 
-You can find the original cupswrappers in the “[cupswrappers_original](../material/abstract/cupswrappers_original)” directory, and the modified cupswrappers in the “[cupswrappers_modified](../material/abstract/cupswrappers_modified)” directory.
+You can find the original cupswrappers in the “[cupswrappers_original](../material/abstract/printers/cupswrappers_original)” directory, and the modified cupswrappers in the “[cupswrappers_modified](../material/abstract/printers/cupswrappers_modified)” directory.
 
-After that, embedded ppds and filters were extracted to the “[generated_content/ppd](../material/abstract/generated_content/ppd)” and the “[generated_content/filter](../material/abstract/generated_content/filter)” directories. Those files are owned by Brother and distributed under GPLv2 license.
+After that, embedded ppds and filters were extracted to the “[generated_content/ppd](../material/abstract/printers/generated_content/ppd)” and the “[generated_content/filter](../material/abstract/printers/generated_content/filter)” directories. Those files are owned by Brother and distributed under GPLv2 license.

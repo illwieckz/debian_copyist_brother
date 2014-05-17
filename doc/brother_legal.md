@@ -30,7 +30,7 @@ File Licenses
 
 [This file](../material/lists/printers_files_with_metadata.txt) lists every usefull file extracted from printers drivers package associated with checksum and license, so you can easily know which file copied here from package is covered with which license.
 
-The files (PPDs, filters) under the [``generated_content``](../material/abstract/generated_content) directory are all covered by GPLv2 License and their author is Brother™.
+The files (PPDs, filters) under the [``generated_content``](../material/abstract/printers/generated_content) directory are all covered by GPLv2 License and their author is Brother™.
 
 The sources extracted in the [``sources``](../material/sources) directory are all covered by GPLv2 License and their author is Brother™.
 
