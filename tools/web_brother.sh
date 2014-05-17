@@ -12,7 +12,7 @@
 ##
 
 BROTHER_TRADEMARK='Brother™'
-BROTHER_PAGES_DIR='http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/'
+BROTHER_PAGES_DIR='http://web.archive.org/web/20140319074031/http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/'
 BROTHER_REPOSITORY='http://www.brother.com/pub/bsc/linux/dlf/'
 BROTHER_LICENSE_DIR='http://www.brother.com/agreement/'
 BROTHER_LICENSE_FILE='agree.html'
