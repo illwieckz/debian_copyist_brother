@@ -10,7 +10,7 @@ Before April 2014 we could parse those pages (but Brother™ deleted them):
 * ~~[PT, QL, PJ, TD printer (labeler) driver download page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_esp.html)~~ [(web archive)](http://web.archive.org/web/20140319074031/http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_esp.html);
 * ~~[PC-FAX (cups and modem) driver download page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_pcf.html)~~ [(web archive)](http://web.archive.org/web/20140319074953/http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_pcf.html).
 * ~~[Scanner driver download page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_scn.html)~~ [(web archive)](http://web.archive.org/web/20140319074953/http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_scn.html);
-* ~~[source code page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_src.html)~~ [(web archive)](http://web.archive.org/web/20140319075144/http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_src.html).
+* ~~[Source code download page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_src.html)~~ [(web archive)](http://web.archive.org/web/20140319075144/http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_src.html).
 
 Thanks to the web archive project, they were’nt lost.
 
