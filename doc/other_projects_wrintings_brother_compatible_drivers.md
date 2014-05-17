@@ -5,7 +5,7 @@ Other projects writing Brother™ compatible drivers
 
 > [This is] ptouch-driver, a driver for the Brother P-touch series of label printers. It consists of a raster-to-printerdata filter, and XML data files for the foomatic database.
 
-* [Cups driver for the P-Touch 245](www.tealeg.uklinux.net/projects/ptouch/index.htm), by Geoffrey Teale.
+* [Cups driver for the P-Touch 245](http://www.tealeg.uklinux.net/projects/ptouch/index.htm), by Geoffrey Teale.
 
 Resources for writing Brother drivers
 -------------------------------------
