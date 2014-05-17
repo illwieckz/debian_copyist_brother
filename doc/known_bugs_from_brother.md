@@ -48,6 +48,27 @@ Useless code
 The ``cupswrappermfc5860cn`` has this useless structure:
 
 ```sh
+printer_model="mfc5860cn"
+cat <<ENDOFPPDFILE1 >$ppd_file_name
+…
+FPPDFILE1
+
+if [ $printer_model = "mfc5860cn" ]; then
+cat <<ENDOFPPDFILE_2 >>$ppd_file_name
+…
+ENDOFPPDFILE_2
+
+cat <<ENDOFPPDFILE_END >>$ppd_file_name
+…
+ENDOFPPDFILE_END
+```
+
+30 other cupswrappers do this test with another value of ``printer_model`` variable, so this code is never executed by those 30 other cupswrappers.
+
+For example, the ``cupswrappermfc660cn`` contain this useless code:
+
+
+```sh
 printer_model="mfc660cn"
 cat <<ENDOFPPDFILE1 >$ppd_file_name
 …
@@ -63,7 +84,6 @@ cat <<ENDOFPPDFILE_END >>$ppd_file_name
 ENDOFPPDFILE_END
 ```
 
-30 other cupswrappers do this test with another value of ``printer_model`` variable, so this code is never executed by this 30 other cupswrappers.
 
 Bad shebang
 -----------
