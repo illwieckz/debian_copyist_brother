@@ -24,6 +24,8 @@ Some other driver use named path, for example `cupswrapperMFC7820N-2.0.1` assume
 
 Some printers (like the TD-2020) have two drivers for [SI unit](http://en.wikipedia.org/wiki/International_System_of_Unit) (_mm_) or [Imperial units](http://en.wikipedia.org/wiki/Imperial_units) (_inch_), those drivers overwrite others.
 
+Installation of a ``.deb`` runs a script that configure the printer, so we can’t pre install a driver of a printer not owned by the user.
+
 Mutualisation
 -------------
 

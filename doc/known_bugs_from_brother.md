@@ -104,6 +104,11 @@ Version discordance
 
 For example, the HL2240 printer driver install a file ``brcupsconfig4`` (``/usr/local/Brother/Printer/HL2240/cupswrapper/brcupsconfig4``), but the source package for this driver provide an source for the binary ``brcupsconfig3`` (``brhl2240cups_src-2.0.4-2/brcupsconfig3/brcupsconfig.c``). There is 8 different ``brcupsconfig`` binary files and 4 ``brcupsconfig4`` binary files inside the archives, so is can be more binary than sources.  The various ``brcupsconfig`` files are covered by GPLv2 license, if the source is not available, there may be a GPL violation, we don't know.
 
+Deprecated usage
+----------------
+
+Many printer drivers (like the ``hl4150cdnlpr-1.1.1-5.i386.deb`` one) write the printer name to a file named ``/etc/printcap``. In addition to causing [cohabitation issues](cohabitation_issues.md), the [usage of ``/etc/printcap`` is deprecated](http://debian-handbook.info/browse/stable/sect.config-printing.html).
+
 Bad archive
 -----------
 
