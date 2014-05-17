@@ -260,7 +260,7 @@ function drop_cache {
 
 _declare get_page_url
 function get_page_url {
-	_describe "${1}" "get page by type (sources printers scanners pcfaxes)" && return
+	_describe "${1}" "get page by type (sources printers labelers scanners pcfaxes)" && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		sources)
@@ -295,7 +295,7 @@ function _download_page {
 
 _declare print_page
 function print_page {
-	_describe "${1}" "print page by type (sources printers scanners pcfaxes)" && return
+	_describe "${1}" "print page by type (sources printers labelers scanners pcfaxes)" && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		sources|printers|labelers|scanners|pcfaxes)
@@ -324,7 +324,7 @@ function _parse_archives_with_licenses {
 
 _declare list_archives_with_licenses
 function list_archives_with_licenses {
-	_describe "${1}" "list all files with licenses by type (sources printers scanners pcfaxes all)" && return
+	_describe "${1}" "list all files with licenses by type (sources printers labelers scanners pcfaxes all)" && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		sources|printers|labelers|scanners|pcfaxes)
@@ -341,7 +341,7 @@ function list_archives_with_licenses {
 
 _declare list_licenses
 function list_licenses {
-	_describe "${1}" 'list licenses (sources printers scanners pcfaxes all)' && return
+	_describe "${1}" 'list licenses (sources printers labelers scanners pcfaxes all)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		sources|printers|labelers|scanners|pcfaxes)
@@ -439,7 +439,7 @@ function _list_archives_urls {
 
 _declare list_archives_urls
 function list_archives_urls {
-	_describe "${1}" "list files urls by type (sources printers scanners pcfaxes all)" && return
+	_describe "${1}" "list files urls by type (sources printers labelers scanners pcfaxes all)" && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		sources|printers|labelers|scanners|pcfaxes)
@@ -487,7 +487,7 @@ _declare list_primary_models
 function list_primary_models {
 	# all?
 	# NOT sources
-	_describe "${1}" "list models that have driver by type (printers scanners pcfaxes)" && return
+	_describe "${1}" "list models that have driver by type (printers labelers scanners pcfaxes)" && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		printers|labelers|scanners|pcfaxes)
@@ -531,7 +531,7 @@ function _parse_secondary_models_with_primary {
 
 _declare list_secondary_models_with_primary
 function list_secondary_models_with_primary {
-	_describe "${1}" 'list models that uses driver from another model, by type (printers scanners pcfaxes)' && return
+	_describe "${1}" 'list models that uses driver from another model, by type (printers labelers scanners pcfaxes)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		printers|labelers|scanners|pcfaxes)
@@ -545,7 +545,7 @@ function list_secondary_models_with_primary {
 
 _declare list_secondary_models
 function list_secondary_models {
-	_describe "${1}" 'list models that uses driver from another model, by type (printers scanners pcfaxes)' && return
+	_describe "${1}" 'list models that uses driver from another model, by type (printers labelers scanners pcfaxes)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		printers|labelers|scanners|pcfaxes)
@@ -560,7 +560,7 @@ function list_secondary_models {
 _declare list_models
 function list_models {
 	_describe "${1}" 'list models' && return
-	_error "${1}" 'missing type (printers scanners pcfaxes all)' || return
+	_error "${1}" 'missing type (printers labelers scanners pcfaxes all)' || return
 	case "${1}" in
 		printers|labelers|scanners|pcfaxes)
 			_cache "${LISTS_DIR}${1}_models.txt" "(list_primary_models '${1}'; list_secondary_models '${1}') | sort | uniq"
@@ -577,7 +577,7 @@ function list_models {
 # not all because a secondary fax model can be a primary printer model
 _declare is_primary_model
 function is_primary_model {
-	_describe "${1}" 'check if model is a primary model by type and by name (printers scanners pcfaxes) (model name)' && return
+	_describe "${1}" 'check if model is a primary model by type and by name (printers labelers scanners pcfaxes) (model name)' && return
 	_error "${1}" 'missing type' || return
 	_error "${2}" 'missing model name' || return
 	case "${1}" in
@@ -592,7 +592,7 @@ function is_primary_model {
 
 _declare is_secondary_model
 function is_secondary_model {
-	_describe "${1}" 'check if model is a secondary model by type and by name (printers scanners pcfaxes) (model name)' && return
+	_describe "${1}" 'check if model is a secondary model by type and by name (printers labelers scanners pcfaxes) (model name)' && return
 	_error "${1}" 'missing type' || return
 	_error "${2}" 'missing model name' || return
 	case "${1}" in
@@ -607,7 +607,7 @@ function is_secondary_model {
 
 _declare is_model
 function is_model {
-	_describe "${1}" 'check if model is a true model by type and by name (printers scanners pcfaxes all) (model name)' && return
+	_describe "${1}" 'check if model is a true model by type and by name (printers labelers scanners pcfaxes all) (model name)' && return
 	_error "${1}" 'missing type' || return
 	_error "${2}" 'missing model name' || return
 	case "${1}" in
@@ -622,7 +622,7 @@ function is_model {
 
 _declare get_primary_model
 function get_primary_model {
-	_describe "${1}" 'get model that has a driver for this model by type and by name (printers scanners pcfaxes) (model name)' && return
+	_describe "${1}" 'get model that has a driver for this model by type and by name (printers labelers scanners pcfaxes) (model name)' && return
 	_error "${1}" 'missing type' || return
 	_error "${2}" 'missing model name' || return
 	is_model "${1}" "${2}" >/dev/null || _error '' "bad ${1} model name" || return
@@ -659,7 +659,7 @@ function _parse_primary_models_with_archives {
 
 _declare list_primary_models_with_archives
 function list_primary_models_with_archives {
-	_describe "${1}" 'list models with files by type (printers scanners pcfaxes all)' && return
+	_describe "${1}" 'list models with files by type (printers labelers scanners pcfaxes all)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		printers|labelers|scanners|pcfaxes)
@@ -677,7 +677,7 @@ function list_primary_models_with_archives {
 # TODO: sources?
 _declare list_model_archives
 function list_model_archives {
-	_describe "${1}" 'get files by type and by model (printers scanners pcfaxes all) (model name)' && return
+	_describe "${1}" 'get files by type and by model (printers labelers scanners pcfaxes all) (model name)' && return
 	_error "${1}" 'missing type' || return
 	_error "${2}" 'missing model name' || return
 	is_model "${1}" "${2}" >/dev/null || _error '' "bad ${1} model name" || return
@@ -701,7 +701,7 @@ function list_model_archives {
 # TODO: sources?
 _declare list_model_archives_urls
 function list_model_archives_urls {
-	_describe "${1}" 'list files url by type (printers scanners pcfaxes all)' && return
+	_describe "${1}" 'list files url by type (printers labelers scanners pcfaxes all)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		printers|labelers|scanners|pcfaxes|all)
@@ -734,7 +734,7 @@ function download_file {
 
 _declare download_model_archives
 function download_model_archives {
-	_describe "${1}" 'get files by type and by model (printers scanners pcfaxes all) (model name)' && return
+	_describe "${1}" 'get files by type and by model (printers labelers scanners pcfaxes all) (model name)' && return
 	_error "${1}" 'missing type' || return
 	_error "${2}" 'missing model name' || return
 	is_model "${1}" "${2}" >/dev/null || _error '' "bad ${1} model name" || return
@@ -750,7 +750,7 @@ function download_model_archives {
 
 _declare download_archives
 function download_archives {
-	_describe "${1}" 'download files by type (sources printers scanners pcfaxes all)' && return
+	_describe "${1}" 'download files by type (sources printers labelers scanners pcfaxes all)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
 		sources|printers|labelers|scanners|pcfaxes)
