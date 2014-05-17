@@ -11,7 +11,7 @@ No many information, the guy seems to have corrected or cleaned some code.
 
 This tool is a gui that generate a list of model printers and allow the user to download ``.rpm`` packaged drivers, it’s a tool designed for the [Pardus](http://www.pardus.org.tr/eng) distribution. This tool is broken since Brother™ had delete usefull pages in April 2014.
 
-* [brother/linux-brprinter-installer](http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.0.0-1.gz) (``.gz``);
+* [brother/linux-brprinter-installer [.gz]](http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.0.0-1.gz);
 
 This tool written by Brother™ checks connected devices and download drivers, despite its 2500 lines, there is no many usefull information in it.
 
