@@ -6,6 +6,7 @@ Documentation
 Good to know
 ------------
 
+* [Where is knowledge?](where_is_knowledge.md);
 * [Where are drivers?](where_are_drivers.md);
 * [Where are sources?](where_are_sources.md);
 * [Status of Brother™ files](status_of_brother_files.md).

@@ -36,4 +36,5 @@ Useful links
 
 * [Debian France New Contributor Game: Packager for non-free Brother printer drivers](https://wiki.debian.org/DebianFrance/NewContributorGame#Packagers_for_non-free_Brother_printer_drivers);
 * ~~[Brother Solutions Center : Brother Printer Driver for Linux Distributions](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html)~~;
+* [Brother Solutions Center: Brother Driver for Linux Distributions](http://support.brother.com/g/s/id/linux/en/index.html);
 * [Debian, the universal operating system](https://www.debian.org/).
