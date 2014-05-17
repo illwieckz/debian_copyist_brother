@@ -1,8 +1,6 @@
 Brother™ legal
 ==============
 
-Please document here Brother™ legal stuff.
-
 Brother™ distributes files under 4 licenses :
 
 * [English_gpl](abstract/English_gpl.txt) ([original](http://www.brother.com/agreement/English_gpl/agree.html)) aka [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html);
