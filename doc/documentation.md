@@ -16,7 +16,8 @@ About drivers
 
 * [Standalone PPDs](standalone_ppds.md);
 * [Generated PPDs and filters](generated_ppds_and_filters.md);
-* TODO: cupswrappers and LPD drivers;
+
+* Cupswrappers and LPD drivers (to do);
 
 * [Known bugs from Brother™](known_bugs_from_brother.md);
 * [Cohabitation issues](cohabitation_issues.md);
