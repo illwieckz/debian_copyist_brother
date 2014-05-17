@@ -12,10 +12,15 @@
 ##
 
 BROTHER_TRADEMARK='Brother™'
-BROTHER_PAGES_DIR='http://web.archive.org/web/20140319074031/http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/'
+BROTHER_PAGES_DIR='http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/'
 BROTHER_REPOSITORY='http://www.brother.com/pub/bsc/linux/dlf/'
 BROTHER_LICENSE_DIR='http://www.brother.com/agreement/'
 BROTHER_LICENSE_FILE='agree.html'
+
+WEBARCHIVE_DOMAIN='http://web.archive.org'
+WEBARCHIVE_ROOT='/web/20140319074031/'
+
+USE_WEBARCHIVE='true'
 
 # You can override default workspace directory via "WEBBROTHER_WORKSPACE" env variable
 
@@ -54,6 +59,13 @@ function _parse_printers_archives_with_licenses {
 	print_page printers | grep 'dlfile=' | grep '\.deb\|\.ppd.gz' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=\(.*\)">.*#\1\t\2#' \
 		| sort | uniq
 
+}
+
+function _parse_labelers_archives_with_licenses {
+	# for each line containing file (deb or ppd)
+	# -> extract archive name
+	print_page labelers | grep 'dlfile=' | grep '\.deb\|\.ppd.gz' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=\(.*\)">.*#\1\t\2#' \
+		| sort | uniq
 }
 
 function _parse_scanners_archives_with_licenses {
@@ -108,6 +120,14 @@ function _parse_printers_primary_models {
 		| sort | uniq
 }
 
+function _parse_labelers_primary_models {
+	# for each line containing model name
+	# -> drop variant name
+	# -> extract model name 
+	print_page labelers | grep '^<p><a name=' | sed -e 's# / [A-Za-z0-9-]*##;s#^<p><a name="\([A-Za-z0-9-]*\)"></a><b>.*</b></p>#\1#' \
+		| sort | uniq
+}
+
 function _parse_printer_archives {
 	# for each line containing model name
 	# -> drop variant name for line if exists
@@ -118,7 +138,23 @@ function _parse_printer_archives {
 	# -------> convert end of line char with tab char
 	# -------> drop trailing '\t' char
 	print_page printers | sed -e 's#\([A-Za-z0-9-]*\) / [A-Za-z0-9-]*#\1#' | grep -A 100 '^<p><a name="'"${1}"'"></a><b>' \
-		| grep -m 1 -B 100 '<div align=right><p><a href="#top">Page Top</a></p><p>&nbsp;</p></div>' \
+		| grep -m 1 -B 100 '<div align=right><p><a href=".*#top">Page Top</a></p><p>&nbsp;</p></div>' \
+		| grep '\.deb\|\.ppd.gz' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=.*#\1#' | sort \
+		| sed -e ':a;N;$!ba;s/\n/\t/g' | sed -e 's/\t$//' \
+		| sort | uniq
+}
+
+function _parse_labeler_archives {
+	# for each line containing model name
+	# -> drop variant name for line if exists
+	# -> from this line to line containing "Page Top" words used as end marker (drop before, drop after, maximum 100 lines between)
+	# ---> for each line containing a file (deb, ppd)
+	# -----> extract archive name
+	# -----> for each line containing archive name
+	# -------> convert end of line char with tab char
+	# -------> drop trailing '\t' char
+	print_page labelers | sed -e 's#\([A-Za-z0-9-]*\) / [A-Za-z0-9-]*#\1#' | grep -A 100 '^<p><a name="'"${1}"'"></a><b>' \
+		| grep -m 1 -B 100 '<div align=right><p><a href=".*#top">Page Top</a></p><p>&nbsp;</p></div>' \
 		| grep '\.deb\|\.ppd.gz' | sed -e 's#^.*/linux/dlf/\(.*\)\&lang=.*#\1#' | sort \
 		| sed -e ':a;N;$!ba;s/\n/\t/g' | sed -e 's/\t$//' \
 		| sort | uniq
@@ -194,6 +230,7 @@ function pre_cache {
 	_describe "${1}" 'explicitly precache informations, by default caching is done just in time' && return
 	list_archives_with_licenses all > /dev/null
 	list_models all > /dev/null
+	list_primary_models_with_archives all > /dev/null
 	list_archives_urls all > /dev/null
 	list_licenses_urls all > /dev/null
 	for license in $(list_licenses all)
@@ -232,6 +269,9 @@ function get_page_url {
 		printers)
 			echo "${BROTHER_PAGES_DIR}download_prn.html"
 		;;
+		labelers)
+			echo "${BROTHER_PAGES_DIR}download_esp.html"
+		;;
 		scanners)
 			echo "${BROTHER_PAGES_DIR}download_scn.html"
 		;;
@@ -244,15 +284,24 @@ function get_page_url {
 	esac
 }
 
+function _download_page {
+	if [ "${USE_WEBARCHIVE}" = 'true' ]
+	then
+		wget -q -O - "${WEBARCHIVE_DOMAIN}${WEBARCHIVE_ROOT}${1}" | sed -e 's#\(<a href=".*\)\&amp;#\1\&#g;s#/web/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/##' | dos2unix
+	else
+		wget -q -O - "${1}" | dos2unix
+	fi
+}
+
 _declare print_page
 function print_page {
 	_describe "${1}" "print page by type (sources printers scanners pcfaxes)" && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		sources|printers|scanners|pcfaxes)
+		sources|printers|labelers|scanners|pcfaxes)
 			brother_page="$(get_page_url "${1}")"
 			page="${PAGES_DIR}/${1}.html"
-			_cache "${page}" "wget -q -O - '${brother_page}' | dos2unix"
+			_cache "${page}" _download_page "${brother_page}"
 		;;
 		*)
 			_error '' 'bad type' || return
@@ -267,17 +316,8 @@ function print_page {
 
 function _parse_archives_with_licenses {
 	case "${1}" in
-		sources)
-			_parse_sources_archives_with_licenses
-		;;
-		printers)
-			_parse_printers_archives_with_licenses
-		;;
-		scanners)
-			_parse_scanners_archives_with_licenses
-		;;
-		pcfaxes)
-			_parse_pcfaxes_archives_with_licenses
+		sources|printers|labelers|scanners|pcfaxes)
+			"_parse_${1}_archives_with_licenses"
 		;;
 	esac
 }
@@ -287,11 +327,11 @@ function list_archives_with_licenses {
 	_describe "${1}" "list all files with licenses by type (sources printers scanners pcfaxes all)" && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		sources|printers|scanners|pcfaxes)
+		sources|printers|labelers|scanners|pcfaxes)
 			_cache "${LISTS_DIR}${1}_archives_with_licenses.txt" "_parse_archives_with_licenses '${1}'"
 		;;
 		all)
-			_cache "${LISTS_DIR}${1}_archives_with_licenses.txt" '(list_archives_with_licenses sources; list_archives_with_licenses printers; list_archives_with_licenses scanners; list_archives_with_licenses pcfaxes) | sort | uniq'
+			_cache "${LISTS_DIR}${1}_archives_with_licenses.txt" '(list_archives_with_licenses sources; list_archives_with_licenses printers; list_archives_with_licenses labelers; list_archives_with_licenses scanners; list_archives_with_licenses pcfaxes) | sort | uniq'
 		;;
 		*)
 			_error '' 'bad type' || return
@@ -304,11 +344,11 @@ function list_licenses {
 	_describe "${1}" 'list licenses (sources printers scanners pcfaxes all)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		sources|printers|scanners|pcfaxes)
+		sources|printers|labelers|scanners|pcfaxes)
 			_cache "${LISTS_DIR}${1}_licenses.txt" "list_archives_with_licenses ${1} | cut -f 2 | sort | uniq"
 		;;
 		all)
-			_cache "${LISTS_DIR}${1}_licenses.txt" '(list_licenses sources; list_licenses printers; list_licenses scanners; list_licenses pcfaxes) | sort | uniq'
+			_cache "${LISTS_DIR}${1}_licenses.txt" '(list_licenses sources; list_licenses printers; list_licenses labelers; list_licenses scanners; list_licenses pcfaxes) | sort | uniq'
 		;;
 		*)
 			_error '' 'bad type' || return
@@ -351,11 +391,11 @@ function list_licenses_urls {
 	_describe "${1}" 'list licenses urls (sources printers scanners pcfaxes all)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		sources|printers|scanners|pcfaxes)
+		sources|printers|labelers|scanners|pcfaxes)
 			_cache "${LISTS_DIR}${1}_licenses_urls.txt" "_list_licenses_urls ${1} | sort | uniq"
 		;;
 		all)
-			_cache "${LISTS_DIR}${1}_licenses_urls.txt" "(list_licenses_urls sources; list_licenses_urls printers; list_licenses_urls scanners; list_licenses_urls pcfaxes) | sort | uniq"
+			_cache "${LISTS_DIR}${1}_licenses_urls.txt" "(list_licenses_urls sources; list_licenses_urls printers; list_licenses_urls labelers; list_licenses_urls scanners; list_licenses_urls pcfaxes) | sort | uniq"
 		;;
 		*)
 			_error '' 'bad type' || return
@@ -402,11 +442,11 @@ function list_archives_urls {
 	_describe "${1}" "list files urls by type (sources printers scanners pcfaxes all)" && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		sources|printers|scanners|pcfaxes)
+		sources|printers|labelers|scanners|pcfaxes)
 			_cache "${LISTS_DIR}${1}_archives_urls.txt" "_list_archives_urls ${1} | sort | uniq"
 		;;
 		all)
-			_cache "${LISTS_DIR}${1}_archives_urls.txt" '(list_archives_urls sources; list_archives_urls printers; list_archives_urls scanners; list_archives_urls pcfaxes) | sort | uniq'
+			_cache "${LISTS_DIR}${1}_archives_urls.txt" '(list_archives_urls sources; list_archives_urls printers; list_archives_urls labelers; list_archives_urls scanners; list_archives_urls pcfaxes) | sort | uniq'
 		;;
 		*)
 			_error '' 'bad type' || return
@@ -429,8 +469,8 @@ function is_file {
 # internals has no many checks because can't be called directly, checks are in caller
 function _parse_primary_models {
 	case "${1}" in
-		printers)
-			_parse_printers_primary_models
+		printers|labelers)
+			"_parse_${1}_primary_models"
 		;;
 		scanners)
 			# STUB
@@ -450,7 +490,7 @@ function list_primary_models {
 	_describe "${1}" "list models that have driver by type (printers scanners pcfaxes)" && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		printers|scanners|pcfaxes)
+		printers|labelers|scanners|pcfaxes)
 			_cache "${LISTS_DIR}${1}_primary_models.txt" "_parse_primary_models '${1}'"
 		;;
 		*)
@@ -473,6 +513,10 @@ function _parse_secondary_models_with_primary {
 				_parse_printers_original_model_from_alternative "${model}"
 			done
 		;;
+		labelers)
+			# labelers don't have secondary models
+			printf ''
+		;;
 		scanners)
 			# STUB
 			printf ''
@@ -490,7 +534,7 @@ function list_secondary_models_with_primary {
 	_describe "${1}" 'list models that uses driver from another model, by type (printers scanners pcfaxes)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		printers|scanners|pcfaxes)
+		printers|labelers|scanners|pcfaxes)
 			_cache "${LISTS_DIR}${1}_secondary_models_with_primary.txt" "_parse_secondary_models_with_primary '${1}'"
 		;;
 		*)
@@ -504,7 +548,7 @@ function list_secondary_models {
 	_describe "${1}" 'list models that uses driver from another model, by type (printers scanners pcfaxes)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		printers|scanners|pcfaxes)
+		printers|labelers|scanners|pcfaxes)
 			_cache "${LISTS_DIR}${1}_secondary_models.txt" "list_secondary_models_with_primary '${1}' | cut -f 1 | sort | uniq"
 		;;
 		*)
@@ -518,11 +562,11 @@ function list_models {
 	_describe "${1}" 'list models' && return
 	_error "${1}" 'missing type (printers scanners pcfaxes all)' || return
 	case "${1}" in
-		printers|scanners|pcfaxes)
+		printers|labelers|scanners|pcfaxes)
 			_cache "${LISTS_DIR}${1}_models.txt" "(list_primary_models '${1}'; list_secondary_models '${1}') | sort | uniq"
 		;;
 		all)
-			_cache "${LISTS_DIR}${1}_models.txt" '(list_models printers; list_models scanners; list_models pcfaxes) | sort | uniq'
+			_cache "${LISTS_DIR}${1}_models.txt" '(list_models printers; list_models labelers; list_models scanners; list_models pcfaxes) | sort | uniq'
 		;;
 		*)
 			_error '' 'bad type' || return
@@ -537,7 +581,7 @@ function is_primary_model {
 	_error "${1}" 'missing type' || return
 	_error "${2}" 'missing model name' || return
 	case "${1}" in
-		printers|scanners|pcfaxes)
+		printers|labelers|scanners|pcfaxes)
 			list_primary_models "${1}" | grep "^${2}$" >/dev/null && _true || _false
 		;;
 		*)
@@ -552,7 +596,7 @@ function is_secondary_model {
 	_error "${1}" 'missing type' || return
 	_error "${2}" 'missing model name' || return
 	case "${1}" in
-		printers|scanners|pcfaxes)
+		printers|labelers|scanners|pcfaxes)
 			list_secondary_models "${1}" | grep "^${2}$" >/dev/null && _true || _false
 		;;
 		*)
@@ -567,7 +611,7 @@ function is_model {
 	_error "${1}" 'missing type' || return
 	_error "${2}" 'missing model name' || return
 	case "${1}" in
-		printers|scanners|pcfaxes|all)
+		printers|labelers|scanners|pcfaxes|all)
 			list_models "${1}" | grep "^${2}$" >/dev/null && _true || _false
 		;;
 		*)
@@ -584,7 +628,7 @@ function get_primary_model {
 	is_model "${1}" "${2}" >/dev/null || _error '' "bad ${1} model name" || return
 	is_primary_model "${1}" "${2}" >/dev/null && echo "${2}"
 	case "${1}" in
-		printers|scanners|pcfaxes)
+		printers|labelers|scanners|pcfaxes)
 			list_secondary_models_with_primary "${1}" | grep "^${2}$(printf '\t')" | cut -f 2
 		;;
 		*)
@@ -595,11 +639,11 @@ function get_primary_model {
 
 function _parse_primary_models_with_archives {
 	case "${1}" in
-		printers)
+		printers|labelers)
 			for model in $(list_primary_models "${1}")
 			do
 				printf "${model}\t"
-				_parse_printer_archives "${model}"
+				"_parse_$(echo ${1} | sed -e 's/s$//')_archives" "${model}"
 			done
 		;;
 		scanners)
@@ -618,11 +662,11 @@ function list_primary_models_with_archives {
 	_describe "${1}" 'list models with files by type (printers scanners pcfaxes all)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		printers|scanners|pcfaxes)
+		printers|labelers|scanners|pcfaxes)
 			_cache "${LISTS_DIR}${1}_primary_models_with_archives.txt" _parse_primary_models_with_archives "${1}"
 		;;
 		all)
-			_cache "${LISTS_DIR}${1}_primary_models_with_archives.txt" '(list_primary_models_with_archives printers; list_primary_models_with_archives scanners; list_primary_models_with_archives pcfaxes) | sort'
+			_cache "${LISTS_DIR}${1}_primary_models_with_archives.txt" '(list_primary_models_with_archives printers; list_primary_models_with_archives labelers; list_primary_models_with_archives scanners; list_primary_models_with_archives pcfaxes) | sort'
 		;;
 		*)
 			_error '' 'bad type' || return
@@ -638,11 +682,11 @@ function list_model_archives {
 	_error "${2}" 'missing model name' || return
 	is_model "${1}" "${2}" >/dev/null || _error '' "bad ${1} model name" || return
 	case "${1}" in
-		printers|scanners|pcfaxes)
+		printers|labelers|scanners|pcfaxes)
 			list_primary_models_with_archives "${1}" | grep "$(get_primary_model "${1}" "${2}")" | cut -f 2- | sed -e 's/\t/\n/'
 		;;
 		all)
-			(	for type in printers scanners pcfaxes
+			(	for type in printers labelers scanners pcfaxes
 				do
 						is_model "${type}" "${2}" >/dev/null && list_model_archives "${type}" "${2}"
 				done
@@ -660,7 +704,7 @@ function list_model_archives_urls {
 	_describe "${1}" 'list files url by type (printers scanners pcfaxes all)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		printers|scanners|pcfaxes|all)
+		printers|labelers|scanners|pcfaxes|all)
 			for file in $(list_model_archives "${1}" "${2}")
 			do
 				get_file_url "${file}"
@@ -695,7 +739,7 @@ function download_model_archives {
 	_error "${2}" 'missing model name' || return
 	is_model "${1}" "${2}" >/dev/null || _error '' "bad ${1} model name" || return
 	case "${1}" in
-		printers|scanners|pcfaxes|all)
+		printers|labelers|scanners|pcfaxes|all)
 			_download $(list_model_archives_urls "${1}" "${2}")
 		;;
 		*)
@@ -709,12 +753,13 @@ function download_archives {
 	_describe "${1}" 'download files by type (sources printers scanners pcfaxes all)' && return
 	_error "${1}" 'missing type' || return
 	case "${1}" in
-		sources|printers|scanners|pcfaxes)
+		sources|printers|labelers|scanners|pcfaxes)
 			_download $(list_archives_urls "${1}")
 		;;
 		all)
 			download_archives sources
 			download_archives printers
+			download_archives labelers
 			download_archives scanners
 			download_archives pcfaxes
 		;;
