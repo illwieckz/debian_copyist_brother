@@ -52,6 +52,11 @@ When a model is known, files can’t be downloaded only replaying a complicated 
 
 For information, [this page](http://support.brother.com/g/s/id/linux/en/instruction_prn1.html) list the DCP-7025 model, but we can’t found this model on [newer interface](http://support.brother.com/g/b/productlist.aspx?c=us&lang=en&content=dl&q=DCP-7025), the deleted pages referenced the brdcp7025lpr-2.0.1-1.i386.deb driver. The new interface can’t list models and its database is incomplete.
 
+Newer models
+------------
+
+We don’t know how to know newer models released since April 2014.
+
 Man pages
 ---------
 
