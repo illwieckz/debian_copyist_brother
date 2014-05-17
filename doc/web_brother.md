@@ -4,9 +4,7 @@ web_brother.sh
 Warning
 -------
 
-**/!\ since April 2014, this tool can't retreive Brother webpage because Brother delete them, this tool is broken for new users that don't have already download data.**
-
-**So, the developpment of this tool is stalled, some additionnal [La Rache compliant](http://byatoo.com/la-rache/) tools where fast-writed to hack already cached data, but the work has to be redone from zero.**
+This tool were broken in April 2014 since Brother delete some usefull web pages, but thanks to the [web archive](http://archive.org/web/) project, content where saved and is avaliable. During the time when the developpment of this tool were stalled, some additionnal [La Rache compliant](http://byatoo.com/la-rache/) tools where fast-writed to hack already cached data. Another tool named ``file_brother`` to handle files will be developped to replace thoses scripts running alongside the ``web_brother``.
 
 The tool
 --------
@@ -78,3 +76,4 @@ luser@debian tools $ ./web_brother.sh print_help | head -n 2
 luser@debian tools $ ./web_brother.sh list_primary_models_with_archives print_help
 list models with files by type (printers scanners pcfaxes all)
 ```
+
