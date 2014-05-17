@@ -1,0 +1,370 @@
+DCP-110C	cupswrapperDCP110C-1.0.2-3.i386.deb	dcp110clpr-1.0.2-1.i386.deb
+DCP-130C	dcp130ccupswrapper-1.0.1-1.i386.deb	dcp130clpr-1.0.1-1.i386.deb
+DCP-135C	dcp135ccupswrapper-1.0.1-1.i386.deb	dcp135clpr-1.0.1-1.i386.deb
+DCP-1400	cupswrapperDCP1400-1.0.2-1.i386.deb	dcp1400lpr-1.1.2-1.i386.deb
+DCP-145C	dcp145ccupswrapper-1.1.2-2.i386.deb	dcp145clpr-1.1.2-2.i386.deb
+DCP-150C	dcp150ccupswrapper-1.0.1-1.i386.deb	dcp150clpr-1.0.1-1.i386.deb
+DCP-1518	dcp1510cupswrapper-3.0.1-1.i386.deb	dcp1510lpr-3.0.1-1.i386.deb
+DCP-153C	dcp153ccupswrapper-1.0.1-1.i386.deb	dcp153clpr-1.0.1-1.i386.deb
+DCP-155C	dcp155ccupswrapper-1.0.1-1.i386.deb	dcp155clpr-1.0.1-1.i386.deb
+DCP-163C	dcp163ccupswrapper-1.1.2-2.i386.deb	dcp163clpr-1.1.2-2.i386.deb
+DCP-165C	dcp165ccupswrapper-1.1.2-2.i386.deb	dcp165clpr-1.1.2-2.i386.deb
+DCP-167C	dcp167ccupswrapper-1.1.2-2.i386.deb	dcp167clpr-1.1.2-2.i386.deb
+DCP-185C	dcp185ccupswrapper-1.1.2-2.i386.deb	dcp185clpr-1.1.2-2.i386.deb
+DCP-195C	dcp195ccupswrapper-1.1.3-1.i386.deb	dcp195clpr-1.1.3-1.i386.deb
+DCP-197C	dcp197ccupswrapper-1.1.3-1.i386.deb	dcp197clpr-1.1.3-1.i386.deb
+DCP-310CN	cupswrapperDCP310CN-1.0.2-3.i386.deb	dcp310cnlpr-1.0.2-1.i386.deb
+DCP-330C	dcp330ccupswrapper-1.0.1-1.i386.deb	dcp330clpr-1.0.1-1.i386.deb
+DCP-350C	dcp350ccupswrapper-1.0.1-1.i386.deb	dcp350clpr-1.0.1-1.i386.deb
+DCP-353C	dcp353ccupswrapper-1.0.1-1.i386.deb	dcp353clpr-1.0.1-1.i386.deb
+DCP-365CN	dcp365cncupswrapper-1.1.3-1.i386.deb	dcp365cnlpr-1.1.3-1.i386.deb
+DCP-373CW	dcp373cwcupswrapper-1.1.3-1.i386.deb	dcp373cwlpr-1.1.3-1.i386.deb
+DCP-375CW	dcp375cwcupswrapper-1.1.3-1.i386.deb	dcp375cwlpr-1.1.3-1.i386.deb
+DCP-377CW	dcp377cwcupswrapper-1.1.3-1.i386.deb	dcp377cwlpr-1.1.3-1.i386.deb
+DCP-383C	dcp383ccupswrapper-1.1.2-2.i386.deb	dcp383clpr-1.1.2-2.i386.deb
+DCP-385C	dcp385ccupswrapper-1.1.2-2.i386.deb	dcp385clpr-1.1.2-2.i386.deb
+DCP-387C	dcp387ccupswrapper-1.1.2-2.i386.deb	dcp387clpr-1.1.2-2.i386.deb
+DCP-395CN	dcp395cncupswrapper-1.1.3-1.i386.deb	dcp395cnlpr-1.1.3-1.i386.deb
+DCP-540CN	dcp540cncupswrapper-1.0.1-1.i386.deb	dcp540cnlpr-1.0.1-1.i386.deb
+DCP-560CN	dcp560cncupswrapper-1.0.1-1.i386.deb	dcp560cnlpr-1.0.1-1.i386.deb
+DCP-585CW	dcp585cwcupswrapper-1.1.2-2.i386.deb	dcp585cwlpr-1.1.2-2.i386.deb
+DCP-6690CW	dcp6690cwcupswrapper-1.1.2-2.i386.deb	dcp6690cwlpr-1.1.2-2.i386.deb
+DCP-7010	brdcp7010lpr-2.0.1-1.i386.deb	cupswrapperDCP7010-2.0.1-2.i386.deb
+DCP-7020	brdcp7020lpr-2.0.1-1.i386.deb	cupswrapperDCP7020-2.0.1-2.i386.deb
+DCP-7025	BR7025_2_GPL.ppd.gz	brdcp7025lpr-2.0.1-1.i386.deb	cupswrapperDCP7025-2.0.1-2.i386.deb
+DCP-7030	brdcp7030lpr-2.0.2-1.i386.deb	cupswrapperDCP7030-2.0.2-1.i386.deb
+DCP-7040	brdcp7040lpr-2.0.2-1.i386.deb	cupswrapperDCP7040-2.0.2-1.i386.deb
+DCP-7045N	BR7045_2_GPL.ppd.gz	brdcp7045nlpr-2.0.2-1.i386.deb	cupswrapperDCP7045N-2.0.2-1.i386.deb
+DCP-7055	cupswrapperDCP7055-2.0.4-2.i386.deb	dcp7055lpr-2.1.0-1.i386.deb
+DCP-7055W	dcp7055wcupswrapper-3.0.1-1.i386.deb	dcp7055wlpr-3.0.1-1.i386.deb
+DCP-7057	cupswrapperDCP7057-2.0.4-2.i386.deb	dcp7057lpr-2.1.0-1.i386.deb
+DCP-7057WR	dcp7057wcupswrapper-3.0.1-1.i386.deb	dcp7057wlpr-3.0.1-1.i386.deb
+DCP-7060D	cupswrapperDCP7060D-2.0.4-2.i386.deb	dcp7060dlpr-2.1.0-1.i386.deb
+DCP-7065DN	cupswrapperDCP7065DN-2.0.4-2.i386.deb	dcp7065dnlpr-2.1.0-1.i386.deb
+DCP-7070DW	cupswrapperDCP7070DW-2.0.4-2.i386.deb	dcp7070dwlpr-2.1.0-1.i386.deb
+DCP-750CW	dcp750cwcupswrapper-1.0.1-1.i386.deb	dcp750cwlpr-1.0.1-1.i386.deb
+DCP-770CW	dcp770cwcupswrapper-1.0.1-1.i386.deb	dcp770cwlpr-1.0.1-1.i386.deb
+DCP-8020	BR8020_2_GPL.ppd.gz	cupswrapperDCP8020-1.0.2-1.i386.deb	dcp8020lpr-1.1.2-1.i386.deb
+DCP-8025D	BR8025_2_GPL.ppd.gz	cupswrapperDCP8025D-1.0.2-1.i386.deb	dcp8025dlpr-1.1.2-1.i386.deb
+DCP-8040	BR8040_2_GPL.ppd.gz	cupswrapperDCP8040-1.0.2-1.i386.deb	dcp8040lpr-1.1.2-1.i386.deb
+DCP-8045D	BR8045_2_GPL.ppd.gz	cupswrapperDCP8045D-1.0.2-1.i386.deb	dcp8045dlpr-1.1.2-1.i386.deb
+DCP-8060	brdcp8060lpr-2.0.1-1.i386.deb	cupswrapperDCP8060-2.0.1-2.i386.deb
+DCP-8065DN	brdcp8065dnlpr-2.0.1-1.i386.deb	cupswrapperDCP8065DN-2.0.1-2.i386.deb
+DCP-8070D	cupswrapperDCP8070D-2.0.4-1.i386.deb	dcp8070dlpr-2.0.3-1.i386.deb
+DCP-8080DN	BR8080_2_GPL.ppd.gz	cupswrapperDCP8080DN-2.0.4-1.i386.deb	dcp8080dnlpr-2.0.3-1.i386.deb
+DCP-8085DN	BR8085_2_GPL.ppd.gz	cupswrapperDCP8085DN-2.0.4-1.i386.deb	dcp8085dnlpr-2.0.3-1.i386.deb
+DCP-8110D	dcp8110dcupswrapper-3.0.0-1.i386.deb	dcp8110dlpr-3.0.0-1.i386.deb
+DCP-8110DN	dcp8110dncupswrapper-3.0.0-1.i386.deb	dcp8110dnlpr-3.0.0-1.i386.deb
+DCP-8112DN	dcp8112dncupswrapper-3.0.0-1.i386.deb	dcp8112dnlpr-3.0.0-1.i386.deb
+DCP-8150DN	dcp8150dncupswrapper-3.0.0-1.i386.deb	dcp8150dnlpr-3.0.0-1.i386.deb
+DCP-8152DN	dcp8152dncupswrapper-3.0.0-1.i386.deb	dcp8152dnlpr-3.0.0-1.i386.deb
+DCP-8155DN	dcp8155dncupswrapper-3.0.0-1.i386.deb	dcp8155dnlpr-3.0.0-1.i386.deb
+DCP-8157DN	dcp8157dncupswrapper-3.0.0-1.i386.deb	dcp8157dnlpr-3.0.0-1.i386.deb
+DCP-8250DN	dcp8250dncupswrapper-3.0.0-1.i386.deb	dcp8250dnlpr-3.0.0-1.i386.deb
+DCP-9010CN	BR901D_2_GPL.ppd.gz	dcp9010cncupswrapper-1.1.2-2.i386.deb	dcp9010cnlpr-1.1.2-1.i386.deb
+DCP-9020CDW	dcp9020cdwcupswrapper-1.1.2-1.i386.deb	dcp9020cdwlpr-1.1.2-1.i386.deb
+DCP-9040CN	BR9040_2_GPL.ppd.gz	dcp9040cncupswrapper-1.0.3-1.i386.deb	dcp9040cnlpr-1.0.3-1.i386.deb
+DCP-9042CDN	BR9042_2_GPL.ppd.gz	dcp9042cdncupswrapper-1.0.3-1.i386.deb	dcp9042cdnlpr-1.0.3-1.i386.deb
+DCP-9045CDN	BR9045_2_GPL.ppd.gz	dcp9045cdncupswrapper-1.0.3-1.i386.deb	dcp9045cdnlpr-1.0.3-1.i386.deb
+DCP-9055CDN	dcp9055cdncupswrapper-1.1.1-5.i386.deb	dcp9055cdnlpr-1.1.1-5.i386.deb
+DCP-9270CDN	dcp9270cdncupswrapper-1.1.1-5.i386.deb	dcp9270cdnlpr-1.1.1-5.i386.deb
+DCP-J100	dcpj100cupswrapper-3.0.0-1.i386.deb	dcpj100lpr-3.0.0-1.i386.deb
+DCP-J105	dcpj105cupswrapper-3.0.0-1.i386.deb	dcpj105lpr-3.0.0-1.i386.deb
+DCP-J125	dcpj125cupswrapper-1.1.3-1.i386.deb	dcpj125lpr-1.1.3-1.i386.deb
+DCP-J132W	dcpj132wcupswrapper-3.0.0-1.i386.deb	dcpj132wlpr-3.0.0-1.i386.deb
+DCP-J140W	dcpj140wcupswrapper-1.1.3-6.i386.deb	dcpj140wlpr-1.1.3-6.i386.deb
+DCP-J152W	dcpj152wcupswrapper-3.0.0-1.i386.deb	dcpj152wlpr-3.0.0-1.i386.deb
+DCP-J172W	dcpj172wcupswrapper-3.0.0-1.i386.deb	dcpj172wlpr-3.0.0-1.i386.deb
+DCP-J315W	dcpj315wcupswrapper-1.1.3-1.i386.deb	dcpj315wlpr-1.1.3-1.i386.deb
+DCP-J4110DW	dcpj4110dwcupswrapper-3.0.1-1.i386.deb	dcpj4110dwlpr-3.0.1-1.i386.deb
+DCP-J515W	dcpj515wcupswrapper-1.1.3-1.i386.deb	dcpj515wlpr-1.1.3-1.i386.deb
+DCP-J525W	dcpj525wcupswrapper-3.0.0-1.i386.deb	dcpj525wlpr-3.0.1-1.i386.deb
+DCP-J552DW	dcpj552dwcupswrapper-3.0.0-1.i386.deb	dcpj552dwlpr-3.0.0-1.i386.deb
+DCP-J715W	dcpj715wcupswrapper-1.1.3-1.i386.deb	dcpj715wlpr-1.1.3-1.i386.deb
+DCP-J725DW	dcpj725dwcupswrapper-3.0.0-1.i386.deb	dcpj725dwlpr-3.0.1-1.i386.deb
+DCP-J752DW	dcpj752dwcupswrapper-3.0.0-1.i386.deb	dcpj752dwlpr-3.0.0-1.i386.deb
+DCP-J925DW	dcpj925dwcupswrapper-3.0.0-1.i386.deb	dcpj925dwlpr-3.0.1-1.i386.deb
+FAX-1815C	cupswrapperfax1815c_1.0.0-2_i386.deb	fax1815clpr-1.0.4-1.i386.deb
+FAX-1820C	cupswrapperfax1820c_1.0.0-2_i386.deb	fax1820clpr-1.0.4-1.i386.deb
+FAX-1835C	cupswrapperFAX1835C-1.0.2-3.i386.deb	fax1835clpr-1.0.2-1.i386.deb
+FAX-1840C	cupswrapperFAX1840C-1.0.2-3.i386.deb	fax1840clpr-1.0.2-1.i386.deb
+FAX-1860C	fax1860ccupswrapper-1.0.1-1.i386.deb	fax1860clpr-1.0.1-1.i386.deb
+FAX-1920CN	cupswrapperfax1920cn_1.0.0-2_i386.deb	fax1920cnlpr-1.0.4-1.i386.deb
+FAX-1940CN	cupswrapperFAX1940CN-1.0.2-3.i386.deb	fax1940cnlpr-1.0.2-1.i386.deb
+FAX-1960C	fax1960ccupswrapper-1.0.1-1.i386.deb	fax1960clpr-1.0.1-1.i386.deb
+FAX-2440C	cupswrapperFAX2440C-1.0.2-3.i386.deb	fax2440clpr-1.0.2-1.i386.deb
+FAX-2480C	fax2480ccupswrapper-1.0.1-1.i386.deb	fax2480clpr-1.0.1-1.i386.deb
+FAX-2580C	fax2580ccupswrapper-1.0.1-1.i386.deb	fax2580clpr-1.0.1-1.i386.deb
+FAX-2820	brfax2820lpr-2.0.1-1.i386.deb	cupswrapperFAX2820-2.0.1-2.i386.deb
+FAX-2840	fax2840cupswrapper-3.0.1-1.i386.deb	fax2840lpr-3.0.1-1.i386.deb
+FAX-2850	cupswrapperFAX2850-1.0.2-1.i386.deb	fax2850lpr-1.1.2-1.i386.deb
+FAX-2890	fax2890cupswrapper-3.0.1-1.i386.deb	fax2890lpr-3.0.1-1.i386.deb
+FAX-2900	cupswrapperFAX2900-1.0.2-1.i386.deb	fax2900lpr-1.1.2-1.i386.deb
+FAX-2920	brfax2920lpr-2.0.1-1.i386.deb	cupswrapperFAX2920-2.0.1-2.i386.deb
+FAX-2940	fax2940cupswrapper-3.0.1-1.i386.deb	fax2940lpr-3.0.1-1.i386.deb
+FAX-2950	fax2950cupswrapper-3.0.1-1.i386.deb	fax2950lpr-3.0.1-1.i386.deb
+FAX-2990	fax2990cupswrapper-3.0.1-1.i386.deb	fax2990lpr-3.0.1-1.i386.deb
+FAX-3800	cupswrapperFAX3800-1.0.2-1.i386.deb	fax3800lpr-1.1.2-1.i386.deb
+FAX-4100	cupswrapperFAX4100-1.0.2-1.i386.deb	fax4100lpr-1.1.2-1.i386.deb
+FAX-4750e	cupswrapperFAX4750E-1.0.2-1.i386.deb	fax4750elpr-1.1.2-1.i386.deb
+FAX-5750e	cupswrapperFAX5750E-1.0.2-1.i386.deb	fax5750elpr-1.1.2-1.i386.deb
+HL-1030	cupswrapperHL1030-1.0.2-1.i386.deb	hl1030lpr-1.1.2-1.i386.deb
+HL-1118	hl1110cupswrapper-3.0.1-1.i386.deb	hl1110lpr-3.0.1-1.i386.deb
+HL-1230	cupswrapperHL1230-1.0.2-1.i386.deb	hl1230lpr-1.1.2-1.i386.deb
+HL-1240	cupswrapperHL1240-1.0.2-1.i386.deb	hl1240lpr-1.1.2-1.i386.deb
+HL-1250	cupswrapperHL1250-1.0.2-1.i386.deb	hl1250lpr-1.1.2-1.i386.deb
+HL-1270N	cupswrapperHL1270N-1.0.2-1.i386.deb	hl1270nlpr-1.1.2-1.i386.deb
+HL-1430	cupswrapperHL1430-1.0.2-1.i386.deb	hl1430lpr-1.1.2-1.i386.deb
+HL-1440	cupswrapperHL1440-1.0.2-1.i386.deb	hl1440lpr-1.1.2-1.i386.deb
+HL-1450	BRHL14_1_GPL.ppd.gz	cupswrapperHL1450-1.0.2-1.i386.deb	hl1450lpr-1.1.2-1.i386.deb
+HL-1470N	BRHL14_2_GPL.ppd.gz	cupswrapperHL1470N-1.0.2-1.i386.deb	hl1470nlpr-1.1.2-1.i386.deb
+HL-1650	BRHL16_2_GPL.ppd.gz	cupswrapperHL1650-1.0.2-1.i386.deb	hl1650lpr-1.1.2-1.i386.deb
+HL-1670N	BRHL16_2_GPL.ppd.gz	cupswrapperHL1670N-1.0.2-1.i386.deb	hl1670nlpr-1.1.2-1.i386.deb
+HL-1850	BRHL18_2_GPL.ppd.gz	cupswrapperHL1850-1.0.2-1.i386.deb	hl1850lpr-1.1.2-1.i386.deb
+HL-1870N	BRHL18_2_GPL.ppd.gz	cupswrapperHL1870N-1.0.2-1.i386.deb	hl1870nlpr-1.1.2-1.i386.deb
+HL-2030	brhl2030lpr-2.0.1-1.i386.deb	cupswrapperHL2030-2.0.1-2.i386.deb
+HL-2040	brhl2040lpr-2.0.1-1.i386.deb	cupswrapperHL2040-2.0.1-2.i386.deb
+HL-2070N	brhl2070nlpr-2.0.1-1.i386.deb	cupswrapperHL2070N-2.0.1-2.i386.deb
+HL-2130	cupswrapperHL2130-2.0.4-2.i386.deb	hl2130lpr-2.1.0-1.i386.deb
+HL-2132	cupswrapperHL2132-2.0.4-2.i386.deb	hl2132lpr-2.1.0-1.i386.deb
+HL-2140	brhl2140lpr-2.0.2-1.i386.deb	cupswrapperHL2140-2.0.2-1.i386.deb
+HL-2150N	brhl2150nlpr-2.0.2-1.i386.deb	cupswrapperHL2150N-2.0.2-1.i386.deb
+HL-2170W	brhl2170wlpr-2.0.2-1.i386.deb	cupswrapperHL2170W-2.0.2-1.i386.deb
+HL-2220	cupswrapperHL2220-2.0.4-2.i386.deb	hl2220lpr-2.1.0-1.i386.deb
+HL-2230	cupswrapperHL2230-2.0.4-2.i386.deb	hl2230lpr-2.1.0-1.i386.deb
+HL-2240	cupswrapperHL2240-2.0.4-2.i386.deb	hl2240lpr-2.1.0-1.i386.deb
+HL-2240D	cupswrapperHL2240D-2.0.4-2.i386.deb	hl2240dlpr-2.1.1-1.i386.deb
+HL-2242D	cupswrapperHL2242D-2.0.4-2.i386.deb	hl2242dlpr-2.1.1-1.i386.deb
+HL-2250DN	cupswrapperHL2250DN-2.0.4-2.i386.deb	hl2250dnlpr-2.1.0-1.i386.deb
+HL-2270DW	cupswrapperHL2270DW-2.0.4-2.i386.deb	hl2270dwlpr-2.1.0-1.i386.deb
+HL-2280DW	cupswrapperHL2280DW-2.0.4-2.i386.deb	hl2280dwlpr-2.1.0-1.i386.deb
+HL-2460	BRHL24_2_GPL.ppd.gz
+HL-2600CN	BR2600CN_GPL.ppd.gz
+HL-2700CN	BR2700_2_GPL.ppd.gz
+HL-3040CN	hl3040cncupswrapper-1.1.2-2.i386.deb	hl3040cnlpr-1.1.2-1.i386.deb
+HL-3045CN	hl3045cncupswrapper-1.1.2-2.i386.deb	hl3045cnlpr-1.1.2-1.i386.deb
+HL-3070CW	BR3070_2_GPL.ppd.gz	hl3070cwcupswrapper-1.1.2-2.i386.deb	hl3070cwlpr-1.1.2-1.i386.deb
+HL-3075CW	hl3075cwcupswrapper-1.1.2-2.i386.deb	hl3075cwlpr-1.1.2-1.i386.deb
+HL-3140CW	hl3140cwcupswrapper-1.1.2-1.i386.deb	hl3140cwlpr-1.1.2-1.i386.deb
+HL-3150CDN	hl3150cdncupswrapper-1.1.2-1.i386.deb	hl3150cdnlpr-1.1.2-1.i386.deb
+HL-3150CDW	hl3150cdwcupswrapper-1.1.2-1.i386.deb	hl3150cdwlpr-1.1.2-1.i386.deb
+HL-3170CDW	hl3170cdwcupswrapper-1.1.2-1.i386.deb	hl3170cdwlpr-1.1.2-1.i386.deb
+HL-3260N	BRHL32_3_GPL.ppd.gz
+HL-3450CN	BR3450CN_GPL.ppd.gz
+HL-4040CDN	hl4040cdncupswrapper-1.0.3-1.i386.deb	hl4040cdnlpr-1.0.3-1.i386.deb
+HL-4040CN	hl4040cncupswrapper-1.0.3-1.i386.deb	hl4040cnlpr-1.0.3-1.i386.deb
+HL-4050CDN	BR4050_2_GPL.ppd.gz	hl4050cdncupswrapper-1.0.3-1.i386.deb	hl4050cdnlpr-1.0.3-1.i386.deb
+HL-4070CDW	BR4070_2_GPL.ppd.gz	hl4070cdwcupswrapper-1.0.3-1.i386.deb	hl4070cdwlpr-1.0.3-1.i386.deb
+HL-4140CN	hl4140cncupswrapper-1.1.1-5.i386.deb	hl4140cnlpr-1.1.1-5.i386.deb
+HL-4150CDN	hl4150cdncupswrapper-1.1.1-5.i386.deb	hl4150cdnlpr-1.1.1-5.i386.deb
+HL-4570CDW	hl4570cdwcupswrapper-1.1.1-5.i386.deb	hl4570cdwlpr-1.1.1-5.i386.deb
+HL-5030	cupswrapperHL5030-1.0.2-1.i386.deb	hl5030lpr-1.1.2-1.i386.deb
+HL-5040	cupswrapperHL5040-1.0.2-1.i386.deb	hl5040lpr-1.1.2-1.i386.deb
+HL-5050	BR5050_2_GPL.ppd.gz	cupswrapperHL5050-1.0.2-1.i386.deb	hl5050lpr-1.1.2-1.i386.deb
+HL-5070N	BR5070_2_GPL.ppd.gz	cupswrapperHL5070N-1.0.2-1.i386.deb	hl5070nlpr-1.1.2-1.i386.deb
+HL-5130	cupswrapperHL5130-1.0.2-1.i386.deb	hl5130lpr-1.1.2-1.i386.deb
+HL-5140	cupswrapperHL5140-1.0.2-1.i386.deb	hl5140lpr-1.1.2-1.i386.deb
+HL-5150D	BR5150_2_GPL.ppd.gz	cupswrapperHL5150D-1.0.2-1.i386.deb	hl5150dlpr-1.1.2-1.i386.deb
+HL-5170DN	BR5170_2_GPL.ppd.gz	cupswrapperHL5170DN-1.0.2-1.i386.deb	hl5170dnlpr-1.1.2-1.i386.deb
+HL-5240	BR5240_2_GPL.ppd.gz	brhl5240lpr-2.0.1-1.i386.deb	cupswrapperHL5240-2.0.1-2.i386.deb
+HL-5250DN	BR5250_2_GPL.ppd.gz	brhl5250dnlpr-2.0.1-1.i386.deb	cupswrapperHL5250DN-2.0.1-2.i386.deb
+HL-5270DN	BR5270_2_GPL.ppd.gz	brhl5270dnlpr-2.0.1-1.i386.deb	cupswrapperHL5270DN-2.0.1-2.i386.deb
+HL-5280DW	BR5280_2_GPL.ppd.gz	brhl5280dwlpr-2.0.1-1.i386.deb	cupswrapperHL5280DW-2.0.1-2.i386.deb
+HL-5340D	BR5340_2_GPL.ppd.gz	cupswrapperHL5340D-2.0.4-1.i386.deb	hl5340dlpr-2.0.3-1.i386.deb
+HL-5350DN	BR5350_2_GPL.ppd.gz	cupswrapperHL5350DN-2.0.4-1.i386.deb	hl5350dnlpr-2.0.3-1.i386.deb
+HL-5350DNLT	BR5350_2_GPL.ppd.gz	cupswrapperHL5350DNLT-2.0.4-1.i386.deb	hl5350dnltlpr-2.0.3-1.i386.deb
+HL-5370DW	BR5370_2_GPL.ppd.gz	cupswrapperHL5370DW-2.0.4-1.i386.deb	hl5370dwlpr-2.0.3-1.i386.deb
+HL-5370DWT	BR5370_2_GPL.ppd.gz	cupswrapperHL5370DWT-2.0.4-1.i386.deb	hl5370dwtlpr-2.0.3-1.i386.deb
+HL-5380DN	BR5380_2_GPL.ppd.gz	cupswrapperHL5380DN-2.0.4-1.i386.deb	hl5380dnlpr-2.0.3-1.i386.deb
+HL-5440D	hl5440dcupswrapper-3.0.0-1.i386.deb	hl5440dlpr-3.0.0-1.i386.deb
+HL-5450DN	hl5450dncupswrapper-3.0.0-1.i386.deb	hl5450dnlpr-3.0.0-1.i386.deb
+HL-5470DW	hl5470dwcupswrapper-3.0.0-1.i386.deb	hl5470dwlpr-3.0.0-1.i386.deb
+HL-6050	BR6050_2_GPL.ppd.gz	cupswrapperHL6050-1.0.2-1.i386.deb	hl6050lpr-1.1.2-1.i386.deb
+HL-6050D	BR6050D2_GPL.ppd.gz	cupswrapperHL6050D-1.0.2-1.i386.deb	hl6050dlpr-1.1.2-1.i386.deb
+HL-6180DW	hl6180dwcupswrapper-3.0.0-1.i386.deb	hl6180dwlpr-3.0.0-1.i386.deb
+HL-7050	BR7050_2_GPL.ppd.gz
+HL-8050N	BR8050_2_GPL.ppd.gz
+HL-S7000DN	hls7000dncupswrapper-3.0.2-1.i386.deb	hls7000dnlpr-3.0.2-1.i386.deb
+MFC-1813	mfc1810cupswrapper-3.0.1-1.i386.deb	mfc1810lpr-3.0.1-1.i386.deb
+MFC-1818	mfc1810cupswrapper-3.0.1-1.i386.deb	mfc1810lpr-3.0.1-1.i386.deb
+MFC-210C	cupswrapperMFC210C-1.0.2-3.i386.deb	mfc210clpr-1.0.2-1.i386.deb
+MFC-230C	mfc230ccupswrapper-1.0.1-1.i386.deb	mfc230clpr-1.0.1-1.i386.deb
+MFC-235C	mfc235ccupswrapper-1.0.1-1.i386.deb	mfc235clpr-1.0.1-1.i386.deb
+MFC-240C	mfc240ccupswrapper-1.0.1-1.i386.deb	mfc240clpr-1.0.1-1.i386.deb
+MFC-250C	mfc250ccupswrapper-1.1.2-2.i386.deb	mfc250clpr-1.1.2-2.i386.deb
+MFC-255CW	mfc255cwcupswrapper-1.1.3-1.i386.deb	mfc255cwlpr-1.1.3-1.i386.deb
+MFC-257CW	mfc257cwcupswrapper-1.1.3-1.i386.deb	mfc257cwlpr-1.1.3-1.i386.deb
+MFC-260C	mfc260ccupswrapper-1.0.1-1.i386.deb	mfc260clpr-1.0.1-1.i386.deb
+MFC-290C	mfc290ccupswrapper-1.1.2-2.i386.deb	mfc290clpr-1.1.2-2.i386.deb
+MFC-295CN	mfc295cncupswrapper-1.1.3-1.i386.deb	mfc295cnlpr-1.1.3-1.i386.deb
+MFC-297C	mfc297ccupswrapper-1.1.2-2.i386.deb	mfc297clpr-1.1.2-2.i386.deb
+MFC-3220C	cupswrappermfc3220c_1.0.0-2_i386.deb	mfc3220clpr-1.0.4-1.i386.deb
+MFC-3240C	cupswrapperMFC3240C-1.0.2-3.i386.deb	mfc3240clpr-1.0.2-1.i386.deb
+MFC-3320CN	cupswrappermfc3320cn_1.0.0-2_i386.deb	mfc3320cnlpr-1.0.4-1.i386.deb
+MFC-3340CN	cupswrapperMFC3340CN-1.0.2-3.i386.deb	mfc3340cnlpr-1.0.2-1.i386.deb
+MFC-3360C	mfc3360ccupswrapper-1.0.1-1.i386.deb	mfc3360clpr-1.0.1-1.i386.deb
+MFC-3420C	cupswrappermfc3420c_1.0.0-2_i386.deb	mfc3420clpr-1.0.4-1.i386.deb
+MFC-3820CN	cupswrappermfc3820cn_1.0.0-2_i386.deb	mfc3820cnlpr-1.0.4-1.i386.deb
+MFC-410CN	cupswrapperMFC410CN-1.0.2-3.i386.deb	mfc410cnlpr-1.0.2-1.i386.deb
+MFC-420CN	cupswrapperMFC420CN-1.0.2-3.i386.deb	mfc420cnlpr-1.0.2-1.i386.deb
+MFC-440CN	mfc440cncupswrapper-1.0.1-1.i386.deb	mfc440cnlpr-1.0.1-1.i386.deb
+MFC-465CN	mfc465cncupswrapper-1.0.1-1.i386.deb	mfc465cnlpr-1.0.1-1.i386.deb
+MFC-4800	cupswrapperMFC4800-1.0.2-1.i386.deb	mfc4800lpr-1.1.2-1.i386.deb
+MFC-490CW	mfc490cwcupswrapper-1.1.2-2.i386.deb	mfc490cwlpr-1.1.2-2.i386.deb
+MFC-495CW	mfc495cwcupswrapper-1.1.3-1.i386.deb	mfc495cwlpr-1.1.3-1.i386.deb
+MFC-5440CN	cupswrapperMFC5440CN-1.0.2-3.i386.deb	mfc5440cnlpr-1.0.2-1.i386.deb
+MFC-5460CN	mfc5460cncupswrapper-1.0.1-1.i386.deb	mfc5460cnlpr-1.0.1-1.i386.deb
+MFC-5490CN	mfc5490cncupswrapper-1.1.2-2.i386.deb	mfc5490cnlpr-1.1.2-2.i386.deb
+MFC-5840CN	cupswrapperMFC5840CN-1.0.2-3.i386.deb	mfc5840cnlpr-1.0.2-1.i386.deb
+MFC-5860CN	mfc5860cncupswrapper-1.0.1-1.i386.deb	mfc5860cnlpr-1.0.1-1.i386.deb
+MFC-5890CN	mfc5890cncupswrapper-1.1.2-2.i386.deb	mfc5890cnlpr-1.1.2-2.i386.deb
+MFC-5895CW	mfc5895cwcupswrapper-1.1.3-6.i386.deb	mfc5895cwlpr-1.1.3-4.i386.deb
+MFC-620CN	cupswrapperMFC620CN-1.0.2-3.i386.deb	mfc620cnlpr-1.0.2-1.i386.deb
+MFC-6490CW	mfc6490cwcupswrapper-1.1.2-2.i386.deb	mfc6490cwlpr-1.1.2-2.i386.deb
+MFC-660CN	mfc660cncupswrapper-1.0.1-1.i386.deb	mfc660cnlpr-1.0.1-1.i386.deb
+MFC-665CW	mfc665cwcupswrapper-1.0.1-1.i386.deb	mfc665cwlpr-1.0.1-1.i386.deb
+MFC-6800	cupswrapperMFC6800-1.0.2-1.i386.deb	mfc6800lpr-1.1.2-1.i386.deb
+MFC-680CN	mfc680cncupswrapper-1.0.1-1.i386.deb	mfc680cnlpr-1.0.1-1.i386.deb
+MFC-685CW	mfc685cwcupswrapper-1.0.1-1.i386.deb	mfc685cwlpr-1.0.1-1.i386.deb
+MFC-6890CDW	mfc6890cdwcupswrapper-1.1.2-4.i386.deb	mfc6890cdwlpr-1.1.2-4.i386.deb
+MFC-7220	brmfc7220lpr-2.0.1-1.i386.deb	cupswrapperMFC7220-2.0.1-2.i386.deb
+MFC-7225N	BR7225_2_GPL.ppd.gz	brmfc7225nlpr-2.0.1-1.i386.deb	cupswrapperMFC7225N-2.0.1-2.i386.deb
+MFC-7240	mfc7240cupswrapper-3.0.1-1.i386.deb	mfc7240lpr-3.0.1-1.i386.deb
+MFC-7290	mfc7290cupswrapper-3.0.1-1.i386.deb	mfc7290lpr-3.0.1-1.i386.deb
+MFC-7320	brmfc7320lpr-2.0.2-1.i386.deb	cupswrapperMFC7320-2.0.2-1.i386.deb
+MFC-7340	brmfc7340lpr-2.0.2-1.i386.deb	cupswrapperMFC7340-2.0.2-1.i386.deb
+MFC-7345N	brmfc7340lpr-2.0.2-1.i386.deb	cupswrapperMFC7340-2.0.2-1.i386.deb
+MFC-7360	cupswrapperMFC7360-2.0.4-2.i386.deb	mfc7360lpr-2.1.0-1.i386.deb
+MFC-7360N	cupswrapperMFC7360N-2.0.4-2.i386.deb	mfc7360nlpr-2.1.0-1.i386.deb
+MFC-7362N	cupswrapperMFC7362N-2.0.4-2.i386.deb	mfc7362nlpr-2.1.0-1.i386.deb
+MFC-7365DN	mfc7365dncupswrapper-3.0.1-1.i386.deb	mfc7365dnlpr-3.0.1-1.i386.deb
+MFC-7420	brmfc7420lpr-2.0.1-1.i386.deb	cupswrapperMFC7420-2.0.1-2.i386.deb
+MFC-7440N	brmfc7440nlpr-2.0.2-1.i386.deb	cupswrapperMFC7440N-2.0.2-1.i386.deb
+MFC-7450	BR7450_2_GPL.ppd.gz	brmfc7450lpr-2.0.2-1.i386.deb	cupswrapperMFC7450-2.0.2-1.i386.deb
+MFC-7460DN	cupswrapperMFC7460DN-2.0.4-2.i386.deb	mfc7460dnlpr-2.1.0-1.i386.deb
+MFC-7470D	cupswrapperMFC7470D-2.0.4-2.i386.deb	mfc7470dlpr-2.1.0-1.i386.deb
+MFC-7820N	BR7820_2_GPL.ppd.gz	brmfc7820nlpr-2.0.1-1.i386.deb	cupswrapperMFC7820N-2.0.1-2.i386.deb
+MFC-7840N	BR784N_2_GPL.ppd.gz	brmfc7840nlpr-2.0.2-1.i386.deb	cupswrapperMFC7840N-2.0.2-1.i386.deb
+MFC-7840W	BR7840_2_GPL.ppd.gz	brmfc7840wlpr-2.0.2-1.i386.deb	cupswrapperMFC7840W-2.0.2-1.i386.deb
+MFC-7860DN	cupswrapperMFC7860DN-2.0.4-2.i386.deb	mfc7860dnlpr-2.1.0-1.i386.deb
+MFC-7860DW	cupswrapperMFC7860DW-2.0.4-2.i386.deb	mfc7860dwlpr-2.1.0-1.i386.deb
+MFC-790CW	mfc790cwcupswrapper-1.1.2-2.i386.deb	mfc790cwlpr-1.1.2-2.i386.deb
+MFC-795CW	mfc795cwcupswrapper-1.1.3-1.i386.deb	mfc795cwlpr-1.1.3-1.i386.deb
+MFC-8220	BR8220_2_GPL.ppd.gz
+MFC-8370DN	BR8370_2_GPL.ppd.gz	cupswrapperMFC8370DN-2.0.4-1.i386.deb	mfc8370dnlpr-2.0.3-1.i386.deb
+MFC-8380DN	BR8380_2_GPL.ppd.gz	cupswrapperMFC8380DN-2.0.4-1.i386.deb	mfc8380dnlpr-2.0.3-1.i386.deb
+MFC-8420	BR8420_2_GPL.ppd.gz	cupswrapperMFC8420-1.0.2-1.i386.deb	mfc8420lpr-1.1.2-1.i386.deb
+MFC-8440	BR8440_2_GPL.ppd.gz	cupswrapperMFC8440-1.0.2-1.i386.deb	mfc8440lpr-1.1.2-1.i386.deb
+MFC-845CW	mfc845cwcupswrapper-1.0.1-1.i386.deb	mfc845cwlpr-1.0.1-1.i386.deb
+MFC-8460N	BR8460_2_GPL.ppd.gz	brmfc8460nlpr-2.0.1-1.i386.deb	cupswrapperMFC8460N-2.0.1-2.i386.deb
+MFC-8480DN	BR8480_2_GPL.ppd.gz	cupswrapperMFC8480DN-2.0.4-1.i386.deb	mfc8480dnlpr-2.0.3-1.i386.deb
+MFC-8500	cupswrapperMFC8500-1.0.2-1.i386.deb	mfc8500lpr-1.1.2-1.i386.deb
+MFC-8510DN	mfc8510dncupswrapper-3.0.0-1.i386.deb	mfc8510dnlpr-3.0.0-1.i386.deb
+MFC-8512DN	mfc8512dncupswrapper-3.0.0-1.i386.deb	mfc8512dnlpr-3.0.0-1.i386.deb
+MFC-8515DN	mfc8515dncupswrapper-3.0.0-1.i386.deb	mfc8515dnlpr-3.0.0-1.i386.deb
+MFC-8520DN	mfc8520dncupswrapper-3.0.0-1.i386.deb	mfc8520dnlpr-3.0.0-1.i386.deb
+MFC-8640D	BR8640_2_GPL.ppd.gz
+MFC-8660DN	brmfc8660dnlpr-2.0.1-1.i386.deb	cupswrapperMFC8660DN-2.0.1-2.i386.deb
+MFC-8670DN	BR8670_2_GPL.ppd.gz	cupswrapperMFC8670DN-2.0.4-1.i386.deb	mfc8670dnlpr-2.0.3-1.i386.deb
+MFC-8680DN	BR8680_2_GPL.ppd.gz	cupswrapperMFC8680DN-2.0.4-1.i386.deb	mfc8680dnlpr-2.0.3-1.i386.deb
+MFC-8690DW	cupswrapperMFC8690DW-2.0.4-2.i386.deb	mfc8690dwlpr-2.1.0-1.i386.deb
+MFC-8710DW	mfc8710dwcupswrapper-3.0.0-1.i386.deb	mfc8710dwlpr-3.0.0-1.i386.deb
+MFC-8712DW	mfc8712dwcupswrapper-3.0.0-1.i386.deb	mfc8712dwlpr-3.0.0-1.i386.deb
+MFC-8810DW	mfc8810dwcupswrapper-3.0.2-1.i386.deb	mfc8810dwlpr-3.0.2-1.i386.deb
+MFC-8820D	BR8820_2_GPL.ppd.gz	cupswrapperMFC8820D-1.0.2-1.i386.deb	mfc8820dlpr-1.1.2-1.i386.deb
+MFC-8840D	BR8840_2_GPL.ppd.gz	cupswrapperMFC8840D-1.0.2-1.i386.deb	mfc8840dlpr-1.1.2-1.i386.deb
+MFC-885CW	mfc885cwcupswrapper-1.0.1-1.i386.deb	mfc885cwlpr-1.0.1-1.i386.deb
+MFC-8860DN	brmfc8860dnlpr-2.0.1-1.i386.deb	cupswrapperMFC8860DN-2.0.1-2.i386.deb
+MFC-8870DW	brmfc8870dwlpr-2.0.1-1.i386.deb	cupswrapperMFC8870DW-2.0.1-2.i386.deb
+MFC-8880DN	BR8880_2_GPL.ppd.gz	cupswrapperMFC8880DN-2.0.4-1.i386.deb	mfc8880dnlpr-2.0.3-1.i386.deb
+MFC-8890DW	BR8890_2_GPL.ppd.gz	cupswrapperMFC8890DW-2.0.4-1.i386.deb	mfc8890dwlpr-2.0.3-1.i386.deb
+MFC-8910DW	mfc8910dwcupswrapper-3.0.0-1.i386.deb	mfc8910dwlpr-3.0.0-1.i386.deb
+MFC-8912DW	mfc8912dwcupswrapper-3.0.0-1.i386.deb	mfc8912dwlpr-3.0.0-1.i386.deb
+MFC-8950DW	mfc8950dwcupswrapper-3.0.0-1.i386.deb	mfc8950dwlpr-3.0.0-1.i386.deb
+MFC-8952DW	mfc8952dwcupswrapper-3.0.0-1.i386.deb	mfc8952dwlpr-3.0.0-1.i386.deb
+MFC-9010CN	BR901M_2_GPL.ppd.gz	mfc9010cncupswrapper-1.1.2-2.i386.deb	mfc9010cnlpr-1.1.2-1.i386.deb
+MFC-9030	cupswrapperMFC9030-1.0.2-1.i386.deb	mfc9030lpr-1.1.2-1.i386.deb
+MFC-9070	cupswrapperMFC9070-1.0.2-1.i386.deb	mfc9070lpr-1.1.2-1.i386.deb
+MFC-9120CN	BR9120_2_GPL.ppd.gz	mfc9120cncupswrapper-1.1.2-2.i386.deb	mfc9120cnlpr-1.1.2-1.i386.deb
+MFC-9125CN	mfc9125cncupswrapper-1.1.2-2.i386.deb	mfc9125cnlpr-1.1.2-1.i386.deb
+MFC-9130CW	mfc9130cwcupswrapper-1.1.2-1.i386.deb	mfc9130cwlpr-1.1.2-1.i386.deb
+MFC-9140CDN	mfc9140cdncupswrapper-1.1.2-1.i386.deb	mfc9140cdnlpr-1.1.2-1.i386.deb
+MFC-9160	cupswrapperMFC9160-1.0.2-1.i386.deb	mfc9160lpr-1.1.2-1.i386.deb
+MFC-9180	cupswrapperMFC9180-1.0.2-1.i386.deb	mfc9180lpr-1.1.2-1.i386.deb
+MFC-9320CW	BR9320_2_GPL.ppd.gz	mfc9320cwcupswrapper-1.1.2-2.i386.deb	mfc9320cwlpr-1.1.2-1.i386.deb
+MFC-9325CW	mfc9325cwcupswrapper-1.1.2-2.i386.deb	mfc9325cwlpr-1.1.2-1.i386.deb
+MFC-9330CDW	mfc9330cdwcupswrapper-1.1.2-1.i386.deb	mfc9330cdwlpr-1.1.2-1.i386.deb
+MFC-9340CDW	mfc9340cdwcupswrapper-1.1.2-1.i386.deb	mfc9340cdwlpr-1.1.2-1.i386.deb
+MFC-9420CN	BR9420_2_GPL.ppd.gz	mfc9420cncups-1.0.0-1.debian.i386.deb	mfc9420cnlpr-1.0.0-1.i386.deb
+MFC-9440CN	BR9440_2_GPL.ppd.gz	mfc9440cncupswrapper-1.0.3-1.i386.deb	mfc9440cnlpr-1.0.3-1.i386.deb
+MFC-9450CDN	BR9450_2_GPL.ppd.gz	mfc9450cdncupswrapper-1.0.3-1.i386.deb	mfc9450cdnlpr-1.0.3-1.i386.deb
+MFC-9460CDN	mfc9460cdncupswrapper-1.1.1-5.i386.deb	mfc9460cdnlpr-1.1.1-5.i386.deb
+MFC-9465CDN	mfc9465cdncupswrapper-1.1.1-5.i386.deb	mfc9465cdnlpr-1.1.1-5.i386.deb
+MFC-9560CDW	mfc9560cdwcupswrapper-1.1.1-5.i386.deb	mfc9560cdwlpr-1.1.1-5.i386.deb
+MFC-9660	cupswrapperMFC9660-1.0.2-1.i386.deb	mfc9660lpr-1.1.2-1.i386.deb
+MFC-9700	cupswrapperMFC9700-1.0.2-1.i386.deb	mfc9700lpr-1.1.2-1.i386.deb
+MFC-9760	cupswrapperMFC9760-1.0.2-1.i386.deb	mfc9760lpr-1.1.2-1.i386.deb
+MFC-9800	cupswrapperMFC9800-1.0.2-1.i386.deb	mfc9800lpr-1.1.2-1.i386.deb
+MFC-9840CDW	BR9840_2_GPL.ppd.gz	mfc9840cdwcupswrapper-1.0.3-1.i386.deb	mfc9840cdwlpr-1.0.3-1.i386.deb
+MFC-9860	cupswrapperMFC9860-1.0.2-1.i386.deb	mfc9860lpr-1.1.2-1.i386.deb
+MFC-9880	cupswrapperMFC9880-1.0.2-1.i386.deb	mfc9880lpr-1.1.2-1.i386.deb
+MFC-990CW	mfc990cwcupswrapper-1.1.2-2.i386.deb	mfc990cwlpr-1.1.2-2.i386.deb
+MFC-9970CDW	mfc9970cdwcupswrapper-1.1.1-5.i386.deb	mfc9970cdwlpr-1.1.1-5.i386.deb
+MFC-J220	mfcj220cupswrapper-1.1.3-1.i386.deb	mfcj220lpr-1.1.3-1.i386.deb
+MFC-J2310	mfcj2310cupswrapper-3.0.1-1.i386.deb	mfcj2310lpr-3.0.1-1.i386.deb
+MFC-J245	mfcj245cupswrapper-3.0.0-1.i386.deb	mfcj245lpr-3.0.0-1.i386.deb
+MFC-J2510	mfcj2510cupswrapper-3.0.1-1.i386.deb	mfcj2510lpr-3.0.1-1.i386.deb
+MFC-J265W	mfcj265wcupswrapper-1.1.3-1.i386.deb	mfcj265wlpr-1.1.3-1.i386.deb
+MFC-J270W	mfcj270wcupswrapper-1.1.3-1.i386.deb	mfcj270wlpr-1.1.3-1.i386.deb
+MFC-J280W	mfcj280wcupswrapper-3.0.0-1.i386.deb	mfcj280wlpr-3.0.1-1.i386.deb
+MFC-J285DW	mfcj285dwcupswrapper-3.0.0-1.i386.deb	mfcj285dwlpr-3.0.0-1.i386.deb
+MFC-J3520	mfcj3520cupswrapper-3.0.0-1.i386.deb	mfcj3520lpr-3.0.0-1.i386.deb
+MFC-J3720	mfcj3720cupswrapper-3.0.0-1.i386.deb	mfcj3720lpr-3.0.0-1.i386.deb
+MFC-J410	mfcj410cupswrapper-1.1.3-1.i386.deb	mfcj410lpr-1.1.3-1.i386.deb
+MFC-J410W	mfcj410wcupswrapper-1.1.3-1.i386.deb	mfcj410wlpr-1.1.3-1.i386.deb
+MFC-J415W	mfcj415wcupswrapper-1.1.3-1.i386.deb	mfcj415wlpr-1.1.3-1.i386.deb
+MFC-J425W	mfcj425wcupswrapper-3.0.0-1.i386.deb	mfcj425wlpr-3.0.1-1.i386.deb
+MFC-J430W	mfcj430wcupswrapper-3.0.0-1.i386.deb	mfcj430wlpr-3.0.1-1.i386.deb
+MFC-J4310DW	mfcj4310dwcupswrapper-3.0.1-1.i386.deb	mfcj4310dwlpr-3.0.1-1.i386.deb
+MFC-J432W	mfcj432wcupswrapper-3.0.0-1.i386.deb	mfcj432wlpr-3.0.1-1.i386.deb
+MFC-J435W	mfcj435wcupswrapper-3.0.0-1.i386.deb	mfcj435wlpr-3.0.1-1.i386.deb
+MFC-J4410DW	mfcj4410dwcupswrapper-3.0.1-1.i386.deb	mfcj4410dwlpr-3.0.1-1.i386.deb
+MFC-J450DW	mfcj450dwcupswrapper-3.0.0-1.i386.deb	mfcj450dwlpr-3.0.0-1.i386.deb
+MFC-J4510DW	mfcj4510dwcupswrapper-3.0.1-1.i386.deb	mfcj4510dwlpr-3.0.1-1.i386.deb
+MFC-J4610DW	mfcj4610dwcupswrapper-3.0.1-1.i386.deb	mfcj4610dwlpr-3.0.1-1.i386.deb
+MFC-J470DW	mfcj470dwcupswrapper-3.0.0-1.i386.deb	mfcj470dwlpr-3.0.0-1.i386.deb
+MFC-J4710DW	mfcj4710dwcupswrapper-3.0.1-1.i386.deb	mfcj4710dwlpr-3.0.1-1.i386.deb
+MFC-J475DW	mfcj475dwcupswrapper-3.0.0-1.i386.deb	mfcj475dwlpr-3.0.0-1.i386.deb
+MFC-J5910DW	mfcj5910dwcupswrapper-3.0.0-1.i386.deb	mfcj5910dwlpr-3.0.0-1.i386.deb
+MFC-J615W	mfcj615wcupswrapper-1.1.3-1.i386.deb	mfcj615wlpr-1.1.3-1.i386.deb
+MFC-J625DW	mfcj625dwcupswrapper-3.0.0-1.i386.deb	mfcj625dwlpr-3.0.1-1.i386.deb
+MFC-J630W	mfcj630wcupswrapper-1.1.3-1.i386.deb	mfcj630wlpr-1.1.3-1.i386.deb
+MFC-J650DW	mfcj650dwcupswrapper-3.0.0-1.i386.deb	mfcj650dwlpr-3.0.0-1.i386.deb
+MFC-J6510DW	mfcj6510dwcupswrapper-3.0.0-1.i386.deb	mfcj6510dwlpr-3.0.0-1.i386.deb
+MFC-J6520DW	mfcj6520dwcupswrapper-3.0.0-1.i386.deb	mfcj6520dwlpr-3.0.0-1.i386.deb
+MFC-J6710DW	mfcj6710dwcupswrapper-3.0.0-1.i386.deb	mfcj6710dwlpr-3.0.0-1.i386.deb
+MFC-J6720DW	mfcj6720dwcupswrapper-3.0.0-1.i386.deb	mfcj6720dwlpr-3.0.0-1.i386.deb
+MFC-J6910DW	mfcj6910dwcupswrapper-3.0.0-1.i386.deb	mfcj6910dwlpr-3.0.0-1.i386.deb
+MFC-J6920DW	mfcj6920dwcupswrapper-3.0.0-1.i386.deb	mfcj6920dwlpr-3.0.0-1.i386.deb
+MFC-J825DW	mfcj825dwcupswrapper-3.0.0-1.i386.deb	mfcj825dwlpr-3.0.1-1.i386.deb
+MFC-J835DW	mfcj835dwcupswrapper-3.0.0-1.i386.deb	mfcj835dwlpr-3.0.1-1.i386.deb
+MFC-J870DW	mfcj870dwcupswrapper-3.0.0-1.i386.deb	mfcj870dwlpr-3.0.0-1.i386.deb
+MFC-J875DW	mfcj875dwcupswrapper-3.0.0-1.i386.deb	mfcj875dwlpr-3.0.0-1.i386.deb
+PJ-622	pj622cupswrapper-1.0.1-0.debian.i386.deb	pj622lpr-1.0.1-0.i386.deb
+PJ-623	pj623cupswrapper-1.0.1-0.debian.i386.deb	pj623lpr-1.0.1-0.i386.deb
+PJ-662	pj662cupswrapper-1.0.1-0.debian.i386.deb	pj662lpr-1.0.1-0.i386.deb
+PJ-663	pj663cupswrapper-1.0.1-0.debian.i386.deb	pj663lpr-1.0.1-0.i386.deb
+PT-9500	pt9500pccupswrapper-1.0.0-5.debian.i386.deb	pt9500pccupswrapperinch-1.0.0-5.debian.i386.deb	pt9500pclpr-1.0.0-5.i386.deb
+QL-1050	ql1050cupswrapper-1.0.1-0.i386.deb	ql1050lpr-1.0.1-0.i386.deb
+QL-1060N	ql1060ncupswrapper-1.0.1-0.i386.deb	ql1060nlpr-1.0.1-0.i386.deb
+QL-500	ql500cupswrapper-1.0.1-0.i386.deb	ql500lpr-1.0.1-0.i386.deb
+QL-550	ql550cupswrapper-1.0.1-0.i386.deb	ql550lpr-1.0.1-0.i386.deb
+QL-570	ql570cupswrapper-1.0.1-0.i386.deb	ql570lpr-1.0.1-0.i386.deb
+QL-580N	ql580ncupswrapper-1.0.1-0.i386.deb	ql580nlpr-1.0.1-0.i386.deb
+QL-650TD	ql650tdcupswrapper-1.0.1-0.i386.deb	ql650tdlpr-1.0.1-0.i386.deb
+QL-700	ql700cupswrapper-1.0.1-1.i386.deb	ql700lpr-1.0.1-1.i386.deb
+QL-710W	ql710wcupswrapper-1.0.1-1.i386.deb	ql710wlpr-1.0.1-1.i386.deb
+QL-720NW	ql720nwcupswrapper-1.0.1-1.i386.deb	ql720nwlpr-1.0.1-1.i386.deb
+TD-2020	td2020cupswrapper-1.0.1-0.i386.deb	td2020cupswrapperinch-1.0.1-0.i386.deb	td2020lpr-1.0.1-0.i386.deb
+TD-2120N	td2120ncupswrapper-1.0.1-0.i386.deb	td2120ncupswrapperinch-1.0.1-0.i386.deb	td2120nlpr-1.0.1-0.i386.deb
+TD-2130N	td2130ncupswrapper-1.0.1-0.i386.deb	td2130ncupswrapperinch-1.0.1-0.i386.deb	td2130nlpr-1.0.1-0.i386.deb

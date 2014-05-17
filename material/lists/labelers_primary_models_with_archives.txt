@@ -1,0 +1,18 @@
+PJ-622	pj622cupswrapper-1.0.1-0.debian.i386.deb	pj622lpr-1.0.1-0.i386.deb
+PJ-623	pj623cupswrapper-1.0.1-0.debian.i386.deb	pj623lpr-1.0.1-0.i386.deb
+PJ-662	pj662cupswrapper-1.0.1-0.debian.i386.deb	pj662lpr-1.0.1-0.i386.deb
+PJ-663	pj663cupswrapper-1.0.1-0.debian.i386.deb	pj663lpr-1.0.1-0.i386.deb
+PT-9500	pt9500pccupswrapper-1.0.0-5.debian.i386.deb	pt9500pccupswrapperinch-1.0.0-5.debian.i386.deb	pt9500pclpr-1.0.0-5.i386.deb
+QL-1050	ql1050cupswrapper-1.0.1-0.i386.deb	ql1050lpr-1.0.1-0.i386.deb
+QL-1060N	ql1060ncupswrapper-1.0.1-0.i386.deb	ql1060nlpr-1.0.1-0.i386.deb
+QL-500	ql500cupswrapper-1.0.1-0.i386.deb	ql500lpr-1.0.1-0.i386.deb
+QL-550	ql550cupswrapper-1.0.1-0.i386.deb	ql550lpr-1.0.1-0.i386.deb
+QL-570	ql570cupswrapper-1.0.1-0.i386.deb	ql570lpr-1.0.1-0.i386.deb
+QL-580N	ql580ncupswrapper-1.0.1-0.i386.deb	ql580nlpr-1.0.1-0.i386.deb
+QL-650TD	ql650tdcupswrapper-1.0.1-0.i386.deb	ql650tdlpr-1.0.1-0.i386.deb
+QL-700	ql700cupswrapper-1.0.1-1.i386.deb	ql700lpr-1.0.1-1.i386.deb
+QL-710W	ql710wcupswrapper-1.0.1-1.i386.deb	ql710wlpr-1.0.1-1.i386.deb
+QL-720NW	ql720nwcupswrapper-1.0.1-1.i386.deb	ql720nwlpr-1.0.1-1.i386.deb
+TD-2020	td2020cupswrapper-1.0.1-0.i386.deb	td2020cupswrapperinch-1.0.1-0.i386.deb	td2020lpr-1.0.1-0.i386.deb
+TD-2120N	td2120ncupswrapper-1.0.1-0.i386.deb	td2120ncupswrapperinch-1.0.1-0.i386.deb	td2120nlpr-1.0.1-0.i386.deb
+TD-2130N	td2130ncupswrapper-1.0.1-0.i386.deb	td2130ncupswrapperinch-1.0.1-0.i386.deb	td2130nlpr-1.0.1-0.i386.deb
