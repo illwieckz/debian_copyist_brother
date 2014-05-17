@@ -17,7 +17,7 @@ Thanks to the web archive project, they were’nt lost.
 Description files
 -----------------
 
-We found reading the [linux-brprinter-installer [gz]](http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.0.0-1.gz) tool that each model seems to have an description file like that:
+We found reading the [linux-brprinter-installer [gz]](http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.0.0-1.gz) tool that each model seems to have a description file like that:
 
 * [http://www.brother.com/pub/bsc/linux/infs/MFCJ5910DW](www.brother.com/pub/bsc/linux/infs/MFCJ5910DW]).
 
