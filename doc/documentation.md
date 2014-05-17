@@ -16,8 +16,7 @@ About drivers
 
 * [Standalone PPDs](standalone_ppds.md);
 * [Generated PPDs and filters](generated_ppds_and_filters.md);
-* [Cupswrappers and LPD drivers](cupswrappers_and_lpd_drivers).
-
+* [Cupswrappers and LPD drivers](cupswrappers_and_lpd_drivers);
 * [Known bugs from Brother™](known_bugs_from_brother.md);
 * [Cohabitation issues](cohabitation_issues.md);
 * [Driver dependencies](driver_dependencies.md).
