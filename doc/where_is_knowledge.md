@@ -1,10 +1,10 @@
-Where is information?
+Where is knowledge?
 =====================
 
 Deleted pages
 -------------
 
-Before April 2014 we could parse thoses pages (but Brother™ deleted them):
+Before April 2014 we could parse those pages (but Brother™ deleted them):
 
 * ~~[DCP, FAX, HL, MFC printer driver download page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html)~~ [(web archive)](http://web.archive.org/web/20140319074031/http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_prn.html);
 * ~~[PT, QL, PJ, TD printer (labeler) driver download page](http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_esp.html)~~ [(web archive)](http://web.archive.org/web/20140319074031/http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/download_esp.html);
