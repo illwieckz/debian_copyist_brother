@@ -17,4 +17,4 @@ This tool written by Brother™ checks connected devices and download drivers, d
 
 * [Arch Linux information page](https://wiki.archlinux.org/index.php/Creating_packages_for_Brother_drivers).
 
-This page detailed some investigations and methods to transform officiel packages to another distribution (no more than detailed here).
+This page detailed some investigations and methods to transform official packages to another distribution (no more than detailed here).
