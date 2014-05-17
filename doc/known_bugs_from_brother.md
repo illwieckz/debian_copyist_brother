@@ -3,6 +3,8 @@ Known bugs from Brother™
 
 Drivers provided by Brother are plenty of bugs.
 
+Notice: statistics are given for standard printers drivers, not pcfaxes nor labelers. It gives an idea of the problem.
+
 Useless quotes
 --------------
 
