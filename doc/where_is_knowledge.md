@@ -62,3 +62,8 @@ Man pages
 
 [This page](http://support.brother.com/g/s/id/linux/en/instruction_prn2.html) lists some man pages-like, for example: [option_cupsink2.pdf](http://support.brother.com/g/s/id/linux/pdf/option_cupsink2.pdf).
 
+OpenPrinting FAQ
+----------------
+
+The [OpenPrinting project share some knowledge](http://www.linuxfoundation.org/collaborate/workgroups/openprinting/databasebrotherfaq).
+
