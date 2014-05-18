@@ -46,7 +46,7 @@ Some pages [like this page describing command line option for some tools](http:/
 The new interface
 -----------------
 
-There is a [new interface](http://support.brother.com/g/b/index.aspx) substituting the good old web pages, it’s a form to allow user to search an already known model. It seems there is no way to list models.
+There is a [new interface](http://support.brother.com/g/b/index.aspx) substituting the good old web pages, it’s a form allowing user to search an already known model. It seems there is no way to list models.
 
 When a model is known, files can’t be downloaded only replaying a complicated list of web requests simulating an human interaction.
 
