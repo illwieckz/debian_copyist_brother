@@ -73,19 +73,16 @@ GNU/Linux distributions documentations
 Some GNU/Linux users have tested the drivers and have described how they, the problems they found and how they solve them.
 
 * [Liste des Imprimantes et Multifonctions Brother (french page)](http://doc.ubuntu-fr.org/liste_imprimantes_brother);  
-Share some PPD tweak, or recommend driver from another model.
+Shares some PPD tweak, or recommends driver from another model.
 
-* [Imprimantes et Multifonctions Brother (french page)](http://doc.ubuntu-fr.org/imprimantes_brother);
-
+* [Imprimantes et Multifonctions Brother (french page)](http://doc.ubuntu-fr.org/imprimantes_brother);  
 PPD tweak, brprintconf usecase.
 
-* [Ubuntu/HardwareSupportComponentsPrintersBrother](https://wiki.ubuntu.com/HardwareSupportComponentsPrintersBrother);
-
+* [Ubuntu/HardwareSupportComponentsPrintersBrother](https://wiki.ubuntu.com/HardwareSupportComponentsPrintersBrother);  
 An Ubuntu compatibility matrix.
 
 See also other Ubuntu tutorials: [1](http://doc.ubuntu-fr.org/utilisateurs/jaaf64/tutoriel/installer_imprimante_brother), [2](http://doc.ubuntu-fr.org/imprimante_multifonction_brother_dcp330c) [3](http://ubuntuforums.org/showthread.php?t=590793).
 
-* [Arch Linux information page](https://wiki.archlinux.org/index.php/Creating_packages_for_Brother_drivers).
-
+* [Arch Linux information page](https://wiki.archlinux.org/index.php/Creating_packages_for_Brother_drivers).  
 This page detailed some investigations and methods to transform official packages to another distribution (no more than detailed here).
 
