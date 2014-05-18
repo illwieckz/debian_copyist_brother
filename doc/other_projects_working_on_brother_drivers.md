@@ -19,10 +19,10 @@ This code is covered by the GPLv2 license.
 * Ubuntu packages;  
 Who done those packages?
 
-** [brother-lpr-drivers-ac](http://packages.ubuntu.com/lucid/brother-lpr-drivers-ac);
-** [brother-lpr-drivers-bh7](http://packages.ubuntu.com/lucid/brother-lpr-drivers-bh7);
-** [brother-cups-wrapper-extra](http://packages.ubuntu.com/lucid/brother-cups-wrapper-extra).
-** and others…
+* * [brother-lpr-drivers-ac](http://packages.ubuntu.com/lucid/brother-lpr-drivers-ac);
+* * [brother-lpr-drivers-bh7](http://packages.ubuntu.com/lucid/brother-lpr-drivers-bh7);
+* * [brother-cups-wrapper-extra](http://packages.ubuntu.com/lucid/brother-cups-wrapper-extra).
+* * and others…
 
 * [linux-brprinter-installer [.gz]](http://download.brother.com/welcome/dlf006893/linux-brprinter-installer-2.0.0-1.gz) by Brother™;  
 This tool written by Brother™ checks connected devices and download drivers, despite its 2500 lines, there is no many usefull informations in it.
