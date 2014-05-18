@@ -80,11 +80,11 @@ Share some PPD tweak, or recommend driver from another model.
 
 PPD tweak, brprintconf usecase.
 
-*[Ubuntu/HardwareSupportComponentsPrintersBrother](https://wiki.ubuntu.com/HardwareSupportComponentsPrintersBrother);
+* [Ubuntu/HardwareSupportComponentsPrintersBrother](https://wiki.ubuntu.com/HardwareSupportComponentsPrintersBrother);
 
 An Ubuntu compatibility matrix.
 
-Other Ubuntu tutorials: [1](http://doc.ubuntu-fr.org/utilisateurs/jaaf64/tutoriel/installer_imprimante_brother), [2](http://doc.ubuntu-fr.org/imprimante_multifonction_brother_dcp330c) [3](http://ubuntuforums.org/showthread.php?t=590793).
+See also other Ubuntu tutorials: [1](http://doc.ubuntu-fr.org/utilisateurs/jaaf64/tutoriel/installer_imprimante_brother), [2](http://doc.ubuntu-fr.org/imprimante_multifonction_brother_dcp330c) [3](http://ubuntuforums.org/showthread.php?t=590793).
 
 * [Arch Linux information page](https://wiki.archlinux.org/index.php/Creating_packages_for_Brother_drivers).
 
