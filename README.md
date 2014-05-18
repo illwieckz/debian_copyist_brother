@@ -3,6 +3,8 @@ Debian copyist brother
 
 This project aims to repackage Brother™ non-free drivers for Debian.
 
+Like a medieval scriptorium, it is an effort intended to copy, conserve, translate, criticise, catalog ~~books~~ drivers, and sometimes forget what is useless.
+
 Thanks to [Debian France](https://france.debian.net/) to have motivated this work.
 
 License
