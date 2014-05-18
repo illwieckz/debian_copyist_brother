@@ -72,7 +72,7 @@ GNU/Linux distributions documentations
 
 Some GNU/Linux users have tested the drivers and have described how they, the problems they found and how they solve them.
 
-* [Liste des Imprimantes et Multifonctions Brother (french page)](http://doc.ubuntu-fr.org/liste_imprimantes_brother);
+* [Liste des Imprimantes et Multifonctions Brother (french page)](http://doc.ubuntu-fr.org/liste_imprimantes_brother);  
 Share some PPD tweak, or recommend driver from another model.
 
 * [Imprimantes et Multifonctions Brother (french page)](http://doc.ubuntu-fr.org/imprimantes_brother);
