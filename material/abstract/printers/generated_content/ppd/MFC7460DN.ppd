@@ -243,7 +243,7 @@ restore
 *Font Germany: Standard "(001.005)" Standard ROM
 *Font SanDiego: Standard "(001.005)" Standard ROM
 *Font US-Roman: Standard "(001.005)" Standard ROM
-*?FontQuery: "
+*?FontQuery: ""
 save
 count 1 gt
   {exch dup dup
